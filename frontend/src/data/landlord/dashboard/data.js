@@ -2,11 +2,13 @@ export const dashboardData = {
   totalProperties: 2,
   monthlyIncome: 8500,
   incomeChange: 5.26,
-  occupancyRate: 60,
+  occupancyRate: 50,
   occupiedUnits: 1,
   totalUnits: 2,
-  maintenanceRequests: 0,
+  maintenanceRequests: 3,
   maintenanceTrend: "down",
+  pendingRequests: 2,
+  resolvedRequests: 4,
 
   rentSummary: {
     collected: 8500,

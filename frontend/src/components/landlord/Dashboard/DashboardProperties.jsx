@@ -2,22 +2,9 @@ import { IndianRupee , Home, MapPin, Users, Plus } from "lucide-react";
 import React, { useState } from "react";
 import {
   Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  DialogTrigger, 
+} from "@/components/ui/dialog"; 
+import { Button } from "@/components/ui/button"; 
 import { propertiesData } from "@/data/landlord/dashboard/data";
 
 const statusColorMap = {
@@ -65,10 +52,10 @@ const DashboardProperties = () => {
         </h2>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="flex items-center px-4 py-2 text-white bg-[#324867] cursor-pointer rounded-lg hover:bg-[#3f5c88]">
+            {/* <Button className="flex items-center px-4 py-2 text-white bg-[#324867] cursor-pointer rounded-lg hover:bg-[#3f5c88]">
               <Plus className="w-4 h-4 mr-2" />
               Add Property
-            </Button>
+            </Button> */}
           </DialogTrigger>
 
           {/* Custom Dialog Implementation */}

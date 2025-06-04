@@ -1,8 +1,9 @@
+import PropertiesMaster from '@/components/landlord/Properties/PropertiesBody'
 import React from 'react'
 
 const Properties = () => {
   return (
-    <div>Properties</div>
+    <PropertiesMaster />
   )
 }
 

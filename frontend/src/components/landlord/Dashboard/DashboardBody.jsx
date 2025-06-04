@@ -23,6 +23,8 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardOverview from "./DashboardOverview";
 import DashboardProperties from "./DashboardProperties";
+import DashboardMaintenance from "./DashboardMaintenance";
+import DashboardPayment from "./DashboardPayment";
 const DashboardBody = () => {
   return (
     <div className="flex-1 w-full py-10 overflow-y-auto">
@@ -81,16 +83,16 @@ const DashboardBody = () => {
 
         <TabsContent
           value="maintenance"
-          className="p-6 bg-white border border-gray-200 rounded-lg"
+          className="rounded-lg p"
         >
-          <div>Maintenance content here</div>
+          <DashboardMaintenance />
         </TabsContent>
 
         <TabsContent
           value="payment"
-          className="p-6 bg-white border border-gray-200 rounded-lg"
+          className="rounded-lg "
         >
-          <div>Payment content here</div>
+          <DashboardPayment />
         </TabsContent>
       </Tabs>
     </div>
