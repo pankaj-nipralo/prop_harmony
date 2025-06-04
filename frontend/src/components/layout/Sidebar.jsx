@@ -22,7 +22,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
-export function Sidebar({ navItems }) {
+export function Sidebar({ navItems, title , user }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   useEffect(() => {
@@ -41,20 +41,20 @@ export function Sidebar({ navItems }) {
     <div
       className={cn(
         "flex flex-col bg-[#1d3658] text-white h-screen transition-all duration-300 ease-in-out shadow-xl",
-        isCollapsed ? "w-16 md:w-20" : "w-58 md:w-64"
+        isCollapsed ? "w-16 md:w-20" : "w-54 md:w-60"
       )}
       data-testid="sidebar"
     >
       <div className="flex flex-col h-full ">
         {/* Header */}
-        <div className="flex items-center justify-between p-3 md:p-4">
+        <div className="flex items-center justify-between p-3 md:p-3">
           {!isCollapsed && (
             <div>
-              <h2 className="text-lg font-bold truncate md:text-xl whitespace-nowrap">
-                NipraloForms
+              <h2 className="font-bold truncate text-md md:text-xl whitespace-nowrap">
+                {title} 
               </h2>
               <p>
-                <span className="text-sm text-white/70">LandLord</span>
+                <span className="text-sm text-white/70">{user}</span>
               </p>
             </div>
           )}
@@ -62,7 +62,7 @@ export function Sidebar({ navItems }) {
             onClick={() => setIsCollapsed((prev) => !prev)}
             variant="ghost"
             size="icon"
-            className="text-white cursor-pointer hover:bg-blue-800"
+            className="text-white rounded-full cursor-pointer hover:bg-white/10 focus:bg-white/10 md:rounded-lg"
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {isCollapsed ? (
@@ -93,10 +93,10 @@ function SidebarItems({ isCollapsed, navItems }) {
           to={item.path}
           className={({ isActive }) =>
             cn(
-              "group flex items-center rounded-lg md:rounded-xl font-medium transition-all duration-200",
-              "py-2.5 px-3 mx-1 md:py-3 md:px-4",
+              "group flex items-center rounded-lg md:rounded-xl font-sm transition-all duration-200",
+              "py-2 px-2 mx-1 md:py-3 md:px-4",
               isActive
-                ? "bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 text-white shadow"
+                ? "bg-gray-400/50 text-white shadow"
                 : "text-white/60 hover:bg-white/10 hover:text-white",
               isCollapsed ? "justify-center" : "justify-start"
             )
@@ -110,7 +110,7 @@ function SidebarItems({ isCollapsed, navItems }) {
             )}
           />
           {!isCollapsed && (
-            <span className="text-sm truncate md:text-base">{item.label}</span>
+            <span className="text-[16px] truncate">{item.label}</span>
           )}
         </NavLink>
       ))}

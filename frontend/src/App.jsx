@@ -8,7 +8,8 @@ import LandLordLayout from "./pages/landlord/LandlordLayout";
 
 
 // Landlord Pages
-import Dashboard from "./components/landlord/Dashboard";
+import Dashboard from "./pages/landlord/Dashboard";
+import Properties from "./pages/landlord/Properties";
 
 function App() {
   // const isAuthenticated = true;
@@ -29,6 +30,7 @@ function App() {
       {/* Landlord */}
       <Route path="/landlord" element={<LandLordLayout />}>
         <Route path="/landlord/dashboard" element={<Dashboard />} />
+        <Route path="/landlord/properties" element={<Properties />} />
         {/* <Route path="/landlord/tenants" element={<Tenants />} />
         <Route path="/landlord/requests" element={<Requests />} /> */}
       </Route>
