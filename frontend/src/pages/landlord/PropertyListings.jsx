@@ -1,8 +1,9 @@
+import ListingMaster from '@/components/landlord/PropertyListings/ListingMaster'
 import React from 'react'
 
 const PropertyListings = () => {
   return (
-    <div>PropertyListings</div>
+    <ListingMaster />
   )
 }
 

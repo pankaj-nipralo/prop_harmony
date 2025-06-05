@@ -184,7 +184,7 @@ const DashboardOverview = () => {
       </div>
 
       {/* DashboardWidgets */}
-      <div className="grid grid-cols-1 md:grid-cols-[25%_25%_45%] gap-4  mt-6">
+      <div className="grid grid-cols-1 gap-4 mt-6 md:grid-cols-2">
         {/* Recently Added Properties */}
         <Card className="bg-white border-0 shadow-md border-border rounded-2xl">
           <CardHeader className="pb-0">
@@ -271,6 +271,7 @@ const DashboardOverview = () => {
           </CardContent>
         </Card>
 
+      </div>
         {/* Recent Work Orders */}
         <Card className="gap-0 bg-white border-0 shadow-md border-border rounded-2xl">
           <CardHeader className="pb-0">
@@ -338,7 +339,6 @@ const DashboardOverview = () => {
             </table>
           </CardContent>
         </Card>
-      </div>
     </>
   );
 };

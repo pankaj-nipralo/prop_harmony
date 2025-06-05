@@ -1,12 +1,12 @@
-import React from 'react'
-import PropertiesBody from './PropertiesBody'
+import React from "react";
+import PropertiesBody from "./PropertiesBody";
 
 const PropertiesMaster = () => {
   return (
     <>
-    <PropertiesBody />
+      <PropertiesBody />
     </>
-  )
-}
+  );
+};
 
-export default PropertiesMaster
+export default PropertiesMaster;
