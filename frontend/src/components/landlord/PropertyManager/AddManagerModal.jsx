@@ -7,14 +7,14 @@ const defaultForm = {
   phone: "",
   address: "",
   joinedDate: "",
-  rent: "",
-  rentStatus: "paid",
-  status: "active",
-  rating: 0,
-  noticePeriod: 0,
+  status: "Active",
+  rating: 4.5,
+  propertiesManaged: 0,
+  AssignedTo: "Dubai",
+  EmiratesCovered: 0,
 };
 
-const AddTenantModal = ({ open, onClose, onAddTenant }) => {
+const AddManagerModal = ({ open, onClose, onAddManager }) => {
   const [form, setForm] = useState(defaultForm);
 
   const handleChange = (e) => {
@@ -24,12 +24,13 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onAddTenant) {
-      onAddTenant({
+    if (onAddManager) {
+      onAddManager({
         ...form,
         id: Date.now(),
         rating: parseFloat(form.rating),
-        noticePeriod: parseInt(form.noticePeriod) || 0,
+        propertiesManaged: parseInt(form.propertiesManaged) || 0,
+        EmiratesCovered: parseInt(form.EmiratesCovered) || 0,
       });
     }
     setForm(defaultForm);
@@ -38,10 +39,10 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-xl bg-white rounded-lg shadow-xl">
+      <DialogContent className="w-full max-w-xl bg-white border-0 shadow-xl rounded-xl">
         <div className="p-6">
           <h2 className="mb-6 text-xl font-semibold text-gray-800">
-            Add New Tenant
+            Add New Property Manager
           </h2>
 
           <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
@@ -70,7 +71,7 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
                   type="email"
                   value={form.email}
                   onChange={handleChange}
-                  placeholder="john@example.com"
+                  placeholder="manager@example.com"
                   required
                   className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -92,7 +93,7 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
 
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-700">
-                  Property Address
+                  Address
                 </label>
                 <input
                   name="address"
@@ -123,31 +124,21 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
 
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-700">
-                  Monthly Rent (AED)
-                </label>
-                <input
-                  name="rent"
-                  type="number"
-                  value={form.rent}
-                  onChange={handleChange}
-                  placeholder="5000"
-                  required
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block mb-1 text-sm font-medium text-gray-700">
-                  Rent Status
+                  Assigned Emirate
                 </label>
                 <select
-                  name="rentStatus"
-                  value={form.rentStatus}
+                  name="AssignedTo"
+                  value={form.AssignedTo}
                   onChange={handleChange}
                   className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="paid">Paid</option>
-                  <option value="unpaid">Unpaid</option>
+                  <option value="Dubai">Dubai</option>
+                  <option value="Abu Dhabi">Abu Dhabi</option>
+                  <option value="Sharjah">Sharjah</option>
+                  <option value="Ajman">Ajman</option>
+                  <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                  <option value="Fujairah">Fujairah</option>
+                  <option value="Umm Al Quwain">Umm Al Quwain</option>
                 </select>
               </div>
 
@@ -162,8 +153,8 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
                     onChange={handleChange}
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
                   </select>
                 </div>
 
@@ -186,14 +177,15 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
 
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-700">
-                  Notice Period (days)
+                  Properties Managed
                 </label>
                 <input
-                  name="noticePeriod"
+                  name="propertiesManaged"
                   type="number"
                   min="0"
-                  value={form.noticePeriod}
+                  value={form.propertiesManaged}
                   onChange={handleChange}
+                  placeholder="0"
                   className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -208,8 +200,11 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
               >
                 Cancel
               </button>
-              <button type="submit" className="myButton">
-                Add Tenant
+              <button
+                type="submit"
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+              >
+                Add Manager
               </button>
             </div>
           </form>
@@ -219,4 +214,4 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
   );
 };
 
-export default AddTenantModal;
+export default AddManagerModal;

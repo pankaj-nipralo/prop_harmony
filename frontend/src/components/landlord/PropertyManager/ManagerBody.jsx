@@ -1,399 +1,524 @@
 import React, { useState } from "react";
 import {
   Mail,
-  MapPin,
   Phone,
-  CalendarDays,
-  MoreVertical,
-  Star,
   Search,
-  AlertTriangle,
+  Edit,
+  Trash2,
+  ChevronDown,
+  Building,
 } from "lucide-react";
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const statusStyles = {
+  Active: "bg-green-100 text-green-700",
+  Inactive: "bg-red-100 text-red-800",
   active: "bg-green-100 text-green-700",
   inactive: "bg-red-100 text-red-800",
-  paid: "bg-green-100 text-green-700",
 };
 
-const actionOptions = [
-  { label: "Transfer License", value: "transfer" },
-  { label: "Pre-closure", value: "preclosure" },
-  { label: "Eviction Notice", value: "eviction" },
-  { label: "Terminate Agreement", value: "terminate" },
-  { label: "Rate Tenant", value: "rate" },
+const emirates = [
+  "All Emirates",
+  "Dubai",
+  "Abu Dhabi",
+  "Sharjah",
+  "Ajman",
+  "Ras Al Khaimah",
+  "Fujairah",
+  "Umm Al Quwain",
 ];
+const statusOptions = ["All Status", "Active", "Inactive"];
 
-const TenantActionModal = ({ open, onClose, tenant, action, onSubmit }) => {
-  const [form, setForm] = React.useState({});
+const EditManagerModal = ({ open, onClose, manager, onSave }) => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    joinedDate: "",
+    status: "Active",
+    rating: 4.5,
+    propertiesManaged: 0,
+    AssignedTo: "Dubai",
+    EmiratesCovered: 0,
+  });
+
   React.useEffect(() => {
-    setForm({});
-  }, [action, open]);
-  if (!tenant || !action) return null;
-  let content = null;
-  if (action === "transfer") {
-    content = (
-      <>
-        <div className="mb-2">
-          <label className="block mb-1 text-sm font-medium">New Property</label>
-          <input
-            className="w-full px-3 py-2 border rounded"
-            placeholder="Enter new property details"
-            value={form.property || ""}
-            onChange={(e) =>
-              setForm((f) => ({ ...f, property: e.target.value }))
-            }
-          />
-        </div>
-        <div className="mb-2">
-          <label className="block mb-1 text-sm font-medium">
-            Transfer Date
-          </label>
-          <input
-            className="w-full px-3 py-2 border rounded"
-            type="date"
-            value={form.date || ""}
-            onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))}
-          />
-        </div>
-        <div className="mb-2">
-          <label className="block mb-1 text-sm font-medium">Reason</label>
-          <textarea
-            className="w-full px-3 py-2 border rounded"
-            placeholder="Reason for transfer"
-            value={form.reason || ""}
-            onChange={(e) => setForm((f) => ({ ...f, reason: e.target.value }))}
-          />
-        </div>
-      </>
-    );
-  } else if (action === "preclosure") {
-    content = (
-      <div className="mb-2">
-        <label className="block mb-1 text-sm font-medium">Reason</label>
-        <textarea
-          className="w-full px-3 py-2 border rounded"
-          placeholder="Reason for preclosure"
-          value={form.reason || ""}
-          onChange={(e) => setForm((f) => ({ ...f, reason: e.target.value }))}
-        />
-      </div>
-    );
-  } else if (action === "eviction") {
-    content = (
-      <div className="mb-2">
-        <label className="block mb-1 text-sm font-medium">Reason</label>
-        <textarea
-          className="w-full px-3 py-2 border rounded"
-          placeholder="Reason for eviction"
-          value={form.reason || ""}
-          onChange={(e) => setForm((f) => ({ ...f, reason: e.target.value }))}
-        />
-      </div>
-    );
-  } else if (action === "terminate") {
-    content = (
-      <div className="mb-2">
-        <label className="block mb-1 text-sm font-medium">Reason</label>
-        <textarea
-          className="w-full px-3 py-2 border rounded"
-          placeholder="Reason for terminate"
-          value={form.reason || ""}
-          onChange={(e) => setForm((f) => ({ ...f, reason: e.target.value }))}
-        />
-      </div>
-    );
-  } else if (action === "rate") {
-    content = (
-      <>
-        <div className="mb-2">
-          <label className="block mb-1 text-sm font-medium">Rating</label>
-          <div className="flex gap-1 mb-2">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                size={22}
-                className={`cursor-pointer ${
-                  form.rating > i ? "text-yellow-400" : "text-gray-300"
-                }`}
-                fill={form.rating > i ? "#facc15" : "none"}
-                stroke="#facc15"
-                onClick={() => setForm((f) => ({ ...f, rating: i + 1 }))}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="mb-2">
-          <label className="block mb-1 text-sm font-medium">Review</label>
-          <textarea
-            className="w-full px-3 py-2 border rounded"
-            placeholder="Write your review about this tenant"
-            value={form.review || ""}
-            onChange={(e) => setForm((f) => ({ ...f, review: e.target.value }))}
-          />
-        </div>
-      </>
-    );
-  } else {
-    content = (
-      <div className="text-gray-500">
-        This action is not implemented in demo.
-      </div>
-    );
-  }
+    if (manager && open) {
+      setForm({
+        name: manager.name || "",
+        email: manager.email || "",
+        phone: manager.phone || "",
+        address: manager.address || "",
+        joinedDate: manager.joinedDate || "",
+        status: manager.status || "Active",
+        rating: manager.rating || 4.5,
+        propertiesManaged: manager.propertiesManaged || 0,
+        AssignedTo: manager.AssignedTo || "Dubai",
+        EmiratesCovered: manager.EmiratesCovered || 0,
+      });
+    }
+  }, [manager, open]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onSave) {
+      onSave({
+        ...manager,
+        ...form,
+        rating: parseFloat(form.rating),
+        propertiesManaged: parseInt(form.propertiesManaged) || 0,
+        EmiratesCovered: parseInt(form.EmiratesCovered) || 0,
+      });
+    }
+    onClose();
+  };
+
+  if (!manager) return null;
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg">
-        <div className="flex items-center justify-between mb-2">
-          <div className="text-lg font-bold">
-            Tenant Actions - {tenant.name}
-          </div>
-          <button
-            onClick={onClose}
-            className="text-xl text-gray-400 hover:text-gray-700"
-          >
-            ×
-          </button>
-        </div>
-        <div className="mb-2 text-sm text-gray-500">
-          Action: <span className="font-semibold uppercase">{action}</span>
-        </div>
-        <div className="p-2 mb-4 text-xs text-gray-600 rounded bg-gray-50">
-          <div>
-            <span className="font-semibold">Tenant:</span> {tenant.name}
-          </div>
-          <div>
-            <span className="font-semibold">Email:</span> {tenant.email}
-          </div>
-          <div>
-            <span className="font-semibold">Property:</span> {tenant.address}
-          </div>
-        </div>
-        {content}
-        <div className="flex justify-between gap-2 mt-6">
-          <button
-            className="px-4 py-2 font-semibold text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300"
-            onClick={onClose}
-          >
-            Back
-          </button>
-          <button className="px-4 py-2 font-semibold text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a]">
-            Submit
-          </button>
+      <DialogContent className="w-full max-w-xl bg-white border-0 rounded-lg shadow-xl">
+        <div className="p-6">
+          <h2 className="mb-6 text-xl font-semibold text-gray-800">
+            Edit Property Manager
+          </h2>
+
+          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+            {/* Column 1 */}
+            <div className="space-y-4">
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
+                <input
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="John Doe"
+                  required
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-700">
+                  Email
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="manager@example.com"
+                  required
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-700">
+                  Phone
+                </label>
+                <input
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="+971 50 123 4567"
+                  required
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-700">
+                  Address
+                </label>
+                <input
+                  name="address"
+                  value={form.address}
+                  onChange={handleChange}
+                  placeholder="123 Palm Street, Dubai"
+                  required
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+
+            {/* Column 2 */}
+            <div className="space-y-4">
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-700">
+                  Joined Date
+                </label>
+                <input
+                  name="joinedDate"
+                  type="date"
+                  value={form.joinedDate}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-700">
+                  Assigned Emirate
+                </label>
+                <select
+                  name="AssignedTo"
+                  value={form.AssignedTo}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="Dubai">Dubai</option>
+                  <option value="Abu Dhabi">Abu Dhabi</option>
+                  <option value="Sharjah">Sharjah</option>
+                  <option value="Ajman">Ajman</option>
+                  <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                  <option value="Fujairah">Fujairah</option>
+                  <option value="Umm Al Quwain">Umm Al Quwain</option>
+                </select>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block mb-1 text-sm font-medium text-gray-700">
+                    Status
+                  </label>
+                  <select
+                    name="status"
+                    value={form.status}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block mb-1 text-sm font-medium text-gray-700">
+                    Rating
+                  </label>
+                  <input
+                    name="rating"
+                    type="number"
+                    min="0"
+                    max="5"
+                    step="0.1"
+                    value={form.rating}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-700">
+                  Properties Managed
+                </label>
+                <input
+                  name="propertiesManaged"
+                  type="number"
+                  min="0"
+                  value={form.propertiesManaged}
+                  onChange={handleChange}
+                  placeholder="0"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+
+            {/* Form Actions */}
+            <div className="flex justify-end col-span-2 pt-4 space-x-3 border-t border-gray-200">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
         </div>
       </DialogContent>
     </Dialog>
   );
 };
 
-const TenantCardMenu = ({ onAction }) => {
-  const [open, setOpen] = useState(false);
-  const menuRef = React.useRef();
-
-  // Close menu on outside click
-  React.useEffect(() => {
-    if (!open) return;
-    function handleClick(e) {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [open]);
-
+const DeleteConfirmationDialog = ({ open, onClose, manager, onConfirm }) => {
   return (
-    <div className="relative" ref={menuRef}>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="p-1 rounded cursor-pointer hover:bg-gray-100"
-        type="button"
-      >
-        <MoreVertical size={18} className="text-gray-500 cursor-pointer" />
-      </button>
-      {open && (
-        <div className="absolute right-0 z-20 w-56 p-2 mt-2 bg-white shadow-2xl rounded-xl animate-fade-in">
-          <button className="flex items-center w-full px-3 py-2 text-sm font-medium text-left text-orange-600 rounded">
-            <AlertTriangle className="inline w-4 h-4 mr-2 text-orange-500" />
-            Issue Warning
-          </button>
-          {actionOptions.map((opt) => (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
+        <div className="p-6">
+          <h2 className="mb-4 text-xl font-semibold text-gray-800">
+            Delete Property Manager
+          </h2>
+          <p className="mb-6 text-gray-600">
+            Are you sure you want to delete <strong>{manager?.name}</strong>?
+            This action cannot be undone.
+          </p>
+          <div className="flex justify-end space-x-3">
             <button
-              key={opt.value}
-              className="w-full px-3 py-2 text-sm font-medium text-left text-gray-700 rounded cursor-pointer hover:bg-gray-100"
-              onClick={() => {
-                setOpen(false);
-                onAction(opt.value);
-              }}
-              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
             >
-              {opt.icon || null}
-              {opt.label}
+              Cancel
             </button>
-          ))}
+            <button
+              onClick={() => {
+                onConfirm(manager);
+                onClose();
+              }}
+              className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+            >
+              Delete
+            </button>
+          </div>
         </div>
-      )}
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const ManagerActionButtons = ({ manager, onEdit, onDelete }) => {
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => onEdit(manager)}
+        className="p-2 text-gray-500 transition-colors rounded-lg hover:text-blue-600 hover:bg-blue-50"
+        title="Edit Manager"
+      >
+        <Edit size={16} />
+      </button>
+      <button
+        onClick={() => onDelete(manager)}
+        className="p-2 text-gray-500 transition-colors rounded-lg hover:text-red-600 hover:bg-red-50"
+        title="Delete Manager"
+      >
+        <Trash2 size={16} />
+      </button>
     </div>
   );
 };
 
-const TenantBody = ({ tenants }) => {
+const ManagerBody = ({ managers, setManagers }) => {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
-  const [modal, setModal] = useState({
+  const [emirateFilter, setEmirateFilter] = useState("All Emirates");
+  const [statusFilter, setStatusFilter] = useState("All Status");
+  const [editModal, setEditModal] = useState({ open: false, manager: null });
+  const [deleteModal, setDeleteModal] = useState({
     open: false,
-    tenant: null,
-    action: null,
+    manager: null,
   });
 
-  if (!tenants || !Array.isArray(tenants) || tenants.length === 0) {
-    return <div className="text-gray-500">No tenants found.</div>;
+  if (!managers || !Array.isArray(managers) || managers.length === 0) {
+    return <div className="text-gray-500">No managers found.</div>;
   }
 
-  // Flatten all tenants
-  const allTenants = tenants.flatMap((group) => group.tenantsList);
+  const handleEditManager = (manager) => {
+    setEditModal({ open: true, manager });
+  };
 
-  // Filter tenants by status
-  const filteredTenants = allTenants.filter((t) => {
-    if (filter === "active") return t.status === "active";
-    if (filter === "notice") return t.noticePeriod > 0;
-    return true;
+  const handleDeleteManager = (manager) => {
+    setDeleteModal({ open: true, manager });
+  };
+
+  const handleSaveEdit = (updatedManager) => {
+    setManagers((prev) =>
+      prev.map((group) => ({
+        ...group,
+        managersList: group.managersList.map((manager) =>
+          manager.id === updatedManager.id ? updatedManager : manager
+        ),
+      }))
+    );
+  };
+
+  const handleConfirmDelete = (managerToDelete) => {
+    setManagers((prev) =>
+      prev.map((group) => ({
+        ...group,
+        managersList: group.managersList.filter(
+          (manager) => manager.id !== managerToDelete.id
+        ),
+      }))
+    );
+  };
+
+  // Flatten all managers
+  const allManagers = managers.flatMap((group) => group.managersList);
+
+  // Filter managers by emirate and status
+  const filteredManagers = allManagers.filter((manager) => {
+    const emirateMatch =
+      emirateFilter === "All Emirates" || manager.AssignedTo === emirateFilter;
+    const statusMatch =
+      statusFilter === "All Status" || manager.status === statusFilter;
+    return emirateMatch && statusMatch;
   });
 
-  // Search tenants
-  const displayedTenants = filteredTenants.filter((t) => {
+  // Search managers
+  const displayedManagers = filteredManagers.filter((manager) => {
     const q = search.toLowerCase();
     return (
-      t.name.toLowerCase().includes(q) ||
-      t.email.toLowerCase().includes(q) ||
-      (t.address && t.address.toLowerCase().includes(q))
+      manager.name.toLowerCase().includes(q) ||
+      manager.email.toLowerCase().includes(q) ||
+      (manager.phone && manager.phone.toLowerCase().includes(q))
     );
   });
 
   return (
     <div className="mb-4">
-      <div className="flex flex-col gap-4 p-4 mb-4 bg-white md:flex-row md:items-center md:justify-between rounded-xl ">
+      <h2 className="mb-4 text-xl font-semibold text-gray-900">
+        Manage Property Managers
+      </h2>
+
+      {/* Search and Filter Section */}
+      <div className="flex flex-col gap-4 p-4 mb-6 bg-white shadow-sm md:flex-row md:items-center md:justify-between rounded-xl">
         <div className="flex items-center flex-1 gap-2">
           <Search size={18} className="text-gray-500" />
           <input
             type="text"
-            placeholder="Search tenants by name, email, or property..."
+            placeholder="Search managers..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <div className="flex gap-2 mt-2 md:mt-0">
-          <button
-            className={`px-4 py-2 text-sm font-semibold rounded-md border transition ${
-              filter === "all"
-                ? "bg-[#223a5f] text-white border-[#223a5f]"
-                : "bg-white text-[#223a5f] border-gray-200 hover:bg-gray-100"
-            }`}
-            onClick={() => setFilter("all")}
-          >
-            All
-          </button>
-          <button
-            className={`px-4 py-2 text-sm font-semibold rounded-md border transition ${
-              filter === "active"
-                ? "bg-[#223a5f] text-white border-[#223a5f]"
-                : "bg-white text-[#223a5f] border-gray-200 hover:bg-gray-100"
-            }`}
-            onClick={() => setFilter("active")}
-          >
-            Active
-          </button>
-          <button
-            className={`px-4 py-2 text-sm font-semibold rounded-md border transition ${
-              filter === "notice"
-                ? "bg-[#223a5f] text-white border-[#223a5f]"
-                : "bg-white text-[#223a5f] border-gray-200 hover:bg-gray-100"
-            }`}
-            onClick={() => setFilter("notice")}
-          >
-            Notice Period
-          </button>
+          <div className="relative">
+            <select
+              value={emirateFilter}
+              onChange={(e) => setEmirateFilter(e.target.value)}
+              className="px-4 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              {emirates.map((emirate) => (
+                <option key={emirate} value={emirate}>
+                  {emirate}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+          </div>
+          <div className="relative">
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-4 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              {statusOptions.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+          </div>
         </div>
       </div>
-      <div className="grid w-full gap-3 gird-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-        {displayedTenants.length === 0 ? (
-          <div className="text-gray-500">No tenants found.</div>
+
+      {/* Manager Cards Grid */}
+      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+        {displayedManagers.length === 0 ? (
+          <div className="py-8 text-center text-gray-500 col-span-full">
+            No managers found.
+          </div>
         ) : (
-          displayedTenants.map((t) => (
+          displayedManagers.map((manager) => (
             <div
-              key={t.id}
-              className="w-full max-w-sm p-4 bg-white shadow-sm rounded-xl"
+              key={manager.id}
+              className="w-full p-6 bg-white border border-gray-100 shadow-sm rounded-xl"
             >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-800">
-                    {t.name}
-                  </h2>
-                  <span
-                    className={`text-xs px-2 py-1 rounded-full ${
-                      statusStyles[t.status]
-                    }`}
-                  >
-                    {t.status}
-                  </span>
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-center w-12 h-12 text-lg font-semibold text-white bg-blue-600 rounded-full">
+                    {manager.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      {manager.name}
+                    </h3>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        statusStyles[manager.status] || statusStyles.inactive
+                      }`}
+                    >
+                      {manager.status}
+                    </span>
+                  </div>
                 </div>
-                <TenantCardMenu
-                  onAction={(action) =>
-                    setModal({ open: true, tenant: t, action })
-                  }
+                <ManagerActionButtons
+                  manager={manager}
+                  onEdit={handleEditManager}
+                  onDelete={handleDeleteManager}
                 />
               </div>
 
-              <div className="flex items-center gap-1 mt-2 text-yellow-400">
-                {Array.from({ length: Math.floor(t.rating) }).map((_, i) => (
-                  <Star key={i} size={16} fill="currentColor" stroke="none" />
-                ))}
-                <span className="text-sm text-gray-500">({t.rating})</span>
-              </div>
-
-              <div className="mt-3 space-y-1 text-sm text-gray-700">
+              <div className="space-y-2 text-sm text-gray-700">
                 <div className="flex items-center gap-2">
                   <Mail size={14} className="text-gray-500" />
-                  {t.email}
+                  <span className="truncate">{manager.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={14} className="text-gray-500" />
-                  {t.phone}
+                  <span>{manager.phone}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin size={14} className="text-gray-500" />
-                  {t.address}
-                </div>
-                <div className="flex items-center gap-2">
-                  <CalendarDays size={14} className="text-gray-500" />
-                  Joined: {t.joinedDate}
+                  <Building size={14} className="text-gray-500" />
+                  <span>
+                    {manager.propertiesManaged || 0} Properties Managed
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 mt-4 text-sm border-t">
-                <span className="font-semibold text-gray-900">{t.rent}</span>
-                <span
-                  className={`text-xs px-2 py-1 rounded-full ${
-                    statusStyles[t.rentStatus]
-                  }`}
-                >
-                  {t.rentStatus}
-                </span>
+              <div className="pt-4 mt-4 border-t border-gray-100">
+                <div className="flex items-center justify-between text-sm">
+                  <div>
+                    <span className="text-gray-500">Assigned Emirates:</span>
+                    <div className="font-medium text-gray-800">
+                      {manager.AssignedTo}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Joined: {manager.joinedDate}
+                </div>
               </div>
             </div>
           ))
         )}
       </div>
-      <TenantActionModal
-        open={modal.open}
-        onClose={() => setModal({ open: false, tenant: null, action: null })}
-        tenant={modal.tenant}
-        action={modal.action}
+
+      {/* Edit Manager Modal */}
+      <EditManagerModal
+        open={editModal.open}
+        onClose={() => setEditModal({ open: false, manager: null })}
+        manager={editModal.manager}
+        onSave={handleSaveEdit}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmationDialog
+        open={deleteModal.open}
+        onClose={() => setDeleteModal({ open: false, manager: null })}
+        manager={deleteModal.manager}
+        onConfirm={handleConfirmDelete}
       />
     </div>
   );
 };
 
-export default TenantBody;
+export default ManagerBody;

@@ -1,25 +1,25 @@
 import React, { useState } from "react";
-import TenantHeader from "./TenantHeader";
-import TenantStats from "./TenantStats";
-import TenantBody from "./TenantBody";
-import AddTenantModal from "./AddTenantModal";
-import { tenantData } from "@/data/landlord/tenant/data";
+import ManagerHeader from "./ManagerHeader";
+import ManagerStats from "./ManagerStats";
+import ManagerBody from "./ManagerBody";
+import AddManagerModal from "./AddManagerModal";
+import { propertyManagerData } from "@/data/landlord/propertyManager/data";
 
 const ManagerMaster = () => {
-  const [tenants, setTenants] = useState(tenantData);
+  const [managers, setManagers] = useState(propertyManagerData);
   const [addModalOpen, setAddModalOpen] = useState(false);
 
-  // Handler to add a new tenant to the first group (or create a new group if needed)
-  const handleAddTenant = (newTenant) => {
-    setTenants((prev) => {
+  // Handler to add a new manager to the first group (or create a new group if needed)
+  const handleAddManager = (newManager) => {
+    setManagers((prev) => {
       if (prev.length === 0) {
-        return [{ id: 1, tenantsList: [newTenant] }];
+        return [{ id: 1, managersList: [newManager] }];
       }
       // Add to the first group for simplicity
       const updated = [...prev];
       updated[0] = {
         ...updated[0],
-        tenantsList: [newTenant, ...updated[0].tenantsList],
+        managersList: [newManager, ...updated[0].managersList],
       };
       return updated;
     });
@@ -28,13 +28,13 @@ const ManagerMaster = () => {
 
   return (
     <>
-      <TenantHeader onAddTenant={() => setAddModalOpen(true)} />
-      <TenantStats tenants={tenants} />
-      <TenantBody tenants={tenants} />
-      <AddTenantModal
+      <ManagerHeader onAddManager={() => setAddModalOpen(true)} />
+      <ManagerStats managers={managers} />
+      <ManagerBody managers={managers} setManagers={setManagers} />
+      <AddManagerModal
         open={addModalOpen}
         onClose={() => setAddModalOpen(false)}
-        onAddTenant={handleAddTenant}
+        onAddManager={handleAddManager}
       />
     </>
   );

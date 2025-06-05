@@ -1,14 +1,23 @@
 import React from "react";
+import { Users } from "lucide-react";
 
-const TenantHeader = ({ onAddTenant }) => {
+const ManagerHeader = ({ onAddManager }) => {
   return (
-    <header className="flex items-center justify-between ">
-      <h1 className="text-xl font-semibold text-gray-900">Tenant Management</h1>
-      <button onClick={onAddTenant} className="myButton">
-        Add Tenant
+    <header className="flex items-center justify-between mb-6">
+      <div className="flex items-center gap-2">
+        <Users className="w-6 h-6 text-gray-700" />
+        <h1 className="text-2xl font-semibold text-gray-900">
+          Property Managers
+        </h1>
+      </div>
+      <button
+        onClick={onAddManager}
+        className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
+      >
+        Add Property Manager
       </button>
     </header>
   );
 };
 
-export default TenantHeader;
+export default ManagerHeader;

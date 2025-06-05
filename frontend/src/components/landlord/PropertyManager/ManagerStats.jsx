@@ -1,65 +1,74 @@
 import { Card } from "@/components/ui/card";
-import React from "react"; 
+import React from "react";
 import { cn } from "@/lib/utils";
 
-const ManagerStats = ({tenants}) => {
-  const tenantStat = [
-    {
-      id: 1,
-      label: "Total Tenants",
-      value: tenants.reduce(
-        (acc, tenant) => acc + tenant.tenantsList.length,
+const ManagerStats = ({ managers }) => {
+  // Calculate total managers
+  const totalManagers = managers.reduce(
+    (acc, group) => acc + group.managersList.length,
+    0
+  );
+
+  // Calculate active managers
+  const activeManagers = managers.reduce(
+    (acc, group) =>
+      acc + group.managersList.filter((m) => m.status === "Active").length,
+    0
+  );
+
+  // Calculate total properties managed
+  const propertiesManaged = managers.reduce(
+    (acc, group) =>
+      acc +
+      group.managersList.reduce(
+        (sum, m) => sum + (m.propertiesManaged || 0),
         0
       ),
-      color: "text-blue-500",
-      bgColor: "bg-blue-50",
+    0
+  );
+
+  // Calculate emirates covered (unique emirates)
+  const emiratesSet = new Set();
+  managers.forEach((group) => {
+    group.managersList.forEach((manager) => {
+      if (manager.AssignedTo) {
+        emiratesSet.add(manager.AssignedTo);
+      }
+    });
+  });
+  const emiratesCovered = emiratesSet.size;
+
+  const managerStat = [
+    {
+      id: 1,
+      label: "Total Managers",
+      value: totalManagers,
     },
     {
       id: 2,
-      label: "Active Tenants",
-      value: tenants.reduce(
-        (acc, tenant) =>
-          acc + tenant.tenantsList.filter((t) => t.status === "active").length,
-        0
-      ),
-      color: "text-green-500",
-      bgColor: "bg-green-50",
+      label: "Active Managers",
+      value: activeManagers,
     },
     {
       id: 3,
-      label: "Notice Period Tenants",
-      value: tenants.reduce(
-        (acc, tenant) =>
-          acc + tenant.tenantsList.filter((t) => t.noticePeriod > 0).length,
-        0
-      ),
-      color: "text-yellow-500",
-      bgColor: "bg-yellow-50",
+      label: "Properties Managed",
+      value: propertiesManaged,
     },
     {
       id: 4,
-      label: "Overdue Payments",
-      value: tenants.reduce(
-        (acc, tenant) =>
-          acc +
-          tenant.tenantsList
-            .filter((t) => t.Overdue > 0)
-            .reduce((sum, t) => sum + t.Overdue, 0),
-        0
-      ),
-      color: "text-red-500",
-      bgColor: "bg-red-50",
+      label: "Emirates Covered",
+      value: emiratesCovered,
     },
   ];
 
   return (
     <Card className="w-full my-4 border-0 shadow-none">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {tenantStat.map((card) => (
+        {managerStat.map((card) => (
           <Card
             key={card.id}
             className={cn(
-              "gap-2 p-6 text-center transition-shadow duration-300 border-0 shadow-md hover:shadow-lg",
+              "gap-2 p-6 text-center bg-white transition-shadow duration-300 border-0 shadow-lg hover:shadow-xl",
               card.bgColor
             )}
           >
