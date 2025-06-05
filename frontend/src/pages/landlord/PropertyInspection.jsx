@@ -1,9 +1,8 @@
-import React from 'react'
+import InspectionMaster from "@/components/landlord/PropertyInspections/InspectionMaster";
+import React from "react";
 
 const PropertyInspection = () => {
-  return (
-    <div>PropertyInspection</div>
-  )
-}
+  return <InspectionMaster />;
+};
 
-export default PropertyInspection
+export default PropertyInspection;
