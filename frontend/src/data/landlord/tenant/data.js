@@ -1,0 +1,35 @@
+export const tenantData = [
+  {
+    id: 1,
+    tenantsList: [
+      {
+        id: 12,
+        name: "Ahmed Al-Mansouri",
+        email: "ahmed.mansouri@email.com",
+        phone: "+971-50-123-4567",
+        address: "Sunset Apartments Unit 101",
+        rating: 4.7,
+        status: "active",
+        rent: "AED 8,500/month",
+        rentStatus: "paid",
+        joinedDate: "2024-01-15",
+        noticePeriod: 0,
+        Overdue: 9,
+      },
+      {
+        id: 13,
+        name: "Pankaj Gupta",
+        email: "ahmed.mansouri@email.com",
+        phone: "+971-50-123-4567",
+        address: "Sunset Apartments Unit 101",
+        rating: 4.7,
+        rent: "AED 8,500/month",
+        rentStatus: "paid",
+        joinedDate: "2024-01-15",
+        status: "inactive",
+        noticePeriod: 30,
+        Overdue: 10,
+      },
+    ],
+  },
+];

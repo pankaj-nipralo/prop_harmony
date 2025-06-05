@@ -1,8 +1,9 @@
+import RentalSearchMaster from '@/components/landlord/RentalSearch/RentalSearchMaster'
 import React from 'react'
 
 const ReantalSearch = () => {
   return (
-    <div>ReantalSearch</div>
+    <RentalSearchMaster />
   )
 }
 

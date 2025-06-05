@@ -95,9 +95,9 @@ const PropertiesBody = () => {
   };
 
   return (
-    <div className="p-4 mx-auto bg-transparent">
+    <div className="mx-auto bg-transparent">
       <div className="flex items-center justify-between w-full mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">My Properties</h1>
+        <h1 className="text-xl font-semibold text-gray-900">My Properties</h1>
         <Dialog open={showModal} onOpenChange={setShowModal}>
           <DialogTrigger asChild>
             <button className="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a] transition">
