@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import DocumentMaster from "@/components/landlord/Documents/DocumentMaster";
 
 const DocumentVault = () => {
-  return (
-    <div>DocumentVault</div>
-  )
-}
+  return <DocumentMaster />;
+};
 
-export default DocumentVault
+export default DocumentVault;

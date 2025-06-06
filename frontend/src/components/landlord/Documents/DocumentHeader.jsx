@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 import {
-  Calculator,
+  FolderOpen,
   Plus,
   FileDown,
   ChevronDown,
   Download,
+  Upload,
 } from "lucide-react";
 import {
-  exportInvestmentToPDF,
-  exportInvestmentToExcel,
-} from "@/utils/investmentExportUtils";
+  exportDocumentsToPDF,
+  exportDocumentsToExcel,
+} from "@/utils/documentExportUtils";
 
-const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
+const DocumentHeader = ({
+  onNewUpload,
+  onNewFolder,
+  documents,
+  filters = {},
+}) => {
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
 
   const handleExport = async (format) => {
-    if (!calculations || calculations.length === 0) {
-      alert("No calculation data available to export.");
+    if (!documents || documents.length === 0) {
+      alert("No document data available to export.");
       return;
     }
 
@@ -28,7 +34,8 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
       let filename;
 
       if (format === "PDF") {
-        filename = exportInvestmentToPDF(calculations, filters);
+        filename = exportDocumentsToPDF(documents, filters);
+
         // Create success notification
         const notification = document.createElement("div");
         notification.className =
@@ -40,14 +47,15 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
             </svg>
             <div>
               <div class="font-semibold">PDF Export Successful!</div>
-              <div class="text-sm opacity-90">Investment report downloaded: ${filename}</div>
+              <div class="text-sm opacity-90">Document list downloaded: ${filename}</div>
             </div>
           </div>
         `;
         document.body.appendChild(notification);
         setTimeout(() => notification.remove(), 5000);
       } else if (format === "Excel") {
-        filename = exportInvestmentToExcel(calculations, filters);
+        filename = exportDocumentsToExcel(documents, filters);
+
         // Create success notification
         const notification = document.createElement("div");
         notification.className =
@@ -59,7 +67,7 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
             </svg>
             <div>
               <div class="font-semibold">Excel Export Successful!</div>
-              <div class="text-sm opacity-90">Investment report downloaded: ${filename}</div>
+              <div class="text-sm opacity-90">Document list downloaded: ${filename}</div>
             </div>
           </div>
         `;
@@ -93,13 +101,11 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
   return (
     <header className="flex items-center justify-between mb-6">
       <div className="flex items-center gap-3">
-        <Calculator className="w-8 h-8 text-blue-600" />
+        <FolderOpen className="w-8 h-8 text-blue-600" />
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
-            Investment Calculator
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900">Document Vault</h1>
           <p className="text-gray-600 mt-1">
-            Analyze property investments and calculate returns
+            Securely store and manage your property documents
           </p>
         </div>
       </div>
@@ -144,17 +150,26 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
           )}
         </div>
 
-        {/* New Calculation Button */}
+        {/* New Folder Button */}
         <button
-          onClick={onNewCalculation}
+          onClick={onNewFolder}
+          className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 font-medium shadow-sm cursor-pointer"
+        >
+          <Plus size={18} />
+          New Folder
+        </button>
+
+        {/* Upload Button */}
+        <button
+          onClick={onNewUpload}
           className="myButton flex items-center gap-2 px-6 py-3 shadow-lg hover:shadow-xl"
         >
-          <Plus size={20} />
-          New Calculation
+          <Upload size={20} />
+          Upload Documents
         </button>
       </div>
     </header>
   );
 };
 
-export default InvestmentHeader;
+export default DocumentHeader;

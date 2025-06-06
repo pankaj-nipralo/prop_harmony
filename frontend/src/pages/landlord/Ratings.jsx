@@ -1,8 +1,9 @@
+import RatingsMaster from '@/components/landlord/Ratings/RatingsMaster'
 import React from 'react'
 
 const Ratings = () => {
   return (
-    <div>Ratings</div>
+    <RatingsMaster  />
   )
 }
 

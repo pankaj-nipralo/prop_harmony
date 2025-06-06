@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { 
-  Search, 
-  Filter, 
-  ChevronDown, 
-  Calculator, 
-  Eye, 
-  Edit, 
-  Trash2, 
-  TrendingUp,
+import {
+  Search,
+  Filter,
+  ChevronDown,
+  Calculator,
+  Eye,
+  Edit,
+  Trash2,
   DollarSign,
   Percent,
-  Calendar
+  Calendar,
 } from "lucide-react";
 import { calculateInvestmentMetrics } from "@/data/landlord/investment/data";
 import InvestmentCalculatorModal from "./InvestmentCalculatorModal";
+import InvestmentComparison from "./InvestmentComparison";
 
-const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) => {
+const InvestmentBody = ({
+  calculations,
+  setCalculations,
+  filters,
+  setFilters,
+}) => {
   const [search, setSearch] = useState(filters?.search || "");
-  const [propertyFilter, setPropertyFilter] = useState(filters?.propertyFilter || "All Properties");
+  const [propertyFilter, setPropertyFilter] = useState(
+    filters?.propertyFilter || "All Properties"
+  );
   const [activeTab, setActiveTab] = useState("calculations");
   const [viewModal, setViewModal] = useState({
     open: false,
@@ -34,7 +41,11 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
     calculation: null,
   });
 
-  if (!calculations || !Array.isArray(calculations) || calculations.length === 0) {
+  if (
+    !calculations ||
+    !Array.isArray(calculations) ||
+    calculations.length === 0
+  ) {
     return (
       <div className="space-y-6">
         <Card className="p-8 text-center border-0 shadow-sm">
@@ -46,29 +57,39 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
   }
 
   // Flatten all calculations
-  const allCalculations = calculations.flatMap(group => group.calculationsList);
+  const allCalculations = calculations.flatMap(
+    (group) => group.calculationsList
+  );
 
   // Get unique properties for filter
-  const uniqueProperties = [...new Set(allCalculations.map(calc => calc.propertyName))];
+  const uniqueProperties = [
+    ...new Set(allCalculations.map((calc) => calc.propertyName)),
+  ];
 
   // Apply filters
-  const filteredCalculations = allCalculations.filter(calculation => {
-    const propertyMatch = propertyFilter === "All Properties" || calculation.propertyName === propertyFilter;
+  const filteredCalculations = allCalculations.filter((calculation) => {
+    const propertyMatch =
+      propertyFilter === "All Properties" ||
+      calculation.propertyName === propertyFilter;
     return propertyMatch;
   });
 
   // Search calculations
-  const displayedCalculations = filteredCalculations.filter(calculation => {
+  const displayedCalculations = filteredCalculations.filter((calculation) => {
     const q = search.toLowerCase();
     return (
       calculation.name.toLowerCase().includes(q) ||
       calculation.propertyName.toLowerCase().includes(q) ||
-      (calculation.propertyAddress && calculation.propertyAddress.toLowerCase().includes(q))
+      (calculation.propertyAddress &&
+        calculation.propertyAddress.toLowerCase().includes(q))
     );
   });
 
   const formatCurrency = (amount) => {
-    return `AED ${amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    return `AED ${amount.toLocaleString("en-US", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    })}`;
   };
 
   const formatPercentage = (percentage) => {
@@ -101,11 +122,13 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
   };
 
   const handleUpdateCalculation = (updatedCalculation) => {
-    setCalculations(prev =>
-      prev.map(group => ({
+    setCalculations((prev) =>
+      prev.map((group) => ({
         ...group,
-        calculationsList: group.calculationsList.map(calculation =>
-          calculation.id === updatedCalculation.id ? updatedCalculation : calculation
+        calculationsList: group.calculationsList.map((calculation) =>
+          calculation.id === updatedCalculation.id
+            ? updatedCalculation
+            : calculation
         ),
       }))
     );
@@ -113,11 +136,11 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
   };
 
   const handleConfirmDelete = (calculationToDelete) => {
-    setCalculations(prev =>
-      prev.map(group => ({
+    setCalculations((prev) =>
+      prev.map((group) => ({
         ...group,
         calculationsList: group.calculationsList.filter(
-          calculation => calculation.id !== calculationToDelete.id
+          (calculation) => calculation.id !== calculationToDelete.id
         ),
       }))
     );
@@ -153,10 +176,7 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
       </div>
 
       {activeTab === "comparison" ? (
-        <div className="text-center py-12">
-          <TrendingUp className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-          <p className="text-gray-500">Investment comparison tools will be displayed here</p>
-        </div>
+        <InvestmentComparison calculations={calculations} />
       ) : (
         <>
           {/* Search and Filter Section */}
@@ -171,7 +191,10 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
                   onChange={(e) => {
                     setSearch(e.target.value);
                     if (setFilters) {
-                      setFilters(prev => ({ ...prev, search: e.target.value }));
+                      setFilters((prev) => ({
+                        ...prev,
+                        search: e.target.value,
+                      }));
                     }
                   }}
                   className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -185,13 +208,16 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
                     onChange={(e) => {
                       setPropertyFilter(e.target.value);
                       if (setFilters) {
-                        setFilters(prev => ({ ...prev, propertyFilter: e.target.value }));
+                        setFilters((prev) => ({
+                          ...prev,
+                          propertyFilter: e.target.value,
+                        }));
                       }
                     }}
                     className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="All Properties">All Properties</option>
-                    {uniqueProperties.map(property => (
+                    {uniqueProperties.map((property) => (
                       <option key={property} value={property}>
                         {property}
                       </option>
@@ -205,7 +231,9 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
 
           {/* Calculations Grid */}
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-gray-900">Investment Calculations</h2>
+            <h2 className="text-xl font-semibold text-gray-900">
+              Investment Calculations
+            </h2>
 
             {displayedCalculations.length === 0 ? (
               <Card className="p-8 text-center border-0 shadow-sm">
@@ -214,11 +242,14 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
               </Card>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {displayedCalculations.map(calculation => {
+                {displayedCalculations.map((calculation) => {
                   const metrics = calculateInvestmentMetrics(calculation);
-                  
+
                   return (
-                    <Card key={calculation.id} className="p-6 border-0 shadow-sm hover:shadow-md transition-shadow">
+                    <Card
+                      key={calculation.id}
+                      className="p-6 border-0 shadow-sm hover:shadow-md transition-shadow"
+                    >
                       <div className="space-y-4">
                         {/* Header */}
                         <div className="flex items-start justify-between">
@@ -226,9 +257,13 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
                             <h3 className="text-lg font-semibold text-gray-900 mb-1">
                               {calculation.name}
                             </h3>
-                            <p className="text-sm text-gray-600">{calculation.propertyName}</p>
+                            <p className="text-sm text-gray-600">
+                              {calculation.propertyName}
+                            </p>
                             {calculation.propertyAddress && (
-                              <p className="text-xs text-gray-500 mt-1">{calculation.propertyAddress}</p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                {calculation.propertyAddress}
+                              </p>
                             )}
                           </div>
                           <div className="flex items-center gap-1 ml-2">
@@ -247,7 +282,9 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
                               <Edit size={16} />
                             </button>
                             <button
-                              onClick={() => handleDeleteCalculation(calculation)}
+                              onClick={() =>
+                                handleDeleteCalculation(calculation)
+                              }
                               className="p-1 text-gray-500 transition-colors rounded cursor-pointer hover:text-red-600 hover:bg-red-50"
                               title="Delete Calculation"
                             >
@@ -260,15 +297,26 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
                         <div className="grid grid-cols-2 gap-4">
                           <div className="text-center p-3 bg-gray-50 rounded-lg">
                             <DollarSign className="w-5 h-5 mx-auto mb-1 text-blue-600" />
-                            <p className="text-xs text-gray-600">Monthly Cash Flow</p>
-                            <p className={`text-sm font-bold ${getCashFlowColor(metrics.monthlyCashFlow)}`}>
-                              {metrics.monthlyCashFlow >= 0 ? '+' : ''}{formatCurrency(metrics.monthlyCashFlow)}
+                            <p className="text-xs text-gray-600">
+                              Monthly Cash Flow
+                            </p>
+                            <p
+                              className={`text-sm font-bold ${getCashFlowColor(
+                                metrics.monthlyCashFlow
+                              )}`}
+                            >
+                              {metrics.monthlyCashFlow >= 0 ? "+" : ""}
+                              {formatCurrency(metrics.monthlyCashFlow)}
                             </p>
                           </div>
                           <div className="text-center p-3 bg-gray-50 rounded-lg">
                             <Percent className="w-5 h-5 mx-auto mb-1 text-green-600" />
                             <p className="text-xs text-gray-600">Total ROI</p>
-                            <p className={`text-sm font-bold ${getROIColor(metrics.totalROI)}`}>
+                            <p
+                              className={`text-sm font-bold ${getROIColor(
+                                metrics.totalROI
+                              )}`}
+                            >
                               {formatPercentage(metrics.totalROI)}
                             </p>
                           </div>
@@ -277,16 +325,26 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
                         {/* Investment Summary */}
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
-                            <span className="text-gray-600">Purchase Price:</span>
-                            <span className="font-medium">{formatCurrency(calculation.purchasePrice)}</span>
+                            <span className="text-gray-600">
+                              Purchase Price:
+                            </span>
+                            <span className="font-medium">
+                              {formatCurrency(calculation.purchasePrice)}
+                            </span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-600">Total Investment:</span>
-                            <span className="font-medium">{formatCurrency(metrics.totalInvestment)}</span>
+                            <span className="text-gray-600">
+                              Total Investment:
+                            </span>
+                            <span className="font-medium">
+                              {formatCurrency(metrics.totalInvestment)}
+                            </span>
                           </div>
                           <div className="flex justify-between">
                             <span className="text-gray-600">Cap Rate:</span>
-                            <span className="font-medium">{formatPercentage(metrics.capRate)}</span>
+                            <span className="font-medium">
+                              {formatPercentage(metrics.capRate)}
+                            </span>
                           </div>
                         </div>
 
@@ -296,7 +354,9 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
                             <Calendar size={12} />
                             <span>Updated {calculation.lastUpdated}</span>
                           </div>
-                          <span className="text-xs text-gray-500">{calculation.createdBy}</span>
+                          <span className="text-xs text-gray-500">
+                            {calculation.createdBy}
+                          </span>
                         </div>
                       </div>
                     </Card>
@@ -336,11 +396,14 @@ const InvestmentBody = ({ calculations, setCalculations, filters, setFilters }) 
             </h2>
             <p className="mb-6 text-gray-600">
               Are you sure you want to delete the calculation "
-              <strong>{deleteModal.calculation?.name}</strong>"? This action cannot be undone.
+              <strong>{deleteModal.calculation?.name}</strong>"? This action
+              cannot be undone.
             </p>
             <div className="flex justify-end space-x-3">
               <button
-                onClick={() => setDeleteModal({ open: false, calculation: null })}
+                onClick={() =>
+                  setDeleteModal({ open: false, calculation: null })
+                }
                 className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200"
               >
                 Cancel
