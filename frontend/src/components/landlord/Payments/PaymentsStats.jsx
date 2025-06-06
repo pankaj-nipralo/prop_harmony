@@ -12,12 +12,27 @@ import {
 } from "lucide-react";
 import { formatCurrency } from "@/data/landlord/payments/data";
 
-const PaymentsStats = ({ stats, isLoading }) => {
+const PaymentsStats = ({ stats = {}, isLoading }) => {
+  // Provide default values for all stats properties to prevent undefined errors
+  const safeStats = {
+    paidAmount: 0,
+    paidCount: 0,
+    pendingAmount: 0,
+    pendingCount: 0,
+    overdueAmount: 0,
+    overdueCount: 0,
+    collectionRate: 0,
+    averagePayment: 0,
+    totalAmount: 0,
+    totalPayments: 0,
+    ...stats, // Override defaults with actual stats if provided
+  };
+
   const statCards = [
     {
       title: "Total Collected",
-      value: formatCurrency(stats.paidAmount),
-      subtitle: `${stats.paidCount} payments`,
+      value: formatCurrency(safeStats.paidAmount ?? 0),
+      subtitle: `${safeStats.paidCount ?? 0} payments`,
       icon: DollarSign,
       color: "green",
       bgColor: "bg-green-50",
@@ -27,8 +42,8 @@ const PaymentsStats = ({ stats, isLoading }) => {
     },
     {
       title: "Pending Payments",
-      value: formatCurrency(stats.pendingAmount),
-      subtitle: `${stats.pendingCount} pending`,
+      value: formatCurrency(safeStats.pendingAmount ?? 0),
+      subtitle: `${safeStats.pendingCount ?? 0} pending`,
       icon: Clock,
       color: "yellow",
       bgColor: "bg-yellow-50",
@@ -38,8 +53,8 @@ const PaymentsStats = ({ stats, isLoading }) => {
     },
     {
       title: "Overdue Amount",
-      value: formatCurrency(stats.overdueAmount),
-      subtitle: `${stats.overdueCount} overdue`,
+      value: formatCurrency(safeStats.overdueAmount ?? 0),
+      subtitle: `${safeStats.overdueCount ?? 0} overdue`,
       icon: AlertTriangle,
       color: "red",
       bgColor: "bg-red-50",
@@ -47,35 +62,35 @@ const PaymentsStats = ({ stats, isLoading }) => {
       trend: "+8.1%",
       trendUp: true,
     },
-    // {
-    //   title: "Collection Rate",
-    //   value: `${stats.collectionRate.toFixed(1)}%`,
-    //   subtitle: "This month",
-    //   icon: Target,
-    //   color: "blue",
-    //   bgColor: "bg-blue-50",
-    //   iconColor: "text-blue-600",
-    //   trend: "+3.2%",
-    //   trendUp: true,
-    // },
+    {
+      title: "Collection Rate",
+      value: `${(safeStats.collectionRate ?? 0).toFixed(1)}%`,
+      subtitle: "This month",
+      icon: Target,
+      color: "blue",
+      bgColor: "bg-blue-50",
+      iconColor: "text-blue-600",
+      trend: "+3.2%",
+      trendUp: true,
+    },
   ];
 
   const additionalStats = [
     {
       title: "Average Payment",
-      value: formatCurrency(stats.averagePayment),
+      value: formatCurrency(safeStats.averagePayment ?? 0),
       icon: PieChart,
       color: "purple",
     },
-    // {
-    //   title: "Total Payments",
-    //   value: stats.totalPayments.toString(),
-    //   icon: CheckCircle,
-    //   color: "indigo",
-    // },
+    {
+      title: "Total Payments",
+      value: (safeStats.totalPayments ?? 0).toString(),
+      icon: CheckCircle,
+      color: "indigo",
+    },
     {
       title: "This Month",
-      value: formatCurrency(stats.totalAmount),
+      value: formatCurrency(safeStats.totalAmount ?? 0),
       icon: Calendar,
       color: "teal",
     },
@@ -197,12 +212,16 @@ const PaymentsStats = ({ stats, isLoading }) => {
             </div>
             <div className="text-right">
               <span className="text-sm font-medium text-gray-900">
-                {stats.paidCount}
+                {safeStats.paidCount ?? 0}
               </span>
               <span className="ml-2 text-xs text-gray-500">
                 (
-                {stats.totalPayments > 0
-                  ? ((stats.paidCount / stats.totalPayments) * 100).toFixed(1)
+                {(safeStats.totalPayments ?? 0) > 0
+                  ? (
+                      ((safeStats.paidCount ?? 0) /
+                        (safeStats.totalPayments ?? 1)) *
+                      100
+                    ).toFixed(1)
                   : 0}
                 %)
               </span>
@@ -216,14 +235,16 @@ const PaymentsStats = ({ stats, isLoading }) => {
             </div>
             <div className="text-right">
               <span className="text-sm font-medium text-gray-900">
-                {stats.pendingCount}
+                {safeStats.pendingCount ?? 0}
               </span>
               <span className="ml-2 text-xs text-gray-500">
                 (
-                {stats.totalPayments > 0
-                  ? ((stats.pendingCount / stats.totalPayments) * 100).toFixed(
-                      1
-                    )
+                {(safeStats.totalPayments ?? 0) > 0
+                  ? (
+                      ((safeStats.pendingCount ?? 0) /
+                        (safeStats.totalPayments ?? 1)) *
+                      100
+                    ).toFixed(1)
                   : 0}
                 %)
               </span>
@@ -237,14 +258,16 @@ const PaymentsStats = ({ stats, isLoading }) => {
             </div>
             <div className="text-right">
               <span className="text-sm font-medium text-gray-900">
-                {stats.overdueCount}
+                {safeStats.overdueCount ?? 0}
               </span>
               <span className="ml-2 text-xs text-gray-500">
                 (
-                {stats.totalPayments > 0
-                  ? ((stats.overdueCount / stats.totalPayments) * 100).toFixed(
-                      1
-                    )
+                {(safeStats.totalPayments ?? 0) > 0
+                  ? (
+                      ((safeStats.overdueCount ?? 0) /
+                        (safeStats.totalPayments ?? 1)) *
+                      100
+                    ).toFixed(1)
                   : 0}
                 %)
               </span>
@@ -259,8 +282,10 @@ const PaymentsStats = ({ stats, isLoading }) => {
               className="transition-all duration-300 bg-green-500"
               style={{
                 width: `${
-                  stats.totalPayments > 0
-                    ? (stats.paidCount / stats.totalPayments) * 100
+                  (safeStats.totalPayments ?? 0) > 0
+                    ? ((safeStats.paidCount ?? 0) /
+                        (safeStats.totalPayments ?? 1)) *
+                      100
                     : 0
                 }%`,
               }}
@@ -269,8 +294,10 @@ const PaymentsStats = ({ stats, isLoading }) => {
               className="transition-all duration-300 bg-yellow-500"
               style={{
                 width: `${
-                  stats.totalPayments > 0
-                    ? (stats.pendingCount / stats.totalPayments) * 100
+                  (safeStats.totalPayments ?? 0) > 0
+                    ? ((safeStats.pendingCount ?? 0) /
+                        (safeStats.totalPayments ?? 1)) *
+                      100
                     : 0
                 }%`,
               }}
@@ -279,8 +306,10 @@ const PaymentsStats = ({ stats, isLoading }) => {
               className="transition-all duration-300 bg-red-500"
               style={{
                 width: `${
-                  stats.totalPayments > 0
-                    ? (stats.overdueCount / stats.totalPayments) * 100
+                  (safeStats.totalPayments ?? 0) > 0
+                    ? ((safeStats.overdueCount ?? 0) /
+                        (safeStats.totalPayments ?? 1)) *
+                      100
                     : 0
                 }%`,
               }}
