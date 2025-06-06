@@ -25,22 +25,20 @@ const InspectionMaster = () => {
     });
     setAddModalOpen(false);
   };
-
+ 
   return (
-    <div className="min-h-screen p-6 bg-gray-50">
-      <div className="mx-auto max-w-7xl">
-        <InspectionHeader onNewInspection={() => setAddModalOpen(true)} />
-        <InspectionStats inspections={inspections} />
-        <InspectionBody
-          inspections={inspections}
-          setInspections={setInspections}
-        />
-        <AddInspectionModal
-          open={addModalOpen}
-          onClose={() => setAddModalOpen(false)}
-          onAddInspection={handleAddInspection}
-        />
-      </div>
+    <div className="min-h-screen p-6">
+      <InspectionHeader onNewInspection={() => setAddModalOpen(true)} />
+      <InspectionStats inspections={inspections} />
+      <InspectionBody
+        inspections={inspections}
+        setInspections={setInspections}
+      />
+      <AddInspectionModal
+        open={addModalOpen}
+        onClose={() => setAddModalOpen(false)}
+        onAddInspection={handleAddInspection}
+      />
     </div>
   );
 };

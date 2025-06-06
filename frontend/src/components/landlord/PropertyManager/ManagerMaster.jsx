@@ -27,7 +27,7 @@ const ManagerMaster = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen p-6">
       <ManagerHeader onAddManager={() => setAddModalOpen(true)} />
       <ManagerStats managers={managers} />
       <ManagerBody managers={managers} setManagers={setManagers} />
@@ -36,7 +36,7 @@ const ManagerMaster = () => {
         onClose={() => setAddModalOpen(false)}
         onAddManager={handleAddManager}
       />
-    </>
+    </div>
   );
 };
 

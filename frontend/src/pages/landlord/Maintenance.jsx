@@ -1,9 +1,8 @@
-import React from 'react'
+import MaintenanceMaster from "@/components/landlord/Maintenance/MaintenanceMaster";
+import React from "react";
 
 const Maintenance = () => {
-  return (
-    <div>Maintenance</div>
-  )
-}
+  return <MaintenanceMaster />;
+};
 
-export default Maintenance
+export default Maintenance;

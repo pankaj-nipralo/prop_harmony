@@ -27,7 +27,7 @@ const IssueWarningMaster = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen p-6">
       <WarningHeader onAddWarning={() => setAddModalOpen(true)} />
       <WarningStats warnings={warnings} />
       <WarningBody warnings={warnings} setWarnings={setWarnings} />
@@ -36,8 +36,9 @@ const IssueWarningMaster = () => {
         onClose={() => setAddModalOpen(false)}
         onAddWarning={handleAddWarning}
       />
-    </>
+    </div>
   );
 };
 
 export default IssueWarningMaster;
+ 
