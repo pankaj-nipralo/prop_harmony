@@ -1,8 +1,9 @@
+import ReportsMaster from '@/components/landlord/Reports/ReportsMaster'
 import React from 'react'
 
 const Reports = () => {
   return (
-    <div>Reports</div>
+    <ReportsMaster />
   )
 }
 

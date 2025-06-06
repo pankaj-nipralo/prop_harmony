@@ -1,8 +1,9 @@
+import SettingsMaster from '@/components/landlord/Settings/SettingsMaster'
 import React from 'react'
 
 const Settings = () => {
   return (
-    <div>Settings</div>
+    <SettingsMaster />
   )
 }
 
