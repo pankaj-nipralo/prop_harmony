@@ -1,8 +1,9 @@
+import EmailsMaster from '@/components/landlord/Emails/EmailsMaster'
 import React from 'react'
 
 const Messages = () => {
   return (
-    <div>Messages</div>
+    <EmailsMaster />
   )
 }
 

@@ -19,7 +19,7 @@ export const tenantData = [
       {
         id: 13,
         name: "Pankaj Gupta",
-        email: "ahmed.mansouri@email.com",
+        email: "pankajgupta1063@email.com",
         phone: "+971-50-123-4567",
         address: "Sunset Apartments Unit 101",
         rating: 4.7,

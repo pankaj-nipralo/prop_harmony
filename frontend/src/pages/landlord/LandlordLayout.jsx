@@ -44,7 +44,7 @@ const navItems = [
   },
   { label: "Document Vault", path: "/landlord/document-vault", icon: FileArchive },
   { label: "Ratings", path: "/landlord/ratings", icon: Star },
-  { label: "Messages", path: "/landlord/messages", icon: MessageCircle },
+  { label: "Emails", path: "/landlord/messages", icon: MessageCircle },
   { label: "Payments", path: "/landlord/payemnts", icon: CreditCard },
   { label: "Reports", path: "/landlord/reports", icon: BarChart3 },
   { label: "Settings", path: "/landlord/settings", icon: Settings },
