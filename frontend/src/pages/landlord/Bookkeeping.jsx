@@ -1,8 +1,9 @@
+import BookKeepingMaster from '@/components/landlord/BookKeeping/BookKeepingMaster'
 import React from 'react'
 
 const Bookkeeping = () => {
   return (
-    <div>Bookkeeping</div>
+    <BookKeepingMaster />
   )
 }
 

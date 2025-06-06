@@ -22,7 +22,7 @@
 }
 
 .myButton {
-  background-color: #324867;
+  background-color: #155dfc;
   color: #fff;
   border: none;
   padding: 8px 20px;
@@ -35,7 +35,7 @@
   transition: 0.3s ease-in-out;
 }
 .myButton:hover {
-  background: #3f5c88;
+  background: #1447e6;
   box-shadow: 0 4px 16px rgba(58, 107, 192, 0.18);
   transform: scale(1);
 }

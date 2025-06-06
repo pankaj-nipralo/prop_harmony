@@ -1,9 +1,8 @@
-import React from 'react'
+import InvestmentMaster from "@/components/landlord/Investment/InvestmentMaster";
+import React from "react";
 
 const InvestmentCalculator = () => {
-  return (
-    <div>InvestmentCalculator</div>
-  )
-}
+  return <InvestmentMaster />;
+};
 
-export default InvestmentCalculator
+export default InvestmentCalculator;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
+import { Building2, Plus } from "lucide-react";
 
 const defaultForm = {
   property: "",
@@ -183,12 +183,17 @@ const ListingBody = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen p-6">
       <div className="flex items-center gap-2 ">
-        <span className="text-xl">
-          <i className="fa fa-list-alt" />
-        </span>
-        <h2 className="text-xl font-semibold">Property Listings</h2>
+        <div className="flex items-center gap-3">
+          <Building2 className="w-8 h-8 text-blue-600" />
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Properties Listings</h1>
+            <p className="mt-1 text-gray-600">
+              Manage rental listings and view inquiries
+            </p>
+          </div>
+        </div>
         <Dialog open={showModal} onOpenChange={setShowModal}>
           <DialogTrigger asChild>
             <button

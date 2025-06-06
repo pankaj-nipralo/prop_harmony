@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import { Star, Home, MapPin, Calendar, Plus } from "lucide-react";
+import { Star, Home, MapPin, Calendar, Plus, Building} from "lucide-react";
 
 const statusColorMap = {
   active: "bg-green-100 text-green-700",
@@ -95,9 +95,15 @@ const PropertiesBody = () => {
   };
 
   return (
-    <div className="mx-auto bg-transparent">
+    <div className="p-6 mx-auto bg-transparent">
       <div className="flex items-center justify-between w-full mb-6">
-        <h1 className="text-xl font-semibold text-gray-900">My Properties</h1>
+        <div className="flex items-center gap-3">
+        <Building className="w-8 h-8 text-blue-600" />
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">My Properties</h1>
+          <p className="mt-1 text-gray-600">Manage Properties Here</p>
+        </div>
+      </div>
         <Dialog open={showModal} onOpenChange={setShowModal}>
           <DialogTrigger asChild>
             <button className="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a] transition">
