@@ -7,7 +7,7 @@ import OffersTable from './OffersTable';
 import OfferConfirmationModal from './OfferConfirmationModal';
 
 // Import data
-import { offersApplications, statusConfigurations, tableHeaders } from '../../../data/offersData';
+import { offersApplications, statusConfigurations, tableHeaders } from '../../../data/tenants/offers/offersData';
 
 const MyOffersMaster = () => {
   const navigate = useNavigate();

@@ -1,8 +1,11 @@
 
+import React from 'react';
+import PropertyManagerMaster from '@/components/tenants/PropertyManager/PropertyManagerMaster';
+
 const PropertyManager = () => {
   return (
-    <div>PropertyManager</div>
-  )
-}
+    <PropertyManagerMaster />
+  );
+};
 
-export default PropertyManager
+export default PropertyManager;

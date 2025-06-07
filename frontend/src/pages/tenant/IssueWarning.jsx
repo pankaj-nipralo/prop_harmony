@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import LandlordMaster from '@/components/tenants/PropertyLandlord/LandlordMaster';
 
 const IssueWarning = () => {
   return (
-    <div>IssueWarning</div>
-  )
-}
+    <LandlordMaster />
+  );
+};
 
-export default IssueWarning
+export default IssueWarning;

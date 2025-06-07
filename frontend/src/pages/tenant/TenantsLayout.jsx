@@ -25,7 +25,7 @@ const navItems = [
   { label: "My Property", path: "/tenants/properties", icon: Home },
   {
     label: "Past Properties",
-    path: "/tenants/property-listings",
+    path: "/tenants/past-properties",
     icon: History,
   },
   {

@@ -17,7 +17,7 @@ import {
   // maintenanceHistory, 
   propertyStats, 
   quickActions 
-} from '../../../data/propertyPageData';
+} from '../../../data/tenants/propertyPageData';
 
 const MyPropertyMaster = () => {
   const navigate = useNavigate();
@@ -126,15 +126,16 @@ const MyPropertyMaster = () => {
 
           {/* Right Column - Actions and Documents */}
           <div className="space-y-6">
+            <PropertyDocumentsSection 
+              documents={propertyDocuments}
+              onDownloadDocument={handleDownloadDocument}
+            />
+            
             <PropertyActionsPanel 
               actions={quickActions}
               onActionClick={handleActionClick}
             />
             
-            <PropertyDocumentsSection 
-              documents={propertyDocuments}
-              onDownloadDocument={handleDownloadDocument}
-            />
           </div>
         </div>
 

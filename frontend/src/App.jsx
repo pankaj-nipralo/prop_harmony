@@ -34,15 +34,14 @@ import Settings from "./pages/landlord/Settings";
 // Tenant Pages (tenant-specific components only)
 import TenantDashboard from "./pages/tenant/Dashboard";
 import TenantRentalSearch from "./pages/tenant/RentalSearch";
-import TenantProperties from "./pages/tenant/Properties";
-import TenantPropertyListings from "./pages/tenant/PropertyListings";
+import TenantProperties from "./pages/tenant/Properties"; 
 import TenantPropertyManager from "./pages/tenant/PropertyManager";
 import TenantIssueWarning from "./pages/tenant/IssueWarning";
 import TenantMyOffers from "./pages/tenant/MyOffers";
-import TenantMyProperty from "./pages/tenant/MyProperty";
+import TenantMyProperty from "./pages/tenant/MyProperty"; 
+import PastProperties from "./pages/tenant/PastProperties"; 
+import ForTenantsPropertyInspection from "./pages/tenant/PropertyInspection";
 
-// Test Components
-import DashboardTest from "./pages/DashboardTest";
 
 function App() {
   // const isAuthenticated = true;
@@ -57,9 +56,7 @@ function App() {
       {/* Auth Routes */}
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/register" element={<Register />} />
-
-      {/* Test Routes */}
-      <Route path="/dashboard-test" element={<DashboardTest />} />
+ 
 
       {/* Landlord */}
       <Route path="/landlord" element={<LandLordLayout />}>
@@ -93,12 +90,12 @@ function App() {
         <Route path="dashboard" element={<TenantDashboard />} />
         <Route path="rental-search" element={<TenantRentalSearch />} />
         <Route path="properties" element={<TenantProperties />} />
-        <Route path="property-listings" element={<TenantPropertyListings />} />
+        <Route path="past-properties" element={<PastProperties />} />
         <Route path="property-manager" element={<TenantPropertyManager />} />
         <Route path="issue-warning" element={<TenantIssueWarning />} />
         <Route path="my-offers" element={<TenantMyOffers />} />
         <Route path="my-property" element={<TenantMyProperty />} />
-        <Route path="property-inspection" element={<PropertyInspection />} />
+        <Route path="property-inspection" element={<ForTenantsPropertyInspection />} />
         <Route path="maintenance" element={<Maintenance />} />
         <Route path="ratings" element={<Ratings />} />
         <Route path="messages" element={<Messages />} />
