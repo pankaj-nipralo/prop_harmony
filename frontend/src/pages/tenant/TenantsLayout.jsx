@@ -21,7 +21,7 @@ import { TopBar } from "@/components/layout/Topbar";
 const navItems = [
   { label: "Dashboard", path: "/tenants/dashboard", icon: LayoutDashboard },
   { label: "Rental Search", path: "/tenants/rental-search", icon: Search },
-  { label: "My Offers", path: "/tenants/offers", icon: HandCoins },
+  { label: "My Offers", path: "/tenants/my-offers", icon: HandCoins },
   { label: "My Property", path: "/tenants/properties", icon: Home },
   {
     label: "Past Properties",

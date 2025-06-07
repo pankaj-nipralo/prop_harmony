@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
+
+import MyPropertyMaster from "../../components/tenants/MyProperty/MyPropertyMaster";
 
 const Properties = () => {
-  return (
-    <div>Properties</div>
-  )
-}
+  return <MyPropertyMaster />;
+};
 
-export default Properties
+export default Properties;

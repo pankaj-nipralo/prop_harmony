@@ -38,6 +38,8 @@ import TenantProperties from "./pages/tenant/Properties";
 import TenantPropertyListings from "./pages/tenant/PropertyListings";
 import TenantPropertyManager from "./pages/tenant/PropertyManager";
 import TenantIssueWarning from "./pages/tenant/IssueWarning";
+import TenantMyOffers from "./pages/tenant/MyOffers";
+import TenantMyProperty from "./pages/tenant/MyProperty";
 
 // Test Components
 import DashboardTest from "./pages/DashboardTest";
@@ -94,6 +96,8 @@ function App() {
         <Route path="property-listings" element={<TenantPropertyListings />} />
         <Route path="property-manager" element={<TenantPropertyManager />} />
         <Route path="issue-warning" element={<TenantIssueWarning />} />
+        <Route path="my-offers" element={<TenantMyOffers />} />
+        <Route path="my-property" element={<TenantMyProperty />} />
         <Route path="property-inspection" element={<PropertyInspection />} />
         <Route path="maintenance" element={<Maintenance />} />
         <Route path="ratings" element={<Ratings />} />
