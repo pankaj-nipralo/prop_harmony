@@ -3,9 +3,7 @@ import PropertiesBody from "./PropertiesBody";
 
 const PropertiesMaster = () => {
   return (
-    <div className="min-h-screen p-12">
-      <PropertiesBody />
-    </div>
+    <PropertiesBody />
   );
 };
 

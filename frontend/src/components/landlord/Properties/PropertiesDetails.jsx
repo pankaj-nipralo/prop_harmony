@@ -124,9 +124,9 @@ const PropertiesDetails = () => {
   };
 
   return (
-    <div className="p-4 bg-transparent md:p-8">
+    <div className="bg-transparent">
       <button
-        className="px-4 py-2 mb-4 text-sm font-medium transition border border-gray-300 rounded-lg cursor-pointer hover:bg-[#3f5c88] hover:text-gray-100 duration-200 text-gray-700 flex items-center gap-2"
+        className="px-4 py-2 mb-6 text-sm font-medium transition border border-gray-300 rounded-lg cursor-pointer hover:bg-blue-500 hover:text-white duration-200 text-gray-700 flex items-center gap-2"
         aria-label="Back to Properties"
         onClick={() => navigate(-1)}
       >
@@ -256,7 +256,7 @@ const PropertiesDetails = () => {
                 className="w-full bg-amber-50"
               >
                 <DialogTrigger asChild>
-                  <button className="px-4 py-2 bg-[#223a5f] text-white rounded-lg font-semibold hover:bg-[#1a2e4a] transition">
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition">
                     Upload Document
                   </button>
                 </DialogTrigger>
@@ -270,7 +270,7 @@ const PropertiesDetails = () => {
                     onChange={handleDocUpload}
                   />
                   <button
-                    className="px-4 py-2 bg-[#223a5f] text-white rounded-lg font-semibold hover:bg-[#1a2e4a] transition cursor-pointer"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition cursor-pointer"
                     onClick={() => setShowDocDialog(false)}
                   >
                     Cancel
@@ -377,7 +377,7 @@ const PropertiesDetails = () => {
                 onOpenChange={setShowWorkOrderDialog}
               >
                 <DialogTrigger asChild>
-                  <button className="flex items-center gap-2 px-4 py-2 text-white bg-[#223a5f] rounded-lg font-semibold hover:bg-[#1a2e4a] transition text-sm">
+                  <button className="flex items-center gap-2 px-4 py-2 text-white bg-blue-500 rounded-lg font-semibold hover:bg-blue-600 transition text-sm">
                     <span className="text-lg font-bold leading-none">+</span>{" "}
                     New Work Order
                   </button>
@@ -442,7 +442,7 @@ const PropertiesDetails = () => {
                       Cancel
                     </button>
                     <button
-                      className="px-4 py-2 bg-[#223a5f] text-white rounded-lg font-semibold hover:bg-[#1a2e4a] transition"
+                      className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition"
                       onClick={handleAddWorkOrder}
                     >
                       Add
@@ -565,7 +565,7 @@ const PropertiesDetails = () => {
             <div className="grid grid-cols-1 gap-4 p-6 bg-transparent md:grid-cols-2 lg:grid-cols-4">
               <div className="p-6 bg-white border border-gray-200 rounded-xl">
                 <div className="mb-1 text-sm text-gray-500">Monthly Rent</div>
-                <div className="text-2xl font-bold text-[#223a5f]">
+                <div className="text-2xl font-bold text-blue-500">
                   AED 8,500
                 </div>
               </div>
@@ -573,7 +573,7 @@ const PropertiesDetails = () => {
                 <div className="mb-1 text-sm text-gray-500">
                   Security Deposit
                 </div>
-                <div className="text-2xl font-bold text-[#223a5f]">AED 0</div>
+                <div className="text-2xl font-bold text-blue-500">AED 0</div>
               </div>
               <div className="p-6 bg-white border border-gray-200 rounded-xl">
                 <div className="mb-1 text-sm text-gray-500">Total Paid</div>

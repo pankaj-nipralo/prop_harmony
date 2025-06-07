@@ -57,8 +57,7 @@ const LandLordLayout = () => {
       <Sidebar navItems={navItems} title={"Prop Harmony"} user={"Landlord"} />
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* TopBar with mobile menu button */}
-        <TopBar
-          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+        <TopBar 
           navItems={navItems} // Pass the same navItems
           user={{
             name: "John Doe",

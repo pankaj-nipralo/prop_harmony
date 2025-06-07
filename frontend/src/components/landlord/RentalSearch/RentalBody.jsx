@@ -117,17 +117,17 @@ const RentalBody = () => {
   });
 
   return (
-    <div className="min-h-screen ">
+    <div className="bg-transparent">
       {/* Filters */}
-      <div className="flex flex-wrap items-center gap-4 p-5 mb-8 bg-white rounded-lg shadow-100 ">
+      <div className="flex flex-wrap items-center gap-4 p-6 mb-6 bg-white border border-gray-200 rounded-xl shadow-md">
         <input
-          className="flex-1 min-w-[220px] px-4 py-2 bg-gray-100  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+          className="flex-1 min-w-[220px] px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
           placeholder="Search by title or location..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
-          className="px-4 py-2 bg-white rounded-lg min-w-[180px] shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="px-4 py-2 bg-white border border-gray-200 rounded-lg min-w-[180px] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
           value={bedrooms}
           onChange={(e) => setBedrooms(e.target.value)}
         >
@@ -139,14 +139,14 @@ const RentalBody = () => {
         </select>
 
         <input
-          className="px-4 py-2 bg-gray-100  rounded-lg min-w-[120px] shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
           placeholder="Min Price"
           value={minPrice}
           onChange={(e) => setMinPrice(e.target.value)}
           type="number"
         />
         <input
-          className="px-4 py-2 bg-gray-100 rounded-lg min-w-[120px] shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
           placeholder="Max Price"
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value)}
@@ -159,7 +159,7 @@ const RentalBody = () => {
         {filteredRentals.map((rental) => (
           <div
             key={rental.id}
-            className="relative flex flex-col p-0 transition-shadow duration-200 bg-white shadow-md rounded-xl hover:shadow-lg"
+            className="relative flex flex-col p-0 transition-all duration-200 bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg hover:border-blue-300 hover:scale-[1.02]"
           >
             <div className="relative flex items-center justify-center w-full h-48 overflow-hidden bg-gray-100 rounded-t-xl">
               <img
@@ -181,13 +181,13 @@ const RentalBody = () => {
                 />
               </button>
             </div>
-            <div className="flex flex-col flex-1 p-4">
-              <div className="flex items-center justify-between mb-1">
-                <div className="text-base font-semibold text-gray-900 truncate">
+            <div className="flex flex-col flex-1 p-6">
+              <div className="flex items-start justify-between mb-2">
+                <div className="text-lg font-semibold text-gray-900 flex-1 mr-2 line-clamp-1">
                   {rental.title}
                 </div>
                 <span
-                  className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                  className={`px-3 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${
                     rental.status === "Available"
                       ? "text-green-700 bg-green-100"
                       : "text-blue-700 bg-blue-100"
@@ -200,38 +200,38 @@ const RentalBody = () => {
                 <MapPin className="w-4 h-4 mr-1 text-gray-400" />
                 {rental.location}
               </div>
-              <div className="text-lg font-bold text-[#223a5f] mb-2">
+              <div className="text-xl font-bold text-blue-500 mb-3">
                 AED {rental.price.toLocaleString()}/month
               </div>
-              <div className="flex items-center gap-4 mb-2 text-sm text-gray-600">
-                <div className="flex items-center">
+              <div className="grid grid-cols-2 gap-2 mb-3 p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center text-sm text-gray-600">
                   <Star
                     className="w-4 h-4 mr-1 text-yellow-400"
                     fill="#facc15"
                   />
                   {rental.rating}
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-sm text-gray-600">
                   <Bed className="w-4 h-4 mr-1" />
                   {rental.beds} beds
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-sm text-gray-600">
                   <Bath className="w-4 h-4 mr-1" />
                   {rental.baths} baths
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-sm text-gray-600">
                   <Ruler className="w-4 h-4 mr-1" />
                   {rental.size} sq ft
                 </div>
               </div>
-              <div className="flex gap-2 mt-auto">
+              <div className="flex gap-2 mt-auto pt-2">
                 <button
-                  className="flex-1 px-3 py-1 font-medium text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a] transition-colors"
+                  className="flex-1 px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
                   onClick={() => openDetails(rental)}
-                >            
+                >
                   View Details
                 </button>
-                <button className="flex-1 px-3 py-1 font-medium text-[#223a5f] border border-[#223a5f] rounded-lg hover:bg-gray-50 transition-colors">
+                <button className="flex-1 px-3 py-2 text-sm font-medium text-blue-500 border border-blue-500 rounded-lg hover:bg-blue-50 transition-colors">
                   Contact
                 </button>
               </div>
@@ -269,7 +269,7 @@ const RentalBody = () => {
                   <MapPin className="w-4 h-4 mr-1 text-gray-400" />
                   {selected.location}
                 </div>
-                <div className="text-2xl font-bold text-[#223a5f] mb-4">
+                <div className="text-2xl font-bold text-blue-500 mb-4">
                   AED {selected.price.toLocaleString()}/month
                 </div>
                 <div className="flex items-center gap-4 mb-6 text-sm text-gray-600">
@@ -299,7 +299,7 @@ const RentalBody = () => {
                     Contact Agent
                   </button>
                   <button
-                    className="px-6 py-2 font-medium text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a] transition-colors"
+                    className="px-6 py-2 font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
                     onClick={() => setShowModal(false)}
                   >
                     Close

@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Bell, Search, Menu, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function TopBar({
-  onMenuClick,
+export function TopBar({ 
   user = {},
   className,
   navItems = [], // Accept navItems prop
@@ -29,7 +28,7 @@ export function TopBar({
     >
       {/* Left side */}
       <div className="flex items-center gap-4">
-        <Button
+        {/* <Button
           variant="ghost"
           size="icon"
           className="md:hidden"
@@ -37,7 +36,7 @@ export function TopBar({
           aria-label="Toggle menu"
         >
           <Menu className="w-5 h-5" />
-        </Button>
+        </Button> */}
 
         <h1 className="text-lg font-semibold text-gray-900">
           {getCurrentTitle()}

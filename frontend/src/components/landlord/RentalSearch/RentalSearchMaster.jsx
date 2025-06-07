@@ -4,10 +4,10 @@ import RentalBody from "./RentalBody";
 
 const RentalSearchMaster = () => {
   return (
-    <>
+    <div className=" p-6">
       <RentalHeader />
       <RentalBody />
-    </>
+    </div>
   );
 };
 

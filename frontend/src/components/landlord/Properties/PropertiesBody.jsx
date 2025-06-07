@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import { Star, Home, MapPin, Calendar, Plus, Building} from "lucide-react";
-
-const statusColorMap = {
-  active: "bg-green-100 text-green-700",
-  pending: "bg-yellow-100 text-yellow-700",
-  ended: "bg-gray-100 text-gray-700",
-};
-
-const featureColor =
-  "bg-[#5c7290] text-white/90 px-3 py-1 rounded-full text-xs font-medium mr-2 mb-2 inline-block";
+import { Star, Home, Calendar, Plus, Building} from "lucide-react";
 
 const defaultForm = {
   title: "",
@@ -95,18 +86,18 @@ const PropertiesBody = () => {
   };
 
   return (
-    <div className="p-6 mx-auto bg-transparent">
+    <div className="bg-transparent p-6">
       <div className="flex items-center justify-between w-full mb-6">
         <div className="flex items-center gap-3">
         <Building className="w-8 h-8 text-blue-600" />
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">My Properties</h1>
+          <h1 className="text-2xl font-bold text-gray-900">My Properties</h1>
           <p className="mt-1 text-gray-600">Manage Properties Here</p>
         </div>
       </div>
         <Dialog open={showModal} onOpenChange={setShowModal}>
           <DialogTrigger asChild>
-            <button className="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a] transition">
+            <button className="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition">
               <Plus className="w-5 h-5" /> Add Property
             </button>
           </DialogTrigger>
@@ -210,7 +201,7 @@ const PropertiesBody = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 font-semibold text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a]"
+                  className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600"
                 >
                   Add Property
                 </button>
@@ -223,42 +214,44 @@ const PropertiesBody = () => {
         {properties.map((property) => (
           <div
             key={property.id}
-            className="p-5 transition bg-white border border-gray-200 shadow-md cursor-pointer rounded-xl hover:shadow-lg hover:border-blue-200"
+            className="p-6 transition-all duration-200 bg-white border border-gray-200 shadow-md cursor-pointer rounded-xl hover:shadow-lg hover:border-blue-300 hover:scale-[1.02]"
             onClick={() => navigate(`/landlord/properties/${property.id}`)}
           >
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-lg font-bold leading-tight text-gray-900">
+            <div className="flex items-start justify-between mb-3">
+              <h2 className="text-lg font-bold leading-tight text-gray-900 flex-1 mr-2">
                 {property.title}
               </h2>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg">
                 <Star className="w-4 h-4 text-yellow-400" fill="#facc15" />
                 <span className="text-sm font-semibold text-yellow-600">
                   {property.rating}
                 </span>
               </div>
             </div>
-            <div className="flex items-center mb-2 text-sm text-gray-600">
-              <Home className="w-4 h-4 mr-1 text-gray-400" />
-              {property.location}
+            <div className="flex items-center mb-3 text-sm text-gray-600">
+              <Home className="w-4 h-4 mr-2 text-gray-400" />
+              <span className="line-clamp-1">{property.location}</span>
             </div>
-            <div className="flex items-center mb-2 text-xs text-gray-500">
-              <Calendar className="w-4 h-4 mr-1 text-gray-400" />
-              {getStatusLabel(property.status)}
-              <span className="mr-2">
-                {property.daysRemaining} days remaining
-              </span>
-              <span className="ml-auto">
-                Ends{" "}
-                {new Date(property.leaseEnd).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </span>
+            <div className="flex items-center justify-between mb-4 p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-gray-400" />
+                {getStatusLabel(property.status)}
+              </div>
+              <div className="text-xs text-gray-500 text-right">
+                <div>{property.daysRemaining} days remaining</div>
+                <div>
+                  Ends{" "}
+                  {new Date(property.leaseEnd).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </div>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="flex flex-wrap gap-2">
               {property.features.map((feature, idx) => (
-                <span key={idx} className={featureColor}>
+                <span key={idx} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
                   {feature}
                 </span>
               ))}

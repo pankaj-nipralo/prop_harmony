@@ -183,12 +183,12 @@ const ListingBody = () => {
   };
 
   return (
-    <div className="min-h-screen p-6">
-      <div className="flex items-center gap-2 ">
+    <div className="bg-transparent">
+      <div className="flex items-center justify-between w-full mb-6">
         <div className="flex items-center gap-3">
           <Building2 className="w-8 h-8 text-blue-600" />
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Properties Listings</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Property Listings</h1>
             <p className="mt-1 text-gray-600">
               Manage rental listings and view inquiries
             </p>
@@ -197,7 +197,7 @@ const ListingBody = () => {
         <Dialog open={showModal} onOpenChange={setShowModal}>
           <DialogTrigger asChild>
             <button
-              className="ml-auto cursor-pointer flex items-center gap-2 px-4 py-2 font-semibold text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a] transition"
+              className="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition"
               onClick={openCreateModal}
             >
               <Plus className="w-5 h-5" /> Add Listing
@@ -422,7 +422,7 @@ const ListingBody = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-4 py-2 font-semibold text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a]"
+                      className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600"
                     >
                       {modalType === "edit" ? "Save Changes" : "Create Listing"}
                     </button>
@@ -433,22 +433,22 @@ const ListingBody = () => {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="flex gap-4 pt-4 mb-4">
-        <div className="flex flex-col items-center flex-1 p-4 bg-white rounded-lg shadow">
-          <span className="text-2xl font-bold">{listings.length}</span>
+      <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 rounded-xl shadow-md">
+          <span className="text-2xl font-bold text-gray-800">{listings.length}</span>
           <span className="mt-1 text-sm text-gray-500">Total Listings</span>
         </div>
-        <div className="flex flex-col items-center flex-1 p-4 bg-white rounded-lg shadow">
+        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 rounded-xl shadow-md">
           <span className="text-2xl font-bold text-green-600">
             {listings.filter((l) => l.status === "Active").length}
           </span>
           <span className="mt-1 text-sm text-gray-500">Active</span>
         </div>
-        <div className="flex flex-col items-center flex-1 p-4 bg-white rounded-lg shadow">
+        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 rounded-xl shadow-md">
           <span className="text-2xl font-bold text-blue-600">0</span>
           <span className="mt-1 text-sm text-gray-500">Total Views</span>
         </div>
-        <div className="flex flex-col items-center flex-1 p-4 bg-white rounded-lg shadow">
+        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 rounded-xl shadow-md">
           <span className="text-2xl font-bold text-purple-600">0</span>
           <span className="mt-1 text-sm text-gray-500">Inquiries</span>
         </div>
@@ -457,44 +457,50 @@ const ListingBody = () => {
         {listings.map((listing) => (
           <div
             key={listing.id}
-            className="flex flex-col gap-2 p-5 bg-white border border-gray-200 shadow-md rounded-xl"
+            className="flex flex-col gap-3 p-6 bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg hover:border-blue-300 transition-all duration-200"
           >
-            <div className="flex items-center justify-between mb-1">
-              <div>
-                <div className="text-base font-semibold text-gray-900">
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex-1 mr-2">
+                <div className="text-lg font-semibold text-gray-900 mb-1">
                   {listing.title}
                 </div>
-                <div className="text-xs text-gray-500">
+                <div className="text-sm text-gray-500">
                   {listing.property || listing.location}
                 </div>
               </div>
-              <span className="px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">
+              <span className="px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full whitespace-nowrap">
                 {listing.status || "Active"}
               </span>
             </div>
-            <div className="text-lg font-bold text-[#223a5f]">
+            <div className="text-xl font-bold text-blue-500 mb-2">
               AED {listing.rent || listing.price}/month
             </div>
-            <div className="text-sm text-gray-700">{listing.description}</div>
-            <div className="flex justify-between mt-2 text-xs text-gray-500">
-              <span>{listing.views} views</span>
-              <span>{listing.inquiries} inquiries</span>
+            <div className="text-sm text-gray-700 line-clamp-2 mb-3">{listing.description}</div>
+            <div className="flex justify-between p-3 bg-gray-50 rounded-lg text-sm">
+              <div className="text-center">
+                <div className="font-semibold text-gray-900">{listing.views}</div>
+                <div className="text-xs text-gray-500">Views</div>
+              </div>
+              <div className="text-center">
+                <div className="font-semibold text-gray-900">{listing.inquiries}</div>
+                <div className="text-xs text-gray-500">Inquiries</div>
+              </div>
             </div>
-            <div className="flex gap-2 mt-3">
+            <div className="flex gap-2 mt-4">
               <button
-                className="flex-1 px-4 py-2 font-semibold text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100"
+                className="flex-1 px-3 py-2 text-sm font-medium text-blue-500 border border-blue-500 rounded-lg hover:bg-blue-50 transition-colors"
                 onClick={() => openViewModal(listing)}
               >
                 View
               </button>
               <button
-                className="flex-1 px-4 py-2 font-semibold text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100"
+                className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 onClick={() => openEditModal(listing)}
               >
                 Edit
               </button>
               <button
-                className="flex-1 px-4 py-2 font-semibold text-red-600 border border-red-200 rounded-lg hover:bg-red-50"
+                className="flex-1 px-3 py-2 text-sm font-medium text-red-600 border border-red-300 rounded-lg hover:bg-red-50 transition-colors"
                 onClick={() => handleDelete(listing.id)}
                 aria-label="Delete"
               >
