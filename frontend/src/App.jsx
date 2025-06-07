@@ -3,8 +3,13 @@ import "./App.css";
 import { Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
 
+// Auth Pages
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+
 // Layouts
 import LandLordLayout from "./pages/landlord/LandlordLayout";
+import TenantsLayout from "./pages/tenant/TenantsLayout";
 
 // Landlord Pages
 import Dashboard from "./pages/landlord/Dashboard";
@@ -26,6 +31,20 @@ import ReantalSearch from "./pages/landlord/ReantalSearch";
 import Reports from "./pages/landlord/Reports";
 import Settings from "./pages/landlord/Settings";
 
+// Tenant Pages
+import TenantDashboard from "./pages/tenant/Dashboard";
+import TenantRentalSearch from "./pages/tenant/RentalSearch";
+import TenantProperties from "./pages/tenant/Properties";
+import TenantPropertyListings from "./pages/tenant/PropertyListings";
+import TenantPropertyManager from "./pages/tenant/PropertyManager";
+import TenantIssueWarning from "./pages/tenant/IssueWarning";
+import TenantPropertyInspection from "./pages/tenant/PropertyInspection";
+import TenantMaintenance from "./pages/tenant/Maintenance";
+import TenantRatings from "./pages/tenant/Ratings";
+import TenantMessages from "./pages/tenant/Messages";
+import TenantPayments from "./pages/tenant/Payments";
+import TenantSettings from "./pages/tenant/Settings";
+
 function App() {
   // const isAuthenticated = true;
   // const user = {
@@ -36,11 +55,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
 
-      {/* auth */}
-      {/* <Route path="/auth" element={<AuthLayout />}>
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/signup" element={<Signup />} />
-      </Route> */}
+      {/* Auth Routes */}
+      <Route path="/auth/login" element={<Login />} />
+      <Route path="/auth/register" element={<Register />} />
 
       {/* Landlord */}
       <Route path="/landlord" element={<LandLordLayout />}>
@@ -69,8 +86,23 @@ function App() {
         <Route path="*" element={<Navigate to="/landlord/dashboard" />} />
       </Route>
 
-      {/* <Route path="tenants" element={<Tenants />} />
-        <Route path="requests" element={<Requests />} /> */}
+      {/* Tenant Routes */}
+      <Route path="/tenants" element={<TenantsLayout />}>
+        <Route path="dashboard" element={<TenantDashboard />} />
+        <Route path="rental-search" element={<TenantRentalSearch />} />
+        <Route path="properties" element={<TenantProperties />} />
+        <Route path="property-listings" element={<TenantPropertyListings />} />
+        <Route path="property-manager" element={<TenantPropertyManager />} />
+        <Route path="issue-warning" element={<TenantIssueWarning />} />
+        <Route path="property-inspection" element={<TenantPropertyInspection />} />
+        <Route path="maintenance" element={<TenantMaintenance />} />
+        <Route path="ratings" element={<TenantRatings />} />
+        <Route path="messages" element={<TenantMessages />} />
+        <Route path="payemnts" element={<TenantPayments />} />
+        <Route path="settings" element={<TenantSettings />} />
+
+        <Route path="*" element={<Navigate to="/tenants/dashboard" />} />
+      </Route>
     </Routes>
   );
 }
