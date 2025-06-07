@@ -257,7 +257,7 @@ const EmailsHeader = ({
       </div>
 
       {/* Quick Action Buttons */}
-      <div className="flex items-center justify-between p-4 bg-white border-0 rounded-lg shadow-sm">
+      {/* <div className="flex items-center justify-between p-4 bg-white border-0 rounded-lg shadow-sm">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-gray-700">Quick Actions:</span>
@@ -293,7 +293,7 @@ const EmailsHeader = ({
             )}
           </span>
         </div>
-      </div>
+      </div> */}
     </header>
   );
 };

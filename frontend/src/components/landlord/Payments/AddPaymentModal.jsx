@@ -214,7 +214,7 @@ const AddPaymentModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-screen overflow-y-auto border-0">
+      <DialogContent className="w-full md:max-w-5xl max-h-[90vh] overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3 text-xl font-bold text-gray-900">
             <div className="p-2 bg-blue-500 rounded-lg">
