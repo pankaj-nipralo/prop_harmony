@@ -31,19 +31,16 @@ import ReantalSearch from "./pages/landlord/ReantalSearch";
 import Reports from "./pages/landlord/Reports";
 import Settings from "./pages/landlord/Settings";
 
-// Tenant Pages
+// Tenant Pages (tenant-specific components only)
 import TenantDashboard from "./pages/tenant/Dashboard";
 import TenantRentalSearch from "./pages/tenant/RentalSearch";
 import TenantProperties from "./pages/tenant/Properties";
 import TenantPropertyListings from "./pages/tenant/PropertyListings";
 import TenantPropertyManager from "./pages/tenant/PropertyManager";
 import TenantIssueWarning from "./pages/tenant/IssueWarning";
-import TenantPropertyInspection from "./pages/tenant/PropertyInspection";
-import TenantMaintenance from "./pages/tenant/Maintenance";
-import TenantRatings from "./pages/tenant/Ratings";
-import TenantMessages from "./pages/tenant/Messages";
-import TenantPayments from "./pages/tenant/Payments";
-import TenantSettings from "./pages/tenant/Settings";
+
+// Test Components
+import DashboardTest from "./pages/DashboardTest";
 
 function App() {
   // const isAuthenticated = true;
@@ -58,6 +55,9 @@ function App() {
       {/* Auth Routes */}
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/register" element={<Register />} />
+
+      {/* Test Routes */}
+      <Route path="/dashboard-test" element={<DashboardTest />} />
 
       {/* Landlord */}
       <Route path="/landlord" element={<LandLordLayout />}>
@@ -94,12 +94,12 @@ function App() {
         <Route path="property-listings" element={<TenantPropertyListings />} />
         <Route path="property-manager" element={<TenantPropertyManager />} />
         <Route path="issue-warning" element={<TenantIssueWarning />} />
-        <Route path="property-inspection" element={<TenantPropertyInspection />} />
-        <Route path="maintenance" element={<TenantMaintenance />} />
-        <Route path="ratings" element={<TenantRatings />} />
-        <Route path="messages" element={<TenantMessages />} />
-        <Route path="payemnts" element={<TenantPayments />} />
-        <Route path="settings" element={<TenantSettings />} />
+        <Route path="property-inspection" element={<PropertyInspection />} />
+        <Route path="maintenance" element={<Maintenance />} />
+        <Route path="ratings" element={<Ratings />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="payemnts" element={<Payemnt />} />
+        <Route path="settings" element={<Settings />} />
 
         <Route path="*" element={<Navigate to="/tenants/dashboard" />} />
       </Route>

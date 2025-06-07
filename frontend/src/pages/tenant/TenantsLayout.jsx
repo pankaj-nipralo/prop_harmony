@@ -12,6 +12,7 @@ import {
   Wrench,
   Star,
   MessageCircle,
+  HandCoins,
   CreditCard,
   Settings,
 } from "lucide-react";
@@ -20,10 +21,23 @@ import { TopBar } from "@/components/layout/Topbar";
 const navItems = [
   { label: "Dashboard", path: "/tenants/dashboard", icon: LayoutDashboard },
   { label: "Rental Search", path: "/tenants/rental-search", icon: Search },
+  { label: "My Offers", path: "/tenants/offers", icon: HandCoins },
   { label: "My Property", path: "/tenants/properties", icon: Home },
-  { label: "Past Properties", path: "/tenants/property-listings", icon: History },
-  { label: "Property Managers", path: "/tenants/property-manager", icon: Users },
-  { label: "Report Landlord", path: "/tenants/issue-warning", icon: AlertTriangle },
+  {
+    label: "Past Properties",
+    path: "/tenants/property-listings",
+    icon: History,
+  },
+  {
+    label: "Property Managers",
+    path: "/tenants/property-manager",
+    icon: Users,
+  },
+  {
+    label: "Report Landlord",
+    path: "/tenants/issue-warning",
+    icon: AlertTriangle,
+  },
   {
     label: "Property Inspections",
     path: "/tenants/property-inspection",
@@ -40,10 +54,14 @@ const TenantsLayout = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <Sidebar navItems={navItems} title={"Prop Harmony"} user={"Tenant"} />
+      <Sidebar
+        navItems={navItems}
+        title={"Prop Harmony"}
+        user={"Tenant"}
+      />
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* TopBar with mobile menu button */}
-        <TopBar 
+        <TopBar
           navItems={navItems} // Pass the same navItems
           user={{
             name: "Pankaj Gupta",

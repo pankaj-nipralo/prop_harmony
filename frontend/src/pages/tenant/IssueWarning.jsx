@@ -1,28 +1,9 @@
-import React from 'react';
-import { AlertTriangle } from 'lucide-react';
+import React from 'react'
 
 const IssueWarning = () => {
   return (
-    <div className="bg-transparent">
-      <div className="flex items-center justify-between w-full mb-6">
-        <div className="flex items-center gap-3">
-          <AlertTriangle className="w-8 h-8 text-blue-600" />
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Report Landlord</h1>
-            <p className="mt-1 text-gray-600">
-              Report issues or concerns about your landlord
-            </p>
-          </div>
-        </div>
-      </div>
+    <div>IssueWarning</div>
+  )
+}
 
-      <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md">
-        <p className="text-gray-600">
-          Landlord reporting and issue submission form will be displayed here.
-        </p>
-      </div>
-    </div>
-  );
-};
-
-export default IssueWarning;
+export default IssueWarning
