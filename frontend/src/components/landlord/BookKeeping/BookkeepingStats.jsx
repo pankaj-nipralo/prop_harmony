@@ -85,40 +85,40 @@ const BookkeepingStats = ({ transactions }) => {
       bgColor: netProfit >= 0 ? "bg-green-50" : "bg-red-50",
       borderColor: netProfit >= 0 ? "border-green-200" : "border-red-200",
     },
-    {
-      id: 4,
-      label: "Total Transactions",
-      value: totalTransactions,
-      subtitle: "All records",
-      icon: PieChart,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-200",
-    },
-    {
-      id: 5,
-      label: "This Month",
-      value: thisMonthTransactions,
-      subtitle: "Current month",
-      icon: Calendar,
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-200",
-    },
-    {
-      id: 6,
-      label: "Properties",
-      value: uniqueProperties.size,
-      subtitle: "Active properties",
-      icon: Building,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-      borderColor: "border-orange-200",
-    },
+    // {
+    //   id: 4,
+    //   label: "Total Transactions",
+    //   value: totalTransactions,
+    //   subtitle: "All records",
+    //   icon: PieChart,
+    //   color: "text-blue-600",
+    //   bgColor: "bg-blue-50",
+    //   borderColor: "border-blue-200",
+    // },
+    // {
+    //   id: 5,
+    //   label: "This Month",
+    //   value: thisMonthTransactions,
+    //   subtitle: "Current month",
+    //   icon: Calendar,
+    //   color: "text-purple-600",
+    //   bgColor: "bg-purple-50",
+    //   borderColor: "border-purple-200",
+    // },
+    // {
+    //   id: 6,
+    //   label: "Properties",
+    //   value: uniqueProperties.size,
+    //   subtitle: "Active properties",
+    //   icon: Building,
+    //   color: "text-orange-600",
+    //   bgColor: "bg-orange-50",
+    //   borderColor: "border-orange-200",
+    // },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+    <div className="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
       {bookkeepingStats.map((stat) => {
         const IconComponent = stat.icon;
         return (
@@ -128,7 +128,7 @@ const BookkeepingStats = ({ transactions }) => {
               "p-6 transition-all duration-300 border-0 shadow-lg hover:shadow-xl cursor-pointer transform hover:-translate-y-1",
               stat.bgColor,
               stat.borderColor,
-              "border-l-4"
+              // "border-l-4"
             )}
           >
             <div className="flex items-center justify-between">

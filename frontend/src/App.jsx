@@ -37,7 +37,7 @@ import TenantDashboard from "./pages/tenant/Dashboard";
 import TenantRentalSearch from "./pages/tenant/RentalSearch";
 import TenantProperties from "./pages/tenant/Properties"; 
 import TenantPropertyManager from "./pages/tenant/PropertyManager";
-import TenantIssueWarning from "./pages/tenant/IssueWarning";
+import TenantsReportLandlord from "./pages/tenant/IssueWarning";
 import TenantMyOffers from "./pages/tenant/MyOffers";
 import TenantMyProperty from "./pages/tenant/MyProperty"; 
 import PastProperties from "./pages/tenant/PastProperties"; 
@@ -93,13 +93,13 @@ function App() {
         <Route path="properties" element={<TenantProperties />} />
         <Route path="past-properties" element={<PastProperties />} />
         <Route path="property-manager" element={<TenantPropertyManager />} />
-        <Route path="issue-warning" element={<TenantIssueWarning />} />
+        <Route path="report-landlord" element={<TenantsReportLandlord />} />
         <Route path="my-offers" element={<TenantMyOffers />} />
         <Route path="my-property" element={<TenantMyProperty />} />
         <Route path="property-inspection" element={<ForTenantsPropertyInspection />} />
         <Route path="maintenance" element={<Maintenance />} />
         <Route path="ratings" element={<Ratings />} />
-        <Route path="messages" element={<Messages />} />
+        <Route path="emails" element={<Messages />} />
         <Route path="payemnts" element={<Payemnt />} />
         <Route path="settings" element={<Settings />} />
 

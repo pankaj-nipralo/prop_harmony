@@ -26,10 +26,7 @@ import {
   propertyData,
   currentPropertyStatus,
 } from "../../../data/tenants/dashboard/propertyData";
-import {
-  applications,
-  applicationFilters,
-} from "../../../data/tenants/dashboard/applicationData";
+import { applications } from "../../../data/tenants/dashboard/applicationData";
 import {
   inspections,
   inspectionTableHeaders,
@@ -118,10 +115,7 @@ const DashboardMaster = () => {
       )}
 
       {activeTab === "applications" && (
-        <ApplicationsTab
-          applications={applications}
-          applicationFilters={applicationFilters}
-        />
+        <ApplicationsTab applications={applications} />
       )}
 
       {activeTab === "inspections" && (

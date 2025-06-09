@@ -35,7 +35,7 @@ const navItems = [
   },
   {
     label: "Report Landlord",
-    path: "/tenants/issue-warning",
+    path: "/tenants/report-landlord",
     icon: AlertTriangle,
   },
   {
@@ -45,7 +45,7 @@ const navItems = [
   },
   { label: "Maintenance", path: "/tenants/maintenance", icon: Wrench },
   { label: "Ratings", path: "/tenants/ratings", icon: Star },
-  { label: "Emails", path: "/tenants/messages", icon: MessageCircle },
+  { label: "Emails", path: "/tenants/emails", icon: MessageCircle },
   { label: "Payments", path: "/tenants/payemnts", icon: CreditCard },
   { label: "Settings", path: "/tenants/settings", icon: Settings },
 ];

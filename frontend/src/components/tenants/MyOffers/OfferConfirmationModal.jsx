@@ -10,8 +10,8 @@ const OfferConfirmationModal = ({
   if (!showModal || !confirmAction) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-xl max-w-md w-full mx-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-black/30">
+      <div className="w-full max-w-md mx-4 bg-white shadow-xl rounded-xl">
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-900">
@@ -19,12 +19,12 @@ const OfferConfirmationModal = ({
             </h3>
             <button 
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 transition-colors hover:text-gray-600"
             >
               <XCircle className="w-5 h-5" />
             </button>
           </div>
-          <p className="text-gray-600 mb-6">
+          <p className="mb-6 text-gray-600">
             Are you sure you want to {confirmAction.type} the offer for{' '}
             <span className="font-medium">{confirmAction.propertyName}</span>?
             {confirmAction.type === 'accept' && (
@@ -51,7 +51,7 @@ const OfferConfirmationModal = ({
             </button>
             <button 
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+              className="flex-1 px-4 py-2 font-medium text-gray-700 transition-colors border border-gray-300 rounded-lg hover:bg-gray-50"
             >
               Cancel
             </button>

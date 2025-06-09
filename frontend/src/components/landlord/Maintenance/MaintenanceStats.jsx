@@ -126,8 +126,7 @@ const MaintenanceStats = ({ maintenance }) => {
             className={cn(
               "p-6 transition-all duration-300 border-0 shadow-lg hover:shadow-xl cursor-pointer transform hover:-translate-y-1",
               stat.bgColor,
-              stat.borderColor,
-              "border-l-4"
+              stat.borderColor, 
             )}
           >
             <div className="flex items-center justify-between">
@@ -138,7 +137,7 @@ const MaintenanceStats = ({ maintenance }) => {
                     {stat.value}
                   </h3>
                 </div>
-                <p className="text-sm font-semibold text-gray-800 mb-1">
+                <p className="mb-1 text-sm font-semibold text-gray-800">
                   {stat.label}
                 </p>
                 <p className="text-xs text-gray-600">

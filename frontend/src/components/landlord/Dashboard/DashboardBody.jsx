@@ -1,25 +1,5 @@
 import React from "react";
-
-import {
-  Home,
-  CalendarDays,
-  CreditCard,
-  WrenchIcon,
-  AppWindowIcon,
-  CodeIcon,
-} from "lucide-react";
-import { dashboardData } from "@/data/landlord/dashboard/data";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+ 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardOverview from "./DashboardOverview";
 import DashboardProperties from "./DashboardProperties";
@@ -33,8 +13,8 @@ const DashboardBody = () => {
           <TabsTrigger
             value="overview"
             className="cursor-pointer relative px-4 py-4 rounded-md transition-all duration-200 
-                  data-[state=active]:bg-[#324867] data-[state=active]:text-white
-                  hover:bg-[#3b83f7] hover:text-white font-medium"
+                  data-[state=active]:bg-blue-600 data-[state=active]:text-white
+                  hover:bg-blue-400 hover:text-white font-medium"
           >
             Overview
           </TabsTrigger>
@@ -42,8 +22,8 @@ const DashboardBody = () => {
           <TabsTrigger
             value="properties"
             className="cursor-pointer relative px-4 py-4 rounded-md transition-all duration-200 
-                  data-[state=active]:bg-[#324867] data-[state=active]:text-white
-                  hover:bg-[#3b83f7] hover:text-white font-medium"
+                  data-[state=active]:bg-blue-600 data-[state=active]:text-white
+                  hover:bg-blue-400 hover:text-white font-medium"
           >
             Properties
           </TabsTrigger>
@@ -51,8 +31,8 @@ const DashboardBody = () => {
           <TabsTrigger
             value="maintenance"
             className="cursor-pointer relative px-4 py-4 rounded-md transition-all duration-200 
-                  data-[state=active]:bg-[#324867] data-[state=active]:text-white
-                  hover:bg-[#3b83f7] hover:text-white font-medium"
+                  data-[state=active]:bg-blue-600 data-[state=active]:text-white
+                  hover:bg-blue-400 hover:text-white font-medium"
           >
             Maintenance
           </TabsTrigger>
@@ -60,8 +40,8 @@ const DashboardBody = () => {
           <TabsTrigger
             value="payment"
             className="cursor-pointer relative px-4 py-4 rounded-md transition-all duration-200 
-                  data-[state=active]:bg-[#324867] data-[state=active]:text-white
-                  hover:bg-[#3b83f7] hover:text-white font-medium"
+                  data-[state=active]:bg-blue-600 data-[state=active]:text-white
+                  hover:bg-blue-400 hover:text-white font-medium"
           >
             Payments
           </TabsTrigger>

@@ -317,14 +317,14 @@ const TenantBody = ({ tenants }) => {
           </button>
         </div>
       </div>
-      <div className="grid w-full gap-3 gird-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid w-full gap-4 gird-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4">
         {displayedTenants.length === 0 ? (
           <div className="text-gray-500">No tenants found.</div>
         ) : (
           displayedTenants.map((t) => (
             <div
               key={t.id}
-              className="w-full max-w-sm p-4 bg-white shadow-sm rounded-xl"
+              className="w-full p-4 bg-white shadow-sm rounded-xl"
             >
               <div className="flex items-start justify-between">
                 <div>

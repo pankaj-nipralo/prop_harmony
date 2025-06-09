@@ -6,14 +6,10 @@ import {
   Home,
   History,
   Search,
-  Users,
-  AlertTriangle,
-  ClipboardCheck,
-  Wrench,
-  Star,
+  Users, 
+  ClipboardCheck, 
   MessageCircle,
-  HandCoins,
-  CreditCard,
+  HandCoins, 
   Settings,
 } from "lucide-react";
 import { TopBar } from "@/components/layout/Topbar";
@@ -46,7 +42,7 @@ const PropertyManagerLayout = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <Sidebar navItems={navItems} title={"Prop Harmony"} user={"Tenant"} />
+      <Sidebar navItems={navItems} title={"Prop Harmony"} user={"Manager"} />
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* TopBar with mobile menu button */}
         <TopBar

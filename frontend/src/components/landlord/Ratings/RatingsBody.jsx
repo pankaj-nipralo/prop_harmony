@@ -177,7 +177,7 @@ const RatingsBody = ({
       </Card>
 
       {/* Reviews List */}
-      <div className="p-4 space-y-4 bg-white border-0 shadow-sm rounded-2xl">
+      <div className="p-4 space-y-4 border-0 shadow-sm bg-gray-50 rounded-2xl">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-gray-900">
             Reviews ({filteredReviews.length})

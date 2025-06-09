@@ -127,8 +127,7 @@ const InspectionStats = ({ inspections }) => {
             className={cn(
               "p-6 transition-all duration-300 border-0 shadow-lg hover:shadow-xl cursor-pointer transform hover:-translate-y-1",
               stat.bgColor,
-              stat.borderColor,
-              "border-l-4"
+              stat.borderColor, 
             )}
           >
             <div className="flex items-center justify-between">
