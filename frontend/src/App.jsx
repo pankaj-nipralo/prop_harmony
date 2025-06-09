@@ -44,6 +44,7 @@ import TenantMyOffers from "./pages/tenant/MyOffers";
 import TenantMyProperty from "./pages/tenant/MyProperty"; 
 import PastProperties from "./pages/tenant/PastProperties"; 
 import ForTenantsPropertyInspection from "./pages/tenant/PropertyInspection";
+import TenantPaymentMaster from "./components/tenants/Payments/tenantsPaymentMaster";
 
 
 function App() {
@@ -102,7 +103,7 @@ function App() {
         <Route path="maintenance" element={<Maintenance />} />
         <Route path="ratings" element={<Ratings />} />
         <Route path="emails" element={<Messages />} />
-        <Route path="payemnts" element={<Payemnt />} />
+        <Route path="payemnts" element={<TenantPaymentMaster />} />
         <Route path="settings" element={<Settings />} />
 
         <Route path="*" element={<Navigate to="/tenants/dashboard" />} />
