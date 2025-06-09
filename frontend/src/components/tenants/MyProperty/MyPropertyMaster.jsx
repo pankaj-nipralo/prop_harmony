@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Import components
-import PropertyStatsCards from './PropertyStatsCards';
-import PropertyDetailsCard from './PropertyDetailsCard';
-import PropertyActionsPanel from './PropertyActionsPanel';
-import PropertyDocumentsSection from './PropertyDocumentsSection';
-import PropertyMaintenanceHistory from './PropertyMaintenanceHistory';
+import PropertyStatsCards from "./PropertyStatsCards";
+import PropertyDetailsCard from "./PropertyDetailsCard";
+import PropertyActionsPanel from "./PropertyActionsPanel";
+import PropertyDocumentsSection from "./PropertyDocumentsSection";
+import PropertyMaintenanceHistory from "./PropertyMaintenanceHistory";
 
 // Import data
-import { 
-  currentProperty, 
-  leaseInformation, 
-  contactInformation, 
-  propertyDocuments, 
-  // maintenanceHistory, 
-  propertyStats, 
-  quickActions 
-} from '../../../data/tenants/propertyPageData';
+import {
+  currentProperty,
+  leaseInformation,
+  contactInformation,
+  propertyDocuments,
+  // maintenanceHistory,
+  propertyStats,
+  quickActions,
+} from "../../../data/tenants/propertyPageData";
 
 const MyPropertyMaster = () => {
   const navigate = useNavigate();
@@ -30,20 +30,20 @@ const MyPropertyMaster = () => {
   };
 
   const handleContactLandlord = () => {
-    navigate('/tenants/messages', { 
-      state: { 
+    navigate("/tenants/messages", {
+      state: {
         recipient: contactInformation.landlord.name,
-        email: contactInformation.landlord.email 
-      }
+        email: contactInformation.landlord.email,
+      },
     });
   };
 
   const handleContactManager = () => {
-    navigate('/tenants/messages', { 
-      state: { 
+    navigate("/tenants/messages", {
+      state: {
         recipient: contactInformation.propertyManager.name,
-        email: contactInformation.propertyManager.email 
-      }
+        email: contactInformation.propertyManager.email,
+      },
     });
   };
 
@@ -52,18 +52,18 @@ const MyPropertyMaster = () => {
     setLoading(true);
     try {
       // Simulate document download
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = document.downloadUrl;
       link.download = document.name;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       // In a real app, you would track download analytics here
       console.log(`Downloaded: ${document.name}`);
     } catch (err) {
-      setError('Failed to download document');
-      console.error('Download error:', err);
+      setError("Failed to download document");
+      console.error("Download error:", err);
     } finally {
       setLoading(false);
     }
@@ -80,14 +80,16 @@ const MyPropertyMaster = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 p-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
-            <h2 className="text-xl font-semibold text-red-800 mb-2">Error Loading Property</h2>
+      <div className="min-h-screen p-6 bg-gray-50">
+        <div className="mx-auto max-w-7xl">
+          <div className="p-6 text-center border border-red-200 bg-red-50 rounded-xl">
+            <h2 className="mb-2 text-xl font-semibold text-red-800">
+              Error Loading Property
+            </h2>
             <p className="text-red-600">{error}</p>
-            <button 
+            <button
               onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              className="px-4 py-2 mt-4 text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
             >
               Retry
             </button>
@@ -98,49 +100,47 @@ const MyPropertyMaster = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Property</h1>
-          <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
-            Active Lease
-          </span>
+    <div className="min-h-screen p-6 bg-gray-50">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">My Property</h1>
+        <span className="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
+          Active Lease
+        </span>
+      </div>
+
+      {/* Property Stats Cards */}
+      <PropertyStatsCards stats={propertyStats} />
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 gap-8 xl:grid-cols-3 mb-7">
+        {/* Left Column - Property Details */}
+        <div className="xl:col-span-2">
+          <PropertyDetailsCard
+            property={currentProperty}
+            leaseInfo={leaseInformation}
+            contactInfo={contactInformation}
+            onContactLandlord={handleContactLandlord}
+            onContactManager={handleContactManager}
+          />
         </div>
 
-        {/* Property Stats Cards */}
-        <PropertyStatsCards stats={propertyStats} />
-
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          {/* Left Column - Property Details */}
-          <div className="xl:col-span-2">
-            <PropertyDetailsCard 
-              property={currentProperty}
-              leaseInfo={leaseInformation}
-              contactInfo={contactInformation}
-              onContactLandlord={handleContactLandlord}
-              onContactManager={handleContactManager}
-            />
-          </div>
-
-          {/* Right Column - Actions and Documents */}
-          <div className="space-y-6">
-            <PropertyDocumentsSection 
-              documents={propertyDocuments}
-              onDownloadDocument={handleDownloadDocument}
-            />
-            
-            <PropertyActionsPanel 
-              actions={quickActions}
-              onActionClick={handleActionClick}
-            />
-            
-          </div>
+        {/* Right Column - Actions and Documents */}
+        <div className="space-y-6">
+          <PropertyDocumentsSection
+            documents={propertyDocuments}
+            onDownloadDocument={handleDownloadDocument}
+          />
         </div>
+      </div>
 
-        {/* Maintenance History - Full Width */}
-        {/* <div className="mt-8">
+      <PropertyActionsPanel
+        actions={quickActions}
+        onActionClick={handleActionClick}
+      />
+
+      {/* Maintenance History - Full Width */}
+      {/* <div className="mt-8">
           <PropertyMaintenanceHistory 
             maintenanceHistory={maintenanceHistory}
             onViewDetails={handleViewMaintenanceDetails}
@@ -148,16 +148,15 @@ const MyPropertyMaster = () => {
           />
         </div> */}
 
-        {/* Loading Overlay */}
-        {loading && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-xl p-6 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
-              <p className="text-gray-600">Processing...</p>
-            </div>
+      {/* Loading Overlay */}
+      {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="p-6 text-center bg-white rounded-xl">
+            <div className="w-8 h-8 mx-auto mb-4 border-b-2 border-blue-500 rounded-full animate-spin"></div>
+            <p className="text-gray-600">Processing...</p>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

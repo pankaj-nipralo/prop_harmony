@@ -11,27 +11,27 @@ const PropertyDetailsCard = ({
   return (
     <div className="space-y-6">
       {/* Current Property Section */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+      <div className="bg-white border border-gray-200 shadow-sm rounded-xl">
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Home className="w-5 h-5 text-gray-600" />
               <h2 className="text-2xl font-semibold text-gray-900">Current Property</h2>
             </div>
-            <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
+            <span className="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
               {property.status}
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.name}</h3>
-              <div className="flex items-center text-gray-600 mb-4">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900">{property.name}</h3>
+              <div className="flex items-center mb-4 text-gray-600">
                 <MapPin className="w-4 h-4 mr-2" />
                 <span className="text-sm">{property.address}</span>
               </div>
 
-              <div className="space-y-2 mb-4">
+              <div className="mb-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Type:</span>
                   <span className="font-medium text-gray-900">{property.type}</span>
@@ -51,12 +51,12 @@ const PropertyDetailsCard = ({
               </div>
 
               <div className="mb-4">
-                <h4 className="text-sm font-medium text-gray-900 mb-2">Property Features</h4>
+                <h4 className="mb-2 text-sm font-medium text-gray-900">Property Features</h4>
                 <div className="flex flex-wrap gap-2">
                   {property.features.map((feature, index) => (
                     <span 
                       key={index}
-                      className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-md"
+                      className="px-2 py-1 text-xs text-blue-700 rounded-md bg-blue-50"
                     >
                       {feature}
                     </span>
@@ -67,19 +67,19 @@ const PropertyDetailsCard = ({
 
             <div className="space-y-4">
               {/* Lease Duration */}
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="p-4 rounded-lg bg-gray-50">
                 <div className="flex items-center gap-2 mb-3">
                   <Calendar className="w-4 h-4 text-gray-600" />
                   <h4 className="font-semibold text-gray-900">Lease Duration</h4>
                 </div>
                 <div className="mb-3">
-                  <div className="flex justify-between text-sm mb-1">
+                  <div className="flex justify-between mb-1 text-sm">
                     <span>Progress</span>
                     <span>{leaseInfo.progress}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full h-2 bg-gray-200 rounded-full">
                     <div 
-                      className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                      className="h-2 transition-all duration-300 bg-blue-500 rounded-full"
                       style={{ width: `${leaseInfo.progress}%` }}
                     ></div>
                   </div>
@@ -94,12 +94,12 @@ const PropertyDetailsCard = ({
                     <div className="font-medium text-gray-900">{leaseInfo.endDate}</div>
                   </div>
                 </div>
-                <div className="text-center mt-3">
+                <div className="mt-3 text-center">
                   <div className="text-2xl font-bold text-gray-900">{leaseInfo.daysRemaining}</div>
                   <div className="text-sm text-gray-600">Days Remaining</div>
                 </div>
                 {leaseInfo.renewalNotice && (
-                  <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded-md">
+                  <div className="p-2 mt-3 border border-yellow-200 rounded-md bg-yellow-50">
                     <div className="flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 text-yellow-600" />
                       <span className="text-xs text-yellow-800">{leaseInfo.renewalNotice}</span>
@@ -109,12 +109,12 @@ const PropertyDetailsCard = ({
               </div>
 
               {/* Rent Information */}
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="p-4 rounded-lg bg-gray-50">
                 <div className="flex items-center gap-2 mb-3">
                   <DollarSign className="w-4 h-4 text-gray-600" />
                   <h4 className="font-semibold text-gray-900">Rent Information</h4>
                 </div>
-                <div className="text-center mb-4">
+                <div className="mb-4 text-center">
                   <div className="text-2xl font-bold text-gray-900">{leaseInfo.monthlyRent}</div>
                   <div className="text-sm text-gray-600">Monthly Rent</div>
                 </div>
@@ -132,7 +132,7 @@ const PropertyDetailsCard = ({
                     <span className="font-medium text-gray-900">{leaseInfo.nextPaymentDate}</span>
                   </div>
                 </div>
-                <button className="w-full mt-3 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium">
+                <button className="w-full px-4 py-2 mt-3 text-sm font-medium text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
                   Pay Rent
                 </button>
               </div>
@@ -142,16 +142,16 @@ const PropertyDetailsCard = ({
       </div>
 
       {/* Contact Information */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+      <div className="bg-white border border-gray-200 shadow-sm rounded-xl">
         <div className="p-6">
           <div className="flex items-center gap-2 mb-4">
             <User className="w-5 h-5 text-gray-600" />
             <h2 className="text-2xl font-semibold text-gray-900">Contact Information</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <h4 className="font-semibold text-gray-900 mb-3">Landlord</h4>
+              <h4 className="mb-3 font-semibold text-gray-900">Landlord</h4>
               <div className="space-y-2">
                 <div className="flex items-center text-gray-600">
                   <User className="w-4 h-4 mr-2" />
@@ -168,14 +168,14 @@ const PropertyDetailsCard = ({
               </div>
               <button 
                 onClick={onContactLandlord}
-                className="w-full mt-3 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
+                className="w-full px-4 py-2 mt-3 text-sm font-medium text-gray-700 transition-colors border border-gray-300 rounded-lg hover:bg-gray-50"
               >
                 Contact Landlord
               </button>
             </div>
 
             <div>
-              <h4 className="font-semibold text-gray-900 mb-3">Property Manager</h4>
+              <h4 className="mb-3 font-semibold text-gray-900">Property Manager</h4>
               <div className="space-y-2">
                 <div className="flex items-center text-gray-600">
                   <User className="w-4 h-4 mr-2" />
@@ -192,7 +192,7 @@ const PropertyDetailsCard = ({
               </div>
               <button 
                 onClick={onContactManager}
-                className="w-full mt-3 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium"
+                className="w-full px-4 py-2 mt-3 text-sm font-medium text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600"
               >
                 Contact Manager
               </button>

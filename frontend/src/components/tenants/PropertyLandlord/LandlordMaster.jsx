@@ -41,7 +41,7 @@ const LandlordMaster = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-6">
       {/* Header with Navigation */}
       <ReportHeader
         activeTab={activeTab}
@@ -67,8 +67,8 @@ const LandlordMaster = () => {
       )}
 
       {activeTab === 'history' && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Report History</h3>
+        <div className="p-8 text-center bg-white border border-gray-200 rounded-lg shadow-sm">
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">Report History</h3>
           <p className="text-gray-600">No previous reports found.</p>
         </div>
       )}

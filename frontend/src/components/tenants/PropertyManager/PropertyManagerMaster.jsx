@@ -11,11 +11,11 @@ import { managerData, responsibilitiesData, activitiesData, emergencyData } from
 
 const PropertyManagerMaster = () => {
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Property Manager</h1>
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+        <span className="inline-flex items-center px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
           Active
         </span>
       </div>
