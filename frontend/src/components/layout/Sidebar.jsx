@@ -96,7 +96,7 @@ function SidebarItems({ isCollapsed, navItems }) {
               "group flex items-center rounded-lg md:rounded-xl font-sm transition-all duration-200",
               "py-2 px-2 mx-1 md:py-3 md:px-4",
               isActive
-                ? "bg-blue-400/30 text-white shadow"
+                ? "bg-[#324d71] text-white shadow"
                 : "text-white/60 hover:bg-blue-100/10 hover:text-white",
               isCollapsed ? "justify-center" : "justify-start"
             )
