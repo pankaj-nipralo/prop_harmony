@@ -11,32 +11,18 @@ import {
   FileText,
   MessageSquare,
   Palette,
-  Save,
-  X,
-  Edit,
-  Camera,
-  Phone,
-  Mail,
-  MapPin,
+  Save,  
+  Camera, 
   Key,
-  Smartphone,
-  History,
-  DollarSign,
+  Smartphone, 
   Clock,
   Globe,
   Moon,
   Sun,
   Monitor,
-  Check,
-  AlertCircle,
+  Check, 
   Eye,
-  EyeOff,
-  Upload,
-  Download,
-  Trash2,
-  Plus,
-  Home,
-  Lock,
+  EyeOff, 
   Database,
 } from "lucide-react";
 
@@ -56,12 +42,12 @@ const SettingsMaster = () => {
 
   // Form states
   const [profileData, setProfileData] = useState({
-    firstName: "John",
-    lastName: "Smith",
-    email: "john.smith@propertyharmony.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Main Street, City, State 12345",
-    company: "Smith Properties LLC",
+    firstName: "Pankaj",
+    lastName: "Gupta",
+    email: "SP@propharmony.com",
+    phone: "+91 12345 67890",
+    address: "106, Main Street, City, State 12345",
+    company: "SP LLC",
     profilePicture: null,
   });
 
@@ -178,30 +164,48 @@ const SettingsMaster = () => {
       icon: User,
       description: "Personal information and contact details",
     },
-    {
-      id: "property",
-      name: "Property Management",
-      icon: Building,
-      description: "Default lease terms and property settings",
-    },
+    // {
+    //   id: "property",
+    //   name: "Property Management",
+    //   icon: Building,
+    //   description: "Default lease terms and property settings",
+    // },
     {
       id: "notifications",
       name: "Notifications",
       icon: Bell,
       description: "Email, SMS, and push notification preferences",
     },
-    {
-      id: "security",
-      name: "Security",
-      icon: Shield,
-      description: "Password, 2FA, and security settings",
-    },
+    // {
+    //   id: "security",
+    //   name: "Security",
+    //   icon: Shield,
+    //   description: "Password, 2FA, and security settings",
+    // },
     {
       id: "payment",
       name: "Payment & Billing",
       icon: CreditCard,
       description: "Bank details and payment processing",
     },
+    // {
+    //   id: "documents",
+    //   name: "Document Management",
+    //   icon: FileText,
+    //   description: "Templates, storage, and retention policies",
+    // },
+    // {
+    //   id: "communication",
+    //   name: "Tenant Communication",
+    //   icon: MessageSquare,
+    //   description: "Auto-responses and communication settings",
+    // },
+    // {
+    //   id: "system",
+    //   name: "System Preferences",
+    //   icon: Palette,
+    //   description: "Theme, language, and dashboard customization",
+    // },
   ];
 
   // Handler functions
@@ -315,7 +319,7 @@ const SettingsMaster = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+        {/* <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
           <Card className="p-6 border-0 shadow-sm">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-blue-100 rounded-lg">
@@ -375,13 +379,13 @@ const SettingsMaster = () => {
               </div>
             </div>
           </Card>
-        </div>
+        </div> */}
 
         {/* Main Content */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
           {/* Settings Navigation */}
           <div className="lg:col-span-1">
-            <Card className="p-4 border-0 shadow-sm">
+            <Card className="p-4 bg-white border-0 shadow-sm">
               <nav className="space-y-2">
                 {settingsSections.map((section) => {
                   const IconComponent = section.icon;
@@ -414,7 +418,7 @@ const SettingsMaster = () => {
           {/* Settings Content */}
           <div className="lg:col-span-3">
             {activeSection === "profile" && (
-              <Card className="p-6 border-0 shadow-sm">
+              <Card className="p-6 bg-white border-0 shadow-sm">
                 <h3 className="mb-6 text-lg font-semibold text-gray-900">
                   Profile Settings
                 </h3>
@@ -559,7 +563,7 @@ const SettingsMaster = () => {
                   <div className="flex justify-end pt-4">
                     <button
                       onClick={() => setPasswordChangeModal(true)}
-                      className="flex items-center gap-2 px-4 py-2 mr-3 text-sm font-medium text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100"
+                      className="flex items-center gap-2 px-4 py-2 mr-3 text-sm font-medium text-blue-600 transition-colors bg-white rounded-lghover:bg-blue-100"
                     >
                       <Key size={16} />
                       Change Password
@@ -760,7 +764,7 @@ const SettingsMaster = () => {
             {/* Notifications Settings */}
             {activeSection === "notifications" && (
               <div className="space-y-6">
-                <Card className="p-6 border-0 shadow-sm">
+                <Card className="p-6 bg-white border-0 shadow-sm">
                   <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
                     <Bell className="w-5 h-5 text-blue-600" />
                     Email Notifications
@@ -813,7 +817,7 @@ const SettingsMaster = () => {
                   </div>
                 </Card>
 
-                <Card className="p-6 border-0 shadow-sm">
+                {/* <Card className="p-6 border-0 shadow-sm">
                   <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
                     <Smartphone className="w-5 h-5 text-blue-600" />
                     SMS Notifications
@@ -860,9 +864,9 @@ const SettingsMaster = () => {
                       )
                     )}
                   </div>
-                </Card>
+                </Card> */}
 
-                <Card className="p-6 border-0 shadow-sm">
+                <Card className="p-6 bg-white border-0 shadow-sm">
                   <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
                     <Globe className="w-5 h-5 text-blue-600" />
                     Push Notifications
@@ -1023,7 +1027,7 @@ const SettingsMaster = () => {
             {/* Payment & Billing Settings */}
             {activeSection === "payment" && (
               <div className="space-y-6">
-                <Card className="p-6 border-0 shadow-sm">
+                <Card className="p-6 bg-white border-0 shadow-sm Bank Account">
                   <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
                     <CreditCard className="w-5 h-5 text-blue-600" />
                     Bank Account Information
@@ -1094,7 +1098,7 @@ const SettingsMaster = () => {
                   </div>
                 </Card>
 
-                <Card className="p-6 border-0 shadow-sm">
+                {/* <Card className="p-6 border-0 shadow-sm">
                   <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
                     <DollarSign className="w-5 h-5 text-blue-600" />
                     Processing Fees
@@ -1164,9 +1168,9 @@ const SettingsMaster = () => {
                       />
                     </div>
                   </div>
-                </Card>
+                </Card> */}
 
-                <Card className="p-6 border-0 shadow-sm">
+                <Card className="p-6 bg-white border-0 shadow-sm">
                   <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
                     <Clock className="w-5 h-5 text-blue-600" />
                     Payment Preferences
@@ -1401,6 +1405,349 @@ const SettingsMaster = () => {
                           {documentSettings.cloudStorage}
                         </span>
                       </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            )}
+
+            {/* Tenant Communication Settings */}
+            {activeSection === "communication" && (
+              <div className="space-y-6">
+                <Card className="p-6 border-0 shadow-sm">
+                  <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
+                    <MessageSquare className="w-5 h-5 text-blue-600" />
+                    Auto-Response Messages
+                  </h3>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-700">
+                        Maintenance Request Response
+                      </label>
+                      <textarea
+                        value={
+                          communicationSettings.autoResponses
+                            .maintenanceRequests
+                        }
+                        onChange={(e) =>
+                          setCommunicationSettings((prev) => ({
+                            ...prev,
+                            autoResponses: {
+                              ...prev.autoResponses,
+                              maintenanceRequests: e.target.value,
+                            },
+                          }))
+                        }
+                        rows={3}
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter auto-response message for maintenance requests..."
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-700">
+                        General Inquiry Response
+                      </label>
+                      <textarea
+                        value={
+                          communicationSettings.autoResponses.generalInquiries
+                        }
+                        onChange={(e) =>
+                          setCommunicationSettings((prev) => ({
+                            ...prev,
+                            autoResponses: {
+                              ...prev.autoResponses,
+                              generalInquiries: e.target.value,
+                            },
+                          }))
+                        }
+                        rows={3}
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter auto-response message for general inquiries..."
+                      />
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 border-0 shadow-sm">
+                  <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
+                    <Globe className="w-5 h-5 text-blue-600" />
+                    Communication Preferences
+                  </h3>
+
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <label className="text-sm font-medium text-gray-900">
+                          Tenant Portal Enabled
+                        </label>
+                        <p className="text-xs text-gray-500">
+                          Allow tenants to access the online portal
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={communicationSettings.tenantPortalEnabled}
+                          onChange={(e) =>
+                            setCommunicationSettings((prev) => ({
+                              ...prev,
+                              tenantPortalEnabled: e.target.checked,
+                            }))
+                          }
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <label className="text-sm font-medium text-gray-900">
+                          Allow Tenant Messaging
+                        </label>
+                        <p className="text-xs text-gray-500">
+                          Enable direct messaging between you and tenants
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={communicationSettings.allowTenantMessaging}
+                          onChange={(e) =>
+                            setCommunicationSettings((prev) => ({
+                              ...prev,
+                              allowTenantMessaging: e.target.checked,
+                            }))
+                          }
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                      <div>
+                        <label className="block mb-2 text-sm font-medium text-gray-700">
+                          Business Hours Start
+                        </label>
+                        <input
+                          type="time"
+                          value={communicationSettings.businessHours.start}
+                          onChange={(e) =>
+                            setCommunicationSettings((prev) => ({
+                              ...prev,
+                              businessHours: {
+                                ...prev.businessHours,
+                                start: e.target.value,
+                              },
+                            }))
+                          }
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block mb-2 text-sm font-medium text-gray-700">
+                          Business Hours End
+                        </label>
+                        <input
+                          type="time"
+                          value={communicationSettings.businessHours.end}
+                          onChange={(e) =>
+                            setCommunicationSettings((prev) => ({
+                              ...prev,
+                              businessHours: {
+                                ...prev.businessHours,
+                                end: e.target.value,
+                              },
+                            }))
+                          }
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block mb-2 text-sm font-medium text-gray-700">
+                          Timezone
+                        </label>
+                        <select
+                          value={communicationSettings.businessHours.timezone}
+                          onChange={(e) =>
+                            setCommunicationSettings((prev) => ({
+                              ...prev,
+                              businessHours: {
+                                ...prev.businessHours,
+                                timezone: e.target.value,
+                              },
+                            }))
+                          }
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                          <option value="EST">EST - Eastern</option>
+                          <option value="CST">CST - Central</option>
+                          <option value="MST">MST - Mountain</option>
+                          <option value="PST">PST - Pacific</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            )}
+
+            {/* System Preferences Settings */}
+            {activeSection === "system" && (
+              <div className="space-y-6">
+                <Card className="p-6 border-0 shadow-sm">
+                  <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
+                    <Palette className="w-5 h-5 text-blue-600" />
+                    Appearance & Layout
+                  </h3>
+
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-700">
+                        Theme
+                      </label>
+                      <div className="grid grid-cols-3 gap-3">
+                        {["light", "dark", "auto"].map((theme) => (
+                          <button
+                            key={theme}
+                            onClick={() =>
+                              setSystemSettings((prev) => ({
+                                ...prev,
+                                theme: theme,
+                              }))
+                            }
+                            className={`p-3 border rounded-lg text-center transition-colors ${
+                              systemSettings.theme === theme
+                                ? "border-blue-500 bg-blue-50 text-blue-700"
+                                : "border-gray-200 hover:border-gray-300"
+                            }`}
+                          >
+                            <div className="flex items-center justify-center mb-2">
+                              {theme === "light" && <Sun className="w-5 h-5" />}
+                              {theme === "dark" && <Moon className="w-5 h-5" />}
+                              {theme === "auto" && (
+                                <Monitor className="w-5 h-5" />
+                              )}
+                            </div>
+                            <span className="text-sm font-medium capitalize">
+                              {theme}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-700">
+                        Dashboard Layout
+                      </label>
+                      <div className="grid grid-cols-2 gap-3">
+                        {["grid", "list"].map((layout) => (
+                          <button
+                            key={layout}
+                            onClick={() =>
+                              setSystemSettings((prev) => ({
+                                ...prev,
+                                dashboardLayout: layout,
+                              }))
+                            }
+                            className={`p-3 border rounded-lg text-center transition-colors ${
+                              systemSettings.dashboardLayout === layout
+                                ? "border-blue-500 bg-blue-50 text-blue-700"
+                                : "border-gray-200 hover:border-gray-300"
+                            }`}
+                          >
+                            <span className="text-sm font-medium capitalize">
+                              {layout} View
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <label className="text-sm font-medium text-gray-900">
+                          Compact Mode
+                        </label>
+                        <p className="text-xs text-gray-500">
+                          Use smaller spacing and condensed layouts
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={systemSettings.compactMode}
+                          onChange={(e) =>
+                            setSystemSettings((prev) => ({
+                              ...prev,
+                              compactMode: e.target.checked,
+                            }))
+                          }
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 border-0 shadow-sm">
+                  <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
+                    <Globe className="w-5 h-5 text-blue-600" />
+                    Localization
+                  </h3>
+
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-700">
+                        Language
+                      </label>
+                      <select
+                        value={systemSettings.language}
+                        onChange={(e) =>
+                          setSystemSettings((prev) => ({
+                            ...prev,
+                            language: e.target.value,
+                          }))
+                        }
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      >
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="it">Italian</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-700">
+                        Timezone
+                      </label>
+                      <select
+                        value={systemSettings.timezone}
+                        onChange={(e) =>
+                          setSystemSettings((prev) => ({
+                            ...prev,
+                            timezone: e.target.value,
+                          }))
+                        }
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      >
+                        <option value="America/New_York">Eastern Time</option>
+                        <option value="America/Chicago">Central Time</option>
+                        <option value="America/Denver">Mountain Time</option>
+                        <option value="America/Los_Angeles">
+                          Pacific Time
+                        </option>
+                        <option value="UTC">UTC</option>
+                      </select>
                     </div>
                   </div>
                 </Card>
