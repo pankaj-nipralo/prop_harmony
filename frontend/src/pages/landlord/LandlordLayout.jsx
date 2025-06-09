@@ -19,17 +19,31 @@ import {
   CreditCard,
   BarChart3,
   Settings,
+  FileUser,
 } from "lucide-react";
 import { TopBar } from "@/components/layout/Topbar";
 
 const navItems = [
   { label: "Dashboard", path: "/landlord/dashboard", icon: LayoutDashboard },
   { label: "Properties", path: "/landlord/properties", icon: Home },
-  { label: "Property Listings", path: "/landlord/property-listings", icon: List },
+  {
+    label: "Property Listings",
+    path: "/landlord/property-listings",
+    icon: List,
+  },
   { label: "Rental Search", path: "/landlord/rental-search", icon: Search },
+  { label: "Applications", path: "/landlord/applications", icon: FileUser },
   { label: "My Tenants", path: "/landlord/my-tenants", icon: Users },
-  { label: "Property Managers", path: "/landlord/property-manager", icon: Briefcase },
-  { label: "Issue Warning", path: "/landlord/issue-warning", icon: ShieldAlert },
+  {
+    label: "Property Managers",
+    path: "/landlord/property-manager",
+    icon: Briefcase,
+  },
+  {
+    label: "Issue Warning",
+    path: "/landlord/issue-warning",
+    icon: ShieldAlert,
+  },
   {
     label: "Property Inspections",
     path: "/landlord/property-inspection",
@@ -42,7 +56,11 @@ const navItems = [
     path: "/landlord/investment-calculator",
     icon: Calculator,
   },
-  { label: "Document Vault", path: "/landlord/document-vault", icon: FileArchive },
+  {
+    label: "Document Vault",
+    path: "/landlord/document-vault",
+    icon: FileArchive,
+  },
   { label: "Ratings", path: "/landlord/ratings", icon: Star },
   { label: "Emails", path: "/landlord/messages", icon: MessageCircle },
   { label: "Payments", path: "/landlord/payemnts", icon: CreditCard },
@@ -57,7 +75,7 @@ const LandLordLayout = () => {
       <Sidebar navItems={navItems} title={"Prop Harmony"} user={"Landlord"} />
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* TopBar with mobile menu button */}
-        <TopBar 
+        <TopBar
           navItems={navItems} // Pass the same navItems
           user={{
             name: "Pankaj Gupta",

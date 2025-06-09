@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import OfferSubmissionModal from "../../shared/OfferSubmission/OfferSubmissionModal";
 import { Star, Heart, MapPin, Bed, Bath, Ruler, User } from "lucide-react";
 
 const rentalData = [
@@ -74,7 +75,9 @@ const rentalData = [
 
 const RentalBody = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showOfferModal, setShowOfferModal] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [selectedForOffer, setSelectedForOffer] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [bedrooms, setBedrooms] = useState("Any");
   const [minPrice, setMinPrice] = useState("");
@@ -84,6 +87,37 @@ const RentalBody = () => {
   const openDetails = (rental) => {
     setSelected(rental);
     setShowModal(true);
+  };
+
+  const openOfferModal = (rental) => {
+    // Transform rental data to match the expected property format
+    const propertyData = {
+      id: rental.id,
+      title: rental.title,
+      address: rental.location,
+      image: rental.img,
+      price: rental.price,
+      landlordName: "Property Owner", // This would come from actual data
+      landlordEmail: "owner@example.com", // This would come from actual data
+      landlordPhone: "+1 (555) 123-4567", // This would come from actual data
+    };
+    setSelectedForOffer(propertyData);
+    setShowOfferModal(true);
+  };
+
+  const handleSubmitOffer = (offer) => {
+    // In a real app, this would save to a global state or send to an API
+    console.log("Offer submitted:", offer);
+
+    // For now, we'll just store it in localStorage to simulate persistence
+    const existingOffers = JSON.parse(
+      localStorage.getItem("tenantOffers") || "[]"
+    );
+    const updatedOffers = [...existingOffers, offer];
+    localStorage.setItem("tenantOffers", JSON.stringify(updatedOffers));
+
+    setShowOfferModal(false);
+    setSelectedForOffer(null);
   };
 
   const toggleFavorite = (id) => {
@@ -119,7 +153,7 @@ const RentalBody = () => {
   return (
     <div className="bg-transparent">
       {/* Filters */}
-      <div className="flex flex-wrap items-center gap-4 p-6 mb-6 bg-white border border-gray-200 rounded-xl shadow-md">
+      <div className="flex flex-wrap items-center gap-4 p-6 mb-6 bg-white border border-gray-200 shadow-md rounded-xl">
         <input
           className="flex-1 min-w-[220px] px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
           placeholder="Search by title or location..."
@@ -183,7 +217,7 @@ const RentalBody = () => {
             </div>
             <div className="flex flex-col flex-1 p-6">
               <div className="flex items-start justify-between mb-2">
-                <div className="text-lg font-semibold text-gray-900 flex-1 mr-2 line-clamp-1">
+                <div className="flex-1 mr-2 text-lg font-semibold text-gray-900 line-clamp-1">
                   {rental.title}
                 </div>
                 <span
@@ -200,10 +234,10 @@ const RentalBody = () => {
                 <MapPin className="w-4 h-4 mr-1 text-gray-400" />
                 {rental.location}
               </div>
-              <div className="text-xl font-bold text-blue-500 mb-3">
+              <div className="mb-3 text-xl font-bold text-blue-500">
                 AED {rental.price.toLocaleString()}/month
               </div>
-              <div className="grid grid-cols-2 gap-2 mb-3 p-3 bg-gray-50 rounded-lg">
+              <div className="grid grid-cols-2 gap-2 p-3 mb-3 rounded-lg bg-gray-50">
                 <div className="flex items-center text-sm text-gray-600">
                   <Star
                     className="w-4 h-4 mr-1 text-yellow-400"
@@ -224,16 +258,26 @@ const RentalBody = () => {
                   {rental.size} sq ft
                 </div>
               </div>
-              <div className="flex gap-2 mt-auto pt-2">
-                <button
-                  className="flex-1 px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
-                  onClick={() => openDetails(rental)}
-                >
-                  View Details
-                </button>
-                <button className="flex-1 px-3 py-2 text-sm font-medium text-blue-500 border border-blue-500 rounded-lg hover:bg-blue-50 transition-colors">
-                  Contact
-                </button>
+              <div className="flex flex-col gap-2 pt-2 mt-auto">
+                <div className="flex gap-2">
+                  <button
+                    className="flex-1 px-3 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-600"
+                    onClick={() => openDetails(rental)}
+                  >
+                    View Details
+                  </button>
+                  <button className="flex-1 px-3 py-2 text-sm font-medium text-blue-500 transition-colors border border-blue-500 rounded-lg hover:bg-blue-50">
+                    Contact
+                  </button>
+                </div>
+                {rental.status === "Available" && (
+                  <button
+                    className="w-full px-3 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
+                    onClick={() => openOfferModal(rental)}
+                  >
+                    Apply Now
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -269,7 +313,7 @@ const RentalBody = () => {
                   <MapPin className="w-4 h-4 mr-1 text-gray-400" />
                   {selected.location}
                 </div>
-                <div className="text-2xl font-bold text-blue-500 mb-4">
+                <div className="mb-4 text-2xl font-bold text-blue-500">
                   AED {selected.price.toLocaleString()}/month
                 </div>
                 <div className="flex items-center gap-4 mb-6 text-sm text-gray-600">
@@ -294,22 +338,46 @@ const RentalBody = () => {
                   </div>
                 </div>
                 <div className="mb-6 text-gray-700">{selected.description}</div>
-                <div className="flex justify-end gap-3">
-                  <button className="px-6 py-2 font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200">
-                    Contact Agent
-                  </button>
-                  <button
-                    className="px-6 py-2 font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
+                <div className="flex flex-col gap-3">
+                  {selected.status === "Available" && (
+                    <button
+                      className="w-full px-6 py-2 font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
+                      onClick={() => {
+                        setShowModal(false);
+                        openOfferModal(selected);
+                      }}
+                    >
+                      Apply Now
+                    </button>
+                  )}
+                  <div className="flex justify-end gap-3">
+                    <button className="px-6 py-2 font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200">
+                      Contact Agent
+                    </button>
+                    <button
+                      className="px-6 py-2 font-medium text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600"
+                      onClick={() => setShowModal(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Offer Submission Modal */}
+      <OfferSubmissionModal
+        isOpen={showOfferModal}
+        onClose={() => {
+          setShowOfferModal(false);
+          setSelectedForOffer(null);
+        }}
+        property={selectedForOffer}
+        onSubmitOffer={handleSubmitOffer}
+      />
     </div>
   );
 };

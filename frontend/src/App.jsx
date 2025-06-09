@@ -31,18 +31,19 @@ import PropertyInspection from "./pages/landlord/PropertyInspection";
 import PropertyManager from "./pages/landlord/PropertyManager";
 import Ratings from "./pages/landlord/Ratings";
 import ReantalSearch from "./pages/landlord/ReantalSearch";
+import Applications from "./pages/landlord/Applications";
 import Reports from "./pages/landlord/Reports";
 import Settings from "./pages/landlord/Settings";
 
 // Tenant Pages (tenant-specific components only)
 import TenantDashboard from "./pages/tenant/Dashboard";
 import TenantRentalSearch from "./pages/tenant/RentalSearch";
-import TenantProperties from "./pages/tenant/Properties"; 
+import TenantProperties from "./pages/tenant/Properties";
 import TenantPropertyManager from "./pages/tenant/PropertyManager";
 import TenantsReportLandlord from "./pages/tenant/IssueWarning";
 import TenantMyOffers from "./pages/tenant/MyOffers";
-import TenantMyProperty from "./pages/tenant/MyProperty"; 
-import PastProperties from "./pages/tenant/PastProperties"; 
+import TenantMyProperty from "./pages/tenant/MyProperty";
+import PastProperties from "./pages/tenant/PastProperties";
 import ForTenantsPropertyInspection from "./pages/tenant/PropertyInspection";
 import TenantPaymentMaster from "./components/tenants/Payments/tenantsPaymentMaster";
 import TenantSettings from "./components/tenants/TenantsSettings/TenantSettings";
@@ -60,7 +61,6 @@ function App() {
       {/* Auth Routes */}
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/register" element={<Register />} />
- 
 
       {/* Landlord */}
       <Route path="/landlord" element={<LandLordLayout />}>
@@ -83,6 +83,7 @@ function App() {
         <Route path="property-manager" element={<PropertyManager />} />
         <Route path="ratings" element={<Ratings />} />
         <Route path="rental-search" element={<ReantalSearch />} />
+        <Route path="applications" element={<Applications />} />
         <Route path="reports" element={<Reports />} />
         <Route path="settings" element={<Settings />} />
 
@@ -99,7 +100,10 @@ function App() {
         <Route path="report-landlord" element={<TenantsReportLandlord />} />
         <Route path="my-offers" element={<TenantMyOffers />} />
         <Route path="my-property" element={<TenantMyProperty />} />
-        <Route path="property-inspection" element={<ForTenantsPropertyInspection />} />
+        <Route
+          path="property-inspection"
+          element={<ForTenantsPropertyInspection />}
+        />
         <Route path="maintenance" element={<Maintenance />} />
         <Route path="ratings" element={<Ratings />} />
         <Route path="emails" element={<Messages />} />
@@ -110,9 +114,7 @@ function App() {
       </Route>
 
       {/* Property Manager */}
-      <Route path="/manager" element={<PropertyManagerLayout />}>
-
-      </Route>
+      <Route path="/manager" element={<PropertyManagerLayout />}></Route>
     </Routes>
   );
 }
