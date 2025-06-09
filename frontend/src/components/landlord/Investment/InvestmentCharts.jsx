@@ -26,7 +26,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
 
   if (!calculations || !Array.isArray(calculations) || calculations.length === 0) {
     return (
-      <div className="text-center py-12">
+      <div className="py-12 text-center">
         <p className="text-gray-500">No calculation data available for charts</p>
       </div>
     );
@@ -38,7 +38,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
   
   if (!calculation) {
     return (
-      <div className="text-center py-12">
+      <div className="py-12 text-center">
         <p className="text-gray-500">No calculation selected for visualization</p>
       </div>
     );
@@ -145,7 +145,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
       {/* Chart Content */}
       {activeChart === "cashflow" && (
         <Card className="p-6 border-0 shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">10-Year Cash Flow Projection</h3>
+          <h3 className="mb-4 text-lg font-semibold text-gray-800">10-Year Cash Flow Projection</h3>
           <ResponsiveContainer width="100%" height={400}>
             <LineChart data={cashFlowData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -181,7 +181,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
 
       {activeChart === "appreciation" && (
         <Card className="p-6 border-0 shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Property Value Appreciation</h3>
+          <h3 className="mb-4 text-lg font-semibold text-gray-800">Property Value Appreciation</h3>
           <ResponsiveContainer width="100%" height={400}>
             <LineChart data={cashFlowData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -203,7 +203,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
 
       {activeChart === "roi" && (
         <Card className="p-6 border-0 shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">ROI Progression</h3>
+          <h3 className="mb-4 text-lg font-semibold text-gray-800">ROI Progression</h3>
           <ResponsiveContainer width="100%" height={400}>
             <LineChart data={roiData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -239,7 +239,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
 
       {activeChart === "breakdown" && (
         <Card className="p-6 border-0 shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Monthly Cash Flow Breakdown</h3>
+          <h3 className="mb-4 text-lg font-semibold text-gray-800">Monthly Cash Flow Breakdown</h3>
           <ResponsiveContainer width="100%" height={400}>
             <PieChart>
               <Pie
@@ -264,7 +264,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
 
       {activeChart === "income-expense" && (
         <Card className="p-6 border-0 shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Annual Income vs Expenses</h3>
+          <h3 className="mb-4 text-lg font-semibold text-gray-800">Annual Income vs Expenses</h3>
           <ResponsiveContainer width="100%" height={400}>
             <BarChart data={annualIncomeExpenseData}>
               <CartesianGrid strokeDasharray="3 3" />

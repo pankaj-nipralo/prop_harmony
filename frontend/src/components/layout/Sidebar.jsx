@@ -145,7 +145,7 @@ function SidebarFooter({ isCollapsed }) {
                 {!isCollapsed && (
                   <div className="min-w-0 text-left">
                     <p className="text-xs font-medium text-white truncate md:text-sm">
-                      John Doe
+                      Pankaj Gupta
                     </p>
                     <p className="text-[10px] md:text-xs text-white/60 truncate">
                       Admin
