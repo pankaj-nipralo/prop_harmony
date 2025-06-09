@@ -10,6 +10,7 @@ import Register from "./pages/auth/Register";
 // Layouts
 import LandLordLayout from "./pages/landlord/LandlordLayout";
 import TenantsLayout from "./pages/tenant/TenantsLayout";
+import PropertyManagerLayout from "./pages/propertyManager/propertyManagerLayout";
 
 // Landlord Pages
 import Dashboard from "./pages/landlord/Dashboard";
@@ -103,6 +104,11 @@ function App() {
         <Route path="settings" element={<Settings />} />
 
         <Route path="*" element={<Navigate to="/tenants/dashboard" />} />
+      </Route>
+
+      {/* Property Manager */}
+      <Route path="/manager" element={<PropertyManagerLayout />}>
+
       </Route>
     </Routes>
   );

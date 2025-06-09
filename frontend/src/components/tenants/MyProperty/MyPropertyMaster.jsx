@@ -113,7 +113,7 @@ const MyPropertyMaster = () => {
       <PropertyStatsCards stats={propertyStats} />
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 gap-8 xl:grid-cols-3 mb-7">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-3 mb-7">
         {/* Left Column - Property Details */}
         <div className="xl:col-span-2">
           <PropertyDetailsCard
