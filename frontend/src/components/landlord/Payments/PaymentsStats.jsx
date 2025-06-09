@@ -128,7 +128,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
         {statCards.map((stat, index) => (
           <Card
             key={index}
-            className="p-6 transition-all duration-200 border-0 hover:shadow-lg"
+            className="p-6 transition-all duration-200 bg-white border-0 hover:shadow-lg"
           >
             <div className="flex items-center justify-between">
               <div className="space-y-2">
@@ -158,8 +158,8 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
       </div>
 
       {/* Additional Stats */}
-      <Card className="p-6 border-0">
-        <div className="flex items-center justify-between mb-4">
+      <Card className="p-6 bg-white border-0">
+        <div className="flex items-center justify-between mb-4 ">
           <h3 className="text-lg font-semibold text-gray-900">
             Payment Overview
           </h3>

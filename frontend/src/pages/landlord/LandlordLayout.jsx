@@ -60,7 +60,7 @@ const LandLordLayout = () => {
         <TopBar 
           navItems={navItems} // Pass the same navItems
           user={{
-            name: "John Doe",
+            name: "Pankaj Gupta",
             role: "Admin",
             avatar: "https://i.pravatar.cc/40?u=user",
           }}

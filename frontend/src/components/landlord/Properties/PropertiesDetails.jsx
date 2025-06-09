@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Star, Home, MapPin, Calendar } from "lucide-react";
+import { Star, ArrowLeft , MapPin, Calendar } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 
@@ -126,10 +126,11 @@ const PropertiesDetails = () => {
   return (
     <div className="bg-transparent">
       <button
-        className="px-4 py-2 mb-6 text-sm font-medium transition border border-gray-300 rounded-lg cursor-pointer hover:bg-blue-500 hover:text-white duration-200 text-gray-700 flex items-center gap-2"
+        className="flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-gray-700 transition duration-200 border border-gray-300 rounded-lg cursor-pointer hover:bg-blue-500 hover:text-white"
         aria-label="Back to Properties"
         onClick={() => navigate(-1)}
       >
+        <ArrowLeft className="w-4 h-4" />
         Back to Properties
       </button>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -160,7 +161,7 @@ const PropertiesDetails = () => {
               {property.features.map((feature, idx) => (
                 <span
                   key={idx}
-                  className="bg-[#5c7290] text-white/90 px-3 py-1 rounded-full text-xs font-medium"
+                  className="px-3 py-1 text-xs font-medium text-blue-700 bg-blue-100 rounded-full"
                 >
                   {feature}
                 </span>
@@ -213,32 +214,32 @@ const PropertiesDetails = () => {
             <TabsTrigger
               value="documents"
               className="cursor-pointer relative px-4 py-4 rounded-md transition-all duration-200 
-                  data-[state=active]:bg-[#324867] data-[state=active]:text-white
-                  hover:bg-[#3b83f7] hover:text-white font-medium"
+                  data-[state=active]:bg-blue-600 data-[state=active]:text-white
+                  hover:bg-blue-500 hover:text-white font-medium"
             >
               Documents
             </TabsTrigger>
             <TabsTrigger
               value="workorders"
               className="cursor-pointer relative px-4 py-4 rounded-md transition-all duration-200 
-                  data-[state=active]:bg-[#324867] data-[state=active]:text-white
-                  hover:bg-[#3b83f7] hover:text-white font-medium "
+                  data-[state=active]:bg-blue-600 data-[state=active]:text-white
+                  hover:bg-blue-500 hover:text-white font-medium "
             >
               Work Orders
             </TabsTrigger>
             <TabsTrigger
               value="tenantinfo"
               className="cursor-pointer relative px-4 py-4 rounded-md transition-all duration-200 
-                  data-[state=active]:bg-[#324867] data-[state=active]:text-white
-                  hover:bg-[#3b83f7] hover:text-white font-medium"
+                  data-[state=active]:bg-blue-600 data-[state=active]:text-white
+                  hover:bg-blue-500 hover:text-white font-medium"
             >
               Tenant Info
             </TabsTrigger>
             <TabsTrigger
               value="financial"
               className="cursor-pointer relative px-4 py-4 rounded-md transition-all duration-200 
-                  data-[state=active]:bg-[#324867] data-[state=active]:text-white
-                  hover:bg-[#3b83f7] hover:text-white font-medium"
+                  data-[state=active]:bg-blue-600 data-[state=active]:text-white
+                  hover:bg-blue-500 hover:text-white font-medium"
             >
               Financial Summary
             </TabsTrigger>
@@ -256,7 +257,7 @@ const PropertiesDetails = () => {
                 className="w-full bg-amber-50"
               >
                 <DialogTrigger asChild>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition">
+                  <button className="px-4 py-2 font-semibold text-white transition bg-blue-500 rounded-lg hover:bg-blue-600">
                     Upload Document
                   </button>
                 </DialogTrigger>
@@ -270,7 +271,7 @@ const PropertiesDetails = () => {
                     onChange={handleDocUpload}
                   />
                   <button
-                    className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition cursor-pointer"
+                    className="px-4 py-2 font-semibold text-white transition bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600"
                     onClick={() => setShowDocDialog(false)}
                   >
                     Cancel
@@ -377,7 +378,7 @@ const PropertiesDetails = () => {
                 onOpenChange={setShowWorkOrderDialog}
               >
                 <DialogTrigger asChild>
-                  <button className="flex items-center gap-2 px-4 py-2 text-white bg-blue-500 rounded-lg font-semibold hover:bg-blue-600 transition text-sm">
+                  <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white transition bg-blue-500 rounded-lg hover:bg-blue-600">
                     <span className="text-lg font-bold leading-none">+</span>{" "}
                     New Work Order
                   </button>
@@ -442,7 +443,7 @@ const PropertiesDetails = () => {
                       Cancel
                     </button>
                     <button
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition"
+                      className="px-4 py-2 font-semibold text-white transition bg-blue-500 rounded-lg hover:bg-blue-600"
                       onClick={handleAddWorkOrder}
                     >
                       Add

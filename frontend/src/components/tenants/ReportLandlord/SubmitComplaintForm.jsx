@@ -6,13 +6,13 @@ const Toast = ({ message, isVisible, onClose }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 transform transition-all duration-300 ease-in-out">
+    <div className="fixed z-50 transition-all duration-300 ease-in-out transform top-4 right-4">
       <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 min-w-[300px]">
-        <CheckCircle className="w-5 h-5 flex-shrink-0" />
+        <CheckCircle className="flex-shrink-0 w-5 h-5" />
         <span className="font-medium">{message}</span>
         <button
           onClick={onClose}
-          className="ml-auto text-white hover:text-green-100 transition-colors"
+          className="ml-auto text-white transition-colors hover:text-green-100"
         >
           <X className="w-4 h-4" />
         </button>
@@ -94,14 +94,14 @@ const SubmitComplaintForm = ({
         onClose={() => setShowToast(false)}
       />
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Submit Complaint</h2>
+      <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">Submit Complaint</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Row 1: Landlord Name, Property Address, and Incident Date */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
-              <label htmlFor="landlordName" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="landlordName" className="block mb-1 text-sm font-medium text-gray-700">
                 Landlord Name *
               </label>
               <input
@@ -111,13 +111,13 @@ const SubmitComplaintForm = ({
                 value={formData.landlordName}
                 onChange={handleInputChange}
                 placeholder="Enter landlord's full name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-3 py-2 transition-colors border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="propertyAddress" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="propertyAddress" className="block mb-1 text-sm font-medium text-gray-700">
                 Property Address *
               </label>
               <input
@@ -127,13 +127,13 @@ const SubmitComplaintForm = ({
                 value={formData.propertyAddress}
                 onChange={handleInputChange}
                 placeholder="Enter property address"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-3 py-2 transition-colors border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="incidentDate" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="incidentDate" className="block mb-1 text-sm font-medium text-gray-700">
                 Incident Date
               </label>
               <input
@@ -142,15 +142,15 @@ const SubmitComplaintForm = ({
                 name="incidentDate"
                 value={formData.incidentDate}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-3 py-2 transition-colors border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
 
           {/* Row 2: Issue Category, Priority Level, and Subject */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
-              <label htmlFor="issueCategory" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="issueCategory" className="block mb-1 text-sm font-medium text-gray-700">
                 Issue Category *
               </label>
               <select
@@ -158,7 +158,7 @@ const SubmitComplaintForm = ({
                 name="issueCategory"
                 value={formData.issueCategory}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-3 py-2 transition-colors border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               >
                 {issueCategories.map((category) => (
@@ -170,7 +170,7 @@ const SubmitComplaintForm = ({
             </div>
 
             <div>
-              <label htmlFor="priorityLevel" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="priorityLevel" className="block mb-1 text-sm font-medium text-gray-700">
                 Priority Level *
               </label>
               <select
@@ -178,7 +178,7 @@ const SubmitComplaintForm = ({
                 name="priorityLevel"
                 value={formData.priorityLevel}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-3 py-2 transition-colors border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               >
                 {priorityLevels.map((level) => (
@@ -190,7 +190,7 @@ const SubmitComplaintForm = ({
             </div>
 
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="subject" className="block mb-1 text-sm font-medium text-gray-700">
                 Subject *
               </label>
               <input
@@ -200,7 +200,7 @@ const SubmitComplaintForm = ({
                 value={formData.subject}
                 onChange={handleInputChange}
                 placeholder="Brief summary of the issue"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-3 py-2 transition-colors border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
@@ -208,7 +208,7 @@ const SubmitComplaintForm = ({
 
           {/* Row 3: Detailed Description */}
           <div>
-            <label htmlFor="detailedDescription" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="detailedDescription" className="block mb-1 text-sm font-medium text-gray-700">
               Detailed Description *
             </label>
             <textarea
@@ -218,22 +218,22 @@ const SubmitComplaintForm = ({
               onChange={handleInputChange}
               placeholder="Provide a detailed description of the issue, including dates, times, and any relevant circumstances..."
               rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+              className="w-full px-3 py-2 transition-colors border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
 
           {/* Row 4: Evidence Upload */}
           <div>
-            <label htmlFor="evidence" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="evidence" className="block mb-1 text-sm font-medium text-gray-700">
               Evidence (Optional)
             </label>
             <div
-              className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors cursor-pointer"
+              className="p-4 text-center transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:border-gray-400"
               onClick={() => document.getElementById('evidence').click()}
             >
-              <Upload className="w-6 h-6 text-gray-400 mx-auto mb-1" />
-              <p className="text-sm text-blue-500 mb-1">
+              <Upload className="w-6 h-6 mx-auto mb-1 text-gray-400" />
+              <p className="mb-1 text-sm text-blue-500">
                 Click to upload evidence
               </p>
               <p className="text-xs text-gray-500">
@@ -248,7 +248,7 @@ const SubmitComplaintForm = ({
                 className="hidden"
               />
               {formData.evidence && (
-                <p className="text-sm text-green-600 mt-2">
+                <p className="mt-2 text-sm text-green-600">
                   File selected: {formData.evidence.name}
                 </p>
               )}
@@ -256,7 +256,7 @@ const SubmitComplaintForm = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <div className="flex flex-col gap-3 pt-2 justify-self-end w-100 sm:flex-row">
             <button
               type="submit"
               className="flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors flex-1"
