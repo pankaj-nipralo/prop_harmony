@@ -19,6 +19,8 @@ import PropertiesDetails from "./components/landlord/Properties/PropertiesDetail
 import PropertyListings from "./pages/landlord/PropertyListings";
 import Bookkeeping from "./pages/landlord/Bookkeeping";
 import DocumentVault from "./pages/landlord/DocumentVault";
+import DocumentVaultMaster from "./components/landlord/DocumentVault/DocumentVaultMaster";
+
 import InvestmentCalculator from "./pages/landlord/InvestmentCalculator";
 import IssueWarning from "./pages/landlord/IssueWarning";
 import Maintenance from "./pages/landlord/Maintenance";
@@ -66,7 +68,7 @@ function App() {
         <Route path="properties/:id" element={<PropertiesDetails />} />
         <Route path="property-listings" element={<PropertyListings />} />
         <Route path="bookkeeping" element={<Bookkeeping />} />
-        <Route path="document-vault" element={<DocumentVault />} />
+        <Route path="document-vault" element={<DocumentVaultMaster />} />
         <Route
           path="investment-calculator"
           element={<InvestmentCalculator />}

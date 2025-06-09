@@ -1,5 +1,5 @@
 import React from "react";
-import DocumentMaster from "@/components/landlord/Documents/DocumentMaster";
+import DocumentMaster from "@/components/landlord/Documents Vault old/DocumentMaster";
 
 const DocumentVault = () => {
   return <DocumentMaster />;
