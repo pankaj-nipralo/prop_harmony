@@ -45,7 +45,7 @@ import TenantMyProperty from "./pages/tenant/MyProperty";
 import PastProperties from "./pages/tenant/PastProperties"; 
 import ForTenantsPropertyInspection from "./pages/tenant/PropertyInspection";
 import TenantPaymentMaster from "./components/tenants/Payments/tenantsPaymentMaster";
-
+import TenantSettings from "./components/tenants/TenantsSettings/TenantSettings";
 
 function App() {
   // const isAuthenticated = true;
@@ -104,7 +104,7 @@ function App() {
         <Route path="ratings" element={<Ratings />} />
         <Route path="emails" element={<Messages />} />
         <Route path="payemnts" element={<TenantPaymentMaster />} />
-        <Route path="settings" element={<Settings />} />
+        <Route path="settings" element={<TenantSettings />} />
 
         <Route path="*" element={<Navigate to="/tenants/dashboard" />} />
       </Route>
