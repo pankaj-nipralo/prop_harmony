@@ -63,11 +63,6 @@ const TenantsLayout = () => {
         {/* TopBar with mobile menu button */}
         <TopBar
           navItems={navItems} // Pass the same navItems
-          user={{
-            name: "Pankaj Gupta",
-            role: "Admin",
-            avatar: "https://i.pravatar.cc/40?u=user",
-          }}
         />
 
         {/* Main content area */}

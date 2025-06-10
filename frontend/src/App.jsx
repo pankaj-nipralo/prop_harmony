@@ -1,10 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Navigate } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import {
+  LandlordRoute,
+  TenantRoute,
+  PropertyManagerRoute,
+} from "./components/auth/ProtectedRoute";
+import AuthRedirect from "./components/auth/AuthRedirect";
 import Landing from "./pages/Landing";
 
-// Auth Pages
-import Login from "./pages/auth/Login";
+// Auth Pages (using existing auth pages for now)
+import ExistingLogin from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 
 // Layouts
@@ -49,73 +56,94 @@ import TenantPaymentMaster from "./components/tenants/Payments/tenantsPaymentMas
 import TenantSettings from "./components/tenants/TenantsSettings/TenantSettings";
 
 function App() {
-  // const isAuthenticated = true;
-  // const user = {
-  //   role: "admin", // Change this to test different roles
-  // };
-
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<AuthRedirect />} />
+        <Route path="/landing" element={<Landing />} />
 
-      {/* Auth Routes */}
-      <Route path="/auth/login" element={<Login />} />
-      <Route path="/auth/register" element={<Register />} />
+        {/* Auth Routes */}
+        <Route path="/login" element={<ExistingLogin />} />
+        <Route path="/auth/login" element={<ExistingLogin />} />
+        <Route path="/auth/register" element={<Register />} />
 
-      {/* Landlord */}
-      <Route path="/landlord" element={<LandLordLayout />}>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="properties" element={<Properties />} />
-        <Route path="properties/:id" element={<PropertiesDetails />} />
-        <Route path="property-listings" element={<PropertyListings />} />
-        <Route path="bookkeeping" element={<Bookkeeping />} />
-        <Route path="document-vault" element={<DocumentVaultMaster />} />
+        {/* Landlord */}
         <Route
-          path="investment-calculator"
-          element={<InvestmentCalculator />}
-        />
-        <Route path="issue-warning" element={<IssueWarning />} />
-        <Route path="maintenance" element={<Maintenance />} />
-        <Route path="messages" element={<Messages />} />
-        <Route path="my-tenants" element={<MyTenants />} />
-        <Route path="payemnts" element={<Payemnt />} />
-        <Route path="property-inspection" element={<PropertyInspection />} />
-        <Route path="property-manager" element={<PropertyManager />} />
-        <Route path="ratings" element={<Ratings />} />
-        <Route path="rental-search" element={<ReantalSearch />} />
-        <Route path="applications" element={<Applications />} />
-        <Route path="reports" element={<Reports />} />
-        <Route path="settings" element={<Settings />} />
+          path="/landlord"
+          element={
+            <LandlordRoute>
+              <LandLordLayout />
+            </LandlordRoute>
+          }
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="properties" element={<Properties />} />
+          <Route path="properties/:id" element={<PropertiesDetails />} />
+          <Route path="property-listings" element={<PropertyListings />} />
+          <Route path="bookkeeping" element={<Bookkeeping />} />
+          <Route path="document-vault" element={<DocumentVaultMaster />} />
+          <Route
+            path="investment-calculator"
+            element={<InvestmentCalculator />}
+          />
+          <Route path="issue-warning" element={<IssueWarning />} />
+          <Route path="maintenance" element={<Maintenance />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="my-tenants" element={<MyTenants />} />
+          <Route path="payemnts" element={<Payemnt />} />
+          <Route path="property-inspection" element={<PropertyInspection />} />
+          <Route path="property-manager" element={<PropertyManager />} />
+          <Route path="ratings" element={<Ratings />} />
+          <Route path="rental-search" element={<ReantalSearch />} />
+          <Route path="applications" element={<Applications />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="settings" element={<Settings />} />
 
-        <Route path="*" element={<Navigate to="/landlord/dashboard" />} />
-      </Route>
+          <Route path="*" element={<Navigate to="/landlord/dashboard" />} />
+        </Route>
 
-      {/* Tenant Routes */}
-      <Route path="/tenants" element={<TenantsLayout />}>
-        <Route path="dashboard" element={<TenantDashboard />} />
-        <Route path="rental-search" element={<TenantRentalSearch />} />
-        <Route path="properties" element={<TenantProperties />} />
-        <Route path="past-properties" element={<PastProperties />} />
-        <Route path="property-manager" element={<TenantPropertyManager />} />
-        <Route path="report-landlord" element={<TenantsReportLandlord />} />
-        <Route path="my-offers" element={<TenantMyOffers />} />
-        <Route path="my-property" element={<TenantMyProperty />} />
+        {/* Tenant Routes */}
         <Route
-          path="property-inspection"
-          element={<ForTenantsPropertyInspection />}
-        />
-        <Route path="maintenance" element={<Maintenance />} />
-        <Route path="ratings" element={<Ratings />} />
-        <Route path="emails" element={<Messages />} />
-        <Route path="payemnts" element={<TenantPaymentMaster />} />
-        <Route path="settings" element={<TenantSettings />} />
+          path="/tenants"
+          element={
+            <TenantRoute>
+              <TenantsLayout />
+            </TenantRoute>
+          }
+        >
+          <Route path="dashboard" element={<TenantDashboard />} />
+          <Route path="rental-search" element={<TenantRentalSearch />} />
+          <Route path="properties" element={<TenantProperties />} />
+          <Route path="past-properties" element={<PastProperties />} />
+          <Route path="property-manager" element={<TenantPropertyManager />} />
+          <Route path="report-landlord" element={<TenantsReportLandlord />} />
+          <Route path="my-offers" element={<TenantMyOffers />} />
+          <Route path="my-property" element={<TenantMyProperty />} />
+          <Route
+            path="property-inspection"
+            element={<ForTenantsPropertyInspection />}
+          />
+          <Route path="maintenance" element={<Maintenance />} />
+          <Route path="ratings" element={<Ratings />} />
+          <Route path="emails" element={<Messages />} />
+          <Route path="payemnts" element={<TenantPaymentMaster />} />
+          <Route path="settings" element={<TenantSettings />} />
 
-        <Route path="*" element={<Navigate to="/tenants/dashboard" />} />
-      </Route>
+          <Route path="*" element={<Navigate to="/tenants/dashboard" />} />
+        </Route>
 
-      {/* Property Manager */}
-      <Route path="/manager" element={<PropertyManagerLayout />}></Route>
-    </Routes>
+        {/* Property Manager */}
+        <Route
+          path="/manager"
+          element={
+            <PropertyManagerRoute>
+              <PropertyManagerLayout />
+            </PropertyManagerRoute>
+          }
+        ></Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 

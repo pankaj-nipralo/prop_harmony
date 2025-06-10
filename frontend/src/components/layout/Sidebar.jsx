@@ -78,7 +78,7 @@ export function Sidebar({ navItems, title , user }) {
           <SidebarItems isCollapsed={isCollapsed} navItems={navItems} />
         </div>
 
-        <SidebarFooter isCollapsed={isCollapsed} />
+        {/* <SidebarFooter isCollapsed={isCollapsed} /> */}
       </div>
     </div>
   );

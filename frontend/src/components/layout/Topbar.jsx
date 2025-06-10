@@ -2,13 +2,15 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Bell, Search, Menu, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import UserProfile from "../auth/UserProfile";
+import { useAuth } from "../../contexts/AuthContext";
 
-export function TopBar({ 
-  user = {},
+export function TopBar({
   className,
   navItems = [], // Accept navItems prop
 }) {
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
 
   // Find the current page title from navItems
   const getCurrentTitle = () => {
@@ -18,7 +20,6 @@ export function TopBar({
     return currentItem?.label || "Dashboard"; // Default title
   };
 
-  
   return (
     <header
       className={cn(
@@ -41,27 +42,18 @@ export function TopBar({
         <h1 className="text-lg font-semibold text-gray-900">
           {getCurrentTitle()}
         </h1>
- 
       </div>
 
       {/* Right side - Profile section */}
-      <div className="flex items-center gap-2">
-        <div className="flex items-center gap-2 ml-2">
-          <div className="hidden text-right md:block">
-            <p className="text-sm font-medium text-gray-900">
-              {user.name || "John Doe"}
-            </p>
-            <p className="text-xs text-gray-500">{user.role || "Admin"}</p>
-          </div>
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <img
-              src={user.avatar || "https://i.pravatar.cc/40?u=user"}
-              alt="User profile"
-              className="w-8 h-8 rounded-full"
-            />
-            <span className="sr-only">User profile</span>
-          </Button>
-        </div>
+      <div className="flex items-center gap-4">
+        {/* Notifications */}
+        <Button variant="ghost" size="icon" className="relative">
+          <Bell className="w-5 h-5" />
+          <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+        </Button>
+
+        {/* User Profile */}
+        {isAuthenticated && <UserProfile />}
       </div>
     </header>
   );
