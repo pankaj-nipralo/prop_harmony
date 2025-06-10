@@ -48,9 +48,9 @@ const AccessDenied = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center p-6">
-      <div className="max-w-md w-full">
-        <div className="bg-white rounded-lg shadow-lg border-0 p-8 text-center">
+    <div className="flex items-center justify-center min-h-screen p-6 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <div className="w-full max-w-md">
+        <div className="p-8 text-center bg-white border-0 rounded-lg shadow-lg">
           {/* Icon */}
           <div className="flex justify-center mb-6">
             <div className="p-4 bg-red-100 rounded-full">
@@ -59,23 +59,23 @@ const AccessDenied = ({
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="mb-4 text-2xl font-bold text-gray-900">
             Access Denied
           </h1>
 
           {/* Message */}
-          <div className="space-y-3 mb-8">
+          <div className="mb-8 space-y-3">
             <p className="text-gray-600">
               You don't have permission to access this page.
             </p>
 
             {/* Role requirement */}
             {getRequiredRoleText() && (
-              <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="p-3 border border-yellow-200 rounded-lg bg-yellow-50">
                 <p className="text-sm text-yellow-800">
                   <span className="font-medium">Required Role:</span> {getRequiredRoleText()}
                 </p>
-                <p className="text-sm text-yellow-700 mt-1">
+                <p className="mt-1 text-sm text-yellow-700">
                   <span className="font-medium">Your Role:</span> {userRole}
                 </p>
               </div>
@@ -83,7 +83,7 @@ const AccessDenied = ({
 
             {/* Permission requirement */}
             {getRequiredPermissionText() && (
-              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="p-3 border border-blue-200 rounded-lg bg-blue-50">
                 <p className="text-sm text-blue-800">
                   <span className="font-medium">Required Permission:</span> {getRequiredPermissionText()}
                 </p>
@@ -95,7 +95,7 @@ const AccessDenied = ({
           <div className="space-y-3">
             <button
               onClick={handleGoHome}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors myButton"
+              className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
             >
               <Home className="w-4 h-4" />
               Go to Dashboard
@@ -103,7 +103,7 @@ const AccessDenied = ({
 
             <button
               onClick={handleGoBack}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200"
             >
               <ArrowLeft className="w-4 h-4" />
               Go Back
@@ -111,10 +111,10 @@ const AccessDenied = ({
           </div>
 
           {/* Help Text */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
+          <div className="pt-6 mt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500">
               If you believe this is an error, please contact your administrator or 
-              <a href="mailto:support@propertyharmony.com" className="text-blue-600 hover:text-blue-800 ml-1">
+              <a href="mailto:support@propertyharmony.com" className="ml-1 text-blue-600 hover:text-blue-800">
                 support team
               </a>.
             </p>

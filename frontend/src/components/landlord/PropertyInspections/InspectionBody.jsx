@@ -22,10 +22,14 @@ import {
   inspectionStatuses,
   priorityLevels,
 } from "@/data/landlord/propertyInspection/data";
+import { useAuth } from "@/contexts/AuthContext";
 import ScheduleInspectionModal from "./ScheduleInspectionModal";
 import ViewInspectionModal from "./ViewInspectionModal";
+import InspectionReportModal from "./InspectionReportModal";
+import TenantResponseModal from "./TenantResponseModal";
 
 const InspectionBody = ({ inspections, setInspections }) => {
+  const { user } = useAuth();
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("All Types");
   const [statusFilter, setStatusFilter] = useState("All Status");
@@ -37,6 +41,14 @@ const InspectionBody = ({ inspections, setInspections }) => {
   });
   const [viewModal, setViewModal] = useState({ open: false, inspection: null });
   const [deleteModal, setDeleteModal] = useState({
+    open: false,
+    inspection: null,
+  });
+  const [reportModal, setReportModal] = useState({
+    open: false,
+    inspection: null,
+  });
+  const [tenantResponseModal, setTenantResponseModal] = useState({
     open: false,
     inspection: null,
   });
@@ -52,9 +64,18 @@ const InspectionBody = ({ inspections, setInspections }) => {
   const filteredByMode =
     viewMode === "requests"
       ? allInspections.filter((i) =>
-          ["Pending", "Scheduled", "In Progress"].includes(i.status)
+          [
+            "Pending Tenant Response",
+            "Tenant Accepted",
+            "Tenant Declined",
+            "Reschedule Requested",
+            "Confirmed",
+            "In Progress",
+          ].includes(i.status)
         )
-      : allInspections.filter((i) => i.status === "Completed");
+      : allInspections.filter((i) =>
+          ["Completed", "Report Generated"].includes(i.status)
+        );
 
   // Apply filters
   const filteredInspections = filteredByMode.filter((inspection) => {
@@ -95,14 +116,22 @@ const InspectionBody = ({ inspections, setInspections }) => {
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case "Pending":
+      case "Pending Tenant Response":
         return <Clock size={14} className="text-yellow-500" />;
-      case "Scheduled":
+      case "Tenant Accepted":
+        return <CheckCircle size={14} className="text-green-500" />;
+      case "Tenant Declined":
+        return <XCircle size={14} className="text-red-500" />;
+      case "Reschedule Requested":
+        return <AlertTriangle size={14} className="text-orange-500" />;
+      case "Confirmed":
         return <Calendar size={14} className="text-blue-500" />;
       case "In Progress":
-        return <ClipboardCheck size={14} className="text-orange-500" />;
+        return <ClipboardCheck size={14} className="text-purple-500" />;
       case "Completed":
         return <CheckCircle size={14} className="text-green-500" />;
+      case "Report Generated":
+        return <CheckCircle size={14} className="text-blue-500" />;
       case "Cancelled":
         return <XCircle size={14} className="text-red-500" />;
       default:
@@ -121,6 +150,14 @@ const InspectionBody = ({ inspections, setInspections }) => {
 
   const handleDeleteInspection = (inspection) => {
     setDeleteModal({ open: true, inspection });
+  };
+
+  const handleGenerateReport = (inspection) => {
+    setReportModal({ open: true, inspection });
+  };
+
+  const handleTenantResponse = (inspection) => {
+    setTenantResponseModal({ open: true, inspection });
   };
 
   const handleScheduleSubmit = (inspectionId, scheduledDate) => {
@@ -160,6 +197,62 @@ const InspectionBody = ({ inspections, setInspections }) => {
         ...group,
         inspectionsList: group.inspectionsList.filter(
           (inspection) => inspection.id !== inspectionToDelete.id
+        ),
+      }))
+    );
+  };
+
+  const handleSaveReport = (inspectionId, reportData) => {
+    setInspections((prev) =>
+      prev.map((group) => ({
+        ...group,
+        inspectionsList: group.inspectionsList.map((inspection) =>
+          inspection.id === inspectionId
+            ? {
+                ...inspection,
+                status: "Report Generated",
+                inspectionReport: reportData,
+                reportGenerated: true,
+                reportSharedWithTenant: true,
+                lastUpdated: new Date().toISOString().split("T")[0],
+              }
+            : inspection
+        ),
+      }))
+    );
+    setReportModal({ open: false, inspection: null });
+  };
+
+  const handleUpdateTenantResponse = (inspectionId, responseData) => {
+    setInspections((prev) =>
+      prev.map((group) => ({
+        ...group,
+        inspectionsList: group.inspectionsList.map((inspection) =>
+          inspection.id === inspectionId
+            ? {
+                ...inspection,
+                ...responseData,
+                lastUpdated: new Date().toISOString().split("T")[0],
+              }
+            : inspection
+        ),
+      }))
+    );
+    setTenantResponseModal({ open: false, inspection: null });
+  };
+
+  const handleConfirmInspection = (inspectionId) => {
+    setInspections((prev) =>
+      prev.map((group) => ({
+        ...group,
+        inspectionsList: group.inspectionsList.map((inspection) =>
+          inspection.id === inspectionId
+            ? {
+                ...inspection,
+                status: "Confirmed",
+                lastUpdated: new Date().toISOString().split("T")[0],
+              }
+            : inspection
         ),
       }))
     );
@@ -299,7 +392,7 @@ const InspectionBody = ({ inspections, setInspections }) => {
                       Status
                     </th>
                     <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Remarks
+                      Priority
                     </th>
                     <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                       Actions
@@ -356,49 +449,104 @@ const InspectionBody = ({ inspections, setInspections }) => {
                           {inspection.status}
                         </span>
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span
+                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityStyle(
+                            inspection.priority
+                          )}`}
+                        >
+                          {inspection.priority}
+                        </span>
+                      </td>
                       <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
-                        <div className="flex items-center justify-between gap-2">
-                          {inspection.status === "Pending" && (
-                            <button
-                              onClick={() =>
-                                handleScheduleInspection(inspection)
-                              }
-                              className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700"
-                            >
-                              Schedule
-                            </button>
+                        <div className="flex items-center gap-2">
+                          {/* Landlord-only actions - role-based access control */}
+                          {user?.role === "landlord" && (
+                            <>
+                              {inspection.status ===
+                                "Pending Tenant Response" && (
+                                <button
+                                  onClick={() =>
+                                    handleTenantResponse(inspection)
+                                  }
+                                  className="px-3 py-1 text-xs text-white transition-colors bg-yellow-600 rounded cursor-pointer hover:bg-yellow-700 myButton"
+                                >
+                                  Simulate Response
+                                </button>
+                              )}
+                              {inspection.status === "Tenant Accepted" && (
+                                <button
+                                  onClick={() =>
+                                    handleConfirmInspection(inspection.id)
+                                  }
+                                  className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700 myButton"
+                                >
+                                  Confirm
+                                </button>
+                              )}
+                              {inspection.status === "Reschedule Requested" && (
+                                <div className="flex gap-1">
+                                  <button
+                                    onClick={() =>
+                                      handleConfirmInspection(inspection.id)
+                                    }
+                                    className="px-2 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700 myButton"
+                                  >
+                                    Accept
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      handleTenantResponse(inspection)
+                                    }
+                                    className="px-2 py-1 text-xs text-white transition-colors bg-orange-600 rounded cursor-pointer hover:bg-orange-700 myButton"
+                                  >
+                                    Counter
+                                  </button>
+                                </div>
+                              )}
+                              {inspection.status === "Confirmed" && (
+                                <button
+                                  onClick={() =>
+                                    handleMarkComplete(inspection.id)
+                                  }
+                                  className="px-3 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700 myButton"
+                                >
+                                  Mark Complete
+                                </button>
+                              )}
+                              {inspection.status === "Completed" && (
+                                <button
+                                  onClick={() =>
+                                    handleGenerateReport(inspection)
+                                  }
+                                  className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700 myButton"
+                                >
+                                  Generate Report
+                                </button>
+                              )}
+                            </>
                           )}
-                          {inspection.status === "Scheduled" && (
+
+                          {/* Common actions for all roles */}
+                          <button
+                            onClick={() => handleViewInspection(inspection)}
+                            className="flex items-center gap-1 px-3 py-1 text-xs text-blue-600 transition-colors rounded cursor-pointer bg-blue-50 hover:bg-blue-100 myButton"
+                          >
+                            <Eye size={14} />
+                            View
+                          </button>
+
+                          {/* Landlord-only delete action */}
+                          {user?.role === "landlord" && (
                             <button
-                              onClick={() => handleMarkComplete(inspection.id)}
-                              className="px-3 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700"
+                              onClick={() => handleDeleteInspection(inspection)}
+                              className="flex items-center gap-1 px-3 py-1 text-xs text-red-600 transition-colors rounded cursor-pointer bg-red-50 hover:bg-red-100"
                             >
-                              Mark Complete
+                              <Trash2 size={14} />
+                              Delete
                             </button>
                           )}
                         </div>
-                      </td>
-                      <td className="gap-2 flex px-6 py-4 text-sm font-medium whitespace-nowrap">
-                        <button
-                          onClick={() => handleViewInspection(inspection)}
-                          className="p-1 text-gray-500 transition-colors rounded cursor-pointer hover:text-blue-600 hover:bg-blue-50"
-                          title="View Details"
-                        >
-                          <Eye size={16} />
-                        </button>
-                        <button
-                          className="p-1 text-gray-500 transition-colors rounded cursor-pointer hover:text-blue-600 hover:bg-blue-50"
-                          title="Edit Inspection"
-                        >
-                          <Edit size={16} />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteInspection(inspection)}
-                          className="p-1 text-gray-500 transition-colors rounded cursor-pointer hover:text-red-600 hover:bg-red-50"
-                          title="Delete Inspection"
-                        >
-                          <Trash2 size={16} />
-                        </button>
                       </td>
                     </tr>
                   ))}
@@ -472,13 +620,29 @@ const InspectionBody = ({ inspections, setInspections }) => {
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
-                        <button
-                          onClick={() => handleViewInspection(inspection)}
-                          className="flex items-center gap-1 px-3 py-1 text-xs text-blue-600 transition-colors rounded cursor-pointer bg-blue-50 hover:bg-blue-100"
-                        >
-                          <Eye size={14} />
-                          View Report
-                        </button>
+                        <div className="flex items-center gap-2">
+                          {/* View Report - Available to all roles */}
+                          {inspection.status === "Report Generated" ? (
+                            <button
+                              onClick={() => handleViewInspection(inspection)}
+                              className="flex items-center gap-1 px-3 py-1 text-xs text-blue-600 transition-colors rounded cursor-pointer bg-blue-50 hover:bg-blue-100 myButton"
+                            >
+                              <Eye size={14} />
+                              View Report
+                            </button>
+                          ) : (
+                            /* Generate Report - Landlord only */
+                            user?.role === "landlord" && (
+                              <button
+                                onClick={() => handleGenerateReport(inspection)}
+                                className="flex items-center gap-1 px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700 myButton"
+                              >
+                                <ClipboardCheck size={14} />
+                                Generate Report
+                              </button>
+                            )
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -501,6 +665,22 @@ const InspectionBody = ({ inspections, setInspections }) => {
         open={viewModal.open}
         onClose={() => setViewModal({ open: false, inspection: null })}
         inspection={viewModal.inspection}
+      />
+
+      <InspectionReportModal
+        open={reportModal.open}
+        onClose={() => setReportModal({ open: false, inspection: null })}
+        inspection={reportModal.inspection}
+        onSaveReport={handleSaveReport}
+      />
+
+      <TenantResponseModal
+        open={tenantResponseModal.open}
+        onClose={() =>
+          setTenantResponseModal({ open: false, inspection: null })
+        }
+        inspection={tenantResponseModal.inspection}
+        onUpdateResponse={handleUpdateTenantResponse}
       />
 
       {/* Delete Confirmation Dialog */}

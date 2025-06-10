@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { 
-  inspectionTypes, 
-  priorityLevels, 
-  inspectorsList 
+import {
+  inspectionTypes,
+  priorityLevels,
+  inspectorsList,
 } from "@/data/landlord/propertyInspection/data";
 import { tenantData } from "@/data/landlord/tenant/data";
 import { Calendar, X } from "lucide-react";
@@ -27,7 +27,7 @@ const AddInspectionModal = ({ open, onClose, onAddInspection }) => {
   const [form, setForm] = useState(defaultForm);
 
   // Get all tenants for dropdown
-  const allTenants = tenantData.flatMap(group => group.tenantsList);
+  const allTenants = tenantData.flatMap((group) => group.tenantsList);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,13 +35,14 @@ const AddInspectionModal = ({ open, onClose, onAddInspection }) => {
 
     // Auto-populate tenant details when tenant is selected
     if (name === "tenantName" && value) {
-      const selectedTenant = allTenants.find(t => t.name === value);
+      const selectedTenant = allTenants.find((t) => t.name === value);
       if (selectedTenant) {
-        setForm(prev => ({
+        setForm((prev) => ({
           ...prev,
           tenantEmail: selectedTenant.email,
           tenantPhone: selectedTenant.phone,
-          propertyName: selectedTenant.address.split(" Unit")[0] || selectedTenant.address,
+          propertyName:
+            selectedTenant.address.split(" Unit")[0] || selectedTenant.address,
           propertyAddress: selectedTenant.address,
         }));
       }
@@ -49,9 +50,11 @@ const AddInspectionModal = ({ open, onClose, onAddInspection }) => {
 
     // Auto-populate inspector details when inspector is selected
     if (name === "inspectorId" && value) {
-      const selectedInspector = inspectorsList.find(i => i.id.toString() === value);
+      const selectedInspector = inspectorsList.find(
+        (i) => i.id.toString() === value
+      );
       if (selectedInspector) {
-        setForm(prev => ({
+        setForm((prev) => ({
           ...prev,
           inspectorName: selectedInspector.name,
         }));
@@ -66,7 +69,7 @@ const AddInspectionModal = ({ open, onClose, onAddInspection }) => {
         ...form,
         id: Date.now(),
         inspectorId: parseInt(form.inspectorId),
-        status: "Pending",
+        status: "Pending Tenant Response",
         completedDate: null,
         findings: [],
         overallCondition: null,
@@ -74,13 +77,22 @@ const AddInspectionModal = ({ open, onClose, onAddInspection }) => {
         nextInspectionDate: null,
         photos: [],
         createdBy: "Property Manager",
-        createdDate: new Date().toISOString().split('T')[0],
-        lastUpdated: new Date().toISOString().split('T')[0],
+        createdDate: new Date().toISOString().split("T")[0],
+        lastUpdated: new Date().toISOString().split("T")[0],
         areasInspected: [],
         inspectionDuration: null,
         reportGenerated: false,
         reportUrl: null,
-        tags: [form.inspectionType.toLowerCase().replace(/\s+/g, '-')]
+        tags: [form.inspectionType.toLowerCase().replace(/\s+/g, "-")],
+        // Enhanced workflow fields
+        tenantResponse: null,
+        tenantResponseDate: null,
+        tenantDeclineReason: null,
+        tenantSuggestedTimes: [],
+        landlordNotes: form.notes,
+        inspectionReport: null,
+        reportSharedWithTenant: false,
+        tenantComments: [],
       };
       onAddInspection(newInspection);
     }
@@ -90,12 +102,12 @@ const AddInspectionModal = ({ open, onClose, onAddInspection }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-2xl max-h-[80vh] bg-white border-0 rounded-lg shadow-xl overflow-y-auto">
+      <DialogContent className="w-full md:max-w-xl max-h-[80vh] bg-white border-0 rounded-lg shadow-xl overflow-y-auto">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-800">
               Create Inspection Request
-            </h2> 
+            </h2>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -216,19 +228,22 @@ const AddInspectionModal = ({ open, onClose, onAddInspection }) => {
               </div>
             </div>
 
-            {/* Notes */}
+            {/* Landlord Notes */}
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-700">
-                Notes (Optional)
+                Inspection Purpose & Notes
               </label>
               <textarea
                 name="notes"
                 value={form.notes}
                 onChange={handleChange}
-                placeholder="Additional notes about the inspection"
+                placeholder="Describe the purpose of this inspection and any specific areas of concern..."
                 rows={3}
                 className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              <p className="mt-1 text-xs text-gray-500">
+                This information will be shared with the tenant when requesting inspection approval.
+              </p>
             </div>
 
             {/* Form Actions */}

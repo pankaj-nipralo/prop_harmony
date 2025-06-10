@@ -16,7 +16,7 @@ export const inspectionData = [
         requestedDate: "2024-06-15",
         scheduledDate: "2024-06-20",
         completedDate: null,
-        status: "Pending",
+        status: "Pending Tenant Response",
         priority: "Medium",
         notes: "Regular quarterly inspection",
         findings: [],
@@ -32,6 +32,15 @@ export const inspectionData = [
         reportGenerated: false,
         reportUrl: null,
         tags: ["routine", "quarterly"],
+        // Enhanced workflow fields
+        tenantResponse: null, // "accepted", "declined", "reschedule_requested"
+        tenantResponseDate: null,
+        tenantDeclineReason: null,
+        tenantSuggestedTimes: [],
+        landlordNotes: "Regular quarterly inspection",
+        inspectionReport: null,
+        reportSharedWithTenant: false,
+        tenantComments: [],
       },
       {
         id: 2,
@@ -47,7 +56,7 @@ export const inspectionData = [
         requestedDate: "2024-06-20",
         scheduledDate: "2024-06-25",
         completedDate: null,
-        status: "Scheduled",
+        status: "Confirmed",
         priority: "High",
         notes: "Tenant reported water leak in kitchen",
         findings: [],
@@ -63,6 +72,16 @@ export const inspectionData = [
         reportGenerated: false,
         reportUrl: null,
         tags: ["maintenance", "urgent", "water-leak"],
+        // Enhanced workflow fields
+        tenantResponse: "accepted",
+        tenantResponseDate: "2024-06-19",
+        tenantDeclineReason: null,
+        tenantSuggestedTimes: [],
+        landlordNotes:
+          "Tenant reported water leak in kitchen - urgent inspection required",
+        inspectionReport: null,
+        reportSharedWithTenant: false,
+        tenantComments: [],
       },
       {
         id: 3,
@@ -78,7 +97,7 @@ export const inspectionData = [
         requestedDate: "2024-05-10",
         scheduledDate: "2024-05-15",
         completedDate: "2024-05-15",
-        status: "Completed",
+        status: "Report Generated",
         priority: "Medium",
         notes: "Final inspection before tenant move-out",
         findings: [
@@ -141,6 +160,135 @@ export const inspectionData = [
         reportGenerated: true,
         reportUrl: "/reports/inspection-3-report.pdf",
         tags: ["move-out", "completed", "deposit-assessment"],
+        // Enhanced workflow fields
+        tenantResponse: "accepted",
+        tenantResponseDate: "2024-05-12",
+        tenantDeclineReason: null,
+        tenantSuggestedTimes: [],
+        landlordNotes:
+          "Final inspection before tenant move-out for deposit assessment",
+        inspectionReport: {
+          id: 1,
+          generatedDate: "2024-05-15",
+          generatedBy: "Property Manager",
+          overallScore: 85,
+          roomAssessments: [
+            {
+              room: "Living Room",
+              condition: "Good",
+              score: 90,
+              issues: [],
+              photos: [
+                {
+                  id: 1,
+                  url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400",
+                  name: "living-room-overview.jpg",
+                  size: 245760,
+                  type: "image/jpeg",
+                },
+                {
+                  id: 2,
+                  url: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400",
+                  name: "living-room-corner.jpg",
+                  size: 189440,
+                  type: "image/jpeg",
+                },
+              ],
+              notes: "Clean and well maintained",
+            },
+            {
+              room: "Kitchen",
+              condition: "Fair",
+              score: 75,
+              issues: [
+                {
+                  severity: "Minor",
+                  description: "Cabinet door scratches",
+                  cost: 150,
+                },
+                {
+                  severity: "Minor",
+                  description: "Minor wear on cabinet doors",
+                  cost: 100,
+                },
+              ],
+              photos: [
+                {
+                  id: 3,
+                  url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400",
+                  name: "kitchen-cabinets.jpg",
+                  size: 312320,
+                  type: "image/jpeg",
+                },
+                {
+                  id: 4,
+                  url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwyfHxraXRjaGVuJTIwY2FiaW5ldHN8ZW58MHwwfHx8MTY5NzU0NjQwMHww&ixlib=rb-4.0.3&q=80",
+                  name: "kitchen-damage.jpg",
+                  size: 278560,
+                  type: "image/jpeg",
+                },
+              ],
+              notes: "Minor wear on cabinet doors, needs touch-up",
+            },
+            {
+              room: "Bedroom",
+              condition: "Good",
+              score: 95,
+              issues: [],
+              photos: [
+                {
+                  id: 5,
+                  url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400",
+                  name: "bedroom-overview.jpg",
+                  size: 198720,
+                  type: "image/jpeg",
+                },
+              ],
+              notes: "Excellent condition",
+            },
+            {
+              room: "Bathroom",
+              condition: "Good",
+              score: 88,
+              issues: [],
+              photos: [
+                {
+                  id: 6,
+                  url: "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=400",
+                  name: "bathroom-overview.jpg",
+                  size: 167890,
+                  type: "image/jpeg",
+                },
+              ],
+              notes: "Clean and functional",
+            },
+          ],
+          maintenanceRecommendations: [
+            {
+              priority: "Medium",
+              description: "Replace cabinet hardware",
+              estimatedCost: 200,
+            },
+            {
+              priority: "Low",
+              description: "Touch up paint in kitchen",
+              estimatedCost: 150,
+            },
+          ],
+          landlordObservations:
+            "Property is in good overall condition. Minor cosmetic issues in kitchen.",
+          nextInspectionRecommended: "2024-11-15",
+        },
+        reportSharedWithTenant: true,
+        tenantComments: [
+          {
+            id: 1,
+            comment:
+              "I agree with the assessment. The kitchen issues were pre-existing.",
+            date: "2024-05-16",
+            type: "agreement",
+          },
+        ],
       },
     ],
   },
@@ -162,22 +310,40 @@ export const inspectionTypes = [
 
 export const inspectionStatuses = [
   {
-    value: "Pending",
+    value: "Pending Tenant Response",
     color: "yellow",
     bgColor: "bg-yellow-100",
     textColor: "text-yellow-700",
   },
   {
-    value: "Scheduled",
+    value: "Tenant Accepted",
+    color: "green",
+    bgColor: "bg-green-100",
+    textColor: "text-green-700",
+  },
+  {
+    value: "Tenant Declined",
+    color: "red",
+    bgColor: "bg-red-100",
+    textColor: "text-red-700",
+  },
+  {
+    value: "Reschedule Requested",
+    color: "orange",
+    bgColor: "bg-orange-100",
+    textColor: "text-orange-700",
+  },
+  {
+    value: "Confirmed",
     color: "blue",
     bgColor: "bg-blue-100",
     textColor: "text-blue-700",
   },
   {
     value: "In Progress",
-    color: "orange",
-    bgColor: "bg-orange-100",
-    textColor: "text-orange-700",
+    color: "purple",
+    bgColor: "bg-purple-100",
+    textColor: "text-purple-700",
   },
   {
     value: "Completed",
@@ -186,16 +352,16 @@ export const inspectionStatuses = [
     textColor: "text-green-700",
   },
   {
+    value: "Report Generated",
+    color: "blue",
+    bgColor: "bg-blue-100",
+    textColor: "text-blue-700",
+  },
+  {
     value: "Cancelled",
     color: "red",
     bgColor: "bg-red-100",
     textColor: "text-red-700",
-  },
-  {
-    value: "Rescheduled",
-    color: "purple",
-    bgColor: "bg-purple-100",
-    textColor: "text-purple-700",
   },
 ];
 
@@ -277,6 +443,51 @@ export const inspectionAreas = [
   "Flooring",
   "Walls",
   "Ceiling",
+];
+
+export const issueSeverityLevels = [
+  {
+    value: "Minor",
+    color: "yellow",
+    bgColor: "bg-yellow-100",
+    textColor: "text-yellow-700",
+  },
+  {
+    value: "Major",
+    color: "orange",
+    bgColor: "bg-orange-100",
+    textColor: "text-orange-700",
+  },
+  {
+    value: "Critical",
+    color: "red",
+    bgColor: "bg-red-100",
+    textColor: "text-red-700",
+  },
+];
+
+export const tenantResponseTypes = [
+  {
+    value: "accepted",
+    label: "Accepted",
+    color: "green",
+    bgColor: "bg-green-100",
+    textColor: "text-green-700",
+  },
+  {
+    value: "declined",
+    label: "Declined",
+    color: "red",
+    bgColor: "bg-red-100",
+    textColor: "text-red-700",
+  },
+  {
+    value: "reschedule_requested",
+    label: "Reschedule Requested",
+    color: "orange",
+    bgColor: "bg-orange-100",
+    textColor: "text-orange-700",
+  },
 ];
 
 export const inspectorsList = [
