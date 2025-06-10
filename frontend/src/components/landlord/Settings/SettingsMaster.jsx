@@ -24,11 +24,16 @@ import {
   Eye,
   EyeOff,
   Database,
+  LogOut,
 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const SettingsMaster = () => {
   // Active section state
   const [activeSection, setActiveSection] = useState("profile");
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   // Modal states
   const [profileEditModal, setProfileEditModal] = useState(false);
@@ -152,6 +157,17 @@ const SettingsMaster = () => {
     new: false,
     confirm: false,
   });
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Force navigation even if logout fails
+      navigate("/login");
+    }
+  };
 
   // Loading state
   const [isLoading, setIsLoading] = useState(false);
@@ -561,24 +577,24 @@ const SettingsMaster = () => {
                   </div>
 
                   <div className="p-4 border border-blue-200 rounded-lg bg-blue-50">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Key className="w-5 h-5 text-blue-600" />
-                        <div>
-                          <h4 className="text-sm font-medium text-gray-900">
-                            Password
-                          </h4>
-                          <p className="text-xs text-gray-500">
-                            Last changed: {securitySettings.passwordLastChanged}
-                          </p>
-                        </div>
+                    <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
+                      {/* Optional password info or icon can be added here later */}
+
+                      <div className="flex flex-col gap-3 sm:flex-row sm:ml-auto">
+                        <button
+                          onClick={() => setPasswordChangeModal(true)}
+                          className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
+                        >
+                          Change Password
+                        </button>
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-red-600 rounded-lg hover:bg-red-700"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Sign Out
+                        </button>
                       </div>
-                      <button
-                        onClick={() => setPasswordChangeModal(true)}
-                        className="px-4 py-2 text-sm font-medium text-blue-600 transition-colors bg-blue-100 rounded-lg hover:bg-blue-200 myButton"
-                      >
-                        Change Password
-                      </button>
                     </div>
                   </div>
                 </div>
