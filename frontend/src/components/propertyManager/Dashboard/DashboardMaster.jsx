@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import DashboardHeader from "./DashboardHeader";
 import DashboardStats from "./DashboardStats";
-import DashboardCharts from "./DashboardCharts";
-import DashboardRecentActivity from "./DashboardRecentActivity";
-import DashboardQuickActions from "./DashboardQuickActions";
-import DashboardNotifications from "./DashboardNotifications";
+import RentCollectionChart from "./RentCollectionChart";
+import OccupancyRateChart from "./OccupancyRateChart";
+import ActiveWorkOrdersTable from "./ActiveWorkOrdersTable";
+import LeaseExpirationsTable from "./LeaseExpirationsTable";
+import { generateDashboardData } from "@/data/propertyManager/dashboard/data";
 
 const DashboardMaster = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,13 +16,13 @@ const DashboardMaster = () => {
     const loadDashboardData = async () => {
       setIsLoading(true);
 
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
 
       // Generate realistic property management data
       const data = generateDashboardData();
       setDashboardData(data);
-      setIsLoading(false);
     };
 
     loadDashboardData();
@@ -46,30 +47,32 @@ const DashboardMaster = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      <div className="p-6 mx-auto max-w-7xl">
+    <div className="min-h-screen">
+      <div className="p-6">
         {/* Header */}
         <DashboardHeader />
 
         {/* Stats Cards */}
         <DashboardStats data={dashboardData} />
 
-        {/* Charts and Quick Actions Row */}
-        <div className="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <DashboardCharts data={dashboardData} />
-          </div>
-          <div>
-            <DashboardQuickActions />
-          </div>
+        {/* Charts Row - Side by Side */}
+        <div className="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-2">
+          <RentCollectionChart data={dashboardData} />
+          <OccupancyRateChart data={dashboardData} />
         </div>
 
-        {/* Recent Activity and Notifications Row */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <DashboardRecentActivity data={dashboardData} />
-          <DashboardNotifications data={dashboardData} />
+        {/* Active Work Orders Table */}
+        <div className="mb-8">
+          <ActiveWorkOrdersTable data={dashboardData} />
+        </div>
+
+        {/* Upcoming Lease Expirations Table */}
+        <div>
+          <LeaseExpirationsTable data={dashboardData} />
         </div>
       </div>
     </div>
   );
 };
+
+export default DashboardMaster;

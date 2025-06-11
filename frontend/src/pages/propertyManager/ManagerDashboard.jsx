@@ -1,7 +1,9 @@
+ 
+import DashboardMaster from "@/components/propertyManager/Dashboard/DashboardMaster";
 import React from "react";
 
 const ManagerDashboard = () => {
-  return <div>ManagerDashboard</div>;
+  return <DashboardMaster />;
 };
 
 export default ManagerDashboard;
