@@ -54,7 +54,7 @@ import PastProperties from "./pages/tenant/PastProperties";
 import ForTenantsPropertyInspection from "./pages/tenant/PropertyInspection";
 import TenantPaymentMaster from "./components/tenants/Payments/tenantsPaymentMaster";
 import TenantSettings from "./components/tenants/TenantsSettings/TenantSettings";
-import ManagerDashbord from "./pages/propertyManager/ManagerDashbord";
+import ManagerDashbord from "./pages/propertyManager/ManagerDashboard";
 
 function App() {
   return (
