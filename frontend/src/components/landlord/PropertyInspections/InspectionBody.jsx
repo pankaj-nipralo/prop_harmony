@@ -345,7 +345,7 @@ const InspectionBody = () => {
                     <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                       Priority
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-center uppercase gray-500">
                       Actions
                     </th>
                   </tr>
@@ -410,9 +410,9 @@ const InspectionBody = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-center gap-2">
                           {/* Landlord-only actions - role-based access control */}
-                          {user?.role === "landlord" && (
+                          {["landlord", "property_manager"].includes(user?.role) &&  (
                             <>
                               {inspection.status ===
                                 "Pending Tenant Response" && (
@@ -488,7 +488,7 @@ const InspectionBody = () => {
                           </button>
 
                           {/* Landlord-only delete action */}
-                          {user?.role === "landlord" && (
+                          {["landlord", "property_manager"].includes(user?.role) && (
                             <button
                               onClick={() => handleDeleteInspection(inspection)}
                               className="flex items-center gap-1 px-3 py-1 text-xs text-red-600 transition-colors rounded cursor-pointer bg-red-50 hover:bg-red-100"

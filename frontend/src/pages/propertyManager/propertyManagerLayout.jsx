@@ -4,38 +4,39 @@ import { Sidebar } from "../../components/layout/Sidebar";
 import {
   LayoutDashboard,
   Home,
-  History,
-  Search,
-  Users, 
-  ClipboardCheck, 
+  Users,
+  ClipboardCheck,
+  Wrench,
+  HandCoins,
+  FileText,
   MessageCircle,
-  HandCoins, 
+  BarChart3,
   Settings,
 } from "lucide-react";
 import { TopBar } from "@/components/layout/Topbar";
 
 const navItems = [
-  { label: "Dashboard", path: "/tenants/dashboard", icon: LayoutDashboard },
-  { label: "Properties", path: "/tenants/properties", icon: Home },
-  { label: "Work Orders", path: "/tenants/rental-search", icon: Search },
-  { label: "Rent Collection", path: "/tenants/my-offers", icon: HandCoins },
+  { label: "Dashboard", path: "/manager/dashboard", icon: LayoutDashboard },
+  { label: "Properties", path: "/manager/properties", icon: Home },
+  // { label: "Tenants", path: "/manager/tenants", icon: Users },
   {
-    label: "Lease Management",
-    path: "/tenants/past-properties",
-    icon: History,
-  },
-  {
-    label: "Tenant Coordination",
-    path: "/tenants/property-manager",
-    icon: Users,
-  },
-  {
-    label: "Inspections",
-    path: "/tenants/property-inspection",
+    label: "Property Inspections",
+    path: "/manager/property-inspection",
     icon: ClipboardCheck,
   },
-  { label: "Emails", path: "/tenants/messages", icon: MessageCircle },
-  { label: "Settings", path: "/tenants/settings", icon: Settings },
+  { label: "Work Orders", path: "/manager/work-orders", icon: Wrench },
+  {
+    label: "Rent Collection",
+    path: "/manager/rent-collection",
+    icon: HandCoins,
+  },
+  {
+    label: "Lease Management",
+    path: "/manager/lease-management",
+    icon: FileText,
+  },
+  { label: "Emails", path: "/manager/emails", icon: MessageCircle },
+  { label: "Settings", path: "/manager/settings", icon: Settings },
 ];
 
 const PropertyManagerLayout = () => {
@@ -49,8 +50,8 @@ const PropertyManagerLayout = () => {
           navItems={navItems} // Pass the same navItems
           user={{
             name: "Pankaj Gupta",
-            role: "Admin",
-            avatar: "https://i.pravatar.cc/40?u=user",
+            role: "Property Manager",
+            avatar: "https://i.pravatar.cc/40?u=manager",
           }}
         />
 

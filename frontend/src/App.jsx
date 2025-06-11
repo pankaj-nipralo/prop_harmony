@@ -54,7 +54,18 @@ import PastProperties from "./pages/tenant/PastProperties";
 import ForTenantsPropertyInspection from "./pages/tenant/PropertyInspection";
 import TenantPaymentMaster from "./components/tenants/Payments/tenantsPaymentMaster";
 import TenantSettings from "./components/tenants/TenantsSettings/TenantSettings";
+
+// Property Manager Pages
 import ManagerDashbord from "./pages/propertyManager/ManagerDashboard";
+import ManagerProperties from "./pages/propertyManager/Properties";
+import ManagerTenants from "./pages/propertyManager/Tenants";
+import ManagerPropertyInspection from "./pages/propertyManager/PropertyInspection";
+import ManagerWorkOrders from "./pages/propertyManager/WorkOrders";
+import ManagerRentCollection from "./pages/propertyManager/RentCollection";
+import ManagerLeaseManagement from "./pages/propertyManager/LeaseManagement";
+import ManagerMessages from "./pages/propertyManager/Messages";
+import ManagerReports from "./pages/propertyManager/Reports";
+import ManagerSettings from "./pages/propertyManager/Settings";
 
 function App() {
   return (
@@ -143,12 +154,19 @@ function App() {
           }
         >
           <Route path="dashboard" element={<ManagerDashbord />} />
-          {/* <Route path="properties" element={<Properties />} />
-          <Route path="applications" element={<Applications />} />
-          <Route path="my-tenants" element={<MyTenants />} />
-          <Route path="payemnts" element={<Payemnt />} />
-          <Route path="property-inspection" element={<PropertyInspection />} /> */}
+          <Route path="properties" element={<ManagerProperties />} /> 
+          <Route
+            path="property-inspection"
+            element={<ManagerPropertyInspection />}
+          />
+          <Route path="work-orders" element={<ManagerWorkOrders />} />
+          <Route path="rent-collection" element={<ManagerRentCollection />} />
+          <Route path="lease-management" element={<ManagerLeaseManagement />} />
+          <Route path="emails" element={<ManagerMessages />} />
+          <Route path="reports" element={<ManagerReports />} />
+          <Route path="settings" element={<ManagerSettings />} />
 
+          <Route path="*" element={<Navigate to="/manager/dashboard" />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

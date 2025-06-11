@@ -20,7 +20,7 @@ const TenantInspectionMaster = () => {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="w-8 h-8 mx-auto mb-4 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-8 h-8 mx-auto mb-4 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
           <p className="text-gray-600">Loading inspections...</p>
         </div>
       </div>
@@ -45,8 +45,8 @@ const TenantInspectionMaster = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      <div className="p-6 mx-auto max-w-7xl">
+    <div className="min-h-screen ">
+      <div className="p-6 ">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
@@ -139,7 +139,7 @@ const TenantInspectionMaster = () => {
                 </p>
               </div>
               <div className="flex gap-2">
-                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors myButton">
+                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-orange-600 rounded-lg hover:bg-orange-700 myButton">
                   <MessageSquare className="w-4 h-4" />
                   Respond Now
                 </button>

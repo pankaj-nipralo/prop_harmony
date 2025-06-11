@@ -7,44 +7,10 @@ import ActiveWorkOrdersTable from "./ActiveWorkOrdersTable";
 import LeaseExpirationsTable from "./LeaseExpirationsTable";
 import { generateDashboardData } from "@/data/propertyManager/dashboard/data";
 
-const DashboardMaster = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [dashboardData, setDashboardData] = useState(null);
+const DashboardMaster = () => { 
+  const [dashboardData, setDashboardData] = useState(generateDashboardData());
 
-  // Simulate data loading
-  useEffect(() => {
-    const loadDashboardData = async () => {
-      setIsLoading(true);
-
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-
-      // Generate realistic property management data
-      const data = generateDashboardData();
-      setDashboardData(data);
-    };
-
-    loadDashboardData();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="w-12 h-12 mx-auto mb-4 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
-            <h2 className="mb-2 text-xl font-semibold text-gray-700">
-              Loading Dashboard
-            </h2>
-            <p className="text-gray-500">
-              Fetching your property management data...
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Simulate data loading 
 
   return (
     <div className="min-h-screen">

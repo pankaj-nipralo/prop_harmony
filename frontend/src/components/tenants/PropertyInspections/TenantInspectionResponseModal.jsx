@@ -87,7 +87,7 @@ const TenantInspectionResponseModal = ({ open, onClose, inspection, onUpdateResp
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-2xl max-h-[80vh] bg-white border-0 rounded-lg shadow-xl overflow-y-auto">
+      <DialogContent className="w-full md:max-w-5xl max-h-[80vh] bg-white border-0 rounded-lg shadow-xl overflow-y-auto">
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
@@ -101,7 +101,7 @@ const TenantInspectionResponseModal = ({ open, onClose, inspection, onUpdateResp
             </div>
             <button
               onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-gray-400 transition-colors rounded-lg hover:text-gray-600 hover:bg-gray-100"
             >
               <X className="w-5 h-5" />
             </button>
@@ -213,7 +213,7 @@ const TenantInspectionResponseModal = ({ open, onClose, inspection, onUpdateResp
             {/* Conditional Fields */}
             {response === "declined" && (
               <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Reason for Declining *
                 </label>
                 <textarea
@@ -261,7 +261,7 @@ const TenantInspectionResponseModal = ({ open, onClose, inspection, onUpdateResp
                       <button
                         type="button"
                         onClick={() => removeSuggestedTime(index)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded"
+                        className="p-2 text-red-600 rounded hover:bg-red-50"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -273,7 +273,7 @@ const TenantInspectionResponseModal = ({ open, onClose, inspection, onUpdateResp
 
             {/* Optional Message */}
             <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block mb-2 text-sm font-medium text-gray-700">
                 Additional Message (Optional)
               </label>
               <textarea
@@ -290,7 +290,7 @@ const TenantInspectionResponseModal = ({ open, onClose, inspection, onUpdateResp
               <button
                 onClick={onClose}
                 disabled={isSubmitting}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
+                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200 disabled:opacity-50"
               >
                 Cancel
               </button>
@@ -301,11 +301,11 @@ const TenantInspectionResponseModal = ({ open, onClose, inspection, onUpdateResp
                   (response === "declined" && !declineReason.trim()) ||
                   (response === "reschedule_requested" && !suggestedTimes.some(time => time.date && time.time))
                 }
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors myButton"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed myButton"
               >
                 {isSubmitting ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
                     Submitting...
                   </>
                 ) : (
