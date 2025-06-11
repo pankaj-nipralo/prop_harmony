@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   Home,
   Users,
+  UserCheck ,
   ClipboardCheck,
   Wrench,
   HandCoins,
@@ -17,13 +18,13 @@ import { TopBar } from "@/components/layout/Topbar";
 
 const navItems = [
   { label: "Dashboard", path: "/manager/dashboard", icon: LayoutDashboard },
-  { label: "Properties", path: "/manager/properties", icon: Home },
-  // { label: "Tenants", path: "/manager/tenants", icon: Users },
+  { label: "Properties", path: "/manager/properties", icon: Home }, 
   {
     label: "Property Inspections",
     path: "/manager/property-inspection",
     icon: ClipboardCheck,
   },
+  { label: "Contractors", path: "/manager/contractors", icon: UserCheck  },
   { label: "Work Orders", path: "/manager/work-orders", icon: Wrench },
   {
     label: "Rent Collection",
