@@ -286,7 +286,7 @@ const RentalBody = () => {
 
       {/* Modal */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="w-full max-w-lg p-0 overflow-hidden bg-white border-0 rounded-lg">
+        <DialogContent className="w-full p-0 overflow-hidden bg-white border-0 rounded-lg md:max-w-xl">
           {selected && (
             <div>
               <img
@@ -339,9 +339,13 @@ const RentalBody = () => {
                 </div>
                 <div className="mb-6 text-gray-700">{selected.description}</div>
                 <div className="flex flex-col gap-3">
+                  <div className="flex justify-end gap-3">
+                    <button className="px-6 py-2 font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200">
+                      Contact Agent
+                    </button>
                   {selected.status === "Available" && (
                     <button
-                      className="w-full px-6 py-2 font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
+                      className="py-2 font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
                       onClick={() => {
                         setShowModal(false);
                         openOfferModal(selected);
@@ -350,12 +354,8 @@ const RentalBody = () => {
                       Apply Now
                     </button>
                   )}
-                  <div className="flex justify-end gap-3">
-                    <button className="px-6 py-2 font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200">
-                      Contact Agent
-                    </button>
                     <button
-                      className="px-6 py-2 font-medium text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600"
+                      className="px-6 py-2 font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-600"
                       onClick={() => setShowModal(false)}
                     >
                       Close

@@ -1,10 +1,8 @@
-import React from 'react';
-import InspectionMaster from '@/components/tenants/PropertyInspection/InspectionMaster';
+import React from "react";
+import TenantInspectionMaster from "@/components/tenants/PropertyInspections/TenantInspectionMaster";
 
 const ForTenantsPropertyInspection = () => {
-  return (
-    <InspectionMaster />
-  );
+  return <TenantInspectionMaster />;
 };
 
 export default ForTenantsPropertyInspection;

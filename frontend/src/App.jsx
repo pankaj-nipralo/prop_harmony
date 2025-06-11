@@ -54,6 +54,7 @@ import PastProperties from "./pages/tenant/PastProperties";
 import ForTenantsPropertyInspection from "./pages/tenant/PropertyInspection";
 import TenantPaymentMaster from "./components/tenants/Payments/tenantsPaymentMaster";
 import TenantSettings from "./components/tenants/TenantsSettings/TenantSettings";
+import ManagerDashbord from "./pages/propertyManager/ManagerDashbord";
 
 function App() {
   return (
@@ -140,7 +141,15 @@ function App() {
               <PropertyManagerLayout />
             </PropertyManagerRoute>
           }
-        ></Route>
+        >
+          <Route path="dashboard" element={<ManagerDashbord />} />
+          {/* <Route path="properties" element={<Properties />} />
+          <Route path="applications" element={<Applications />} />
+          <Route path="my-tenants" element={<MyTenants />} />
+          <Route path="payemnts" element={<Payemnt />} />
+          <Route path="property-inspection" element={<PropertyInspection />} /> */}
+
+        </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </AuthProvider>

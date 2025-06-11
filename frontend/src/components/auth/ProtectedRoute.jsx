@@ -183,19 +183,19 @@ export const PropertyManagerRoute = ({
 );
 
 // Multi-role protected routes
-export const LandlordOrManagerRoute = ({
-  children,
-  enableSmartRedirect = true,
-  ...props
-}) => (
-  <ProtectedRoute
-    requiredRoles={["landlord", "property_manager"]}
-    enableSmartRedirect={enableSmartRedirect}
-    {...props}
-  >
-    {children}
-  </ProtectedRoute>
-);
+// export const LandlordOrManagerRoute = ({
+//   children,
+//   enableSmartRedirect = true,
+//   ...props
+// }) => (
+//   <ProtectedRoute
+//     requiredRoles={["landlord", "property_manager"]}
+//     enableSmartRedirect={enableSmartRedirect}
+//     {...props}
+//   >
+//     {children}
+//   </ProtectedRoute>
+// );
 
 export const AuthenticatedRoute = ({
   children,

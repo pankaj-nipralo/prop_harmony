@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Star, ArrowLeft , MapPin, Calendar } from "lucide-react";
+import { Star, ArrowLeft, MapPin, Calendar } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 
@@ -285,29 +285,49 @@ const PropertiesDetails = () => {
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left border border-gray-200 rounded-lg">
+                <table className="w-full overflow-hidden text-sm text-left border border-gray-200 rounded-lg">
                   <thead>
-                    <tr className="text-gray-500 border-b">
-                      <th className="px-2 py-2 font-medium">Name</th>
-                      <th className="px-2 py-2 font-medium">Type</th>
-                      <th className="px-2 py-2 font-medium">Size</th>
-                      <th className="px-2 py-2 font-medium">Uploaded</th>
-                      <th className="px-2 py-2 font-medium">View</th>
+                    <tr className="border-b border-gray-200 bg-muted text-muted-foreground">
+                      <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                        Name
+                      </th>
+                      <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                        Type
+                      </th>
+                      <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                        Size
+                      </th>
+                      <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                        Uploaded
+                      </th>
+                      <th className="px-4 py-2 font-semibold">View</th>
                     </tr>
                   </thead>
+
                   <tbody>
                     {documents.map((doc, idx) => (
-                      <tr key={idx} className="border-b border-gray-100">
-                        <td className="px-2 py-2">{doc.name}</td>
-                        <td className="px-2 py-2">{doc.type}</td>
-                        <td className="px-2 py-2">
+                      <tr
+                        key={idx}
+                        className={`transition-colors ${
+                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } border-b border-gray-200 hover:bg-muted/40`}
+                      >
+                        <td className="px-4 py-3 text-gray-800 border-r border-gray-100">
+                          {doc.name}
+                        </td>
+                        <td className="px-4 py-3 text-gray-700 border-r border-gray-100">
+                          {doc.type}
+                        </td>
+                        <td className="px-4 py-3 text-gray-700 border-r border-gray-100">
                           {(doc.size / 1024).toFixed(1)} KB
                         </td>
-                        <td className="px-2 py-2">{doc.uploaded}</td>
-                        <td className="px-2 py-2">
+                        <td className="px-4 py-3 text-gray-600 border-r border-gray-100">
+                          {doc.uploaded}
+                        </td>
+                        <td className="px-4 py-3">
                           {doc.url && (
                             <button
-                              className="px-3 py-1 text-xs font-semibold text-white transition bg-blue-600 rounded hover:bg-blue-800"
+                              className="px-3 py-1 text-xs font-semibold text-white transition bg-blue-600 rounded hover:bg-blue-700"
                               onClick={() => {
                                 setDocPreview(doc);
                                 setShowDocPreview(true);
@@ -321,6 +341,7 @@ const PropertiesDetails = () => {
                     ))}
                   </tbody>
                 </table>
+
                 {/* Document Preview Modal */}
                 <Dialog open={showDocPreview} onOpenChange={setShowDocPreview}>
                   <DialogContent className="w-full max-w-2xl bg-white">
@@ -461,22 +482,50 @@ const PropertiesDetails = () => {
                 </div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full text-sm text-left border border-gray-200 rounded-lg">
+                  <table className="w-full overflow-hidden text-sm text-left border border-gray-200 rounded-lg">
                     <thead>
-                      <tr className="text-gray-500 border-b">
-                        <th className="px-2 py-2 font-medium">Title</th>
-                        <th className="px-2 py-2 font-medium">Description</th>
-                        <th className="px-2 py-2 font-medium">Status</th>
-                        <th className="px-2 py-2 font-medium">Date</th>
+                      <tr className="border-b border-gray-200 bg-muted text-muted-foreground">
+                        <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                          Title
+                        </th>
+                        <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                          Description
+                        </th>
+                        <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                          Status
+                        </th>
+                        <th className="px-4 py-2 font-semibold">Date</th>
                       </tr>
                     </thead>
+
                     <tbody>
                       {workOrders.map((wo, idx) => (
-                        <tr key={idx} className="border-b border-gray-100">
-                          <td className="px-2 py-2">{wo.title}</td>
-                          <td className="px-2 py-2">{wo.description}</td>
-                          <td className="px-2 py-2">{wo.status}</td>
-                          <td className="px-2 py-2">{wo.date}</td>
+                        <tr
+                          key={idx}
+                          className={`transition-colors ${
+                            idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                          } border-b border-gray-200 hover:bg-muted/40`}
+                        >
+                          <td className="px-4 py-3 text-gray-800 border-r border-gray-100">
+                            {wo.title}
+                          </td>
+                          <td className="px-4 py-3 text-gray-700 border-r border-gray-100">
+                            {wo.description}
+                          </td>
+                          <td className="px-4 py-3 border-r border-gray-100">
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                wo.status === "Resolved"
+                                  ? "bg-green-100 text-green-700"
+                                  : wo.status === "Pending"
+                                  ? "bg-gray-100 text-gray-600"
+                                  : "bg-blue-100 text-blue-700"
+                              }`}
+                            >
+                              {wo.status}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-gray-600">{wo.date}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -598,30 +647,46 @@ const PropertiesDetails = () => {
                   Transaction History
                 </span>
               </div>
-              <table className="w-full text-sm text-left">
+              <table className="w-full overflow-hidden text-sm text-left border border-gray-200 rounded-lg">
                 <thead>
-                  <tr className="text-gray-500 border-b">
-                    <th className="px-2 py-2 font-medium">Date</th>
-                    <th className="px-2 py-2 font-medium">Description</th>
-                    <th className="px-2 py-2 font-medium">Amount</th>
+                  <tr className="border-b border-gray-200 bg-muted text-muted-foreground">
+                    <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                      Date
+                    </th>
+                    <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                      Description
+                    </th>
+                    <th className="px-4 py-2 font-semibold">Amount</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {transactions.length === 0 ? (
                     <tr>
                       <td
                         colSpan={3}
-                        className="py-6 text-center text-gray-400"
+                        className="py-6 italic text-center text-muted-foreground"
                       >
                         No transactions found.
                       </td>
                     </tr>
                   ) : (
                     transactions.map((txn, idx) => (
-                      <tr key={idx} className="border-b border-gray-100">
-                        <td className="px-2 py-2">{txn.date}</td>
-                        <td className="px-2 py-2">{txn.description}</td>
-                        <td className="px-2 py-2">{txn.amount}</td>
+                      <tr
+                        key={idx}
+                        className={`transition-colors ${
+                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } border-b border-gray-200 hover:bg-muted/40`}
+                      >
+                        <td className="px-4 py-3 text-gray-800 border-r border-gray-100">
+                          {txn.date}
+                        </td>
+                        <td className="px-4 py-3 text-gray-700 border-r border-gray-100">
+                          {txn.description}
+                        </td>
+                        <td className="px-4 py-3 text-gray-600">
+                          {txn.amount}
+                        </td>
                       </tr>
                     ))
                   )}

@@ -36,7 +36,8 @@ const ApplicationsManagement = () => {
       propertyId: "prop_001",
       propertyTitle: "Modern 2BR Apartment in Downtown",
       propertyAddress: "123 Main Street, Downtown, City",
-      propertyImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      propertyImage:
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       tenantName: "Sarah Johnson",
       tenantEmail: "sarah.johnson@email.com",
       tenantPhone: "+1 (555) 987-6543",
@@ -85,7 +86,8 @@ const ApplicationsManagement = () => {
       propertyId: "prop_002",
       propertyTitle: "Cozy 1BR Studio Near University",
       propertyAddress: "456 College Ave, University District",
-      propertyImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      propertyImage:
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       tenantName: "Michael Chen",
       tenantEmail: "michael.chen@email.com",
       tenantPhone: "+1 (555) 456-7890",
@@ -120,7 +122,8 @@ const ApplicationsManagement = () => {
       propertyId: "prop_003",
       propertyTitle: "Luxury 3BR Penthouse with City View",
       propertyAddress: "789 Skyline Blvd, Uptown",
-      propertyImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      propertyImage:
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       tenantName: "Emily Rodriguez",
       tenantEmail: "emily.rodriguez@email.com",
       tenantPhone: "+1 (555) 321-9876",
@@ -351,8 +354,8 @@ const ApplicationsManagement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      <div className="p-6 mx-auto space-y-6 max-w-7xl">
+    <div className="min-h-screen">
+      <div className="p-6">
         {/* Header Section */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -599,86 +602,82 @@ const ApplicationsManagement = () => {
                         </div>
                       </div>
                     </div>
-
-                    {/* Action Buttons */}
-                    <div className="space-y-3">
-                      {application.status === "pending" ||
-                      application.status === "under_negotiation" ? (
-                        <>
-                          <button
-                            onClick={() =>
-                              handleAcceptApplication(application.id)
-                            }
-                            className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
-                          >
-                            <CheckCircle className="w-4 h-4" />
-                            Accept ${application.currentOffer.toLocaleString()}
-                            /month
-                          </button>
-
-                          <button
-                            onClick={() => handleNegotiate(application.id)}
-                            className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100 myButton"
-                          >
-                            <ArrowUpDown className="w-4 h-4" />
-                            {application.status === "pending"
-                              ? "Counter Offer"
-                              : "New Counter Offer"}
-                          </button>
-
-                          <button
-                            onClick={() =>
-                              handleDeclineApplication(application.id)
-                            }
-                            className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-red-600 transition-colors rounded-lg bg-red-50 hover:bg-red-100 myButton"
-                          >
-                            <XCircle className="w-4 h-4" />
-                            Decline Application
-                          </button>
-                        </>
-                      ) : application.status === "agreed" &&
-                        application.canMessage ? (
-                        <button
-                          onClick={() =>
-                            setMessageModal({
-                              open: true,
-                              applicationId: application.id,
-                            })
-                          }
-                          className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
-                        >
-                          <MessageSquare className="w-4 h-4" />
-                          Message Tenant
-                        </button>
-                      ) : (
-                        <div className="py-4 text-center">
-                          <p className="text-sm text-gray-500">
-                            {application.status === "accepted" &&
-                              "Application accepted"}
-                            {application.status === "declined" &&
-                              "Application declined"}
-                            {application.status === "agreed" &&
-                              !application.canMessage &&
-                              "Terms agreed - messaging will be available soon"}
-                          </p>
-                        </div>
-                      )}
-
-                      {/* View History Button */}
-                      <button
-                        onClick={() =>
-                          setHistoryModal({
-                            open: true,
-                            applicationId: application.id,
-                          })
-                        }
-                        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-gray-600 transition-colors rounded-lg bg-gray-50 hover:bg-gray-100 myButton"
-                      >
-                        <History className="w-4 h-4" />
-                        View Negotiation History
-                      </button>
-                    </div>
                   </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="grid grid-cols-4 gap-4 space-y-3">
+                  {application.status === "pending" ||
+                  application.status === "under_negotiation" ? (
+                    <>
+                      <button
+                        onClick={() => handleAcceptApplication(application.id)}
+                        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
+                      >
+                        <CheckCircle className="w-4 h-4" />
+                        Accept ${application.currentOffer.toLocaleString()}
+                        /month
+                      </button>
+
+                      <button
+                        onClick={() => handleNegotiate(application.id)}
+                        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100 myButton"
+                      >
+                        <ArrowUpDown className="w-4 h-4" />
+                        {application.status === "pending"
+                          ? "Counter Offer"
+                          : "New Counter Offer"}
+                      </button>
+
+                      <button
+                        onClick={() => handleDeclineApplication(application.id)}
+                        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-red-600 transition-colors rounded-lg bg-red-50 hover:bg-red-100 myButton"
+                      >
+                        <XCircle className="w-4 h-4" />
+                        Decline Application
+                      </button>
+                    </>
+                  ) : application.status === "agreed" &&
+                    application.canMessage ? (
+                    <button
+                      onClick={() =>
+                        setMessageModal({
+                          open: true,
+                          applicationId: application.id,
+                        })
+                      }
+                      className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
+                    >
+                      <MessageSquare className="w-2 h-2" />
+                      Message Tenant
+                    </button>
+                  ) : (
+                    <div className="py-4 text-center">
+                      <p className="text-sm text-gray-500">
+                        {application.status === "accepted" &&
+                          "Application accepted"}
+                        {application.status === "declined" &&
+                          "Application declined"}
+                        {application.status === "agreed" &&
+                          !application.canMessage &&
+                          "Terms agreed - messaging will be available soon"}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* View History Button */}
+                  <button
+                    onClick={() =>
+                      setHistoryModal({
+                        open: true,
+                        applicationId: application.id,
+                      })
+                    }
+                    className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-3 text-sm font-medium text-gray-600 transition-colors rounded-lg bg-gray-50 hover:bg-gray-100 myButton"
+                  >
+                    <History className="w-4 h-4" />
+                    View Negotiation History
+                  </button>
                 </div>
               </Card>
             ))

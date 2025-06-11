@@ -324,21 +324,23 @@ const TenantBody = ({ tenants }) => {
           displayedTenants.map((t) => (
             <div
               key={t.id}
-              className="w-full p-4 bg-white shadow-sm rounded-xl"
+              className="w-full p-6 bg-white border border-gray-200 shadow-sm rounded-2xl"
             >
+              {/* Header: Name + Status + Actions */}
               <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-800">
                     {t.name}
                   </h2>
                   <span
-                    className={`text-xs px-2 py-1 rounded-full ${
+                    className={`text-xs px-2 py-1 mt-1 inline-block rounded-full ${
                       statusStyles[t.status]
                     }`}
                   >
                     {t.status}
                   </span>
                 </div>
+
                 <TenantCardMenu
                   onAction={(action) =>
                     setModal({ open: true, tenant: t, action })
@@ -346,33 +348,36 @@ const TenantBody = ({ tenants }) => {
                 />
               </div>
 
-              <div className="flex items-center gap-1 mt-2 text-yellow-400">
+              {/* Rating */}
+              <div className="flex items-center gap-1 mt-3 text-yellow-400">
                 {Array.from({ length: Math.floor(t.rating) }).map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" stroke="none" />
                 ))}
-                <span className="text-sm text-gray-500">({t.rating})</span>
+                <span className="ml-1 text-sm text-gray-500">({t.rating})</span>
               </div>
 
-              <div className="mt-3 space-y-1 text-sm text-gray-700">
+              {/* Contact Info */}
+              <div className="mt-4 space-y-2 text-sm text-gray-700">
                 <div className="flex items-center gap-2">
                   <Mail size={14} className="text-gray-500" />
-                  {t.email}
+                  <span className="truncate">{t.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={14} className="text-gray-500" />
-                  {t.phone}
+                  <span>{t.phone}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin size={14} className="text-gray-500" />
-                  {t.address}
+                  <span className="truncate">{t.address}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CalendarDays size={14} className="text-gray-500" />
-                  Joined: {t.joinedDate}
+                  <span>Joined: {t.joinedDate}</span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 mt-4 text-sm border-t">
+              {/* Footer: Rent & Rent Status */}
+              <div className="flex items-center justify-between pt-4 mt-6 text-sm border-t border-gray-200">
                 <span className="font-semibold text-gray-900">{t.rent}</span>
                 <span
                   className={`text-xs px-2 py-1 rounded-full ${

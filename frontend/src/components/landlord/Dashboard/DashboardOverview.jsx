@@ -270,75 +270,94 @@ const DashboardOverview = () => {
             </ResponsiveContainer>
           </CardContent>
         </Card>
-
       </div>
-        {/* Recent Work Orders */}
-        <Card className="gap-0 bg-white border-0 shadow-md border-border rounded-2xl">
-          <CardHeader className="pb-0">
-            <CardTitle className="flex items-center gap-2 text-lg font-semibold text-muted-foreground">
-              <ClipboardList className="w-4 h-4 text-primary" />
-              Recent Work Orders
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 overflow-x-auto">
-            <table className="w-full text-sm text-left">
-              <thead>
-                <tr className="border-b text-muted-foreground">
-                  <th className="px-2 py-2 font-medium">Property</th>
-                  <th className="px-2 py-2 font-medium">Issue</th>
-                  <th className="px-2 py-2 font-medium">Status</th>
-                  <th className="px-2 py-2 font-medium">Priority</th>
-                  <th className="px-2 py-2 font-medium">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {workOrders.length > 0 ? (
-                  workOrders.slice(0,2).map((order, index) => (
-                    <tr
-                      key={index}
-                      className="overflow-hidden transition-colors border-b hover:bg-muted/40"
-                    >
-                      <td className="px-2 py-3">{order.property}</td>
-                      <td className="px-2 py-3">{order.issue}</td>
-                      <td
-                        className={`px-2 py-3 ${
+      {/* Recent Work Orders */}
+      <Card className="bg-white border-0 shadow-md rounded-2xl">
+        <CardHeader className="pb-0">
+          <CardTitle className="flex items-center gap-2 text-lg font-semibold text-muted-foreground">
+            <ClipboardList className="w-5 h-5 text-primary" />
+            Recent Work Orders
+          </CardTitle>
+        </CardHeader>
+
+        <CardContent className="p-4 overflow-x-auto">
+          <table className="min-w-full overflow-hidden text-sm text-left border border-gray-200 rounded-lg">
+            <thead>
+              <tr className="border-b border-gray-200 bg-muted text-muted-foreground">
+                <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                  Property
+                </th>
+                <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                  Issue
+                </th>
+                <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                  Status
+                </th>
+                <th className="px-4 py-2 font-semibold border-r border-gray-100">
+                  Priority
+                </th>
+                <th className="px-4 py-2 font-semibold">Date</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {workOrders.length > 0 ? (
+                workOrders.slice(0, 2).map((order, index) => (
+                  <tr
+                    key={index}
+                    className={`transition-colors ${
+                      index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    } border-b border-gray-200 hover:bg-muted/40`}
+                  >
+                    <td className="px-4 py-3 font-medium text-gray-800 border-r border-gray-100">
+                      {order.property}
+                    </td>
+                    <td className="px-4 py-3 text-gray-700 border-r border-gray-100">
+                      {order.issue}
+                    </td>
+                    <td className="px-4 py-3 border-r border-gray-100">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
                           order.status === "Resolved"
-                            ? "text-green-600"
+                            ? "bg-green-100 text-green-700"
                             : order.status === "Pending"
-                            ? "text-gray-500"
-                            : "text-blue-600"
+                            ? "bg-gray-100 text-gray-600"
+                            : "bg-blue-100 text-blue-700"
                         }`}
                       >
                         {order.status}
-                      </td>
-                      <td
-                        className={`px-2 py-3 ${
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 border-r border-gray-100">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
                           order.priority === "High"
-                            ? "text-red-500"
+                            ? "bg-red-100 text-red-700"
                             : order.priority === "Medium"
-                            ? "text-yellow-500"
-                            : "text-green-600"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : "bg-green-100 text-green-700"
                         }`}
                       >
                         {order.priority}
-                      </td>
-                      <td className="px-2 py-3">{order.date}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={5}
-                      className="py-6 text-center text-muted-foreground"
-                    >
-                      No recent work orders
+                      </span>
                     </td>
+                    <td className="px-4 py-3 text-gray-600">{order.date}</td>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </CardContent>
-        </Card>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="py-6 italic text-center text-muted-foreground"
+                  >
+                    No recent work orders
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
     </>
   );
 };

@@ -23,13 +23,16 @@ import {
   priorityLevels,
 } from "@/data/landlord/propertyInspection/data";
 import { useAuth } from "@/contexts/AuthContext";
+import { useInspectionSync } from "@/hooks/useInspectionSync";
 import ScheduleInspectionModal from "./ScheduleInspectionModal";
 import ViewInspectionModal from "./ViewInspectionModal";
 import InspectionReportModal from "./InspectionReportModal";
 import TenantResponseModal from "./TenantResponseModal";
 
-const InspectionBody = ({ inspections, setInspections }) => {
+const InspectionBody = () => {
   const { user } = useAuth();
+  const { inspections, setInspections, updateInspection, addInspection } =
+    useInspectionSync();
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("All Types");
   const [statusFilter, setStatusFilter] = useState("All Status");
@@ -161,101 +164,49 @@ const InspectionBody = ({ inspections, setInspections }) => {
   };
 
   const handleScheduleSubmit = (inspectionId, scheduledDate) => {
-    setInspections((prev) =>
-      prev.map((group) => ({
-        ...group,
-        inspectionsList: group.inspectionsList.map((inspection) =>
-          inspection.id === inspectionId
-            ? { ...inspection, scheduledDate, status: "Scheduled" }
-            : inspection
-        ),
-      }))
-    );
+    updateInspection(inspectionId, {
+      scheduledDate,
+      status: "Scheduled",
+    });
   };
 
   const handleMarkComplete = (inspectionId) => {
-    setInspections((prev) =>
-      prev.map((group) => ({
-        ...group,
-        inspectionsList: group.inspectionsList.map((inspection) =>
-          inspection.id === inspectionId
-            ? {
-                ...inspection,
-                status: "Completed",
-                completedDate: new Date().toISOString().split("T")[0],
-                overallCondition: "Good", // Default condition
-              }
-            : inspection
-        ),
-      }))
-    );
+    updateInspection(inspectionId, {
+      status: "Completed",
+      completedDate: new Date().toISOString().split("T")[0],
+      overallCondition: "Good", // Default condition
+    });
   };
 
   const handleConfirmDelete = (inspectionToDelete) => {
-    setInspections((prev) =>
-      prev.map((group) => ({
-        ...group,
-        inspectionsList: group.inspectionsList.filter(
-          (inspection) => inspection.id !== inspectionToDelete.id
-        ),
-      }))
-    );
+    // For deletion, we need to update the inspections array directly
+    const updatedInspections = inspections.map((group) => ({
+      ...group,
+      inspectionsList: group.inspectionsList.filter(
+        (inspection) => inspection.id !== inspectionToDelete.id
+      ),
+    }));
+
+    setInspections(updatedInspections);
   };
 
   const handleSaveReport = (inspectionId, reportData) => {
-    setInspections((prev) =>
-      prev.map((group) => ({
-        ...group,
-        inspectionsList: group.inspectionsList.map((inspection) =>
-          inspection.id === inspectionId
-            ? {
-                ...inspection,
-                status: "Report Generated",
-                inspectionReport: reportData,
-                reportGenerated: true,
-                reportSharedWithTenant: true,
-                lastUpdated: new Date().toISOString().split("T")[0],
-              }
-            : inspection
-        ),
-      }))
-    );
+    updateInspection(inspectionId, {
+      status: "Report Generated",
+      inspectionReport: reportData,
+      reportGenerated: true,
+      reportSharedWithTenant: true,
+    });
     setReportModal({ open: false, inspection: null });
   };
 
   const handleUpdateTenantResponse = (inspectionId, responseData) => {
-    setInspections((prev) =>
-      prev.map((group) => ({
-        ...group,
-        inspectionsList: group.inspectionsList.map((inspection) =>
-          inspection.id === inspectionId
-            ? {
-                ...inspection,
-                ...responseData,
-                lastUpdated: new Date().toISOString().split("T")[0],
-              }
-            : inspection
-        ),
-      }))
-    );
+    updateInspection(inspectionId, responseData);
     setTenantResponseModal({ open: false, inspection: null });
   };
 
   const handleConfirmInspection = (inspectionId) => {
-    setInspections((prev) =>
-      prev.map((group) => ({
-        ...group,
-        inspectionsList: group.inspectionsList.map((inspection) =>
-          inspection.id === inspectionId
-            ? {
-                ...inspection,
-                status: "Confirmed",
-                lastUpdated: new Date().toISOString().split("T")[0],
-              }
-            : inspection
-        ),
-      }))
-    );
+    updateInspection(inspectionId, { status: "Confirmed" });
   };
 
   return (
