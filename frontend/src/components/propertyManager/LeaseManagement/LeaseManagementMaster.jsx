@@ -75,6 +75,9 @@ const LeaseManagementMaster = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [leases, setLeases] = useState(leaseData);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
+  const [selectedLease, setSelectedLease] = useState(null);
   const [newLease, setNewLease] = useState({
     property: "",
     unit: "",
@@ -136,15 +139,37 @@ const LeaseManagementMaster = () => {
   };
 
   const handleViewLease = (lease) => {
-    console.log("Viewing lease:", lease);
-    // In a real app, this would open a detailed view or modal
-    alert(`Viewing lease for ${lease.property} - ${lease.unit}`);
+    setSelectedLease(lease);
+    setIsViewModalOpen(true);
   };
 
   const handleRenewLease = (lease) => {
-    console.log("Renewing lease:", lease);
-    // In a real app, this would open a renewal form
-    alert(`Renewing lease for ${lease.property} - ${lease.unit}`);
+    setSelectedLease(lease);
+    setIsRenewModalOpen(true);
+  };
+
+  const handleRenewSubmit = (e) => {
+    e.preventDefault();
+    
+    // Update the lease with new dates and status
+    const updatedLeases = leases.map(lease => {
+      if (lease.id === selectedLease.id) {
+        const newEndDate = new Date(selectedLease.endDate);
+        newEndDate.setFullYear(newEndDate.getFullYear() + 1);
+        
+        return {
+          ...lease,
+          endDate: newEndDate.toLocaleDateString(),
+          renewalStatus: "in negotiation",
+          daysUntilExpiry: 365
+        };
+      }
+      return lease;
+    });
+
+    setLeases(updatedLeases);
+    setIsRenewModalOpen(false);
+    setSelectedLease(null);
   };
 
   // Filtering logic
@@ -270,6 +295,124 @@ const LeaseManagementMaster = () => {
                   className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
                 >
                   Create Lease
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* View Lease Modal */}
+      {isViewModalOpen && selectedLease && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-black/20">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-900">Lease Details</h2>
+              <button
+                onClick={() => setIsViewModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Property</label>
+                <p className="mt-1 text-gray-900">{selectedLease.property}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Unit</label>
+                <p className="mt-1 text-gray-900">{selectedLease.unit}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Tenant</label>
+                <p className="mt-1 text-gray-900">{selectedLease.tenant}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Landlord</label>
+                <p className="mt-1 text-gray-900">{selectedLease.landlord}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Start Date</label>
+                <p className="mt-1 text-gray-900">{selectedLease.startDate}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">End Date</label>
+                <p className="mt-1 text-gray-900">{selectedLease.endDate}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Status</label>
+                <span className={`inline-flex items-center px-3 py-1 mt-1 rounded-full text-xs font-medium ${statusColors[selectedLease.status]}`}>
+                  {selectedLease.status}
+                </span>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Renewal Status</label>
+                <span className={`inline-flex items-center px-3 py-1 mt-1 rounded-full text-xs font-medium ${renewalColors[selectedLease.renewalStatus]}`}>
+                  {selectedLease.renewalStatus}
+                </span>
+              </div>
+            </div>
+            <div className="flex justify-end mt-6">
+              <Button
+                onClick={() => setIsViewModalOpen(false)}
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Renew Lease Modal */}
+      {isRenewModalOpen && selectedLease && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-black/20">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-900">Renew Lease</h2>
+              <button
+                onClick={() => setIsRenewModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <form onSubmit={handleRenewSubmit}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Property</label>
+                  <p className="mt-1 text-gray-900">{selectedLease.property}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Unit</label>
+                  <p className="mt-1 text-gray-900">{selectedLease.unit}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Current End Date</label>
+                  <p className="mt-1 text-gray-900">{selectedLease.endDate}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">New End Date</label>
+                  <p className="mt-1 text-gray-900">
+                    {new Date(selectedLease.endDate).setFullYear(new Date(selectedLease.endDate).getFullYear() + 1).toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-end gap-3 mt-6">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsRenewModalOpen(false)}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                >
+                  Confirm Renewal
                 </Button>
               </div>
             </form>

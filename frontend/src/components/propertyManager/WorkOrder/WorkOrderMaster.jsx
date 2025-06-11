@@ -28,8 +28,8 @@ const WorkOrderMaster = () => {
 
   return (
     <div className="min-h-screen p-6">
-      <MaintenanceHeader onNewRequest={() => setAddModalOpen(true)} />
-      <MaintenanceStats maintenance={maintenance} />
+      <MaintenanceHeader onNewRequest={() => setAddModalOpen(true)} title={"Work Order"} />
+      <MaintenanceStats maintenance={maintenance}  />
       <MaintenanceBody
         maintenance={maintenance}
         setMaintenance={setMaintenance}

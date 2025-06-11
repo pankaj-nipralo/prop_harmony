@@ -39,7 +39,7 @@ export function TopBar({
           <Menu className="w-5 h-5" />
         </Button> */}
 
-        <h1 className="text-lg font-semibold text-gray-900">
+        <h1 className="text-2xl font-semibold text-gray-900">
           {getCurrentTitle()}
         </h1>
       </div>

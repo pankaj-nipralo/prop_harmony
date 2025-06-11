@@ -28,7 +28,7 @@ const MaintenanceMaster = () => {
 
   return (
     <div className="min-h-screen p-6">
-      <MaintenanceHeader onNewRequest={() => setAddModalOpen(true)} />
+      <MaintenanceHeader onNewRequest={() => setAddModalOpen(true)} title={"Maintenance"} />
       <MaintenanceStats maintenance={maintenance} />
       <MaintenanceBody
         maintenance={maintenance}

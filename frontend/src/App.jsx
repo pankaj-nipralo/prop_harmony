@@ -24,8 +24,7 @@ import Dashboard from "./pages/landlord/Dashboard";
 import Properties from "./pages/landlord/Properties";
 import PropertiesDetails from "./components/landlord/Properties/PropertiesDetails";
 import PropertyListings from "./pages/landlord/PropertyListings";
-import Bookkeeping from "./pages/landlord/Bookkeeping";
-import DocumentVault from "./pages/landlord/DocumentVault";
+import Bookkeeping from "./pages/landlord/Bookkeeping"; 
 import DocumentVaultMaster from "./components/landlord/DocumentVault/DocumentVaultMaster";
 
 import InvestmentCalculator from "./pages/landlord/InvestmentCalculator";
@@ -57,8 +56,7 @@ import TenantSettings from "./components/tenants/TenantsSettings/TenantSettings"
 
 // Property Manager Pages
 import ManagerDashbord from "./pages/propertyManager/ManagerDashboard";
-import ManagerProperties from "./pages/propertyManager/Properties";
-import ManagerTenants from "./pages/propertyManager/Tenants";
+import ManagerProperties from "./pages/propertyManager/Properties"; 
 import ManagerPropertyInspection from "./pages/propertyManager/PropertyInspection";
 import ManagerWorkOrders from "./pages/propertyManager/WorkOrders";
 import ManagerRentCollection from "./pages/propertyManager/RentCollection";
@@ -66,6 +64,7 @@ import ManagerLeaseManagement from "./pages/propertyManager/LeaseManagement";
 import ManagerMessages from "./pages/propertyManager/Messages";
 import ManagerReports from "./pages/propertyManager/Reports";
 import ManagerSettings from "./pages/propertyManager/Settings";
+import ManagerContractors from "./pages/propertyManager/ManagerContractors";
 
 function App() {
   return (
@@ -161,6 +160,7 @@ function App() {
           />
           <Route path="work-orders" element={<ManagerWorkOrders />} />
           <Route path="rent-collection" element={<ManagerRentCollection />} />
+          <Route path="contractors" element={<ManagerContractors />} />
           <Route path="lease-management" element={<ManagerLeaseManagement />} />
           <Route path="emails" element={<ManagerMessages />} />
           <Route path="reports" element={<ManagerReports />} />
