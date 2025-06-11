@@ -11,6 +11,15 @@ import {
   Search,
   X,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 // Lease data for table
 const leaseData = [
@@ -74,9 +83,9 @@ const LeaseManagementMaster = () => {
   const [filter, setFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [leases, setLeases] = useState(leaseData);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
+  const [isRenewDialogOpen, setIsRenewDialogOpen] = useState(false);
   const [selectedLease, setSelectedLease] = useState(null);
   const [newLease, setNewLease] = useState({
     property: "",
@@ -122,7 +131,7 @@ const LeaseManagementMaster = () => {
     };
 
     setLeases([...leases, leaseToAdd]);
-    setIsModalOpen(false);
+    setIsAddDialogOpen(false);
     setNewLease({
       property: "",
       unit: "",
@@ -133,25 +142,19 @@ const LeaseManagementMaster = () => {
     });
   };
 
-  // Handle button actions
-  const handleNewLease = () => {
-    setIsModalOpen(true);
-  };
-
   const handleViewLease = (lease) => {
     setSelectedLease(lease);
-    setIsViewModalOpen(true);
+    setIsViewDialogOpen(true);
   };
 
   const handleRenewLease = (lease) => {
     setSelectedLease(lease);
-    setIsRenewModalOpen(true);
+    setIsRenewDialogOpen(true);
   };
 
   const handleRenewSubmit = (e) => {
     e.preventDefault();
     
-    // Update the lease with new dates and status
     const updatedLeases = leases.map(lease => {
       if (lease.id === selectedLease.id) {
         const newEndDate = new Date(selectedLease.endDate);
@@ -168,7 +171,7 @@ const LeaseManagementMaster = () => {
     });
 
     setLeases(updatedLeases);
-    setIsRenewModalOpen(false);
+    setIsRenewDialogOpen(false);
     setSelectedLease(null);
   };
 
@@ -185,241 +188,6 @@ const LeaseManagementMaster = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* New Lease Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-black/20">
-          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-gray-900">
-                Create New Lease
-              </h2>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            <form onSubmit={handleSubmitNewLease}>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Property
-                  </label>
-                  <input
-                    type="text"
-                    name="property"
-                    value={newLease.property}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Unit
-                  </label>
-                  <input
-                    type="text"
-                    name="unit"
-                    value={newLease.unit}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Tenant
-                  </label>
-                  <input
-                    type="text"
-                    name="tenant"
-                    value={newLease.tenant}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Landlord
-                  </label>
-                  <input
-                    type="text"
-                    name="landlord"
-                    value={newLease.landlord}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Start Date
-                  </label>
-                  <input
-                    type="date"
-                    name="startDate"
-                    value={newLease.startDate}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    End Date
-                  </label>
-                  <input
-                    type="date"
-                    name="endDate"
-                    value={newLease.endDate}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="flex justify-end gap-3 mt-6">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
-                >
-                  Create Lease
-                </Button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* View Lease Modal */}
-      {isViewModalOpen && selectedLease && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-black/20">
-          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-gray-900">Lease Details</h2>
-              <button
-                onClick={() => setIsViewModalOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Property</label>
-                <p className="mt-1 text-gray-900">{selectedLease.property}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Unit</label>
-                <p className="mt-1 text-gray-900">{selectedLease.unit}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Tenant</label>
-                <p className="mt-1 text-gray-900">{selectedLease.tenant}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Landlord</label>
-                <p className="mt-1 text-gray-900">{selectedLease.landlord}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Start Date</label>
-                <p className="mt-1 text-gray-900">{selectedLease.startDate}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">End Date</label>
-                <p className="mt-1 text-gray-900">{selectedLease.endDate}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Status</label>
-                <span className={`inline-flex items-center px-3 py-1 mt-1 rounded-full text-xs font-medium ${statusColors[selectedLease.status]}`}>
-                  {selectedLease.status}
-                </span>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Renewal Status</label>
-                <span className={`inline-flex items-center px-3 py-1 mt-1 rounded-full text-xs font-medium ${renewalColors[selectedLease.renewalStatus]}`}>
-                  {selectedLease.renewalStatus}
-                </span>
-              </div>
-            </div>
-            <div className="flex justify-end mt-6">
-              <Button
-                onClick={() => setIsViewModalOpen(false)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-              >
-                Close
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Renew Lease Modal */}
-      {isRenewModalOpen && selectedLease && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-black/20">
-          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-gray-900">Renew Lease</h2>
-              <button
-                onClick={() => setIsRenewModalOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            <form onSubmit={handleRenewSubmit}>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Property</label>
-                  <p className="mt-1 text-gray-900">{selectedLease.property}</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Unit</label>
-                  <p className="mt-1 text-gray-900">{selectedLease.unit}</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Current End Date</label>
-                  <p className="mt-1 text-gray-900">{selectedLease.endDate}</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">New End Date</label>
-                  <p className="mt-1 text-gray-900">
-                    {new Date(selectedLease.endDate).setFullYear(new Date(selectedLease.endDate).getFullYear() + 1).toLocaleDateString()}
-                  </p>
-                </div>
-              </div>
-              <div className="flex justify-end gap-3 mt-6">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsRenewModalOpen(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
-                >
-                  Confirm Renewal
-                </Button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
       <div className="p-6">
         {/* Header */}
         <div className="flex flex-col justify-between mb-6 sm:flex-row sm:items-center">
@@ -436,13 +204,115 @@ const LeaseManagementMaster = () => {
               </p>
             </div>
           </div>
-          <Button
-            onClick={handleNewLease}
-            className="flex items-center gap-2 px-5 py-3 font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-          >
-            <Plus className="w-4 h-4" />
-            New Lease
-          </Button>
+          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogTrigger asChild>
+              <Button
+                onClick={() => setIsAddDialogOpen(true)}
+                className="flex items-center gap-2 px-5 py-3 font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+              >
+                <Plus className="w-4 h-4" />
+                New Lease
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-semibold text-gray-800">Create New Lease</h2>
+                </div>
+                <form onSubmit={handleSubmitNewLease} className="space-y-4">
+                  <div className="grid gap-4">
+                    <div>
+                      <Label htmlFor="property" className="block mb-2 text-sm font-medium text-gray-700">Property *</Label>
+                      <Input
+                        id="property"
+                        name="property"
+                        value={newLease.property}
+                        onChange={handleInputChange}
+                        placeholder="Enter property name"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="unit" className="block mb-2 text-sm font-medium text-gray-700">Unit *</Label>
+                      <Input
+                        id="unit"
+                        name="unit"
+                        value={newLease.unit}
+                        onChange={handleInputChange}
+                        placeholder="Enter unit number"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="tenant" className="block mb-2 text-sm font-medium text-gray-700">Tenant *</Label>
+                      <Input
+                        id="tenant"
+                        name="tenant"
+                        value={newLease.tenant}
+                        onChange={handleInputChange}
+                        placeholder="Enter tenant name"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="landlord" className="block mb-2 text-sm font-medium text-gray-700">Landlord *</Label>
+                      <Input
+                        id="landlord"
+                        name="landlord"
+                        value={newLease.landlord}
+                        onChange={handleInputChange}
+                        placeholder="Enter landlord name"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="startDate" className="block mb-2 text-sm font-medium text-gray-700">Start Date *</Label>
+                      <Input
+                        id="startDate"
+                        name="startDate"
+                        type="date"
+                        value={newLease.startDate}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="endDate" className="block mb-2 text-sm font-medium text-gray-700">End Date *</Label>
+                      <Input
+                        id="endDate"
+                        name="endDate"
+                        type="date"
+                        value={newLease.endDate}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-end pt-4 space-x-3 border-t border-gray-200">
+                    <Button
+                      type="button"
+                      onClick={() => setIsAddDialogOpen(false)}
+                      className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-md cursor-pointer hover:bg-blue-700"
+                    >
+                      Create Lease
+                    </Button>
+                  </div>
+                </form>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* Stats Cards */}
@@ -607,18 +477,124 @@ const LeaseManagementMaster = () => {
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex gap-2">
-                        <Button
-                          onClick={() => handleViewLease(row)}
-                          className="px-3 py-1 text-xs font-medium text-blue-600 bg-white border border-blue-200 rounded-full hover:bg-blue-50"
-                        >
-                          View
-                        </Button>
-                        <Button
-                          onClick={() => handleRenewLease(row)}
-                          className="px-3 py-1 text-xs font-medium text-white bg-blue-600 border border-blue-600 rounded-full hover:bg-blue-700"
-                        >
-                          Renew
-                        </Button>
+                        <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
+                          <DialogTrigger asChild>
+                            <Button
+                              onClick={() => handleViewLease(row)}
+                              className="px-3 py-1 text-xs font-medium text-blue-600 bg-white border border-blue-200 rounded-full hover:bg-blue-50"
+                            >
+                              View
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
+                            <div className="p-6">
+                              <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-xl font-semibold text-gray-800">Lease Details</h2>
+                              </div>
+                              <div className="space-y-4">
+                                <div>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Property</Label>
+                                  <p className="text-gray-900">{selectedLease?.property}</p>
+                                </div>
+                                <div>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Unit</Label>
+                                  <p className="text-gray-900">{selectedLease?.unit}</p>
+                                </div>
+                                <div>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Tenant</Label>
+                                  <p className="text-gray-900">{selectedLease?.tenant}</p>
+                                </div>
+                                <div>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Landlord</Label>
+                                  <p className="text-gray-900">{selectedLease?.landlord}</p>
+                                </div>
+                                <div>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Start Date</Label>
+                                  <p className="text-gray-900">{selectedLease?.startDate}</p>
+                                </div>
+                                <div>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">End Date</Label>
+                                  <p className="text-gray-900">{selectedLease?.endDate}</p>
+                                </div>
+                                <div>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Status</Label>
+                                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${statusColors[selectedLease?.status]}`}>
+                                    {selectedLease?.status}
+                                  </span>
+                                </div>
+                                <div>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Renewal Status</Label>
+                                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${renewalColors[selectedLease?.renewalStatus]}`}>
+                                    {selectedLease?.renewalStatus}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex justify-end pt-4 mt-6 space-x-3 border-t border-gray-200">
+                                <Button
+                                  onClick={() => setIsViewDialogOpen(false)}
+                                  className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200"
+                                >
+                                  Close
+                                </Button>
+                              </div>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+
+                        <Dialog open={isRenewDialogOpen} onOpenChange={setIsRenewDialogOpen}>
+                          <DialogTrigger asChild>
+                            <Button
+                              onClick={() => handleRenewLease(row)}
+                              className="px-3 py-1 text-xs font-medium text-white bg-blue-600 border border-blue-600 rounded-full hover:bg-blue-700"
+                            >
+                              Renew
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
+                            <div className="p-6">
+                              <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-xl font-semibold text-gray-800">Renew Lease</h2>
+                              </div>
+                              <form onSubmit={handleRenewSubmit} className="space-y-4">
+                                <div className="grid gap-4">
+                                  <div>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">Property</Label>
+                                    <p className="text-gray-900">{selectedLease?.property}</p>
+                                  </div>
+                                  <div>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">Unit</Label>
+                                    <p className="text-gray-900">{selectedLease?.unit}</p>
+                                  </div>
+                                  <div>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">Current End Date</Label>
+                                    <p className="text-gray-900">{selectedLease?.endDate}</p>
+                                  </div>
+                                  <div>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">New End Date</Label>
+                                    <p className="text-gray-900">
+                                      {selectedLease && new Date(selectedLease.endDate).setFullYear(new Date(selectedLease.endDate).getFullYear() + 1).toLocaleDateString()}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="flex justify-end pt-4 mt-6 space-x-3 border-t border-gray-200">
+                                  <Button
+                                    type="button"
+                                    onClick={() => setIsRenewDialogOpen(false)}
+                                    className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200"
+                                  >
+                                    Cancel
+                                  </Button>
+                                  <Button
+                                    type="submit"
+                                    className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-md cursor-pointer hover:bg-blue-700"
+                                  >
+                                    Confirm Renewal
+                                  </Button>
+                                </div>
+                              </form>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                     </td>
                   </tr>
