@@ -25,8 +25,7 @@ import Properties from "./pages/landlord/Properties";
 import PropertiesDetails from "./components/landlord/Properties/PropertiesDetails";
 import PropertyListings from "./pages/landlord/PropertyListings";
 import Bookkeeping from "./pages/landlord/Bookkeeping"; 
-import DocumentVaultMaster from "./components/landlord/DocumentVault/DocumentVaultMaster";
-
+import DocumentVaultMaster from "./components/landlord/DocumentVault/DocumentVaultMaster"; 
 import InvestmentCalculator from "./pages/landlord/InvestmentCalculator";
 import IssueWarning from "./pages/landlord/IssueWarning";
 import Maintenance from "./pages/landlord/Maintenance";
@@ -61,8 +60,7 @@ import ManagerPropertyInspection from "./pages/propertyManager/PropertyInspectio
 import ManagerWorkOrders from "./pages/propertyManager/WorkOrders";
 import ManagerRentCollection from "./pages/propertyManager/RentCollection";
 import ManagerLeaseManagement from "./pages/propertyManager/LeaseManagement";
-import ManagerMessages from "./pages/propertyManager/Messages";
-import ManagerReports from "./pages/propertyManager/Reports";
+import ManagerMessages from "./pages/propertyManager/Messages"; 
 import ManagerSettings from "./pages/propertyManager/Settings";
 import ManagerContractors from "./pages/propertyManager/ManagerContractors";
 
@@ -162,8 +160,7 @@ function App() {
           <Route path="rent-collection" element={<ManagerRentCollection />} />
           <Route path="contractors" element={<ManagerContractors />} />
           <Route path="lease-management" element={<ManagerLeaseManagement />} />
-          <Route path="emails" element={<ManagerMessages />} />
-          <Route path="reports" element={<ManagerReports />} />
+          <Route path="emails" element={<ManagerMessages />} /> 
           <Route path="settings" element={<ManagerSettings />} />
 
           <Route path="*" element={<Navigate to="/manager/dashboard" />} />

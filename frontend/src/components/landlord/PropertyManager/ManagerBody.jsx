@@ -395,7 +395,7 @@ const ManagerBody = ({ managers, setManagers }) => {
             placeholder="Search managers..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex-1 px-4 py-2 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div className="flex gap-2 mt-2 md:mt-0">
@@ -403,7 +403,7 @@ const ManagerBody = ({ managers, setManagers }) => {
             <select
               value={emirateFilter}
               onChange={(e) => setEmirateFilter(e.target.value)}
-              className="px-4 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-2 pr-8 text-sm border border-gray-200 rounded-lg appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {emirates.map((emirate) => (
                 <option key={emirate} value={emirate}>
@@ -417,7 +417,7 @@ const ManagerBody = ({ managers, setManagers }) => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-2 pr-8 text-sm border border-gray-200 rounded-lg appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {statusOptions.map((status) => (
                 <option key={status} value={status}>
@@ -431,7 +431,7 @@ const ManagerBody = ({ managers, setManagers }) => {
       </div>
 
       {/* Manager Cards Grid */}
-      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
         {displayedManagers.length === 0 ? (
           <div className="py-8 text-center text-gray-500 col-span-full">
             No managers found.
@@ -440,19 +440,20 @@ const ManagerBody = ({ managers, setManagers }) => {
           displayedManagers.map((manager) => (
             <div
               key={manager.id}
-              className="w-full p-6 bg-white border border-gray-100 shadow-sm rounded-xl"
+              className="w-full p-6 space-y-5 bg-white border border-gray-200 shadow-sm rounded-xl"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center justify-center w-12 h-12 text-lg font-semibold text-white bg-blue-600 rounded-full">
+              {/* Header: Avatar + Name + Status + Actions */}
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-center w-12 h-12 text-lg font-bold text-white bg-blue-600 rounded-full">
                     {manager.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">
+                    <h3 className="text-lg font-semibold text-gray-900">
                       {manager.name}
                     </h3>
                     <span
-                      className={`text-xs px-2 py-1 rounded-full ${
+                      className={`text-xs px-2 py-1 mt-1 inline-block rounded-full font-medium capitalize ${
                         statusStyles[manager.status] || statusStyles.inactive
                       }`}
                     >
@@ -467,6 +468,7 @@ const ManagerBody = ({ managers, setManagers }) => {
                 />
               </div>
 
+              {/* Contact Info */}
               <div className="space-y-2 text-sm text-gray-700">
                 <div className="flex items-center gap-2">
                   <Mail size={14} className="text-gray-500" />
@@ -479,22 +481,25 @@ const ManagerBody = ({ managers, setManagers }) => {
                 <div className="flex items-center gap-2">
                   <Building size={14} className="text-gray-500" />
                   <span>
-                    {manager.propertiesManaged || 0} Properties Managed
+                    <strong>{manager.propertiesManaged || 0}</strong> Properties
+                    Managed
                   </span>
                 </div>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-gray-100">
-                <div className="flex items-center justify-between text-sm">
+              {/* Bottom Section */}
+              <div className="pt-4 mt-4 space-y-2 text-sm border-t border-gray-100">
+                <div className="flex items-center justify-between">
                   <div>
                     <span className="text-gray-500">Assigned Emirates:</span>
-                    <div className="font-medium text-gray-800">
+                    <div className="font-medium text-gray-900">
                       {manager.AssignedTo}
                     </div>
                   </div>
                 </div>
-                <div className="mt-2 text-xs text-gray-500">
-                  Joined: {manager.joinedDate}
+                <div className="text-xs text-gray-500">
+                  Joined:{" "}
+                  <span className="font-medium">{manager.joinedDate}</span>
                 </div>
               </div>
             </div>

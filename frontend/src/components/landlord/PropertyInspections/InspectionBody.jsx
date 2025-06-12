@@ -176,6 +176,7 @@ const InspectionBody = () => {
       completedDate: new Date().toISOString().split("T")[0],
       overallCondition: "Good", // Default condition
     });
+    setViewMode("reports");
   };
 
   const handleConfirmDelete = (inspectionToDelete) => {
@@ -211,52 +212,29 @@ const InspectionBody = () => {
 
   return (
     <div className="space-y-6">
-      {/* View Mode Toggle */}
-      <div className="flex items-center justify-between">
-        <div className="flex p-1 bg-gray-100 rounded-lg">
-          <button
-            onClick={() => setViewMode("requests")}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
-              viewMode === "requests"
-                ? "bg-blue-600 text-white shadow-sm"
-                : "text-gray-600 hover:text-gray-800"
-            }`}
-          >
-            Inspection Requests
-          </button>
-          <button
-            onClick={() => setViewMode("reports")}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
-              viewMode === "reports"
-                ? "bg-blue-600 text-white shadow-sm"
-                : "text-gray-600 hover:text-gray-800"
-            }`}
-          >
-            Inspection Reports
-          </button>
-        </div>
-      </div>
-
       {/* Search and Filter Section */}
-      <Card className="p-4 border-0 shadow-sm">
+      <Card className="px-3 py-4 bg-white border-0 shadow-sm">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center flex-1 gap-2">
-            <Search size={18} className="text-gray-500" />
+          {/* Search Input */}
+          <div className="flex items-center flex-1 gap-3">
+            <Search size={18} className="text-gray-400" />
             <input
               type="text"
               placeholder="Search by property, tenant, inspector, or type..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-          <div className="flex items-center gap-2">
-            <Filter size={16} className="text-gray-500" />
+
+          {/* Filters */}
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Type Filter */}
             <div className="relative">
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Types">All Types</option>
                 {inspectionTypes.map((type) => (
@@ -265,13 +243,15 @@ const InspectionBody = () => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 -translate-y-1/2 pointer-events-none right-2 top-1/2" />
             </div>
+
+            {/* Status Filter */}
             <div className="relative">
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Status">All Status</option>
                 {inspectionStatuses.map((status) => (
@@ -280,13 +260,15 @@ const InspectionBody = () => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 -translate-y-1/2 pointer-events-none right-2 top-1/2" />
             </div>
+
+            {/* Priority Filter */}
             <div className="relative">
               <select
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Priorities">All Priorities</option>
                 {priorityLevels.map((priority) => (
@@ -295,11 +277,37 @@ const InspectionBody = () => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 -translate-y-1/2 pointer-events-none right-2 top-1/2" />
             </div>
           </div>
         </div>
       </Card>
+
+      {/* View Mode Toggle */}
+      <div className="flex items-center justify-between">
+        <div className="flex gap-2 p-1 bg-white border border-gray-200 rounded-lg ">
+          <button
+            onClick={() => setViewMode("requests")}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${
+              viewMode === "requests"
+                ? "bg-blue-600 text-white shadow"
+                : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+            }`}
+          >
+            Inspection Requests
+          </button>
+          <button
+            onClick={() => setViewMode("reports")}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${
+              viewMode === "reports"
+                ? "bg-blue-600 text-white shadow"
+                : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+            }`}
+          >
+            Inspection Reports
+          </button>
+        </div>
+      </div>
 
       {/* Content Section */}
       <div className="space-y-4">
@@ -310,7 +318,7 @@ const InspectionBody = () => {
         </h2>
 
         {displayedInspections.length === 0 ? (
-          <Card className="p-8 text-center border-0 shadow-sm">
+          <Card className="p-8 text-center border-0">
             <ClipboardCheck className="w-12 h-12 mx-auto mb-4 text-gray-400" />
             <p className="text-gray-500">
               No{" "}
@@ -322,42 +330,43 @@ const InspectionBody = () => {
           </Card>
         ) : viewMode === "requests" ? (
           // Inspection Requests Table View
-          <Card className="overflow-hidden border-0 shadow-sm">
+          <Card className="overflow-hidden border-0">
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
+              <table className="w-full text-sm text-left text-gray-700">
+                <thead className="sticky top-0 z-10 bg-white shadow-sm">
                   <tr>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
-                      Property
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Tenant
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Type
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Requested Date
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Priority
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-center uppercase gray-500">
-                      Actions
-                    </th>
+                    {[
+                      "Property",
+                      "Tenant",
+                      "Type",
+                      "Requested Date",
+                      "Status",
+                      "Priority",
+                      "Actions",
+                    ].map((heading) => (
+                      <th
+                        key={heading}
+                        className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase"
+                      >
+                        {heading}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {displayedInspections.map((inspection) => (
-                    <tr key={inspection.id} className="hover:bg-gray-50">
+                  {displayedInspections.map((inspection, index) => (
+                    <tr
+                      key={inspection.id}
+                      className={`${
+                        index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                      } hover:bg-blue-50 transition-colors duration-150`}
+                    >
+                      {/* Property */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <Building className="w-4 h-4 mr-2 text-gray-400" />
                           <div>
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className="font-medium text-gray-900">
                               {inspection.propertyName}
                             </div>
                             <div className="text-sm text-gray-500">
@@ -366,14 +375,16 @@ const InspectionBody = () => {
                           </div>
                         </div>
                       </td>
+
+                      {/* Tenant */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <User className="w-4 h-4 mr-2 text-gray-400" />
-                          <div className="text-sm text-gray-900">
-                            {inspection.tenantName}
-                          </div>
+                          <div>{inspection.tenantName}</div>
                         </div>
                       </td>
+
+                      {/* Type */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
@@ -387,9 +398,13 @@ const InspectionBody = () => {
                           {inspection.inspectionType}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+
+                      {/* Date */}
+                      <td className="px-6 py-4 text-gray-900 whitespace-nowrap">
                         {inspection.requestedDate}
                       </td>
+
+                      {/* Status */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full ${getStatusStyle(
@@ -400,6 +415,8 @@ const InspectionBody = () => {
                           {inspection.status}
                         </span>
                       </td>
+
+                      {/* Priority */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityStyle(
@@ -409,12 +426,15 @@ const InspectionBody = () => {
                           {inspection.priority}
                         </span>
                       </td>
+
+                      {/* Action */}
                       <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
-                        <div className="flex items-center justify-center gap-2">
-                          {/* Landlord-only actions - role-based access control */}
-                          {["landlord", "property_manager"].includes(user?.role) &&  (
+                        <div className="flex flex-wrap items-center justify-center gap-2">
+                          {["landlord", "property_manager"].includes(
+                            user?.role
+                          ) && (
                             <>
-                              {inspection.status ===
+                              {/* {inspection.status ===
                                 "Pending Tenant Response" && (
                                 <button
                                   onClick={() =>
@@ -424,7 +444,7 @@ const InspectionBody = () => {
                                 >
                                   Simulate Response
                                 </button>
-                              )}
+                              )} */}
                               {inspection.status === "Tenant Accepted" && (
                                 <button
                                   onClick={() =>
@@ -462,7 +482,7 @@ const InspectionBody = () => {
                                   }
                                   className="px-3 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700 myButton"
                                 >
-                                  Mark Complete
+                                  Start Inspection
                                 </button>
                               )}
                               {inspection.status === "Completed" && (
@@ -488,7 +508,9 @@ const InspectionBody = () => {
                           </button>
 
                           {/* Landlord-only delete action */}
-                          {["landlord", "property_manager"].includes(user?.role) && (
+                          {["landlord", "property_manager"].includes(
+                            user?.role
+                          ) && (
                             <button
                               onClick={() => handleDeleteInspection(inspection)}
                               className="flex items-center gap-1 px-3 py-1 text-xs text-red-600 transition-colors rounded cursor-pointer bg-red-50 hover:bg-red-100"
@@ -507,34 +529,37 @@ const InspectionBody = () => {
           </Card>
         ) : (
           // Inspection Reports Table View
-          <Card className="overflow-hidden border-0 shadow-sm">
+          <Card className="overflow-hidden border-0">
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
+              <table className="w-full text-sm text-left text-gray-700">
+                <thead className="sticky top-0 z-10 bg-white shadow-sm">
                   <tr>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Property
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Tenant
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Inspector
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Date
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Overall Condition
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Actions
-                    </th>
+                    {[
+                      "Property",
+                      "Tenant",
+                      "Inspector",
+                      "Date",
+                      "Overall Condition",
+                      "Actions",
+                    ].map((heading) => (
+                      <th
+                        key={heading}
+                        className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase"
+                      >
+                        {heading}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {displayedInspections.map((inspection) => (
-                    <tr key={inspection.id} className="hover:bg-gray-50">
+                  {displayedInspections.map((inspection, index) => (
+                    <tr
+                      key={inspection.id}
+                      className={`${
+                        index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                      } hover:bg-blue-50 transition-colors duration-150`}
+                    >
+                      {/* Property */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <Building className="w-4 h-4 mr-2 text-gray-400" />
@@ -543,6 +568,8 @@ const InspectionBody = () => {
                           </div>
                         </div>
                       </td>
+
+                      {/* Tenant */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <User className="w-4 h-4 mr-2 text-gray-400" />
@@ -551,12 +578,18 @@ const InspectionBody = () => {
                           </div>
                         </div>
                       </td>
+
+                      {/* Inspector */}
                       <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         {inspection.inspectorName}
                       </td>
+
+                      {/* Date */}
                       <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         {inspection.completedDate}
                       </td>
+
+                      {/* Overall Condition */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
@@ -570,9 +603,10 @@ const InspectionBody = () => {
                           {inspection.overallCondition}
                         </span>
                       </td>
+
+                      {/* Actions */}
                       <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
                         <div className="flex items-center gap-2">
-                          {/* View Report - Available to all roles */}
                           {inspection.status === "Report Generated" ? (
                             <button
                               onClick={() => handleViewInspection(inspection)}
@@ -582,7 +616,6 @@ const InspectionBody = () => {
                               View Report
                             </button>
                           ) : (
-                            /* Generate Report - Landlord only */
                             user?.role === "landlord" && (
                               <button
                                 onClick={() => handleGenerateReport(inspection)}

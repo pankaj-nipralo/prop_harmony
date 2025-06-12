@@ -43,21 +43,29 @@ const ManagerStats = ({ managers }) => {
       id: 1,
       label: "Total Managers",
       value: totalManagers,
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
     },
     {
       id: 2,
       label: "Active Managers",
       value: activeManagers,
+      color: "text-green-600",
+      bgColor: "bg-green-50",
     },
     {
       id: 3,
       label: "Properties Managed",
       value: propertiesManaged,
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
     },
     {
       id: 4,
       label: "Emirates Covered",
       value: emiratesCovered,
+      color: "text-yellow-600",
+      bgColor: "bg-yellow-50",
     },
   ];
 

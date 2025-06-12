@@ -27,7 +27,7 @@ const TenantMaster = () => {
   };
 
   return (
-    <>
+    <div className="p-6">
       <TenantHeader onAddTenant={() => setAddModalOpen(true)} />
       <TenantStats tenants={tenants} />
       <TenantBody tenants={tenants} />
@@ -36,7 +36,7 @@ const TenantMaster = () => {
         onClose={() => setAddModalOpen(false)}
         onAddTenant={handleAddTenant}
       />
-    </>
+    </div>
   );
 };
 

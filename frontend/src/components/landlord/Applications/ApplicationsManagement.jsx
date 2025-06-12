@@ -384,7 +384,7 @@ const ApplicationsManagement = () => {
 
         {/* Stats Section */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-          <Card className="p-6 border-0 shadow-sm">
+          <Card className="p-6 bg-white border-0 shadow-sm">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-yellow-100 rounded-lg">
                 <Clock className="w-6 h-6 text-yellow-600" />
@@ -398,7 +398,7 @@ const ApplicationsManagement = () => {
             </div>
           </Card>
 
-          <Card className="p-6 border-0 shadow-sm">
+          <Card className="p-6 bg-white border-0 shadow-sm">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-blue-100 rounded-lg">
                 <ArrowUpDown className="w-6 h-6 text-blue-600" />
@@ -415,7 +415,7 @@ const ApplicationsManagement = () => {
             </div>
           </Card>
 
-          <Card className="p-6 border-0 shadow-sm">
+          <Card className="p-6 bg-white border-0 shadow-sm">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-green-100 rounded-lg">
                 <CheckCircle className="w-6 h-6 text-green-600" />
@@ -429,7 +429,7 @@ const ApplicationsManagement = () => {
             </div>
           </Card>
 
-          <Card className="p-6 border-0 shadow-sm">
+          <Card className="p-6 bg-white border-0 shadow-sm">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-red-100 rounded-lg">
                 <XCircle className="w-6 h-6 text-red-600" />
@@ -445,9 +445,9 @@ const ApplicationsManagement = () => {
         </div>
 
         {/* Applications List */}
-        <div className="space-y-6">
+        <div className="mt-10 space-y-2">
           {applications.length === 0 ? (
-            <Card className="p-12 text-center border-0 shadow-sm">
+            <Card className="p-12 text-center bg-white border-0 shadow-sm">
               <Users className="w-16 h-16 mx-auto mb-4 text-gray-400" />
               <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 No Applications Yet
@@ -460,7 +460,7 @@ const ApplicationsManagement = () => {
             applications.map((application) => (
               <Card
                 key={application.id}
-                className="p-6 transition-shadow border-0 shadow-sm hover:shadow-md"
+                className="p-6 transition-shadow bg-white border-0 shadow-sm mb-7 hover:shadow-md"
               >
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                   {/* Property & Tenant Info */}

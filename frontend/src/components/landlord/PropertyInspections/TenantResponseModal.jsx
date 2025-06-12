@@ -82,12 +82,6 @@ const TenantResponseModal = ({ open, onClose, inspection, onUpdateResponse }) =>
                 Simulate tenant response to inspection request
               </p>
             </div>
-            <button
-              onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
           </div>
 
           {/* Inspection Details */}
@@ -196,7 +190,7 @@ const TenantResponseModal = ({ open, onClose, inspection, onUpdateResponse }) =>
             {/* Conditional Fields */}
             {response === "declined" && (
               <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Reason for Declining *
                 </label>
                 <textarea
@@ -243,7 +237,7 @@ const TenantResponseModal = ({ open, onClose, inspection, onUpdateResponse }) =>
                       <button
                         type="button"
                         onClick={() => removeSuggestedTime(index)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded"
+                        className="p-2 text-red-600 rounded hover:bg-red-50"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -255,7 +249,7 @@ const TenantResponseModal = ({ open, onClose, inspection, onUpdateResponse }) =>
 
             {/* Optional Message */}
             <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block mb-2 text-sm font-medium text-gray-700">
                 Additional Message (Optional)
               </label>
               <textarea
@@ -271,7 +265,7 @@ const TenantResponseModal = ({ open, onClose, inspection, onUpdateResponse }) =>
             <div className="flex justify-end gap-3 pt-6 border-t border-gray-200">
               <button
                 onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200"
               >
                 Cancel
               </button>
@@ -281,7 +275,7 @@ const TenantResponseModal = ({ open, onClose, inspection, onUpdateResponse }) =>
                   (response === "declined" && !declineReason.trim()) ||
                   (response === "reschedule_requested" && !suggestedTimes.some(time => time.date && time.time))
                 }
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors myButton"
+                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed myButton"
               >
                 Submit Response
               </button>

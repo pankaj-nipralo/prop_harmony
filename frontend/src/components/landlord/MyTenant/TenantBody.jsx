@@ -281,35 +281,35 @@ const TenantBody = ({ tenants }) => {
             placeholder="Search tenants by name, email, or property..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex-1 px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <div className="flex gap-2 mt-2 md:mt-0">
           <button
-            className={`px-4 py-2 text-sm font-semibold rounded-md border transition ${
+            className={`px-4 py-2 text-sm font-semibold rounded-md border transition cursor-pointer ${
               filter === "all"
-                ? "bg-[#223a5f] text-white border-[#223a5f]"
-                : "bg-white text-[#223a5f] border-gray-200 hover:bg-gray-100"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-blue-600 border-gray-200 hover:bg-gray-100"
             }`}
             onClick={() => setFilter("all")}
           >
             All
           </button>
           <button
-            className={`px-4 py-2 text-sm font-semibold rounded-md border transition ${
+            className={`px-4 py-2 text-sm font-semibold rounded-md border transition cursor-pointer ${
               filter === "active"
-                ? "bg-[#223a5f] text-white border-[#223a5f]"
-                : "bg-white text-[#223a5f] border-gray-200 hover:bg-gray-100"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-blue-600 border-gray-200 hover:bg-gray-100"
             }`}
             onClick={() => setFilter("active")}
           >
             Active
           </button>
           <button
-            className={`px-4 py-2 text-sm font-semibold rounded-md border transition ${
+            className={`px-4 py-2 text-sm font-semibold rounded-md border transition cursor-pointer ${
               filter === "notice"
-                ? "bg-[#223a5f] text-white border-[#223a5f]"
-                : "bg-white text-[#223a5f] border-gray-200 hover:bg-gray-100"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-blue-600 border-gray-200 hover:bg-gray-100"
             }`}
             onClick={() => setFilter("notice")}
           >

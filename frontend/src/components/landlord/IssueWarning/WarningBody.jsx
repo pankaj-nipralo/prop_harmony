@@ -144,7 +144,7 @@ const WarningBody = ({ warnings, setWarnings }) => {
             placeholder="Search warnings by recipient, subject, type, or property..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex-1 px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <div className="flex gap-2 mt-2 md:mt-0">
@@ -152,7 +152,7 @@ const WarningBody = ({ warnings, setWarnings }) => {
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="px-4 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               <option value="All Types">All Types</option>
               {warningTypes.map((type) => (
@@ -167,7 +167,7 @@ const WarningBody = ({ warnings, setWarnings }) => {
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
-              className="px-4 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               <option value="All Severities">All Severities</option>
               {severityLevels.map((level) => (
@@ -182,7 +182,7 @@ const WarningBody = ({ warnings, setWarnings }) => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               <option value="All Status">All Status</option>
               {warningStatuses.map((status) => (
@@ -206,27 +206,31 @@ const WarningBody = ({ warnings, setWarnings }) => {
           displayedWarnings.map((warning) => (
             <div
               key={warning.id}
-              className="w-full p-6 bg-white border border-gray-100 shadow-sm rounded-xl"
+              className="w-full p-6 space-y-5 bg-white border border-gray-200 shadow-sm rounded-xl"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center justify-center w-8 h-8 text-lg font-semibold text-white bg-blue-500 rounded-full">
+              {/* Header: Icon + Subject + Badges + Actions */}
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-4">
+                  {/* Icon */}
+                  <div className="flex items-center justify-center w-10 h-10 text-white bg-blue-500 rounded-full">
                     <AlertTriangle size={20} />
                   </div>
+
+                  {/* Subject + Badges */}
                   <div>
-                    <h3 className="font-semibold text-gray-800 text-md">
+                    <h3 className="text-lg font-semibold text-gray-900">
                       {warning.subject}
                     </h3>
-                    <div className="flex items-center gap-1 mt-1">
+                    <div className="flex items-center gap-2 mt-1">
                       <span
-                        className={`text-xs px-2 py-1 rounded-full ${getSeverityStyle(
+                        className={`text-xs px-2 py-1 rounded-full font-medium capitalize ${getSeverityStyle(
                           warning.severity
                         )}`}
                       >
                         {warning.severity}
                       </span>
                       <span
-                        className={`text-xs px-2 py-1 rounded-full flex items-center gap-1 ${getStatusStyle(
+                        className={`text-xs px-2 py-1 rounded-full flex items-center gap-1 font-medium capitalize ${getStatusStyle(
                           warning.status
                         )}`}
                       >
@@ -236,24 +240,26 @@ const WarningBody = ({ warnings, setWarnings }) => {
                     </div>
                   </div>
                 </div>
+
+                {/* Action Buttons */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleViewWarning(warning)}
-                    className="p-2 text-gray-500 transition-colors rounded-lg hover:text-blue-600 hover:bg-blue-50"
+                    className="p-2 text-gray-500 transition rounded-lg hover:text-blue-600 hover:bg-blue-50"
                     title="View Warning"
                   >
                     <Eye size={16} />
                   </button>
                   <button
                     onClick={() => handleEditWarning(warning)}
-                    className="p-2 text-gray-500 transition-colors rounded-lg hover:text-blue-600 hover:bg-blue-50"
+                    className="p-2 text-gray-500 transition rounded-lg hover:text-blue-600 hover:bg-blue-50"
                     title="Edit Warning"
                   >
                     <Edit size={16} />
                   </button>
                   <button
                     onClick={() => handleDeleteWarning(warning)}
-                    className="p-2 text-gray-500 transition-colors rounded-lg hover:text-red-600 hover:bg-red-50"
+                    className="p-2 text-gray-500 transition rounded-lg hover:text-red-600 hover:bg-red-50"
                     title="Delete Warning"
                   >
                     <Trash2 size={16} />
@@ -261,6 +267,7 @@ const WarningBody = ({ warnings, setWarnings }) => {
                 </div>
               </div>
 
+              {/* Info Section */}
               <div className="space-y-2 text-sm text-gray-700">
                 <div className="flex items-center gap-2">
                   <User size={14} className="text-gray-500" />
@@ -286,6 +293,7 @@ const WarningBody = ({ warnings, setWarnings }) => {
                 )}
               </div>
 
+              {/* Description */}
               <div className="pt-4 mt-4 border-t border-gray-100">
                 <p className="text-sm text-gray-600 line-clamp-2">
                   {warning.description}
