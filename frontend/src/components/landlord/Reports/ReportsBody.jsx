@@ -407,10 +407,10 @@ const ReportsBody = ({
     return (
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {[...Array(4)].map((_, index) => (
-          <Card key={index} className="p-6 border-0">
+          <Card key={index} className="p-6 bg-white border-0">
             <div className="animate-pulse">
-              <div className="w-48 h-6 bg-gray-200 rounded mb-2"></div>
-              <div className="w-32 h-4 bg-gray-200 rounded mb-4"></div>
+              <div className="w-48 h-6 mb-2 bg-gray-200 rounded"></div>
+              <div className="w-32 h-4 mb-4 bg-gray-200 rounded"></div>
               <div className="w-full h-64 bg-gray-200 rounded"></div>
             </div>
           </Card>
@@ -426,7 +426,7 @@ const ReportsBody = ({
       {/* Charts Grid */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {charts.map((chart) => (
-          <Card key={chart.id} className="p-6 border-0 transition-all duration-200 hover:shadow-lg">
+          <Card key={chart.id} className="p-6 transition-all duration-200 bg-white border-0 hover:shadow-lg">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">{chart.title}</h3>

@@ -200,7 +200,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
       </Card>
 
       {/* Payment Status Distribution */}
-      <Card className="p-6 border-0">
+      <Card className="p-6 bg-white border-0">
         <h3 className="mb-4 text-lg font-semibold text-gray-900">
           Payment Status Distribution
         </h3>

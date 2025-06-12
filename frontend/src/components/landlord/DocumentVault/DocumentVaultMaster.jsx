@@ -456,7 +456,7 @@ const DocumentVaultMaster = () => {
   }, [fileSystem]);
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <div className="min-h-screen p-6">
       {/* Header Section */}
       <div className="flex items-center justify-between mb-7">
         <div className="flex items-center gap-3">
@@ -532,7 +532,7 @@ const DocumentVaultMaster = () => {
       )}
 
       {/* Breadcrumb and View Controls */}
-      <div className="flex items-center justify-between my-7">
+      <div className="flex items-center justify-between px-4 py-4 bg-white rounded-2xl my-7">
         <div className="flex items-center gap-2 text-sm">
           <button
             onClick={() => setCurrentPath([])}
@@ -559,7 +559,7 @@ const DocumentVaultMaster = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <button
+          {/* <button
             onClick={() => setViewMode("grid")}
             className={`px-3 py-2 text-sm rounded-lg transition-colors ${
               viewMode === "grid"
@@ -578,26 +578,29 @@ const DocumentVaultMaster = () => {
             }`}
           >
             List View
-          </button>
+          </button> */}
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className="flex items-center max-w-md gap-2">
-        <Search size={18} className="text-gray-500" />
-        <input
-          type="text"
-          placeholder="Search files and folders..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-center flex-1 gap-3 px-4 py-3 transition-shadow bg-white border border-gray-200 rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+          <Search size={18} className="text-gray-500" />
+          <input
+            type="text"
+            placeholder="Search calculations..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            className="w-full p-1 text-sm text-gray-800 placeholder-gray-500 bg-transparent focus:outline-none"
+          />
+        </div>
       </div>
-
       {/* File Manager Grid */}
-      <div className="space-y-4">
+      <div className="space-y-4 mt-7">
         {currentItems.length === 0 ? (
-          <Card className="p-12 text-center border-0 shadow-sm">
+          <Card className="p-12 text-center bg-white border-0 shadow-sm">
             <Folder className="w-16 h-16 mx-auto mb-4 text-gray-400" />
             <h3 className="mb-2 text-lg font-medium text-gray-900">
               This folder is empty
@@ -615,7 +618,7 @@ const DocumentVaultMaster = () => {
               return (
                 <Card
                   key={item.id}
-                  className="p-4 transition-all duration-200 border-0 shadow-sm cursor-pointer hover:shadow-md hover:scale-105 group"
+                  className="p-4 transition-all duration-200 bg-white border-0 shadow-sm cursor-pointer hover:shadow-md hover:scale-105 group"
                   onClick={() => handleItemClick(item)}
                 >
                   <div className="space-y-3">

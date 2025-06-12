@@ -47,9 +47,9 @@ const ReportsHeader = ({
   ];
 
   const exportFormats = [
-    { value: 'pdf', label: 'Export PDF', icon: FileText },
+    // { value: 'pdf', label: 'Export PDF', icon: FileText },
     { value: 'excel', label: 'Export Excel', icon: FileText },
-    { value: 'png', label: 'Export PNG', icon: FileText }
+    // { value: 'png', label: 'Export PNG', icon: FileText }
   ];
 
   const handleExport = (format) => {
@@ -63,14 +63,12 @@ const ReportsHeader = ({
   return (
     <div className="space-y-6">
       {/* Main Header */}
-      <Card className="p-6 border-0 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <Card className="border-0 shadow-none">
         <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-500 rounded-lg">
-              <BarChart3 className="w-6 h-6 text-white" />
-            </div>
+          <div className="flex items-center space-x-3"> 
+              <BarChart3 className="w-8 h-8 text-blue-600" /> 
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Reports & Analytics</h1>
               <p className="text-sm text-gray-600">
                 Comprehensive insights and performance metrics for your properties
               </p>
@@ -95,7 +93,7 @@ const ReportsHeader = ({
                 <button
                   key={format.value}
                   onClick={() => handleExport(format.value)}
-                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 transition-colors bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
                   disabled={isLoading}
                 >
                   <Download size={14} />
@@ -106,7 +104,7 @@ const ReportsHeader = ({
 
             <button
               onClick={handleScheduleReport}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 transition-colors bg-blue-100 rounded-lg hover:bg-blue-200"
             >
               <Mail size={16} />
               Schedule
@@ -124,7 +122,7 @@ const ReportsHeader = ({
         </div>
 
         {/* Report Summary */}
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+        {/* <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-200">
           <div className="flex items-center space-x-6">
             <div className="text-sm text-gray-600">
               <span className="font-medium text-gray-900">{totalReports}</span> reports available
@@ -145,12 +143,12 @@ const ReportsHeader = ({
               Period: <span className="font-medium text-gray-900">{dateRanges.find(r => r.value === dateRange)?.label}</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </Card>
 
       {/* Filters Panel */}
       {showFilters && (
-        <Card className="p-6 border-0">
+        <Card className="p-6 bg-white border-0">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {/* Report Type Filter */}
             <div>
@@ -219,14 +217,14 @@ const ReportsHeader = ({
           </div>
 
           {/* Quick Actions */}
-          <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+          <div className="flex items-center justify-between pt-4 mt-6 border-t border-gray-200">
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => {
                   onReportTypeChange && onReportTypeChange('financial');
                   onDateRangeChange && onDateRangeChange('lastyear');
                 }}
-                className="px-3 py-1 text-sm text-blue-600 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors"
+                className="px-3 py-1 text-sm text-blue-600 transition-colors bg-blue-100 rounded-lg hover:bg-blue-200"
               >
                 Financial Overview
               </button>
@@ -235,7 +233,7 @@ const ReportsHeader = ({
                   onReportTypeChange && onReportTypeChange('payment');
                   onDateRangeChange && onDateRangeChange('last3months');
                 }}
-                className="px-3 py-1 text-sm text-green-600 bg-green-100 rounded-lg hover:bg-green-200 transition-colors"
+                className="px-3 py-1 text-sm text-green-600 transition-colors bg-green-100 rounded-lg hover:bg-green-200"
               >
                 Payment Analysis
               </button>
@@ -244,7 +242,7 @@ const ReportsHeader = ({
                   onReportTypeChange && onReportTypeChange('property');
                   onDateRangeChange && onDateRangeChange('last6months');
                 }}
-                className="px-3 py-1 text-sm text-purple-600 bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors"
+                className="px-3 py-1 text-sm text-purple-600 transition-colors bg-purple-100 rounded-lg hover:bg-purple-200"
               >
                 Property Performance
               </button>
@@ -252,7 +250,7 @@ const ReportsHeader = ({
 
             <button
               onClick={() => setShowFilters(false)}
-              className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              className="px-4 py-2 text-sm text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200"
             >
               Hide Filters
             </button>
@@ -262,9 +260,9 @@ const ReportsHeader = ({
 
       {/* Schedule Report Modal */}
       {showScheduleModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <Card className="w-full max-w-md p-6 border-0">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Schedule Report</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-black/20">
+          <Card className="w-full max-w-md p-6 bg-white border-0">
+            <h3 className="mb-4 text-lg font-semibold text-gray-900">Schedule Report</h3>
             <div className="space-y-4">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
@@ -273,7 +271,8 @@ const ReportsHeader = ({
                 <input
                   type="email"
                   placeholder="Enter email address"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
+                  required
                 />
               </div>
               <div>
@@ -287,10 +286,10 @@ const ReportsHeader = ({
                 </select>
               </div>
             </div>
-            <div className="flex justify-end space-x-3 mt-6">
+            <div className="flex justify-end mt-6 space-x-3">
               <button
                 onClick={() => setShowScheduleModal(false)}
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 text-sm text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200"
               >
                 Cancel
               </button>

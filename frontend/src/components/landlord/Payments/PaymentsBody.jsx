@@ -148,7 +148,7 @@ const PaymentsBody = ({
     <div className="space-y-6">
       {/* Filters Panel */}
       {showFilters && (
-        <Card className="p-6 border-0">
+        <Card className="p-6 bg-white border-0">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">
             Filter Payments
           </h3>
@@ -238,9 +238,8 @@ const PaymentsBody = ({
       )}
 
       {/* Payments Table */}
-      <Card className="border-0">
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-4">
+      <Card className="border-0 shadow-none">
+          <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-gray-900">
               Payment History
             </h3>
@@ -256,11 +255,11 @@ const PaymentsBody = ({
             )}
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          <div className="p-4 overflow-x-auto bg-white rounded-lg shadow-sm">
+            <table className="w-full "> 
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="w-8 py-3 text-left">
+                  {/* <th className="w-8 py-3 text-left">
                     <input
                       type="checkbox"
                       checked={
@@ -270,50 +269,50 @@ const PaymentsBody = ({
                       onChange={handleSelectAll}
                       className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     />
-                  </th>
+                  </th> */}
                   <th
-                    className="py-3 text-left text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900"
+                    className="py-3 text-sm font-medium text-left text-gray-700 cursor-pointer hover:text-gray-900"
                     onClick={() => handleSort("paymentId")}
                   >
                     Payment ID
                   </th>
                   <th
-                    className="py-3 text-left text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900"
+                    className="py-3 text-sm font-medium text-left text-gray-700 cursor-pointer hover:text-gray-900"
                     onClick={() => handleSort("tenantName")}
                   >
                     Tenant
                   </th>
                   <th
-                    className="py-3 text-left text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900"
+                    className="py-3 text-sm font-medium text-left text-gray-700 cursor-pointer hover:text-gray-900"
                     onClick={() => handleSort("propertyName")}
                   >
                     Property
                   </th>
                   <th
-                    className="py-3 text-left text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900"
+                    className="py-3 text-sm font-medium text-left text-gray-700 cursor-pointer hover:text-gray-900"
                     onClick={() => handleSort("paymentType")}
                   >
                     Type
                   </th>
                   <th
-                    className="py-3 text-left text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900"
+                    className="py-3 text-sm font-medium text-left text-gray-700 cursor-pointer hover:text-gray-900"
                     onClick={() => handleSort("amount")}
                   >
                     Amount
                   </th>
                   <th
-                    className="py-3 text-left text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900"
+                    className="py-3 text-sm font-medium text-left text-gray-700 cursor-pointer hover:text-gray-900"
                     onClick={() => handleSort("dueDate")}
                   >
                     Due Date
                   </th>
                   <th
-                    className="py-3 text-left text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900"
+                    className="py-3 text-sm font-medium text-left text-gray-700 cursor-pointer hover:text-gray-900"
                     onClick={() => handleSort("status")}
                   >
                     Status
                   </th>
-                  <th className="py-3 text-right text-sm font-medium text-gray-700">
+                  <th className="py-3 text-sm font-medium text-right text-gray-700">
                     Actions
                   </th>
                 </tr>
@@ -321,14 +320,14 @@ const PaymentsBody = ({
               <tbody className="divide-y divide-gray-200">
                 {sortedPayments.map((payment) => (
                   <tr key={payment.id} className="hover:bg-gray-50">
-                    <td className="py-4">
+                    {/* <td className="py-4">
                       <input
                         type="checkbox"
                         checked={selectedPayments.includes(payment.id)}
                         onChange={() => handleSelectPayment(payment.id)}
                         className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                       />
-                    </td>
+                    </td> */}
                     <td className="py-4">
                       <div className="text-sm font-medium text-gray-900">
                         {payment.paymentId}
@@ -340,7 +339,7 @@ const PaymentsBody = ({
                     <td className="py-4">
                       <div className="flex items-center space-x-3">
                         <div className="flex-shrink-0">
-                          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                          <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full">
                             <User className="w-4 h-4 text-blue-600" />
                           </div>
                         </div>
@@ -368,7 +367,7 @@ const PaymentsBody = ({
                       </div>
                     </td>
                     <td className="py-4">
-                      <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">
+                      <span className="inline-flex items-center px-2 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded-full">
                         {payment.paymentType.replace("_", " ").toUpperCase()}
                       </span>
                     </td>
@@ -463,8 +462,7 @@ const PaymentsBody = ({
                 Record Payment
               </button>
             </div>
-          )}
-        </div>
+          )} 
       </Card>
     </div>
   );

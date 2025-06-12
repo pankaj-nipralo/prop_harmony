@@ -46,14 +46,18 @@ const RatingsBody = ({
   }
 
   // Get unique properties for filter
-  const uniqueProperties = [...new Set(reviews.map((review) => review.propertyName))];
+  const uniqueProperties = [
+    ...new Set(reviews.map((review) => review.propertyName)),
+  ];
 
   // Apply filters and search
   let filteredReviews = filterReviews(reviews, filters);
   filteredReviews = searchReviews(filteredReviews, search);
 
   // Sort reviews by date (newest first)
-  filteredReviews.sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate));
+  filteredReviews.sort(
+    (a, b) => new Date(b.reviewDate) - new Date(a.reviewDate)
+  );
 
   const toggleExpandReview = (reviewId) => {
     const newExpanded = new Set(expandedReviews);
@@ -92,6 +96,7 @@ const RatingsBody = ({
       {/* Search and Filter Section */}
       <Card className="p-4 bg-white border-0 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          {/* Search Input */}
           <div className="flex items-center flex-1 gap-2">
             <Search size={18} className="text-gray-500" />
             <input
@@ -104,13 +109,14 @@ const RatingsBody = ({
                   setFilters((prev) => ({ ...prev, search: e.target.value }));
                 }
               }}
-              className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-2 text-sm bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Filters */}
+          <div className="flex flex-wrap items-center gap-3">
             {/* Property Filter */}
-            <div className="flex items-center gap-2">
+            <div className="relative flex items-center gap-2">
               <Filter size={16} className="text-gray-500" />
               <select
                 value={filters.property || "all"}
@@ -122,7 +128,7 @@ const RatingsBody = ({
                     }));
                   }
                 }}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">All Properties</option>
                 {uniqueProperties.map((property) => (
@@ -131,53 +137,60 @@ const RatingsBody = ({
                   </option>
                 ))}
               </select>
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-3 top-1/2" />
             </div>
 
             {/* Rating Filter */}
-            <select
-              value={filters.rating || "all"}
-              onChange={(e) => {
-                if (setFilters) {
-                  setFilters((prev) => ({
-                    ...prev,
-                    rating: e.target.value,
-                  }));
-                }
-              }}
-              className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {ratingFilters.map((filter) => (
-                <option key={filter.value} value={filter.value}>
-                  {filter.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={filters.rating || "all"}
+                onChange={(e) => {
+                  if (setFilters) {
+                    setFilters((prev) => ({
+                      ...prev,
+                      rating: e.target.value,
+                    }));
+                  }
+                }}
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {ratingFilters.map((filter) => (
+                  <option key={filter.value} value={filter.value}>
+                    {filter.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-3 top-1/2" />
+            </div>
 
             {/* Response Status Filter */}
-            <select
-              value={filters.responseStatus || "all"}
-              onChange={(e) => {
-                if (setFilters) {
-                  setFilters((prev) => ({
-                    ...prev,
-                    responseStatus: e.target.value,
-                  }));
-                }
-              }}
-              className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {responseStatuses.map((status) => (
-                <option key={status.value} value={status.value}>
-                  {status.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={filters.responseStatus || "all"}
+                onChange={(e) => {
+                  if (setFilters) {
+                    setFilters((prev) => ({
+                      ...prev,
+                      responseStatus: e.target.value,
+                    }));
+                  }
+                }}
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {responseStatuses.map((status) => (
+                  <option key={status.value} value={status.value}>
+                    {status.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-3 top-1/2" />
+            </div>
           </div>
         </div>
       </Card>
 
       {/* Reviews List */}
-      <div className="p-4 space-y-4 border-0 shadow-sm bg-gray-50 rounded-2xl">
+      <div className="space-y-4 border-0 ">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-gray-900">
             Reviews ({filteredReviews.length})
@@ -198,14 +211,21 @@ const RatingsBody = ({
               const shouldTruncate = review.reviewText.length > 150;
 
               return (
-                <Card key={review.id} className="p-6 transition-shadow bg-white border-0 shadow-lg hover:shadow-xl">
+                <Card
+                  key={review.id}
+                  className="p-6 transition-shadow bg-white border-0 shadow-lg hover:shadow-xl"
+                >
                   <div className="space-y-4">
                     {/* Review Header */}
                     <div className="flex items-start justify-between">
                       <div className="flex items-start flex-1 gap-4">
                         {/* Rating */}
                         <div className="flex flex-col items-center gap-1">
-                          <div className={`text-2xl font-bold ${getRatingColor(review.rating)}`}>
+                          <div
+                            className={`text-2xl font-bold ${getRatingColor(
+                              review.rating
+                            )}`}
+                          >
                             {review.rating}
                           </div>
                           <div className="flex items-center">
@@ -218,7 +238,11 @@ const RatingsBody = ({
                                     ? "text-yellow-400"
                                     : "text-gray-300"
                                 }`}
-                                fill={star <= Math.round(review.rating) ? "currentColor" : "none"}
+                                fill={
+                                  star <= Math.round(review.rating)
+                                    ? "currentColor"
+                                    : "none"
+                                }
                               />
                             ))}
                           </div>
@@ -230,11 +254,21 @@ const RatingsBody = ({
                             <h3 className="text-lg font-semibold text-gray-900">
                               {review.reviewTitle}
                             </h3>
-                            <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(review.responseStatus)}`}>
-                              {review.responseStatus === "responded" ? "Responded" : "Pending"}
+                            <span
+                              className={`px-2 py-1 text-xs rounded-full ${getStatusColor(
+                                review.responseStatus
+                              )}`}
+                            >
+                              {review.responseStatus === "responded"
+                                ? "Responded"
+                                : "Pending"}
                             </span>
                             {review.isVerified && (
-                              <CheckCircle size={16} className="text-green-500" title="Verified Review" />
+                              <CheckCircle
+                                size={16}
+                                className="text-green-500"
+                                title="Verified Review"
+                              />
                             )}
                           </div>
 
@@ -249,7 +283,11 @@ const RatingsBody = ({
                             </div>
                             <div className="flex items-center gap-1">
                               <Calendar size={14} />
-                              <span>{new Date(review.reviewDate).toLocaleDateString()}</span>
+                              <span>
+                                {new Date(
+                                  review.reviewDate
+                                ).toLocaleDateString()}
+                              </span>
                             </div>
                             {review.helpfulVotes > 0 && (
                               <div className="flex items-center gap-1">
@@ -279,13 +317,18 @@ const RatingsBody = ({
                               <div className="flex items-center gap-2 mb-2">
                                 <Reply size={16} className="text-blue-600" />
                                 <span className="text-sm font-medium text-blue-900">
-                                  Response from {review.landlordResponse.respondedBy}
+                                  Response from{" "}
+                                  {review.landlordResponse.respondedBy}
                                 </span>
                                 <span className="text-xs text-blue-600">
-                                  {new Date(review.landlordResponse.responseDate).toLocaleDateString()}
+                                  {new Date(
+                                    review.landlordResponse.responseDate
+                                  ).toLocaleDateString()}
                                 </span>
                               </div>
-                              <p className="text-blue-800">{review.landlordResponse.responseText}</p>
+                              <p className="text-blue-800">
+                                {review.landlordResponse.responseText}
+                              </p>
                             </div>
                           )}
                         </div>

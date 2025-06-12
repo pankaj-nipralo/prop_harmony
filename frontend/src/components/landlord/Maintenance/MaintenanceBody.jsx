@@ -166,25 +166,28 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
   return (
     <div className="space-y-6">
       {/* Search and Filter Section */}
-      <Card className="p-4 border-0 shadow-sm">
+      <Card className="p-6 bg-white border-0 shadow-sm">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center flex-1 gap-2">
-            <Search size={18} className="text-gray-500" />
+          {/* Search Bar */}
+          <div className="flex items-center flex-1 gap-3 px-4 py-2 transition-shadow bg-gray-100 border border-gray-200 rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+            <Search size={18} className="text-gray-400" />
             <input
               type="text"
-              placeholder="Search requests by title, property, or description..."
+              placeholder="Search by title, property, or description..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full text-sm text-gray-700 placeholder-gray-400 bg-transparent focus:outline-none"
             />
           </div>
-          <div className="flex items-center gap-2">
-            <Filter size={16} className="text-gray-500" />
-            <div className="relative">
+
+          {/* Filters */}
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Category Filter */}
+            <div className="relative w-48">
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 pr-10 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Categories">All Categories</option>
                 {maintenanceCategories.map((category) => (
@@ -193,13 +196,15 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2" />
             </div>
-            <div className="relative">
+
+            {/* Status Filter */}
+            <div className="relative w-40">
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 pr-10 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Status">All Status</option>
                 {maintenanceStatuses.map((status) => (
@@ -208,13 +213,15 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2" />
             </div>
-            <div className="relative">
+
+            {/* Priority Filter */}
+            <div className="relative w-40">
               <select
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 pr-10 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Priorities">All Priorities</option>
                 {priorityLevels.map((priority) => (
@@ -223,7 +230,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+              <ChevronDown className="absolute w-4 h-4 text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2" />
             </div>
           </div>
         </div>
@@ -236,46 +243,51 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
         </h2>
 
         {displayedMaintenance.length === 0 ? (
-          <Card className="p-8 text-center border-0 shadow-sm">
+          <Card className="p-8 text-center bg-white border-0 shadow-sm">
             <Wrench className="w-12 h-12 mx-auto mb-4 text-gray-400" />
             <p className="text-gray-500">No maintenance requests found.</p>
           </Card>
         ) : (
-          <Card className="overflow-hidden border-0 shadow-sm">
+          <Card className="overflow-hidden border-0">
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
+              <table className="w-full text-sm text-left text-gray-700">
+                <thead className="sticky top-0 z-10 bg-white shadow-sm">
                   <tr>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Request
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Property
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Category
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Priority
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Date
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Remarks
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {displayedMaintenance.map((request) => (
-                    <tr key={request.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
+                  {displayedMaintenance.map((request, index) => (
+                    <tr
+                      key={request.id}
+                      className={`${
+                        index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                      } hover:bg-blue-50 transition-colors duration-150`}
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap">
                         <div>
                           <div className="text-sm font-medium text-gray-900">
                             {request.title}
@@ -291,6 +303,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                           </div>
                         </div>
                       </td>
+
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <Building className="w-4 h-4 mr-2 text-gray-400" />
@@ -299,11 +312,13 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                           </div>
                         </div>
                       </td>
+
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="inline-flex px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full">
                           {request.category}
                         </span>
                       </td>
+
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityStyle(
@@ -313,6 +328,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                           {request.priority}
                         </span>
                       </td>
+
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full ${getStatusStyle(
@@ -323,6 +339,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                           {request.status}
                         </span>
                       </td>
+
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <Calendar className="w-3 h-3 mr-1 text-gray-400" />
@@ -339,6 +356,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                           </div>
                         )}
                       </td>
+
                       <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
                         <div className="flex items-center gap-2">
                           {request.status === "Pending" && (
@@ -346,7 +364,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                               onClick={() =>
                                 handleStatusChange(request.id, "Open")
                               }
-                              className="px-3 py-1 text-xs text-white transition-colors bg-orange-600 rounded cursor-pointer hover:bg-orange-700"
+                              className="px-3 py-1 text-xs text-white transition-colors bg-orange-600 rounded hover:bg-orange-700"
                             >
                               Assign
                             </button>
@@ -356,7 +374,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                               onClick={() =>
                                 handleStatusChange(request.id, "In Progress")
                               }
-                              className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700"
+                              className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded hover:bg-blue-700"
                             >
                               Start Work
                             </button>
@@ -366,38 +384,32 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                               onClick={() =>
                                 handleStatusChange(request.id, "Completed")
                               }
-                              className="px-3 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700"
+                              className="px-3 py-1 text-xs text-white transition-colors bg-green-600 rounded hover:bg-green-700"
                             >
                               Complete
                             </button>
                           )}
-                          {/* {request.status === "Completed" && (
-                            <button disabled
-                              className="px-3 py-1 text-xs text-white transition-colors bg-green-700 rounded hover:bg-green-700"
-                            >
-                              Done
-                            </button>
-                          )} */}
                         </div>
                       </td>
+
                       <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
                         <button
                           onClick={() => handleViewMaintenance(request)}
-                          className="p-1 text-gray-500 transition-colors rounded cursor-pointer hover:text-blue-600 hover:bg-blue-50"
+                          className="p-1 text-gray-500 transition-colors rounded hover:text-blue-600 hover:bg-blue-50"
                           title="View Details"
                         >
                           <Eye size={16} />
                         </button>
                         <button
                           onClick={() => handleEditMaintenance(request)}
-                          className="p-1 text-gray-500 transition-colors rounded cursor-pointer hover:text-blue-600 hover:bg-blue-50"
+                          className="p-1 text-gray-500 transition-colors rounded hover:text-blue-600 hover:bg-blue-50"
                           title="Edit Request"
                         >
                           <Edit size={16} />
                         </button>
                         <button
                           onClick={() => handleDeleteMaintenance(request)}
-                          className="p-1 text-gray-500 transition-colors rounded cursor-pointer hover:text-red-600 hover:bg-red-50"
+                          className="p-1 text-gray-500 transition-colors rounded hover:text-red-600 hover:bg-red-50"
                           title="Delete Request"
                         >
                           <Trash2 size={16} />

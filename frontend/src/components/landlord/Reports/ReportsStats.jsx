@@ -19,13 +19,13 @@ const ReportsStats = ({ reportType, stats, isLoading = false }) => {
     return (
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {[...Array(4)].map((_, index) => (
-          <Card key={index} className="p-6 border-0">
+          <Card key={index} className="p-6 bg-white border-0">
             <div className="animate-pulse">
               <div className="flex items-center justify-between mb-4">
                 <div className="w-8 h-8 bg-gray-200 rounded-lg"></div>
                 <div className="w-16 h-4 bg-gray-200 rounded"></div>
               </div>
-              <div className="w-24 h-8 bg-gray-200 rounded mb-2"></div>
+              <div className="w-24 h-8 mb-2 bg-gray-200 rounded"></div>
               <div className="w-32 h-4 bg-gray-200 rounded"></div>
             </div>
           </Card>
@@ -288,7 +288,7 @@ const ReportsStats = ({ reportType, stats, isLoading = false }) => {
       {/* Main Stats Grid */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {statCards.map((stat, index) => (
-          <Card key={index} className="p-6 border-0 transition-all duration-200 hover:shadow-lg">
+          <Card key={index} className="p-6 transition-all duration-200 bg-white border-0 hover:shadow-lg">
             <div className="flex items-center justify-between">
               <div className="space-y-2">
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
@@ -314,7 +314,7 @@ const ReportsStats = ({ reportType, stats, isLoading = false }) => {
       </div>
 
       {/* Additional Insights */}
-      <Card className="p-6 border-0">
+      <Card className="p-6 bg-white border-0">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900">Key Insights</h3>
           <button className="text-sm text-blue-600 hover:text-blue-700">
@@ -322,9 +322,9 @@ const ReportsStats = ({ reportType, stats, isLoading = false }) => {
           </button>
         </div>
         
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {getInsightsForReportType(reportType).map((insight, index) => (
-            <div key={index} className="p-4 bg-gray-50 rounded-lg">
+            <div key={index} className="p-4 bg-gray-100 rounded-lg">
               <div className="flex items-center space-x-3">
                 <div className={`p-2 rounded-lg ${insight.bgColor}`}>
                   <insight.icon className={`w-4 h-4 ${insight.iconColor}`} />

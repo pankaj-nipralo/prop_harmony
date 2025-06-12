@@ -151,7 +151,7 @@ const InvestmentBody = ({
     <div className="space-y-6">
       {/* Tab Navigation */}
       <div className="flex items-center justify-between">
-        <div className="flex p-1 bg-gray-100 rounded-lg">
+        <div className="flex p-1 bg-white rounded-lg">
           <button
             onClick={() => setActiveTab("calculations")}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
@@ -180,9 +180,9 @@ const InvestmentBody = ({
       ) : (
         <>
           {/* Search and Filter Section */}
-          <Card className="p-4 border-0 shadow-sm">
+          <Card className="p-4 bg-white border-0 shadow-sm">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-center flex-1 gap-2">
+              <div className="flex items-center flex-1 gap-3 px-4 py-2 transition-shadow bg-gray-100 border border-gray-200 rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
                 <Search size={18} className="text-gray-500" />
                 <input
                   type="text"
@@ -197,7 +197,7 @@ const InvestmentBody = ({
                       }));
                     }
                   }}
-                  className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-1 text-sm text-gray-800 placeholder-gray-500 bg-transparent focus:outline-none"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -214,7 +214,7 @@ const InvestmentBody = ({
                         }));
                       }
                     }}
-                    className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="All Properties">All Properties</option>
                     {uniqueProperties.map((property) => (
@@ -236,32 +236,32 @@ const InvestmentBody = ({
             </h2>
 
             {displayedCalculations.length === 0 ? (
-              <Card className="p-8 text-center border-0 shadow-sm">
+              <Card className="p-8 text-center bg-white border-0 shadow-sm">
                 <Calculator className="w-12 h-12 mx-auto mb-4 text-gray-400" />
                 <p className="text-gray-500">No calculations found.</p>
               </Card>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
                 {displayedCalculations.map((calculation) => {
                   const metrics = calculateInvestmentMetrics(calculation);
 
                   return (
                     <Card
                       key={calculation.id}
-                      className="p-6 border-0 shadow-sm hover:shadow-md transition-shadow"
+                      className="p-6 transition-shadow bg-white border-0 shadow-sm hover:shadow-md"
                     >
                       <div className="space-y-4">
                         {/* Header */}
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                            <h3 className="mb-1 text-lg font-semibold text-gray-900">
                               {calculation.name}
                             </h3>
                             <p className="text-sm text-gray-600">
                               {calculation.propertyName}
                             </p>
                             {calculation.propertyAddress && (
-                              <p className="text-xs text-gray-500 mt-1">
+                              <p className="mt-1 text-xs text-gray-500">
                                 {calculation.propertyAddress}
                               </p>
                             )}
@@ -295,7 +295,7 @@ const InvestmentBody = ({
 
                         {/* Key Metrics */}
                         <div className="grid grid-cols-2 gap-4">
-                          <div className="text-center p-3 bg-gray-50 rounded-lg">
+                          <div className="p-3 text-center rounded-lg bg-gray-50">
                             <DollarSign className="w-5 h-5 mx-auto mb-1 text-blue-600" />
                             <p className="text-xs text-gray-600">
                               Monthly Cash Flow
@@ -309,7 +309,7 @@ const InvestmentBody = ({
                               {formatCurrency(metrics.monthlyCashFlow)}
                             </p>
                           </div>
-                          <div className="text-center p-3 bg-gray-50 rounded-lg">
+                          <div className="p-3 text-center rounded-lg bg-gray-50">
                             <Percent className="w-5 h-5 mx-auto mb-1 text-green-600" />
                             <p className="text-xs text-gray-600">Total ROI</p>
                             <p

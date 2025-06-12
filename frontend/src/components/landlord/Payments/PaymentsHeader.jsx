@@ -24,16 +24,14 @@ const PaymentsHeader = ({
   isLoading 
 }) => {
   return (
-    <Card className="p-6 border-0 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <Card className="border-0 shadow-none ">
       <div className="flex flex-col space-y-4">
         {/* Header Title and Actions */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-500 rounded-lg">
-              <FileText className="w-6 h-6 text-white" />
-            </div>
+          <div className="flex items-center space-x-3"> 
+              <FileText className="w-6 h-6 text-blue-600" /> 
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-gray-900">
                 Payment Management
               </h1>
               <p className="text-sm text-gray-600">
@@ -64,7 +62,7 @@ const PaymentsHeader = ({
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="flex items-center justify-between space-x-4">
+        <div className="flex items-center justify-between p-4 space-x-4 bg-white rounded-lg shadow-sm">
           <div className="flex items-center flex-1 space-x-4">
             {/* Search Input */}
             <div className="relative flex-1 max-w-md">
@@ -112,12 +110,12 @@ const PaymentsHeader = ({
               Export
             </button>
 
-            <button
+            {/* <button
               className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 transition-colors bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
             >
               <Settings size={16} />
               Settings
-            </button>
+            </button> */}
           </div>
         </div>
 

@@ -171,7 +171,7 @@ const ReportsMaster = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <div className="min-h-screen">
       <div className="p-6 space-y-6">
         {/* Header */}
         <ReportsHeader

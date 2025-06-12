@@ -137,11 +137,12 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
   return (
     <div className="space-y-6">
       {/* Tab Navigation */}
-      <div className="flex items-center justify-between ">
-        <div className="flex p-1 bg-gray-100 rounded-lg">
+      <div className="flex items-center justify-between">
+        <div className="inline-flex gap-2 p-1 bg-white rounded-lg">
+          {/* Transactions Tab */}
           <button
             onClick={() => setActiveTab("transactions")}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors cursor-pointer  ${
               activeTab === "transactions"
                 ? "bg-blue-600 text-white shadow-sm"
                 : "text-gray-600 hover:text-gray-800"
@@ -149,9 +150,11 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
           >
             Transactions
           </button>
+
+          {/* Charts Tab */}
           <button
             onClick={() => setActiveTab("charts")}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors cursor-pointer ${
               activeTab === "charts"
                 ? "bg-blue-600 text-white shadow-sm"
                 : "text-gray-600 hover:text-gray-800"
@@ -167,10 +170,11 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
       ) : (
         <>
           {/* Search and Filter Section */}
-          <Card className="p-4 border-0 shadow-sm">
+          <Card className="p-4 bg-white border-0 shadow-sm">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-center flex-1 gap-2">
-                <Search size={18} className="text-gray-500" />
+              {/* Search Input */}
+              <div className="flex items-center flex-1 gap-3 px-4 py-2 transition-shadow bg-gray-100 border border-gray-200 rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                <Search size={16} className="mr-2 text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search transactions..."
@@ -184,12 +188,15 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
                       }));
                     }
                   }}
-                  className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full text-sm bg-transparent focus:outline-none"
                 />
               </div>
-              <div className="flex items-center gap-2">
-                <Filter size={16} className="text-gray-500" />
+
+              {/* Filter Controls */}
+              <div className="flex flex-wrap items-center gap-3">
+                {/* Property Filter */}
                 <div className="relative">
+                  {/* <Filter size={16} className="text-gray-500" /> */}
                   <select
                     value={propertyFilter}
                     onChange={(e) => {
@@ -201,7 +208,7 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
                         }));
                       }
                     }}
-                    className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="All Properties">All Properties</option>
                     {uniqueProperties.map((property) => (
@@ -210,25 +217,29 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+                  <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-3 top-1/2" />
                 </div>
+
+                {/* Type Filter */}
                 <div className="relative">
                   <select
                     value={typeFilter}
                     onChange={(e) => setTypeFilter(e.target.value)}
-                    className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="All Types">All Types</option>
                     <option value="Income">Income</option>
                     <option value="Expense">Expense</option>
                   </select>
-                  <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+                  <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-3 top-1/2" />
                 </div>
+
+                {/* Category Filter */}
                 <div className="relative">
                   <select
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
-                    className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="All Categories">All Categories</option>
                     {allCategories.map((category) => (
@@ -237,7 +248,7 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-2 top-1/2" />
+                  <ChevronDown className="absolute w-4 h-4 text-gray-500 transform -translate-y-1/2 pointer-events-none right-3 top-1/2" />
                 </div>
               </div>
             </div>

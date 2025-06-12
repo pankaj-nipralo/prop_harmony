@@ -32,32 +32,26 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-4xl max-h-screen bg-white border-0 rounded-lg shadow-xl overflow-y-auto">
+      <DialogContent className="w-full max-h-[90vh] overflow-y-auto bg-white border-0 rounded-lg shadow-xl md:max-w-4xl">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-800">
               Maintenance Request Details
-            </h2>
-            <button
-              onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
-            >
-              <X size={20} />
-            </button>
+            </h2> 
           </div>
 
           <div className="space-y-6">
             {/* Request Summary */}
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-800 mb-4">Request Summary</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-lg bg-gray-50">
+              <h3 className="mb-4 text-lg font-medium text-gray-800">Request Summary</h3>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                   <span className="text-sm font-medium text-gray-600">Title:</span>
-                  <p className="text-gray-800 font-medium">{maintenance.title}</p>
+                  <p className="font-medium text-gray-800">{maintenance.title}</p>
                 </div>
                 <div>
                   <span className="text-sm font-medium text-gray-600">Category:</span>
-                  <span className="ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                  <span className="inline-flex px-2 py-1 ml-2 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full">
                     {maintenance.category}
                   </span>
                 </div>
@@ -78,21 +72,21 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
 
             {/* Description */}
             <div>
-              <h3 className="text-lg font-medium text-gray-800 mb-3">Description</h3>
-              <div className="bg-blue-50 p-4 rounded-lg">
+              <h3 className="mb-3 text-lg font-medium text-gray-800">Description</h3>
+              <div className="p-4 rounded-lg bg-blue-50">
                 <p className="text-gray-700">{maintenance.description}</p>
               </div>
             </div>
 
             {/* Property and Tenant Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
-                <h3 className="text-lg font-medium text-gray-800 mb-3">Property Information</h3>
+                <h3 className="mb-3 text-lg font-medium text-gray-800">Property Information</h3>
                 <div className="space-y-3">
                   <div className="flex items-start gap-2">
-                    <Building className="w-4 h-4 text-gray-400 mt-1" />
+                    <Building className="w-4 h-4 mt-1 text-gray-400" />
                     <div>
-                      <p className="text-gray-800 font-medium">{maintenance.propertyName}</p>
+                      <p className="font-medium text-gray-800">{maintenance.propertyName}</p>
                       <p className="text-sm text-gray-600">{maintenance.propertyAddress}</p>
                     </div>
                   </div>
@@ -100,7 +94,7 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
               </div>
 
               <div>
-                <h3 className="text-lg font-medium text-gray-800 mb-3">Tenant Information</h3>
+                <h3 className="mb-3 text-lg font-medium text-gray-800">Tenant Information</h3>
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <User className="w-4 h-4 text-gray-400" />
@@ -121,12 +115,12 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
             {/* Technician Information */}
             {maintenance.assignedTechnician && (
               <div>
-                <h3 className="text-lg font-medium text-gray-800 mb-3">Assigned Technician</h3>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <h3 className="mb-3 text-lg font-medium text-gray-800">Assigned Technician</h3>
+                <div className="p-4 rounded-lg bg-green-50">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     <div className="flex items-center gap-2">
                       <Wrench className="w-4 h-4 text-gray-400" />
-                      <p className="text-gray-800 font-medium">{maintenance.assignedTechnician}</p>
+                      <p className="font-medium text-gray-800">{maintenance.assignedTechnician}</p>
                     </div>
                     {maintenance.technicianEmail && (
                       <div className="flex items-center gap-2">
@@ -146,9 +140,9 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
             )}
 
             {/* Dates and Cost Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
-                <h3 className="text-lg font-medium text-gray-800 mb-3">Timeline</h3>
+                <h3 className="mb-3 text-lg font-medium text-gray-800">Timeline</h3>
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-gray-400" />
@@ -170,7 +164,7 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
               </div>
 
               <div>
-                <h3 className="text-lg font-medium text-gray-800 mb-3">Cost Information</h3>
+                <h3 className="mb-3 text-lg font-medium text-gray-800">Cost Information</h3>
                 <div className="space-y-3">
                   {maintenance.estimatedCost && (
                     <div className="flex items-center gap-2">
@@ -186,7 +180,7 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
                       <DollarSign className="w-4 h-4 text-green-500" />
                       <div>
                         <span className="text-sm font-medium text-gray-600">Actual:</span>
-                        <p className="text-gray-800 font-medium">{maintenance.actualCost}</p>
+                        <p className="font-medium text-gray-800">{maintenance.actualCost}</p>
                       </div>
                     </div>
                   )}
@@ -197,16 +191,16 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
             {/* Additional Notes */}
             {maintenance.notes && (
               <div>
-                <h3 className="text-lg font-medium text-gray-800 mb-3">Additional Notes</h3>
-                <div className="bg-yellow-50 p-4 rounded-lg">
+                <h3 className="mb-3 text-lg font-medium text-gray-800">Additional Notes</h3>
+                <div className="p-4 rounded-lg bg-yellow-50">
                   <p className="text-gray-700">{maintenance.notes}</p>
                 </div>
               </div>
             )}
 
             {/* Request Metadata */}
-            <div className="border-t border-gray-200 pt-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+            <div className="pt-4 border-t border-gray-200">
+              <div className="grid grid-cols-1 gap-4 text-sm text-gray-600 md:grid-cols-3">
                 <div>
                   <span className="font-medium">Created by:</span>
                   <p>{maintenance.createdBy}</p>
@@ -226,7 +220,7 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
           <div className="flex justify-end pt-6 border-t border-gray-200">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors cursor-pointer"
+              className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200"
             >
               Close
             </button>

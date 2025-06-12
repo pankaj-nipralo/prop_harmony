@@ -599,7 +599,7 @@ const BookkeepingCharts = ({ transactions }) => {
   return (
     <div className="space-y-6">
       {/* Chart Navigation */}
-      <div className="flex p-1 bg-gray-100 rounded-lg w-fit">
+      <div className="flex p-1 bg-white rounded-lg w-fit">
         {chartTabs.map((tab) => (
           <button
             key={tab.id}
@@ -607,7 +607,7 @@ const BookkeepingCharts = ({ transactions }) => {
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer  ${
               activeChart === tab.id
                 ? "bg-blue-600 text-white shadow-sm"
-                : "text-gray-600 hover:text-gray-800 hover:bg-gray-200"
+                : "text-gray-600 hover:text-gray-800"
             }`}
           >
             {tab.label}

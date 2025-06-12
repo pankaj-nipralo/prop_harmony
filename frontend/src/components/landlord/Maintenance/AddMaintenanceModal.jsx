@@ -86,7 +86,7 @@ const AddMaintenanceModal = ({ open, onClose, onAddMaintenance }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
+      <DialogContent className="w-full max-h-full overflow-y-auto bg-white border-0 rounded-lg shadow-xl md:max-w-xl">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-800">

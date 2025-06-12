@@ -34,7 +34,7 @@ const InvestmentMaster = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 via-white to-blue-50"> 
+    <div className="min-h-screen p-6"> 
         <InvestmentHeader 
           onNewCalculation={() => setCalculatorModal(true)} 
           calculations={calculations}

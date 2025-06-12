@@ -150,7 +150,7 @@ const InvestmentComparison = ({ calculations }) => {
               <div
                 key={calculation.id}
                 onClick={() => handleCalculationToggle(calculation.id)}
-                className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
+                className={`p-4 bg-white rounded-lg border-2 cursor-pointer transition-all duration-200 ${
                   isSelected
                     ? "border-blue-500 bg-blue-50"
                     : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"

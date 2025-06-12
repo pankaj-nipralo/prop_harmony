@@ -166,7 +166,7 @@ const RatingsHeader = ({ reviews = [], filters = {}, onExport }) => {
       </div>
 
       {/* Quick Action Bar */}
-      <div className="flex items-center justify-between p-4 bg-white border-0 rounded-lg shadow-sm">
+      {/* <div className="flex items-center justify-between p-4 bg-white border-0 rounded-lg shadow-sm">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <Filter className="w-4 h-4 text-gray-500" />
@@ -215,7 +215,7 @@ const RatingsHeader = ({ reviews = [], filters = {}, onExport }) => {
             )}
           </span>
         </div>
-      </div>
+      </div> */}
     </header>
   );
 };
