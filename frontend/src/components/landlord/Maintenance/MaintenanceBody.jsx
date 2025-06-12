@@ -166,7 +166,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
   return (
     <div className="space-y-6">
       {/* Search and Filter Section */}
-      <Card className="p-6 bg-white border-0 shadow-sm">
+      <Card className="p-4 bg-white border-0 shadow-sm">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           {/* Search Bar */}
           <div className="flex items-center flex-1 gap-3 px-4 py-2 transition-shadow bg-gray-100 border border-gray-200 rounded-lg focus-within:ring-2 focus-within:ring-blue-500">

@@ -227,7 +227,7 @@ const ContractorManager = () => {
 							<Input
 								type="text"
 								placeholder="Search contractors..."
-								className="pl-10 bg-gray-100 border-0 rounded-xl"
+								className="py-2 pl-10 bg-gray-100 border-0 rounded-lg"
 								value={search}
 								onChange={(e) => setSearch(e.target.value)}
 							/>

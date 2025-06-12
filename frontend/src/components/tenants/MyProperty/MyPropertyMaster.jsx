@@ -80,33 +80,31 @@ const MyPropertyMaster = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen p-6 bg-gray-50">
-        <div className="mx-auto max-w-7xl">
-          <div className="p-6 text-center border border-red-200 bg-red-50 rounded-xl">
-            <h2 className="mb-2 text-xl font-semibold text-red-800">
-              Error Loading Property
-            </h2>
-            <p className="text-red-600">{error}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 mt-4 text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
-            >
-              Retry
-            </button>
-          </div>
+      <div className="min-h-screen p-6">
+        <div className="p-6 text-center border border-red-200 bg-red-50 rounded-xl">
+          <h2 className="mb-2 text-xl font-semibold text-red-800">
+            Error Loading Property
+          </h2>
+          <p className="text-red-600">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 mt-4 text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
+          >
+            Retry
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen p-6 bg-gray-50">
+    <div className="min-h-screen p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold text-gray-900">My Property</h1>
-        <span className="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
+        {/* <span className="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
           Active Lease
-        </span>
+        </span> */}
       </div>
 
       {/* Property Stats Cards */}

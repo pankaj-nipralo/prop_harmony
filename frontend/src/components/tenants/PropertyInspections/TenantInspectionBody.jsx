@@ -146,7 +146,7 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
     <div className="space-y-6">
       {/* View Mode Toggle */}
       <div className="flex items-center justify-between">
-        <div className="flex p-1 bg-gray-100 rounded-lg">
+        <div className="flex p-1 bg-white rounded-lg">
           <button
             onClick={() => setViewMode("requests")}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
@@ -171,16 +171,16 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
       </div>
 
       {/* Search and Filter Section */}
-      <Card className="p-4 border-0 shadow-sm">
+      <Card className="p-4 bg-white border-0 shadow-sm">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center flex-1 gap-2">
+          <div className="flex items-center flex-1 gap-2 p-1 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
             <Search size={18} className="text-gray-500" />
             <input
               type="text"
               placeholder="Search by property, inspector, or type..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 p-1 border-0 border-gray-200 rounded-lg focus:outline-none"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -189,7 +189,7 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Types">All Types</option>
                 {inspectionTypes.map((type) => (
@@ -204,7 +204,7 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Status">All Status</option>
                 {inspectionStatuses.map((status) => (
@@ -219,7 +219,7 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
               <select
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
-                className="px-3 py-2 pr-8 text-sm bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 pr-8 text-sm bg-gray-100 border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="All Priorities">All Priorities</option>
                 {priorityLevels.map((priority) => (
@@ -379,7 +379,7 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
                           {/* View details - available to all */}
                           <button
                             onClick={() => handleViewReport(inspection)}
-                            className="flex items-center gap-1 px-3 py-1 text-xs text-gray-600 transition-colors rounded cursor-pointer bg-gray-50 hover:bg-gray-100"
+                            className="flex items-center gap-1 px-3 py-1 text-xs text-gray-100 transition-colors myButton"
                           >
                             <Eye size={14} />
                             View

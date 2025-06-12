@@ -101,7 +101,7 @@ const EmailsHeader = ({
           </div>
 
           {/* Refresh Button */}
-          <button
+          {/* <button
             onClick={handleRefresh}
             disabled={isRefreshing}
             className={`p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer ${
@@ -110,7 +110,7 @@ const EmailsHeader = ({
             title="Refresh"
           >
             <RefreshCw size={18} />
-          </button>
+          </button> */}
 
           {/* Settings Button */}
           {/* <button className="p-2 text-gray-500 transition-colors rounded-lg cursor-pointer hover:text-gray-700 hover:bg-gray-100">

@@ -37,15 +37,14 @@ const ApplicationsManagement = () => {
       propertyTitle: "Modern 2BR Apartment in Downtown",
       propertyAddress: "123 Main Street, Downtown, City",
       propertyImage:
-        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      tenantName: "Sarah Johnson",
-      tenantEmail: "sarah.johnson@email.com",
-      tenantPhone: "+1 (555) 987-6543",
-      tenantRating: 4.8,
+        "https://thumbs.dreamstime.com/b/apartment-building-19532951.jpg",
+      landlordName: "John Smith",
+      landlordEmail: "john.smith@email.com",
+      landlordPhone: "+1 (555) 123-4567",
       originalPrice: 2500,
-      currentOffer: 2350,
-      tenantLastOffer: 2350,
-      myLastOffer: 2400,
+      currentOffer: 2300,
+      myLastOffer: 2300,
+      landlordLastOffer: 2400,
       status: "under_negotiation", // pending, accepted, declined, under_negotiation, agreed
       submittedDate: "2024-12-15",
       lastActivity: "2024-12-16",
@@ -73,13 +72,6 @@ const ApplicationsManagement = () => {
         },
       ],
       canMessage: false,
-      tenantInfo: {
-        creditScore: 750,
-        monthlyIncome: 8500,
-        employmentStatus: "Full-time",
-        previousRentals: 3,
-        references: 2,
-      },
     },
     {
       id: 2,
@@ -87,15 +79,14 @@ const ApplicationsManagement = () => {
       propertyTitle: "Cozy 1BR Studio Near University",
       propertyAddress: "456 College Ave, University District",
       propertyImage:
-        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      tenantName: "Michael Chen",
-      tenantEmail: "michael.chen@email.com",
-      tenantPhone: "+1 (555) 456-7890",
-      tenantRating: 4.5,
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX9PiX8SL3QGE2MksnHs0rKJinqe38Izpa9g&s",
+      landlordName: "Sarah Johnson",
+      landlordEmail: "sarah.johnson@email.com",
+      landlordPhone: "+1 (555) 987-6543",
       originalPrice: 1800,
       currentOffer: 1750,
-      tenantLastOffer: 1750,
-      myLastOffer: null,
+      myLastOffer: 1750,
+      landlordLastOffer: null,
       status: "pending",
       submittedDate: "2024-12-14",
       lastActivity: "2024-12-14",
@@ -109,13 +100,6 @@ const ApplicationsManagement = () => {
         },
       ],
       canMessage: false,
-      tenantInfo: {
-        creditScore: 720,
-        monthlyIncome: 6200,
-        employmentStatus: "Full-time",
-        previousRentals: 2,
-        references: 3,
-      },
     },
     {
       id: 3,
@@ -124,14 +108,13 @@ const ApplicationsManagement = () => {
       propertyAddress: "789 Skyline Blvd, Uptown",
       propertyImage:
         "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      tenantName: "Emily Rodriguez",
-      tenantEmail: "emily.rodriguez@email.com",
-      tenantPhone: "+1 (555) 321-9876",
-      tenantRating: 5.0,
+      landlordName: "Michael Chen",
+      landlordEmail: "michael.chen@email.com",
+      landlordPhone: "+1 (555) 456-7890",
       originalPrice: 4500,
       currentOffer: 4500,
-      tenantLastOffer: 4500,
       myLastOffer: 4500,
+      landlordLastOffer: 4500,
       status: "agreed",
       submittedDate: "2024-12-10",
       lastActivity: "2024-12-12",
@@ -159,13 +142,6 @@ const ApplicationsManagement = () => {
         },
       ],
       canMessage: true,
-      tenantInfo: {
-        creditScore: 800,
-        monthlyIncome: 12000,
-        employmentStatus: "Full-time",
-        previousRentals: 5,
-        references: 4,
-      },
     },
   ]);
 
@@ -370,7 +346,7 @@ const ApplicationsManagement = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* <div className="flex items-center gap-3">
             <div className="px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm">
               <span className="text-sm font-medium text-gray-600">
                 Total Applications:{" "}
@@ -379,69 +355,53 @@ const ApplicationsManagement = () => {
                 {applications.length}
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-          <Card className="p-6 bg-white border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-yellow-100 rounded-lg">
-                <Clock className="w-6 h-6 text-yellow-600" />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4 mt-7">
+          {[
+            {
+              label: "Pending",
+              icon: Clock,
+              color: "yellow",
+              count: applications.filter((o) => o.status === "pending").length,
+            },
+            {
+              label: "Negotiating",
+              icon: ArrowUpDown,
+              color: "blue",
+              count: applications.filter((o) => o.status === "under_negotiation")
+                .length,
+            },
+            {
+              label: "Agreed",
+              icon: CheckCircle,
+              color: "green",
+              count: applications.filter((o) => o.status === "agreed").length,
+            },
+            {
+              label: "Declined",
+              icon: XCircle,
+              color: "red",
+              count: applications.filter((o) => o.status === "declined").length,
+            },
+          ].map(({ label, icon: Icon, color, count }) => (
+            <Card
+              key={label}
+              className="p-6 bg-white border-0 shadow-sm rounded-2xl transition-transform hover:scale-[1.01]"
+            >
+              <div className="flex items-center gap-4">
+                <div className={`p-3 rounded-lg bg-${color}-100`}>
+                  <Icon className={`w-6 h-6 text-${color}-600`} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-600">{label}</p>
+                  <p className="text-2xl font-bold text-gray-900">{count}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Pending</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {applications.filter((a) => a.status === "pending").length}
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 bg-white border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <ArrowUpDown className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Negotiating</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {
-                    applications.filter((a) => a.status === "under_negotiation")
-                      .length
-                  }
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 bg-white border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-green-100 rounded-lg">
-                <CheckCircle className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Agreed</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {applications.filter((a) => a.status === "agreed").length}
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 bg-white border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-red-100 rounded-lg">
-                <XCircle className="w-6 h-6 text-red-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Declined</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {applications.filter((a) => a.status === "declined").length}
-                </p>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          ))}
         </div>
 
         {/* Applications List */}

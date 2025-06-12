@@ -153,7 +153,7 @@ const RentalBody = () => {
   return (
     <div className="bg-transparent">
       {/* Filters */}
-      <div className="flex flex-wrap items-center gap-4 p-6 mb-6 bg-white border border-gray-200 shadow-md rounded-xl">
+      <div className="flex flex-wrap items-center gap-4 p-4 mb-6 bg-white border border-gray-200 shadow-md rounded-xl">
         <input
           className="flex-1 min-w-[220px] px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
           placeholder="Search by title or location..."
@@ -161,7 +161,7 @@ const RentalBody = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
-          className="px-4 py-2 bg-white border border-gray-200 rounded-lg min-w-[180px] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+          className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg min-w-[180px] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
           value={bedrooms}
           onChange={(e) => setBedrooms(e.target.value)}
         >

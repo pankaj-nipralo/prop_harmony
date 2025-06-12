@@ -41,7 +41,7 @@ const PastPropertiesCard = ({ property, onViewDocuments }) => {
   };
 
   return (
-    <div className="p-6 mb-4 bg-white border border-gray-200 rounded-lg">
+    <div className="p-6 mb-4 bg-white border border-gray-200 rounded-2xl">
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
@@ -129,7 +129,7 @@ const PastPropertiesCard = ({ property, onViewDocuments }) => {
           Lease ended {property.leasePeriod.leaseEnded}
         </p>
         
-        {property.hasDocuments ? (
+        {/* {property.hasDocuments ? (
           <button
             onClick={() => onViewDocuments(property.id)}
             className="flex items-center gap-2 px-4 py-2 text-sm text-blue-600 transition-colors border border-blue-600 rounded-lg hover:bg-blue-50"
@@ -139,7 +139,7 @@ const PastPropertiesCard = ({ property, onViewDocuments }) => {
           </button>
         ) : (
           <span className="text-sm text-gray-400">No Documents Available</span>
-        )}
+        )} */}
       </div>
     </div>
   );

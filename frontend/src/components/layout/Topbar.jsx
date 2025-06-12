@@ -47,10 +47,10 @@ export function TopBar({
       {/* Right side - Profile section */}
       <div className="flex items-center gap-4">
         {/* Notifications */}
-        <Button variant="ghost" size="icon" className="relative">
+        {/* <Button variant="ghost" size="icon" className="relative">
           <Bell className="w-5 h-5" />
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-        </Button>
+        </Button> */}
 
         {/* User Profile */}
         {isAuthenticated && <UserProfile />}

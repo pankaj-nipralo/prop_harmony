@@ -20,6 +20,7 @@ import {
   TrendingUp,
   Eye,
   Edit,
+  Star,
   Save,
   X,
 } from "lucide-react";
@@ -36,7 +37,8 @@ const MyOffers = () => {
         propertyId: "prop_001",
         propertyTitle: "Modern 2BR Apartment in Downtown",
         propertyAddress: "123 Main Street, Downtown, City",
-        propertyImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        propertyImage:
+          "https://thumbs.dreamstime.com/b/apartment-building-19532951.jpg",
         landlordName: "John Smith",
         landlordEmail: "john.smith@email.com",
         landlordPhone: "+1 (555) 123-4567",
@@ -77,7 +79,8 @@ const MyOffers = () => {
         propertyId: "prop_002",
         propertyTitle: "Cozy 1BR Studio Near University",
         propertyAddress: "456 College Ave, University District",
-        propertyImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        propertyImage:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX9PiX8SL3QGE2MksnHs0rKJinqe38Izpa9g&s",
         landlordName: "Sarah Johnson",
         landlordEmail: "sarah.johnson@email.com",
         landlordPhone: "+1 (555) 987-6543",
@@ -104,7 +107,8 @@ const MyOffers = () => {
         propertyId: "prop_003",
         propertyTitle: "Luxury 3BR Penthouse with City View",
         propertyAddress: "789 Skyline Blvd, Uptown",
-        propertyImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        propertyImage:
+          "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         landlordName: "Michael Chen",
         landlordEmail: "michael.chen@email.com",
         landlordPhone: "+1 (555) 456-7890",
@@ -327,8 +331,8 @@ const MyOffers = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      <div className="p-6 mx-auto space-y-6 max-w-7xl">
+    <div className="min-h-screen">
+      <div className="p-6">
         {/* Header Section */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -343,7 +347,7 @@ const MyOffers = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* <div className="flex items-center gap-3">
             <div className="px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm">
               <span className="text-sm font-medium text-gray-600">
                 Total Offers:{" "}
@@ -352,75 +356,57 @@ const MyOffers = () => {
                 {offers.length}
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
-
         {/* Stats Section */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-          <Card className="p-6 border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-yellow-100 rounded-lg">
-                <Clock className="w-6 h-6 text-yellow-600" />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4 mt-7">
+          {[
+            {
+              label: "Pending",
+              icon: Clock,
+              color: "yellow",
+              count: offers.filter((o) => o.status === "pending").length,
+            },
+            {
+              label: "Negotiating",
+              icon: ArrowUpDown,
+              color: "blue",
+              count: offers.filter((o) => o.status === "under_negotiation")
+                .length,
+            },
+            {
+              label: "Agreed",
+              icon: CheckCircle,
+              color: "green",
+              count: offers.filter((o) => o.status === "agreed").length,
+            },
+            {
+              label: "Declined",
+              icon: XCircle,
+              color: "red",
+              count: offers.filter((o) => o.status === "declined").length,
+            },
+          ].map(({ label, icon: Icon, color, count }) => (
+            <Card
+              key={label}
+              className="p-6 bg-white border-0 shadow-sm rounded-2xl transition-transform hover:scale-[1.01]"
+            >
+              <div className="flex items-center gap-4">
+                <div className={`p-3 rounded-lg bg-${color}-100`}>
+                  <Icon className={`w-6 h-6 text-${color}-600`} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-600">{label}</p>
+                  <p className="text-2xl font-bold text-gray-900">{count}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Pending</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {offers.filter((o) => o.status === "pending").length}
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <ArrowUpDown className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Negotiating</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {
-                    offers.filter((o) => o.status === "under_negotiation")
-                      .length
-                  }
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-green-100 rounded-lg">
-                <CheckCircle className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Agreed</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {offers.filter((o) => o.status === "agreed").length}
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-red-100 rounded-lg">
-                <XCircle className="w-6 h-6 text-red-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Declined</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {offers.filter((o) => o.status === "declined").length}
-                </p>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          ))}
         </div>
-
         {/* Offers List */}
-        <div className="space-y-6">
+        <div className="space-y-6 mt-7">
           {offers.length === 0 ? (
-            <Card className="p-12 text-center border-0 shadow-sm">
+            <Card className="p-12 text-center bg-white border-0 shadow-sm">
               <Home className="w-16 h-16 mx-auto mb-4 text-gray-400" />
               <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 No Offers Yet
@@ -428,75 +414,101 @@ const MyOffers = () => {
               <p className="mb-4 text-gray-600">
                 You haven't submitted any rental applications yet.
               </p>
-              <button className="px-6 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton">
+              {/* <button className="px-6 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton">
                 Browse Properties
-              </button>
+              </button> */}
             </Card>
           ) : (
-            offers.map((offer) => (
+            offers.map((application) => (
               <Card
-                key={offer.id}
-                className="p-6 transition-shadow border-0 shadow-sm hover:shadow-md"
+                key={application.id}
+                className="p-6 transition-shadow bg-white border-0 shadow-sm mb-7 hover:shadow-md"
               >
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                  {/* Property Info */}
+                  {/* Property & Tenant Info */}
                   <div className="lg:col-span-2">
                     <div className="flex gap-4">
                       <img
-                        src={offer.propertyImage}
-                        alt={offer.propertyTitle}
+                        src={application.propertyImage}
+                        alt={application.propertyTitle}
                         className="object-cover w-24 h-24 rounded-lg"
                       />
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-2">
                           <h3 className="text-lg font-semibold text-gray-900">
-                            {offer.propertyTitle}
+                            {application.propertyTitle}
                           </h3>
                           <div
                             className={`px-3 py-1 rounded-full text-xs font-medium border flex items-center gap-1 ${getStatusStyle(
-                              offer.status
+                              application.status
                             )}`}
                           >
-                            {getStatusIcon(offer.status)}
-                            {getStatusText(offer.status)}
+                            {getStatusIcon(application.status)}
+                            {getStatusText(application.status)}
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
+                        <div className="flex items-center gap-2 mb-3 text-sm text-gray-600">
                           <MapPin className="w-4 h-4" />
-                          {offer.propertyAddress}
+                          {application.propertyAddress}
                         </div>
 
                         <div className="flex items-center gap-4 mb-3 text-sm text-gray-600">
                           <div className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
                             Applied:{" "}
-                            {new Date(offer.submittedDate).toLocaleDateString()}
+                            {new Date(
+                              application.submittedDate
+                            ).toLocaleDateString()}
                           </div>
                           <div className="flex items-center gap-1">
                             <Clock className="w-4 h-4" />
                             Last Activity:{" "}
-                            {new Date(offer.lastActivity).toLocaleDateString()}
+                            {new Date(
+                              application.lastActivity
+                            ).toLocaleDateString()}
                           </div>
                         </div>
 
-                        {/* Landlord Info */}
-                        <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                          <User className="w-5 h-5 text-gray-600" />
-                          <div>
-                            <p className="text-sm font-medium text-gray-900">
-                              {offer.landlordName}
-                            </p>
-                            <div className="flex items-center gap-3 text-xs text-gray-600">
-                              <span className="flex items-center gap-1">
-                                <Mail className="w-3 h-3" />
-                                {offer.landlordEmail}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Phone className="w-3 h-3" />
-                                {offer.landlordPhone}
+                        {/* Tenant Info */}
+                        <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                          <div className="flex items-center gap-3">
+                            <User className="w-5 h-5 text-gray-600" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">
+                                {application.tenantName}
+                              </p>
+                              <div className="flex items-center gap-3 text-xs text-gray-600">
+                                <span className="flex items-center gap-1">
+                                  <Mail className="w-3 h-3" />
+                                  {application.tenantEmail}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <Phone className="w-3 h-3" />
+                                  {application.tenantPhone}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1">
+                              <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                              <span className="text-sm font-medium text-gray-900">
+                                {application.tenantRating}
                               </span>
                             </div>
+                            <button
+                              onClick={() =>
+                                setTenantInfoModal({
+                                  open: true,
+                                  applicationId: application.id,
+                                })
+                              }
+                              className="px-3 py-1 text-xs font-medium text-blue-600 transition-colors rounded bg-blue-50 hover:bg-blue-100"
+                            >
+                              View Details
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -510,31 +522,32 @@ const MyOffers = () => {
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-600">
-                            Original Price:
+                            Listed Price:
                           </span>
                           <span className="text-sm font-medium text-gray-900">
-                            ${offer.originalPrice.toLocaleString()}/month
+                            ${application.originalPrice.toLocaleString()}/month
                           </span>
                         </div>
 
-                        {offer.myLastOffer && (
+                        {application.tenantLastOffer && (
                           <div className="flex items-center justify-between">
                             <span className="text-sm text-blue-600">
-                              My Last Offer:
+                              Tenant's Offer:
                             </span>
                             <span className="text-sm font-bold text-blue-600">
-                              ${offer.myLastOffer.toLocaleString()}/month
+                              ${application.tenantLastOffer.toLocaleString()}
+                              /month
                             </span>
                           </div>
                         )}
 
-                        {offer.landlordLastOffer && (
+                        {application.myLastOffer && (
                           <div className="flex items-center justify-between">
                             <span className="text-sm text-green-600">
-                              Landlord's Offer:
+                              My Counter Offer:
                             </span>
                             <span className="text-sm font-bold text-green-600">
-                              ${offer.landlordLastOffer.toLocaleString()}/month
+                              ${application.myLastOffer.toLocaleString()}/month
                             </span>
                           </div>
                         )}
@@ -545,90 +558,93 @@ const MyOffers = () => {
                               Current Offer:
                             </span>
                             <span className="text-lg font-bold text-blue-600">
-                              ${offer.currentOffer.toLocaleString()}/month
+                              ${application.currentOffer.toLocaleString()}/month
                             </span>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    {/* Action Buttons */}
-                    <div className="space-y-3">
-                      {offer.status === "pending" ||
-                      offer.status === "under_negotiation" ? (
-                        <>
-                          {offer.landlordLastOffer &&
-                            offer.status === "under_negotiation" && (
-                              <button
-                                onClick={() => handleAcceptOffer(offer.id)}
-                                className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
-                              >
-                                <CheckCircle className="w-4 h-4" />
-                                Accept $
-                                {offer.landlordLastOffer.toLocaleString()}/month
-                              </button>
-                            )}
-
-                          <button
-                            onClick={() => handleNegotiate(offer.id)}
-                            className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100 myButton"
-                          >
-                            <ArrowUpDown className="w-4 h-4" />
-                            {offer.status === "pending"
-                              ? "Negotiate Price"
-                              : "Counter Offer"}
-                          </button>
-
-                          <button
-                            onClick={() => handleDeclineOffer(offer.id)}
-                            className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-red-600 transition-colors rounded-lg bg-red-50 hover:bg-red-100 myButton"
-                          >
-                            <XCircle className="w-4 h-4" />
-                            Decline Offer
-                          </button>
-                        </>
-                      ) : offer.status === "agreed" && offer.canMessage ? (
-                        <button
-                          onClick={() =>
-                            setMessageModal({ open: true, offerId: offer.id })
-                          }
-                          className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
-                        >
-                          <MessageSquare className="w-4 h-4" />
-                          Message Landlord
-                        </button>
-                      ) : (
-                        <div className="py-4 text-center">
-                          <p className="text-sm text-gray-500">
-                            {offer.status === "accepted" &&
-                              "Offer accepted by landlord"}
-                            {offer.status === "declined" &&
-                              "Offer declined by landlord"}
-                            {offer.status === "agreed" &&
-                              !offer.canMessage &&
-                              "Terms agreed - messaging will be available soon"}
-                          </p>
-                        </div>
-                      )}
-
-                      {/* View History Button */}
-                      <button
-                        onClick={() =>
-                          setHistoryModal({ open: true, offerId: offer.id })
-                        }
-                        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-gray-600 transition-colors rounded-lg bg-gray-50 hover:bg-gray-100 myButton"
-                      >
-                        <History className="w-4 h-4" />
-                        View Negotiation History
-                      </button>
-                    </div>
                   </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="grid grid-cols-4 gap-4 space-y-3">
+                  {application.status === "pending" ||
+                  application.status === "under_negotiation" ? (
+                    <>
+                      <button
+                        onClick={() => handleAcceptApplication(application.id)}
+                        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
+                      >
+                        <CheckCircle className="w-4 h-4" />
+                        Accept ${application.currentOffer.toLocaleString()}
+                        /month
+                      </button>
+
+                      <button
+                        onClick={() => handleNegotiate(application.id)}
+                        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100 myButton"
+                      >
+                        <ArrowUpDown className="w-4 h-4" />
+                        {application.status === "pending"
+                          ? "Counter Offer"
+                          : "New Counter Offer"}
+                      </button>
+
+                      <button
+                        onClick={() => handleDeclineApplication(application.id)}
+                        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-red-600 transition-colors rounded-lg bg-red-50 hover:bg-red-100 myButton"
+                      >
+                        <XCircle className="w-4 h-4" />
+                        Decline Application
+                      </button>
+                    </>
+                  ) : application.status === "agreed" &&
+                    application.canMessage ? (
+                    <button
+                      onClick={() =>
+                        setMessageModal({
+                          open: true,
+                          applicationId: application.id,
+                        })
+                      }
+                      className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
+                    >
+                      <MessageSquare className="w-2 h-2" />
+                      Message Tenant
+                    </button>
+                  ) : (
+                    <div className="py-4 text-center">
+                      <p className="text-sm text-gray-500">
+                        {application.status === "accepted" &&
+                          "Application accepted"}
+                        {application.status === "declined" &&
+                          "Application declined"}
+                        {application.status === "agreed" &&
+                          !application.canMessage &&
+                          "Terms agreed - messaging will be available soon"}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* View History Button */}
+                  <button
+                    onClick={() =>
+                      setHistoryModal({
+                        open: true,
+                        applicationId: application.id,
+                      })
+                    }
+                    className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-3 text-sm font-medium text-gray-600 transition-colors rounded-lg bg-gray-50 hover:bg-gray-100 myButton"
+                  >
+                    <History className="w-4 h-4" />
+                    View Negotiation History
+                  </button>
                 </div>
               </Card>
             ))
           )}
         </div>
-
         {/* Negotiate Modal */}
         <Dialog
           open={negotiateModal.open}
@@ -706,7 +722,6 @@ const MyOffers = () => {
             </div>
           </DialogContent>
         </Dialog>
-
         {/* History Modal */}
         <Dialog
           open={historyModal.open}
@@ -793,7 +808,6 @@ const MyOffers = () => {
             </div>
           </DialogContent>
         </Dialog>
-
         {/* Confirmation Modal */}
         <Dialog
           open={confirmModal.open}
@@ -848,7 +862,6 @@ const MyOffers = () => {
             </div>
           </DialogContent>
         </Dialog>
-
         {/* Message Modal */}
         <Dialog
           open={messageModal.open}

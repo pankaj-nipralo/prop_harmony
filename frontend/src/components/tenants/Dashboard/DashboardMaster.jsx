@@ -52,51 +52,26 @@ const DashboardMaster = () => {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex gap-1 p-1 mb-8 bg-gray-100 rounded-lg w-fit">
-        <button
-          onClick={() => setActiveTab("overview")}
-          className={`flex cursor-pointer items-center gap-2 px-6 py-3 rounded-md transition-all font-medium ${
-            activeTab === "overview"
-              ? "bg-blue-500 text-gray-50 shadow-sm"
-              : "text-gray-600 hover:bg-blue-400 hover:text-gray-100"
-          }`}
-        >
-          <LayoutDashboard className="w-4 h-4" />
-          Overview
-        </button>
-        <button
-          onClick={() => setActiveTab("properties")}
-          className={`flex cursor-pointer items-center gap-2 px-6 py-3 rounded-md transition-all font-medium ${
-            activeTab === "properties"
-              ? "bg-blue-500 text-gray-50 shadow-sm"
-              : "text-gray-600 hover:bg-blue-400 hover:text-gray-100"
-          }`}
-        >
-          <Home className="w-4 h-4" />
-          Properties
-        </button>
-        <button
-          onClick={() => setActiveTab("applications")}
-          className={`flex cursor-pointer items-center gap-2 px-6 py-3 rounded-md transition-all font-medium ${
-            activeTab === "applications"
-              ? "bg-blue-500 text-gray-50 shadow-sm"
-              : "text-gray-600 hover:bg-blue-400 hover:text-gray-100"
-          }`}
-        >
-          <FileText className="w-4 h-4" />
-          Applications
-        </button>
-        <button
-          onClick={() => setActiveTab("inspections")}
-          className={`flex cursor-pointer items-center gap-2 px-6 py-3 rounded-md transition-all font-medium ${
-            activeTab === "inspections"
-              ? "bg-blue-500 text-gray-50 shadow-sm"
-              : "text-gray-600 hover:bg-blue-400 hover:text-gray-100"
-          }`}
-        >
-          <Eye className="w-4 h-4" />
-          Inspections
-        </button>
+      <div className="flex gap-2 p-1 mb-8 bg-white shadow-sm justify-self-center rounded-xl w-fit">
+        {[
+          { key: "overview", label: "Overview", icon: LayoutDashboard },
+          { key: "properties", label: "Properties", icon: Home },
+          // { key: "applications", label: "Applications", icon: FileText },
+          { key: "inspections", label: "Inspections", icon: Eye },
+        ].map(({ key, label, icon: Icon }) => (
+          <button
+            key={key}
+            onClick={() => setActiveTab(key)}
+            className={`flex items-center cursor-pointer gap-2 px-5 py-2.5 text-sm font-medium rounded-lg transition-all focus:outline-none ${
+              activeTab === key
+                ? "bg-blue-600 text-white shadow"
+                : "text-gray-700 hover:bg-gray-100 "
+            }`}
+          >
+            <Icon className="w-4 h-4" />
+            {label}
+          </button>
+        ))}
       </div>
 
       {/* Tab Content */}
