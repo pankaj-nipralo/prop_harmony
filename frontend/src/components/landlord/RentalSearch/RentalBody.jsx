@@ -14,7 +14,8 @@ const rentalData = [
     beds: 2,
     baths: 2,
     size: 1200,
-    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    // img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/591987900.jpg?k=b85755896333b76feb8b1081a584b2b9ebed5db1e942fb430a7f843f2df9d01f&o=&hp=1",
+    img: "https://robbreport.com/wp-content/uploads/2022/08/INT001.jpg",
     description:
       "A luxury apartment in the heart of Downtown Dubai with all amenities.",
   },
@@ -28,7 +29,7 @@ const rentalData = [
     beds: 4,
     baths: 3,
     size: 2500,
-    img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80",
+    img: "https://media.vrbo.com/lodging/112000000/111520000/111511900/111511899/8682b27b.jpg?impolicy=resizecrop&rw=1200&ra=fit",
     description: "A beautiful villa with private pool and garden in Jumeirah.",
   },
   {
@@ -41,7 +42,7 @@ const rentalData = [
     beds: 1,
     baths: 1,
     size: 600,
-    img: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80",
+    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/588426709.jpg?k=bf781ec94b64cc60cb607673f9d2fc274f25cc858f16f01b231494cfef02d3aa&o=&hp=1",
     description:
       "A cozy studio apartment with marina views and modern finishings.",
   },
@@ -55,7 +56,7 @@ const rentalData = [
     beds: 3,
     baths: 2,
     size: 1800,
-    img: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=400&q=80",
+    img: "https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85,fit=scale-down,width=1280/https://media-production.lp-cdn.com/media/dqf8bxqw6zymc79zdlkj",
     description: "Stunning penthouse with panoramic views of Dubai.",
   },
   {
@@ -68,7 +69,7 @@ const rentalData = [
     beds: 5,
     baths: 4,
     size: 3200,
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80",
+    img: "https://luxhabitat.ae/resizedimages/1920w/13563/source/10bd08eddae525b4870080e1cf035bb7d87d601eb1284ef51314ee26d024c966.jpg",
     description: "Spacious family home in a quiet gated community.",
   },
 ];
@@ -193,9 +194,9 @@ const RentalBody = () => {
         {filteredRentals.map((rental) => (
           <div
             key={rental.id}
-            className="relative flex flex-col p-0 transition-all duration-200 bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg hover:border-blue-300 hover:scale-[1.02]"
+            className="relative flex flex-col p-0 transition-all duration-200 bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg"
           >
-            <div className="relative flex items-center justify-center w-full h-48 overflow-hidden bg-gray-100 rounded-t-xl">
+            <div className="relative flex items-center justify-center w-full overflow-hidden bg-gray-100 h-72 rounded-t-xl">
               <img
                 src={rental.img}
                 alt={rental.title}
@@ -286,13 +287,13 @@ const RentalBody = () => {
 
       {/* Modal */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="w-full p-0 overflow-hidden bg-white border-0 rounded-lg md:max-w-xl">
+        <DialogContent className="w-full p-0 overflow-hidden bg-white border-0 rounded-lg md:max-w-xl [&>.absolute]:hidden">
           {selected && (
             <div>
               <img
                 src={selected.img}
                 alt={selected.title}
-                className="object-cover w-full h-56"
+                className="object-cover w-full h-72"
               />
               <div className="p-6">
                 <div className="flex items-center justify-between mb-2">
@@ -343,17 +344,17 @@ const RentalBody = () => {
                     <button className="px-6 py-2 font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200">
                       Contact Agent
                     </button>
-                  {selected.status === "Available" && (
-                    <button
-                      className="py-2 font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
-                      onClick={() => {
-                        setShowModal(false);
-                        openOfferModal(selected);
-                      }}
-                    >
-                      Apply Now
-                    </button>
-                  )}
+                    {selected.status === "Available" && (
+                      <button
+                        className="py-2 font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
+                        onClick={() => {
+                          setShowModal(false);
+                          openOfferModal(selected);
+                        }}
+                      >
+                        Apply Now
+                      </button>
+                    )}
                     <button
                       className="px-6 py-2 font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-600"
                       onClick={() => setShowModal(false)}
