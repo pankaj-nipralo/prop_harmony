@@ -144,7 +144,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
 
       {/* Chart Content */}
       {activeChart === "cashflow" && (
-        <Card className="p-6 border-0 shadow-sm">
+        <Card className="p-6 bg-white border-0 shadow-sm">
           <h3 className="mb-4 text-lg font-semibold text-gray-800">10-Year Cash Flow Projection</h3>
           <ResponsiveContainer width="100%" height={400}>
             <LineChart data={cashFlowData}>
@@ -180,7 +180,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
       )}
 
       {activeChart === "appreciation" && (
-        <Card className="p-6 border-0 shadow-sm">
+        <Card className="p-6 bg-white border-0 shadow-sm">
           <h3 className="mb-4 text-lg font-semibold text-gray-800">Property Value Appreciation</h3>
           <ResponsiveContainer width="100%" height={400}>
             <LineChart data={cashFlowData}>
@@ -202,7 +202,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
       )}
 
       {activeChart === "roi" && (
-        <Card className="p-6 border-0 shadow-sm">
+        <Card className="p-6 bg-white border-0 shadow-sm">
           <h3 className="mb-4 text-lg font-semibold text-gray-800">ROI Progression</h3>
           <ResponsiveContainer width="100%" height={400}>
             <LineChart data={roiData}>
@@ -238,7 +238,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
       )}
 
       {activeChart === "breakdown" && (
-        <Card className="p-6 border-0 shadow-sm">
+        <Card className="p-6 bg-white border-0 shadow-sm">
           <h3 className="mb-4 text-lg font-semibold text-gray-800">Monthly Cash Flow Breakdown</h3>
           <ResponsiveContainer width="100%" height={400}>
             <PieChart>
@@ -263,7 +263,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
       )}
 
       {activeChart === "income-expense" && (
-        <Card className="p-6 border-0 shadow-sm">
+        <Card className="p-6 bg-white border-0 shadow-sm">
           <h3 className="mb-4 text-lg font-semibold text-gray-800">Annual Income vs Expenses</h3>
           <ResponsiveContainer width="100%" height={400}>
             <BarChart data={annualIncomeExpenseData}>

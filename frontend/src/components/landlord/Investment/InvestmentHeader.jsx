@@ -32,7 +32,7 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
         // Create success notification
         const notification = document.createElement("div");
         notification.className =
-          "fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-md";
+          "fixed z-50 max-w-md px-6 py-4 text-white bg-green-500 rounded-lg shadow-lg top-4 right-4";
         notification.innerHTML = `
           <div class="flex items-center gap-3">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
         // Create success notification
         const notification = document.createElement("div");
         notification.className =
-          "fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-md";
+          "fixed z-50 max-w-md px-6 py-4 text-white bg-green-500 rounded-lg shadow-lg top-4 right-4";
         notification.innerHTML = `
           <div class="flex items-center gap-3">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
       // Create error notification
       const notification = document.createElement("div");
       notification.className =
-        "fixed top-4 right-4 bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-md";
+        "fixed z-50 max-w-md px-6 py-4 text-white bg-red-500 rounded-lg shadow-lg top-4 right-4";
       notification.innerHTML = `
         <div class="flex items-center gap-3">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,7 +98,7 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
           <h1 className="text-3xl font-bold text-gray-900">
             Investment Calculator
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="mt-1 text-gray-600">
             Analyze property investments and calculate returns
           </p>
         </div>
@@ -123,18 +123,18 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
           </button>
 
           {showExportMenu && !isExporting && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+            <div className="absolute right-0 z-10 w-48 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg">
               <div className="py-1">
-                <button
+                {/* <button
                   onClick={() => handleExport("PDF")}
-                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                  className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700 transition-colors cursor-pointer hover:bg-gray-50"
                 >
                   <FileDown size={16} className="text-blue-500" />
                   Export as PDF
-                </button>
+                </button> */}
                 <button
                   onClick={() => handleExport("Excel")}
-                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                  className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700 transition-colors cursor-pointer hover:bg-gray-50"
                 >
                   <FileDown size={16} className="text-green-500" />
                   Export as Excel
@@ -147,7 +147,7 @@ const InvestmentHeader = ({ onNewCalculation, calculations, filters = {} }) => {
         {/* New Calculation Button */}
         <button
           onClick={onNewCalculation}
-          className="myButton flex items-center gap-2 px-6 py-3 shadow-lg hover:shadow-xl"
+          className="flex items-center gap-2 px-6 py-3 shadow-lg myButton hover:shadow-xl"
         >
           <Plus size={20} />
           New Calculation

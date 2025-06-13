@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  DollarSign,
+  NotepadText ,
   Plus,
   FileDown,
   ChevronDown,
@@ -94,7 +94,7 @@ const BookkeepingHeader = ({
   return (
     <header className="flex items-center justify-between mb-6">
       <div className="flex items-center gap-3">
-        <DollarSign className="w-8 h-8 text-blue-600" />
+        <NotepadText  className="w-8 h-8 text-blue-600" />
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
             Bookkeeping Dashboard
@@ -126,13 +126,13 @@ const BookkeepingHeader = ({
           {showExportMenu && !isExporting && (
             <div className="absolute right-0 z-10 w-48 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg">
               <div className="py-1">
-                <button
+                {/* <button
                   onClick={() => handleExport("PDF")}
                   className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700 transition-colors cursor-pointer hover:bg-gray-50"
                 >
                   <FileDown size={16} className="text-blue-500" />
                   Export as PDF
-                </button>
+                </button> */}
                 <button
                   onClick={() => handleExport("Excel")}
                   className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700 transition-colors cursor-pointer hover:bg-gray-50"

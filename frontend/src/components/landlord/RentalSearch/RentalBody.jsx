@@ -10,6 +10,7 @@ const rentalData = [
     location: "123 Main St, Dubai",
     price: 7500,
     status: "Available",
+    landlordPhone: "+971 50 123 4567",
     rating: 4.5,
     beds: 2,
     baths: 2,
@@ -25,6 +26,7 @@ const rentalData = [
     location: "456 Beach Rd, Dubai",
     price: 15000,
     status: "Available",
+    landlordPhone: "+971 50 123 4567",
     rating: 4.8,
     beds: 4,
     baths: 3,
@@ -38,6 +40,7 @@ const rentalData = [
     location: "789 Marina Walk, Dubai",
     price: 4500,
     status: "Available",
+    landlordPhone: "+971 50 123 4567",
     rating: 4.2,
     beds: 1,
     baths: 1,
@@ -52,6 +55,7 @@ const rentalData = [
     location: "101 Tower St, Dubai",
     price: 12000,
     status: "Rented",
+    landlordPhone: "+971 50 123 4567",
     rating: 4.9,
     beds: 3,
     baths: 2,
@@ -65,6 +69,7 @@ const rentalData = [
     location: "202 Desert Oasis, Dubai",
     price: 18000,
     status: "Available",
+    landlordPhone: "+971 50 123 4567",
     rating: 4.7,
     beds: 5,
     baths: 4,
@@ -267,9 +272,12 @@ const RentalBody = () => {
                   >
                     View Details
                   </button>
-                  <button className="flex-1 px-3 py-2 text-sm font-medium text-blue-500 transition-colors border border-blue-500 rounded-lg hover:bg-blue-50">
-                    Contact
-                  </button>
+                  <a
+                    href={`tel:${rental.landlordPhone}`}
+                    className="items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-blue-500 transition-colors border border-blue-500 rounded-lg hover:bg-blue-50"
+                  >
+                    <button className="flex text-center justify-self-center">Contact</button>
+                  </a>
                 </div>
                 {rental.status === "Available" && (
                   <button
@@ -341,9 +349,11 @@ const RentalBody = () => {
                 <div className="mb-6 text-gray-700">{selected.description}</div>
                 <div className="flex flex-col gap-3">
                   <div className="flex justify-end gap-3">
-                    <button className="px-6 py-2 font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200">
-                      Contact Agent
-                    </button>
+                    <a href={`tel:${selected.landlordPhone}`}>
+                      <button className="px-6 py-2 font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200">
+                        Contact Agent
+                      </button>
+                    </a>
                     {selected.status === "Available" && (
                       <button
                         className="py-2 font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"

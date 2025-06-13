@@ -967,12 +967,12 @@ const DocumentVaultMaster = () => {
                   <Download size={16} />
                   Download
                 </button>
-                <button
+                {/* <button
                   onClick={() => setFileViewModal({ open: false, file: null })}
                   className="px-3 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200"
                 >
                   Close
-                </button>
+                </button> */}
               </div>
             </div>
 

@@ -277,7 +277,7 @@ const BookkeepingCharts = ({ transactions }) => {
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Monthly Income & Expenses Bar Chart */}
-        <Card className="p-6 border-0 shadow-sm">
+        <Card className="p-6 bg-white border-0 shadow-sm">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">
             Monthly Income & Expenses
           </h3>
@@ -299,7 +299,7 @@ const BookkeepingCharts = ({ transactions }) => {
         </Card>
 
         {/* Net Profit Trend Line Chart */}
-        <Card className="p-6 border-0 shadow-sm">
+        <Card className="p-6 bg-white border-0 shadow-sm">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">
             Net Profit Trend
           </h3>
@@ -328,7 +328,7 @@ const BookkeepingCharts = ({ transactions }) => {
       </div>
 
       {/* Combined Income vs Expenses Area Chart */}
-      <Card className="p-6 border-0 shadow-sm">
+      <Card className="p-6 bg-white border-0 shadow-sm">
         <h3 className="mb-4 text-lg font-semibold text-gray-900">
           Cash Flow Analysis
         </h3>
@@ -376,7 +376,7 @@ const BookkeepingCharts = ({ transactions }) => {
   const renderCategoryChart = () => (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {/* Expense Breakdown Pie Chart */}
-      <Card className="p-6 border-0 shadow-sm">
+      <Card className="p-6 bg-white border-0 shadow-sm">
         <h3 className="mb-4 text-lg font-semibold text-gray-900">
           Expense Breakdown by Category
         </h3>
@@ -411,7 +411,7 @@ const BookkeepingCharts = ({ transactions }) => {
       </Card>
 
       {/* Income Categories Bar Chart */}
-      <Card className="p-6 border-0 shadow-sm">
+      <Card className="p-6 bg-white border-0 shadow-sm">
         <h3 className="mb-4 text-lg font-semibold text-gray-900">
           Income by Category
         </h3>
@@ -435,7 +435,7 @@ const BookkeepingCharts = ({ transactions }) => {
   const renderPropertyChart = () => (
     <div className="space-y-6">
       {/* Financial Performance by Property */}
-      <Card className="p-6 border-0 shadow-sm">
+      <Card className="p-6 bg-white border-0 shadow-sm">
         <h3 className="mb-4 text-lg font-semibold text-gray-900">
           Financial Performance by Property
         </h3>
@@ -461,7 +461,7 @@ const BookkeepingCharts = ({ transactions }) => {
       </Card>
 
       {/* Property Net Profit */}
-      <Card className="p-6 border-0 shadow-sm">
+      <Card className="p-6 bg-white border-0 shadow-sm">
         <h3 className="mb-4 text-lg font-semibold text-gray-900">
           Net Profit by Property
         </h3>
@@ -505,7 +505,7 @@ const BookkeepingCharts = ({ transactions }) => {
       <div className="space-y-6">
         {/* Key Metrics Cards */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          <Card className="p-4 border-0 shadow-sm">
+          <Card className="p-4 bg-white border-0 shadow-sm">
             <div className="text-center">
               <p className="text-sm font-medium text-gray-600">Total Income</p>
               <p className="text-2xl font-bold text-blue-600">
@@ -523,7 +523,7 @@ const BookkeepingCharts = ({ transactions }) => {
               </p>
             </div>
           </Card>
-          <Card className="p-4 border-0 shadow-sm">
+          <Card className="p-4 bg-white border-0 shadow-sm">
             <div className="text-center">
               <p className="text-sm font-medium text-gray-600">Net Profit</p>
               <p
@@ -535,7 +535,7 @@ const BookkeepingCharts = ({ transactions }) => {
               </p>
             </div>
           </Card>
-          <Card className="p-4 border-0 shadow-sm">
+          <Card className="p-4 bg-white border-0 shadow-sm">
             <div className="text-center">
               <p className="text-sm font-medium text-gray-600">Profit Margin</p>
               <p
@@ -552,7 +552,7 @@ const BookkeepingCharts = ({ transactions }) => {
         </div>
 
         {/* Property Performance Summary */}
-        <Card className="p-6 border-0 shadow-sm">
+        <Card className="p-6 bg-white border-0 shadow-sm">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">
             Property Performance Summary
           </h3>

@@ -62,9 +62,9 @@ const PaymentsHeader = ({
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="flex items-center justify-between p-4 space-x-4 bg-white rounded-lg shadow-sm">
+        {/* <div className="flex items-center justify-between p-4 space-x-4 bg-white rounded-lg shadow-sm">
           <div className="flex items-center flex-1 space-x-4">
-            {/* Search Input */}
+           
             <div className="relative flex-1 max-w-md">
               <Search className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
               <input
@@ -76,7 +76,7 @@ const PaymentsHeader = ({
               />
             </div>
 
-            {/* Filter Toggle */}
+           
             <button
               onClick={onShowFilters}
               className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg cursor-pointer transition-colors ${
@@ -90,7 +90,7 @@ const PaymentsHeader = ({
             </button>
           </div>
 
-          {/* Action Buttons */}
+         
           <div className="flex items-center space-x-2">
             <button
               onClick={onRefresh}
@@ -110,17 +110,17 @@ const PaymentsHeader = ({
               Export
             </button>
 
-            {/* <button
+            <button
               className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 transition-colors bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
             >
               <Settings size={16} />
               Settings
-            </button> */}
+            </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Summary Info */}
-        <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+        {/* <div className="flex items-center justify-between pt-2 border-t border-gray-200">
           <div className="flex items-center space-x-6 text-sm text-gray-600">
             <span>
               <span className="font-medium text-gray-900">{totalPayments}</span> total payments
@@ -154,7 +154,7 @@ const PaymentsHeader = ({
               <span className="text-gray-600">Partial</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </Card>
   );

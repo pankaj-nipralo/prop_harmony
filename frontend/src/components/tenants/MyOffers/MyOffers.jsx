@@ -251,6 +251,10 @@ const MyOffers = () => {
     setNegotiateModal({ open: true, offerId });
   };
 
+  const handleAcceptApplication = (applicationId) => {
+    setConfirmModal({ open: true, applicationId, action: "accept" });
+  };
+  
   const submitNegotiation = () => {
     if (!negotiateAmount || parseFloat(negotiateAmount) <= 0) {
       alert("Please enter a valid amount");
@@ -471,7 +475,7 @@ const MyOffers = () => {
                         </div>
 
                         {/* Tenant Info */}
-                        <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                        {/* <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                           <div className="flex items-center gap-3">
                             <User className="w-5 h-5 text-gray-600" />
                             <div>
@@ -510,7 +514,7 @@ const MyOffers = () => {
                               View Details
                             </button>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

@@ -316,6 +316,7 @@ const PaymentsMaster = () => {
         <PaymentsBody
           payments={filteredPayments}
           isLoading={isLoading}
+          onExportPayments={handleExportPayments}
           onViewPayment={handleViewPayment}
           onEditPayment={handleEditPayment}
           onDeletePayment={handleDeletePayment}
@@ -325,6 +326,11 @@ const PaymentsMaster = () => {
           showFilters={showFilters}
           filters={filters}
           onFilterChange={handleFilterChange}
+          searchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+          onShowFilters={handleShowFilters}
+          onRefresh={handleRefresh}
+          totalPayments={filteredPayments.length}
         />
 
         {/* Add/Edit Payment Modal */}

@@ -468,9 +468,9 @@ const ApplicationsManagement = () => {
                           </div>
                         </div>
 
-                        {/* Tenant Info */}
-                        <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                        {/* Tenant Info 
                           <div className="flex items-center gap-3">
+                          <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                             <User className="w-5 h-5 text-gray-600" />
                             <div>
                               <p className="text-sm font-medium text-gray-900">
@@ -506,9 +506,10 @@ const ApplicationsManagement = () => {
                               className="px-3 py-1 text-xs font-medium text-blue-600 transition-colors rounded bg-blue-50 hover:bg-blue-100"
                             >
                               View Details
-                            </button>
+                            </button> 
                           </div>
                         </div>
+                          */}
                       </div>
                     </div>
                   </div>
