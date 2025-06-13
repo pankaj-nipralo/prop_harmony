@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Upload, Send, RotateCcw, CheckCircle, X } from 'lucide-react';
+import React, { useState } from "react";
+import { Upload, Send, RotateCcw, CheckCircle, X } from "lucide-react";
 
 // Toast Component
 const Toast = ({ message, isVisible, onClose }) => {
@@ -24,25 +24,38 @@ const Toast = ({ message, isVisible, onClose }) => {
 const SubmitComplaintForm = ({
   formData,
   setFormData,
-  issueCategories,
-  priorityLevels,
-  onSubmit,
-  onClear
+  issueCategories = [],
+  priorityLevels = [],
+  onSubmit = () => {},
+  onClear = () => {},
 }) => {
   const [showToast, setShowToast] = useState(false);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
+  };
+
+  const resetForm = () => {
+    setFormData({
+      landlordName: "",
+      propertyAddress: "",
+      incidentDate: "",
+      issueCategory: issueCategories[0].value, // Reset to first category
+      priorityLevel: priorityLevels[0].value, // Reset to first priority
+      subject: "",
+      detailedDescription: "",
+      evidence: null,
+    });
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      evidence: file
+      evidence: file,
     }));
   };
 
@@ -58,20 +71,28 @@ const SubmitComplaintForm = ({
       priorityLevel: formData.priorityLevel,
       subject: formData.subject,
       detailedDescription: formData.detailedDescription,
-      evidence: formData.evidence ? {
-        name: formData.evidence.name,
-        size: formData.evidence.size,
-        type: formData.evidence.type,
-        lastModified: formData.evidence.lastModified
-      } : null,
-      submittedAt: new Date().toISOString()
+      evidence: formData.evidence
+        ? {
+            name: formData.evidence.name,
+            size: formData.evidence.size,
+            type: formData.evidence.type,
+            lastModified: formData.evidence.lastModified,
+          }
+        : null,
+      submittedAt: new Date().toISOString(),
     };
 
     // Log complete form data to console
-    console.log('Report Submission Data:', JSON.stringify(submissionData, null, 2));
+    console.log(
+      "Report Submission Data:",
+      JSON.stringify(submissionData, null, 2)
+    );
 
     // Call the original onSubmit handler
     onSubmit(submissionData);
+
+    // Reset the form
+    resetForm();
 
     // Show success toast
     setShowToast(true);
@@ -83,7 +104,8 @@ const SubmitComplaintForm = ({
   };
 
   const handleClear = () => {
-    onClear();
+    resetForm();
+    onClear(); // Call the original onClear handler if needed
   };
 
   return (
@@ -95,13 +117,18 @@ const SubmitComplaintForm = ({
       />
 
       <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold text-gray-900">Submit Complaint</h2>
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">
+          Submit Complaint
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Row 1: Landlord Name, Property Address, and Incident Date */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
-              <label htmlFor="landlordName" className="block mb-1 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="landlordName"
+                className="block mb-1 text-sm font-medium text-gray-700"
+              >
                 Landlord Name *
               </label>
               <input
@@ -117,7 +144,10 @@ const SubmitComplaintForm = ({
             </div>
 
             <div>
-              <label htmlFor="propertyAddress" className="block mb-1 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="propertyAddress"
+                className="block mb-1 text-sm font-medium text-gray-700"
+              >
                 Property Address *
               </label>
               <input
@@ -133,7 +163,10 @@ const SubmitComplaintForm = ({
             </div>
 
             <div>
-              <label htmlFor="incidentDate" className="block mb-1 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="incidentDate"
+                className="block mb-1 text-sm font-medium text-gray-700"
+              >
                 Incident Date
               </label>
               <input
@@ -150,7 +183,10 @@ const SubmitComplaintForm = ({
           {/* Row 2: Issue Category, Priority Level, and Subject */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
-              <label htmlFor="issueCategory" className="block mb-1 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="issueCategory"
+                className="block mb-1 text-sm font-medium text-gray-700"
+              >
                 Issue Category *
               </label>
               <select
@@ -170,7 +206,10 @@ const SubmitComplaintForm = ({
             </div>
 
             <div>
-              <label htmlFor="priorityLevel" className="block mb-1 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="priorityLevel"
+                className="block mb-1 text-sm font-medium text-gray-700"
+              >
                 Priority Level *
               </label>
               <select
@@ -190,7 +229,10 @@ const SubmitComplaintForm = ({
             </div>
 
             <div>
-              <label htmlFor="subject" className="block mb-1 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="subject"
+                className="block mb-1 text-sm font-medium text-gray-700"
+              >
                 Subject *
               </label>
               <input
@@ -208,7 +250,10 @@ const SubmitComplaintForm = ({
 
           {/* Row 3: Detailed Description */}
           <div>
-            <label htmlFor="detailedDescription" className="block mb-1 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="detailedDescription"
+              className="block mb-1 text-sm font-medium text-gray-700"
+            >
               Detailed Description *
             </label>
             <textarea
@@ -225,12 +270,15 @@ const SubmitComplaintForm = ({
 
           {/* Row 4: Evidence Upload */}
           <div>
-            <label htmlFor="evidence" className="block mb-1 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="evidence"
+              className="block mb-1 text-sm font-medium text-gray-700"
+            >
               Evidence (Optional)
             </label>
             <div
               className="p-4 text-center transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:border-gray-400"
-              onClick={() => document.getElementById('evidence').click()}
+              onClick={() => document.getElementById("evidence").click()}
             >
               <Upload className="w-6 h-6 mx-auto mb-1 text-gray-400" />
               <p className="mb-1 text-sm text-blue-500">

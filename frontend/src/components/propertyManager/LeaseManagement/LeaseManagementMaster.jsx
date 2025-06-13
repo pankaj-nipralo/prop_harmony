@@ -154,17 +154,17 @@ const LeaseManagementMaster = () => {
 
   const handleRenewSubmit = (e) => {
     e.preventDefault();
-    
-    const updatedLeases = leases.map(lease => {
+
+    const updatedLeases = leases.map((lease) => {
       if (lease.id === selectedLease.id) {
         const newEndDate = new Date(selectedLease.endDate);
         newEndDate.setFullYear(newEndDate.getFullYear() + 1);
-        
+
         return {
           ...lease,
           endDate: newEndDate.toLocaleDateString(),
           renewalStatus: "in negotiation",
-          daysUntilExpiry: 365
+          daysUntilExpiry: 365,
         };
       }
       return lease;
@@ -217,12 +217,19 @@ const LeaseManagementMaster = () => {
             <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold text-gray-800">Create New Lease</h2>
+                  <h2 className="text-xl font-semibold text-gray-800">
+                    Create New Lease
+                  </h2>
                 </div>
                 <form onSubmit={handleSubmitNewLease} className="space-y-4">
                   <div className="grid gap-4">
                     <div>
-                      <Label htmlFor="property" className="block mb-2 text-sm font-medium text-gray-700">Property *</Label>
+                      <Label
+                        htmlFor="property"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Property *
+                      </Label>
                       <Input
                         id="property"
                         name="property"
@@ -234,7 +241,12 @@ const LeaseManagementMaster = () => {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="unit" className="block mb-2 text-sm font-medium text-gray-700">Unit *</Label>
+                      <Label
+                        htmlFor="unit"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Unit *
+                      </Label>
                       <Input
                         id="unit"
                         name="unit"
@@ -246,7 +258,12 @@ const LeaseManagementMaster = () => {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="tenant" className="block mb-2 text-sm font-medium text-gray-700">Tenant *</Label>
+                      <Label
+                        htmlFor="tenant"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Tenant *
+                      </Label>
                       <Input
                         id="tenant"
                         name="tenant"
@@ -258,7 +275,12 @@ const LeaseManagementMaster = () => {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="landlord" className="block mb-2 text-sm font-medium text-gray-700">Landlord *</Label>
+                      <Label
+                        htmlFor="landlord"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Landlord *
+                      </Label>
                       <Input
                         id="landlord"
                         name="landlord"
@@ -270,7 +292,12 @@ const LeaseManagementMaster = () => {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="startDate" className="block mb-2 text-sm font-medium text-gray-700">Start Date *</Label>
+                      <Label
+                        htmlFor="startDate"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Start Date *
+                      </Label>
                       <Input
                         id="startDate"
                         name="startDate"
@@ -282,7 +309,12 @@ const LeaseManagementMaster = () => {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="endDate" className="block mb-2 text-sm font-medium text-gray-700">End Date *</Label>
+                      <Label
+                        htmlFor="endDate"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        End Date *
+                      </Label>
                       <Input
                         id="endDate"
                         name="endDate"
@@ -477,7 +509,10 @@ const LeaseManagementMaster = () => {
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex gap-2">
-                        <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
+                        <Dialog
+                          open={isViewDialogOpen}
+                          onOpenChange={setIsViewDialogOpen}
+                        >
                           <DialogTrigger asChild>
                             <Button
                               onClick={() => handleViewLease(row)}
@@ -489,42 +524,82 @@ const LeaseManagementMaster = () => {
                           <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
                             <div className="p-6">
                               <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-xl font-semibold text-gray-800">Lease Details</h2>
+                                <h2 className="text-xl font-semibold text-gray-800">
+                                  Lease Details
+                                </h2>
                               </div>
                               <div className="space-y-4">
                                 <div>
-                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Property</Label>
-                                  <p className="text-gray-900">{selectedLease?.property}</p>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                    Property
+                                  </Label>
+                                  <p className="text-gray-900">
+                                    {selectedLease?.property}
+                                  </p>
                                 </div>
                                 <div>
-                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Unit</Label>
-                                  <p className="text-gray-900">{selectedLease?.unit}</p>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                    Unit
+                                  </Label>
+                                  <p className="text-gray-900">
+                                    {selectedLease?.unit}
+                                  </p>
                                 </div>
                                 <div>
-                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Tenant</Label>
-                                  <p className="text-gray-900">{selectedLease?.tenant}</p>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                    Tenant
+                                  </Label>
+                                  <p className="text-gray-900">
+                                    {selectedLease?.tenant}
+                                  </p>
                                 </div>
                                 <div>
-                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Landlord</Label>
-                                  <p className="text-gray-900">{selectedLease?.landlord}</p>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                    Landlord
+                                  </Label>
+                                  <p className="text-gray-900">
+                                    {selectedLease?.landlord}
+                                  </p>
                                 </div>
                                 <div>
-                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Start Date</Label>
-                                  <p className="text-gray-900">{selectedLease?.startDate}</p>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                    Start Date
+                                  </Label>
+                                  <p className="text-gray-900">
+                                    {selectedLease?.startDate}
+                                  </p>
                                 </div>
                                 <div>
-                                  <Label className="block mb-2 text-sm font-medium text-gray-700">End Date</Label>
-                                  <p className="text-gray-900">{selectedLease?.endDate}</p>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                    End Date
+                                  </Label>
+                                  <p className="text-gray-900">
+                                    {selectedLease?.endDate}
+                                  </p>
                                 </div>
                                 <div>
-                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Status</Label>
-                                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${statusColors[selectedLease?.status]}`}>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                    Status
+                                  </Label>
+                                  <span
+                                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                                      statusColors[selectedLease?.status]
+                                    }`}
+                                  >
                                     {selectedLease?.status}
                                   </span>
                                 </div>
                                 <div>
-                                  <Label className="block mb-2 text-sm font-medium text-gray-700">Renewal Status</Label>
-                                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${renewalColors[selectedLease?.renewalStatus]}`}>
+                                  <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                    Renewal Status
+                                  </Label>
+                                  <span
+                                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                                      renewalColors[
+                                        selectedLease?.renewalStatus
+                                      ]
+                                    }`}
+                                  >
                                     {selectedLease?.renewalStatus}
                                   </span>
                                 </div>
@@ -541,7 +616,10 @@ const LeaseManagementMaster = () => {
                           </DialogContent>
                         </Dialog>
 
-                        <Dialog open={isRenewDialogOpen} onOpenChange={setIsRenewDialogOpen}>
+                        <Dialog
+                          open={isRenewDialogOpen}
+                          onOpenChange={setIsRenewDialogOpen}
+                        >
                           <DialogTrigger asChild>
                             <Button
                               onClick={() => handleRenewLease(row)}
@@ -553,27 +631,53 @@ const LeaseManagementMaster = () => {
                           <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
                             <div className="p-6">
                               <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-xl font-semibold text-gray-800">Renew Lease</h2>
+                                <h2 className="text-xl font-semibold text-gray-800">
+                                  Renew Lease
+                                </h2>
                               </div>
-                              <form onSubmit={handleRenewSubmit} className="space-y-4">
+                              <form
+                                onSubmit={handleRenewSubmit}
+                                className="space-y-4"
+                              >
                                 <div className="grid gap-4">
                                   <div>
-                                    <Label className="block mb-2 text-sm font-medium text-gray-700">Property</Label>
-                                    <p className="text-gray-900">{selectedLease?.property}</p>
-                                  </div>
-                                  <div>
-                                    <Label className="block mb-2 text-sm font-medium text-gray-700">Unit</Label>
-                                    <p className="text-gray-900">{selectedLease?.unit}</p>
-                                  </div>
-                                  <div>
-                                    <Label className="block mb-2 text-sm font-medium text-gray-700">Current End Date</Label>
-                                    <p className="text-gray-900">{selectedLease?.endDate}</p>
-                                  </div>
-                                  <div>
-                                    <Label className="block mb-2 text-sm font-medium text-gray-700">New End Date</Label>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                      Property
+                                    </Label>
                                     <p className="text-gray-900">
-                                      {selectedLease && new Date(selectedLease.endDate).setFullYear(new Date(selectedLease.endDate).getFullYear() + 1).toLocaleDateString()}
+                                      {selectedLease?.property}
                                     </p>
+                                  </div>
+                                  <div>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                      Unit
+                                    </Label>
+                                    <p className="text-gray-900">
+                                      {selectedLease?.unit}
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                      Current End Date
+                                    </Label>
+                                    <p className="text-gray-900">
+                                      {selectedLease?.endDate}
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                      New End Date
+                                    </Label>
+                                    {selectedLease &&
+                                      (() => {
+                                        const newEndDate = new Date(
+                                          selectedLease.endDate
+                                        );
+                                        newEndDate.setFullYear(
+                                          newEndDate.getFullYear() + 1
+                                        );
+                                        return newEndDate.toLocaleDateString();
+                                      })()}
                                   </div>
                                 </div>
                                 <div className="flex justify-end pt-4 mt-6 space-x-3 border-t border-gray-200">

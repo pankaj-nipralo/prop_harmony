@@ -857,8 +857,8 @@ const TenantPaymentMaster = () => {
 
       {/* Processing Payment Overlay */}
       {isProcessingPayment && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <Card className="p-8 border-0 shadow-xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-black/20">
+          <Card className="p-8 bg-white border-0 rounded-lg shadow-xl">
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
               <h3 className="mb-2 text-lg font-semibold text-gray-900">

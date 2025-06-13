@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
@@ -251,10 +251,10 @@ const MyOffers = () => {
     setNegotiateModal({ open: true, offerId });
   };
 
-  const handleAcceptApplication = (applicationId) => {
-    setConfirmModal({ open: true, applicationId, action: "accept" });
-  };
-  
+  // const handleAcceptApplication = (applicationId) => {
+  //   setConfirmModal({ open: true, applicationId, action: "accept" });
+  // };
+
   const submitNegotiation = () => {
     if (!negotiateAmount || parseFloat(negotiateAmount) <= 0) {
       alert("Please enter a valid amount");
@@ -304,6 +304,16 @@ const MyOffers = () => {
     }, 1500);
   };
 
+  // Sync with localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem("tenantOffers");
+    if (stored) setOffers(JSON.parse(stored));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tenantOffers", JSON.stringify(offers));
+  }, [offers]);
+
   const confirmAction = () => {
     const { offerId, action } = confirmModal;
     setIsLoading(true);
@@ -312,10 +322,16 @@ const MyOffers = () => {
       setOffers((prev) =>
         prev.map((offer) => {
           if (offer.id === offerId) {
+            // Use consistent status for both landlord and tenant
             return {
               ...offer,
-              status: action === "accept" ? "accepted" : "declined",
+              status: action === "accept" ? "agreed" : "declined",
               lastActivity: new Date().toISOString().split("T")[0],
+              // FIX: Update current offer to match agreed price
+              currentOffer:
+                action === "accept"
+                  ? offer.landlordLastOffer || offer.originalPrice
+                  : offer.currentOffer,
             };
           }
           return offer;
@@ -577,7 +593,7 @@ const MyOffers = () => {
                   application.status === "under_negotiation" ? (
                     <>
                       <button
-                        onClick={() => handleAcceptApplication(application.id)}
+                        onClick={() => handleAcceptOffer(application.id)}
                         className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
                       >
                         <CheckCircle className="w-4 h-4" />
