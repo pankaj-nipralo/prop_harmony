@@ -88,7 +88,7 @@ function App() {
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
-          {/* <Route path="properties" element={<Properties />} />
+          <Route path="properties" element={<Properties />} />
           <Route path="properties/:id" element={<PropertiesDetails />} />
           <Route path="property-listings" element={<PropertyListings />} />
           <Route path="bookkeeping" element={<Bookkeeping />} />
@@ -110,7 +110,7 @@ function App() {
           <Route path="rental-search" element={<ReantalSearch />} />
           <Route path="applications" element={<Applications />} />
           <Route path="reports" element={<Reports />} />
-          <Route path="settings" element={<Settings />} /> */}
+          <Route path="settings" element={<Settings />} />
 
           <Route path="*" element={<Navigate to="/landlord/dashboard" />} />
         </Route>
@@ -125,7 +125,7 @@ function App() {
           }
         >
           <Route path="dashboard" element={<TenantDashboard />} />
-          {/* <Route path="rental-search" element={<TenantRentalSearch />} />
+          <Route path="rental-search" element={<TenantRentalSearch />} />
           <Route path="properties" element={<TenantProperties />} />
           <Route path="past-properties" element={<PastProperties />} />
           <Route path="property-manager" element={<TenantPropertyManager />} />
@@ -140,7 +140,7 @@ function App() {
           <Route path="ratings" element={<Ratings />} />
           <Route path="emails" element={<Messages />} />
           <Route path="payemnts" element={<TenantPaymentMaster />} />
-          <Route path="settings" element={<TenantSettings />} /> */}
+          <Route path="settings" element={<TenantSettings />} />
 
           <Route path="*" element={<Navigate to="/tenants/dashboard" />} />
         </Route>
@@ -155,7 +155,7 @@ function App() {
           }
         >
           <Route path="dashboard" element={<ManagerDashbord />} />
-          {/* <Route path="properties" element={<ManagerProperties />} />
+          <Route path="properties" element={<ManagerProperties />} />
           <Route
             path="property-inspection"
             element={<ManagerPropertyInspection />}
@@ -165,7 +165,7 @@ function App() {
           <Route path="contractors" element={<ManagerContractors />} />
           <Route path="lease-management" element={<ManagerLeaseManagement />} />
           <Route path="emails" element={<ManagerMessages />} />
-          <Route path="settings" element={<ManagerSettings />} /> */}
+          <Route path="settings" element={<ManagerSettings />} />
 
           <Route path="*" element={<Navigate to="/manager/dashboard" />} />
         </Route>
