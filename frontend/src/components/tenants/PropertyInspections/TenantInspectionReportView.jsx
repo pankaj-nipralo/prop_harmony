@@ -95,12 +95,12 @@ const TenantInspectionReportView = ({ open, onClose, inspection, onAddComment })
                 {inspection.propertyName}
               </p>
             </div>
-            <button
+            {/* <button
               onClick={onClose}
               className="p-2 text-gray-400 transition-colors rounded-lg hover:text-gray-600 hover:bg-gray-100"
             >
               <X className="w-5 h-5" />
-            </button>
+            </button> */}
           </div>
 
           {hasReport ? (

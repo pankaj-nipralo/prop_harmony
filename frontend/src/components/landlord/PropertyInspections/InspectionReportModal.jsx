@@ -175,62 +175,80 @@ const InspectionReportModal = ({ open, onClose, inspection, onSaveReport }) => {
       return;
     }
 
-    // Process each file and update state once with all new photos
-    const newPhotos = [];
-
+    // Process files and store in localStorage
     validFiles.forEach((file) => {
       const reader = new FileReader();
       reader.onload = (e) => {
-        newPhotos.push({
+        const photoData = {
           id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-          file: file,
-          url: e.target.result,
+          url: e.target.result, // Base64 string
           name: file.name,
           size: file.size,
           type: file.type,
-        });
+        };
 
-        // When all files are processed, update state once
-        if (newPhotos.length === validFiles.length) {
-          setReportData((prev) => ({
-            ...prev,
-            roomAssessments: prev.roomAssessments.map((room, i) =>
-              i === roomIndex
-                ? { ...room, photos: [...(room.photos || []), ...newPhotos] }
-                : room
-            ),
-          }));
+        // Save to localStorage
+        const storageKey = `inspection_${inspection.id}_room_${roomIndex}_photos`;
+        const existingPhotos = JSON.parse(
+          localStorage.getItem(storageKey) || "[]"
+        );
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify([...existingPhotos, photoData])
+        );
 
-          // Clear the file input
-          if (fileInputRefs.current[roomIndex]) {
-            fileInputRefs.current[roomIndex].value = "";
-          }
-        }
+        // Update React state
+        setReportData((prev) => ({
+          ...prev,
+          roomAssessments: prev.roomAssessments.map((room, i) =>
+            i === roomIndex
+              ? { ...room, photos: [...(room.photos || []), photoData] }
+              : room
+          ),
+        }));
       };
-
-      reader.onerror = () => {
-        console.error(`Failed to read file: ${file.name}`);
-      };
-
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file); // Convert to base64
     });
+
+    // Clear file input
+    if (fileInputRefs.current[roomIndex]) {
+      fileInputRefs.current[roomIndex].value = "";
+    }
   };
 
-  const removePhoto = (roomIndex, photoId) => {
-    setReportData((prev) => ({
-      ...prev,
-      roomAssessments: prev.roomAssessments.map((room, i) =>
-        i === roomIndex
-          ? {
-              ...room,
-              photos: (room.photos || []).filter(
-                (photo) => photo.id !== photoId
-              ),
-            }
-          : room
-      ),
-    }));
-  };
+  useEffect(() => {
+  if (open && inspection) {
+    const initialReportData = getInitialReportData();
+    
+    // Load photos from localStorage for each room
+    const roomAssessmentsWithPhotos = initialReportData.roomAssessments.map((room, index) => {
+      const storageKey = `inspection_${inspection.id}_room_${index}_photos`;
+      const savedPhotos = JSON.parse(localStorage.getItem(storageKey)) || [];
+      return { ...room, photos: savedPhotos };
+    });
+
+    setReportData({ ...initialReportData, roomAssessments: roomAssessmentsWithPhotos });
+  }
+}, [open, inspection?.id]);
+
+ const removePhoto = (roomIndex, photoId) => {
+  setReportData(prev => {
+    const updatedRoomAssessments = prev.roomAssessments.map((room, i) => {
+      if (i === roomIndex) {
+        const updatedPhotos = (room.photos || []).filter(photo => photo.id !== photoId);
+        
+        // Update localStorage
+        const storageKey = `inspection_${inspection.id}_room_${roomIndex}_photos`;
+        localStorage.setItem(storageKey, JSON.stringify(updatedPhotos));
+        
+        return { ...room, photos: updatedPhotos };
+      }
+      return room;
+    });
+
+    return { ...prev, roomAssessments: updatedRoomAssessments };
+  });
+};
 
   const triggerFileInput = (roomIndex) => {
     if (fileInputRefs.current[roomIndex]) {
@@ -596,16 +614,22 @@ const InspectionReportModal = ({ open, onClose, inspection, onSaveReport }) => {
                               {room.photos.map((photo) => (
                                 <div key={photo.id} className="relative group">
                                   <div className="relative overflow-hidden bg-gray-100 rounded-lg aspect-square">
-                                    <img
-                                      src={photo.url}
-                                      alt={photo.name}
-                                      className="object-cover w-full h-full"
-                                      onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src =
-                                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f3f4f6'/%3E%3Ctext x='50%' y='50%' font-family='sans-serif' font-size='12' text-anchor='middle' fill='%239ca3af'%3EImage not available%3C/text%3E%3C/svg%3E";
-                                      }}
-                                    />
+                                    {photo.url ? (
+                                      <img
+                                        src={photo.url}
+                                        alt={photo.name || "Uploaded photo"}
+                                        className="object-cover w-full h-full"
+                                        onError={(e) => {
+                                          e.target.onerror = null;
+                                          e.target.src =
+                                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f3f4f6'/%3E%3Ctext x='50%' y='50%' font-family='sans-serif' font-size='12' text-anchor='middle' fill='%239ca3af'%3EImage not available%3C/text%3E%3C/svg%3E";
+                                        }}
+                                      />
+                                    ) : (
+                                      <div className="flex items-center justify-center w-full h-full bg-gray-200">
+                                        <File className="w-8 h-8 text-gray-400" />
+                                      </div>
+                                    )}
                                     <div className="absolute inset-0 flex items-center justify-center transition-opacity bg-black bg-opacity-0 group-hover:bg-opacity-30">
                                       <button
                                         onClick={(e) => {
@@ -620,11 +644,13 @@ const InspectionReportModal = ({ open, onClose, inspection, onSaveReport }) => {
                                   </div>
                                   <div className="mt-1">
                                     <p className="text-xs text-gray-600 truncate">
-                                      {photo.name}
+                                      {photo.name || "Uploaded image"}
                                     </p>
-                                    <p className="text-xs text-gray-500">
-                                      {formatFileSize(photo.size)}
-                                    </p>
+                                    {photo.size && (
+                                      <p className="text-xs text-gray-500">
+                                        {formatFileSize(photo.size)}
+                                      </p>
+                                    )}
                                   </div>
                                 </div>
                               ))}

@@ -157,6 +157,7 @@ function App() {
         >
           <Route path="dashboard" element={<ManagerDashbord />} />
           <Route path="properties" element={<ManagerProperties />} />
+          <Route path="properties/:id" element={<PropertiesDetails />} />
           <Route
             path="property-inspection"
             element={<ManagerPropertyInspection />}
