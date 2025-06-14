@@ -21,6 +21,9 @@ import {
   Trash2,
   Edit,
 } from "lucide-react";
+import DirhamSvg from '@/assets/Dirham';
+
+
 
 const TenantPaymentMaster = () => {
   // Payment state
@@ -226,7 +229,8 @@ const TenantPaymentMaster = () => {
             onClick={handlePayNow}
             className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg cursor-pointer myButton hover:bg-blue-700"
           >
-            <DollarSign size={16} />
+            {/* <DollarSign size={16} /> */}
+             <DirhamSvg  size={16} color1="#ffffff" />
             Pay Now
           </button>
           <button
