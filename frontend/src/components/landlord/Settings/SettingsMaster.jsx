@@ -25,7 +25,7 @@ import {
   EyeOff,
   Database,
   LogOut,
-  DollarSign,
+  DollarSign, 
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -199,12 +199,12 @@ const SettingsMaster = () => {
       icon: Bell,
       description: "Email, SMS, and push notification preferences",
     },
-    {
-      id: "security",
-      name: "Security",
-      icon: Shield,
-      description: "Password, 2FA, and security settings",
-    },
+    // {
+    //   id: "security",
+    //   name: "Security",
+    //   icon: Shield,
+    //   description: "Password, 2FA, and security settings",
+    // },
     {
       id: "payment",
       name: "Payment & Billing",

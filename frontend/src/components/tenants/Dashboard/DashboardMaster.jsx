@@ -57,7 +57,7 @@ const DashboardMaster = () => {
           { key: "overview", label: "Overview", icon: LayoutDashboard },
           { key: "properties", label: "Properties", icon: Home },
           // { key: "applications", label: "Applications", icon: FileText },
-          { key: "inspections", label: "Inspections", icon: Eye },
+          // { key: "inspections", label: "Inspections", icon: Eye },
         ].map(({ key, label, icon: Icon }) => (
           <button
             key={key}
