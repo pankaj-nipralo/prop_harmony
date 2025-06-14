@@ -79,7 +79,7 @@ function App() {
         <Route path="/auth/login" element={<ExistingLogin />} />
         <Route path="/auth/register" element={<Register />} />
 
-        {/* Landlord */}
+        {/* Landlord  */}
         <Route
           path="/landlord"
           element={
