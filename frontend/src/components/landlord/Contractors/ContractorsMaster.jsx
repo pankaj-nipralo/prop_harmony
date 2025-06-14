@@ -62,6 +62,15 @@ const ContractorManager = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
   const [contractors, setContractors] = useState(contractorData);
+  const [addForm, setAddForm] = useState({
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    specialties: [],
+    rate: '',
+    status: 'active'
+  });
   const [editForm, setEditForm] = useState({
     name: '',
     company: '',
@@ -135,6 +144,45 @@ const ContractorManager = () => {
     }));
   };
 
+  const handleAddFormChange = (e) => {
+    const { name, value } = e.target;
+    setAddForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleAddSpecialtyChange = (specialty) => {
+    setAddForm(prev => ({
+      ...prev,
+      specialties: prev.specialties.includes(specialty)
+        ? prev.specialties.filter(s => s !== specialty)
+        : [...prev.specialties, specialty]
+    }));
+  };
+
+  const handleAddSubmit = (e) => {
+    e.preventDefault();
+    const newContractor = {
+      id: contractors.length + 1,
+      ...addForm,
+      jobsCompleted: 0,
+      rating: 0,
+      address: 'Dubai, UAE', // Default address
+    };
+    setContractors(prev => [...prev, newContractor]);
+    setAddForm({
+      name: '',
+      company: '',
+      email: '',
+      phone: '',
+      specialties: [],
+      rate: '',
+      status: 'active'
+    });
+    setIsAddDialogOpen(false);
+  };
+
   // Render stars for rating
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -177,23 +225,102 @@ const ContractorManager = () => {
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-semibold text-gray-800">Add New Contractor</h2>
                 </div>
-                <form className="space-y-4">
+                <form onSubmit={handleAddSubmit} className="space-y-4">
                   <div className="grid gap-4">
                     <div>
                       <Label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">Name *</Label>
-                      <Input id="name" placeholder="Enter contractor name" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <Input 
+                        id="name" 
+                        name="name"
+                        value={addForm.name}
+                        onChange={handleAddFormChange}
+                        placeholder="Enter contractor name" 
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        required
+                      />
                     </div>
                     <div>
                       <Label htmlFor="company" className="block mb-2 text-sm font-medium text-gray-700">Company *</Label>
-                      <Input id="company" placeholder="Enter company name" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <Input 
+                        id="company" 
+                        name="company"
+                        value={addForm.company}
+                        onChange={handleAddFormChange}
+                        placeholder="Enter company name" 
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        required
+                      />
                     </div>
                     <div>
                       <Label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">Email *</Label>
-                      <Input id="email" type="email" placeholder="Enter email" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <Input 
+                        id="email" 
+                        name="email"
+                        type="email" 
+                        value={addForm.email}
+                        onChange={handleAddFormChange}
+                        placeholder="Enter email" 
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        required
+                      />
                     </div>
                     <div>
                       <Label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-700">Phone *</Label>
-                      <Input id="phone" placeholder="Enter phone number" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <Input 
+                        id="phone" 
+                        name="phone"
+                        value={addForm.phone}
+                        onChange={handleAddFormChange}
+                        placeholder="Enter phone number" 
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="rate" className="block mb-2 text-sm font-medium text-gray-700">Rate/Hour (AED) *</Label>
+                      <Input 
+                        id="rate" 
+                        name="rate"
+                        type="number"
+                        value={addForm.rate}
+                        onChange={handleAddFormChange}
+                        placeholder="Enter hourly rate" 
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label className="block mb-2 text-sm font-medium text-gray-700">Specialties *</Label>
+                      <div className="flex flex-wrap gap-2">
+                        {specialtiesList.map((specialty) => (
+                          <button
+                            key={specialty}
+                            type="button"
+                            onClick={() => handleAddSpecialtyChange(specialty)}
+                            className={`px-3 py-1 text-sm rounded-full transition-colors ${
+                              addForm.specialties.includes(specialty)
+                                ? 'bg-blue-100 text-blue-700'
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            }`}
+                          >
+                            {specialty}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-700">Status *</Label>
+                      <select
+                        id="status"
+                        name="status"
+                        value={addForm.status}
+                        onChange={handleAddFormChange}
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      >
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
                     </div>
                   </div>
                   <div className="flex justify-end pt-4 space-x-3 border-t border-gray-200">
@@ -260,8 +387,7 @@ const ContractorManager = () => {
                 <tr className="border-b border-gray-200 bg-gray-50/50">
                   <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Contractor</th>
                   <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Contact</th>
-                  <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Specialties</th>
-                  <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Rating</th>
+                  <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Specialties</th> 
                   <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Rate/Hour</th>
                   <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Status</th>
                   <th className="px-6 py-4 font-medium text-left text-gray-900">Actions</th>
@@ -297,12 +423,12 @@ const ContractorManager = () => {
                         ))}
                       </div>
                     </td>
-                    <td className="px-6 py-4 border-r border-gray-200">
+                    {/* <td className="px-6 py-4 border-r border-gray-200">
                       <div className="flex items-center gap-1">
                         {renderStars(c.rating)}
                         <span className="text-xs text-gray-500">({c.rating})</span>
                       </div>
-                    </td>
+                    </td> */}
                     <td className="px-6 py-4 font-medium text-gray-900 border-r border-gray-200">AED {c.rate}</td>
                     <td className="px-6 py-4 border-r border-gray-200">
                       <span className={`px-2 py-0.5 rounded-full text-xs ${statusColors[c.status]}`}>

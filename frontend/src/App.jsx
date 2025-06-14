@@ -65,6 +65,7 @@ import ManagerMessages from "./pages/propertyManager/Messages";
 import ManagerSettings from "./pages/propertyManager/Settings";
 import ManagerContractors from "./pages/propertyManager/ManagerContractors";
 import ManagerProfile from "./components/tenants/PropertyManager/ManagerProfile";
+import ManagersProfile from "./pages/landlord/ManagersProfile";
 
 function App() {
   return (
@@ -105,7 +106,7 @@ function App() {
           <Route path="payemnts" element={<Payemnt />} />
           <Route path="property-inspection" element={<PropertyInspection />} />
           <Route path="property-manager" element={<PropertyManager />} />
-          <Route path="managers-profile" element={<ManagerProfile />} />
+          <Route path="managers-profile" element={<ManagersProfile />} />
           <Route path="ratings" element={<Ratings />} />
           <Route path="rental-search" element={<ReantalSearch />} />
           <Route path="applications" element={<Applications />} />

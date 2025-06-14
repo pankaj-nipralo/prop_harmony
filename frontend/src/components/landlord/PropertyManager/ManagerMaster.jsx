@@ -26,11 +26,55 @@ const ManagerMaster = () => {
     setAddModalOpen(false);
   };
 
+  // Handler to assign properties to a manager
+  const handleAssignProperties = (managerId, propertyIds) => {
+    setManagers((prev) => {
+      return prev.map((group) => ({
+        ...group,
+        managersList: group.managersList.map((manager) =>
+          manager.id === managerId
+            ? { ...manager, assignedProperties: propertyIds }
+            : manager
+        ),
+      }));
+    });
+  };
+
+  // Handler to update manager authorities
+  const handleUpdateAuthorities = (managerId, authorities) => {
+    setManagers((prev) => {
+      return prev.map((group) => ({
+        ...group,
+        managersList: group.managersList.map((manager) =>
+          manager.id === managerId
+            ? { ...manager, authorities }
+            : manager
+        ),
+      }));
+    });
+  };
+
+  // Handler to remove manager
+  const handleRemoveManager = (managerId) => {
+    setManagers((prev) => {
+      return prev.map((group) => ({
+        ...group,
+        managersList: group.managersList.filter((manager) => manager.id !== managerId),
+      }));
+    });
+  };
+
   return (
     <div className="min-h-screen p-6">
       <ManagerHeader onAddManager={() => setAddModalOpen(true)} />
       <ManagerStats managers={managers} />
-      <ManagerBody managers={managers} setManagers={setManagers} />
+      <ManagerBody 
+        managers={managers} 
+        setManagers={setManagers}
+        onAssignProperties={handleAssignProperties}
+        onUpdateAuthorities={handleUpdateAuthorities}
+        onRemoveManager={handleRemoveManager}
+      />
       <AddManagerModal
         open={addModalOpen}
         onClose={() => setAddModalOpen(false)}

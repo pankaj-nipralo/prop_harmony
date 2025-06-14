@@ -20,6 +20,7 @@ import {
   BarChart3,
   Settings,
   SquareChartGantt,
+  CircleUser,
   FileUser,
 } from "lucide-react";
 import { TopBar } from "@/components/layout/Topbar";
@@ -35,6 +36,11 @@ const navItems = [
   { label: "Rental Search", path: "/landlord/rental-search", icon: Search },
   { label: "Applications", path: "/landlord/applications", icon: FileUser },
   { label: "My Tenants", path: "/landlord/my-tenants", icon: Users },
+  {
+    label: "Managers Profile",
+    path: "/landlord/managers-profile",
+    icon: CircleUser,
+  },
   {
     label: "Property Managers",
     path: "/landlord/property-manager",

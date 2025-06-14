@@ -10,12 +10,12 @@ const ManagerHeader = ({ onAddManager }) => {
           My Property Managers
         </h1>
       </div>
-      <button
+      {/* <button
         onClick={onAddManager}
         className="px-4 py-2 font-medium text-white transition-colors duration-200 bg-blue-600 rounded-lg hover:bg-blue-700"
       >
         Add Property Manager
-      </button>
+      </button> */}
     </header>
   );
 };

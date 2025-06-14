@@ -12,14 +12,35 @@ const defaultForm = {
   propertiesManaged: 0,
   AssignedTo: "Dubai",
   EmiratesCovered: 0,
+  assignedProperties: [],
+  authorities: [],
 };
+
+const authorityOptions = [
+  { id: "view_properties", label: "View Properties" },
+  { id: "edit_properties", label: "Edit Properties" },
+  { id: "manage_tenants", label: "Manage Tenants" },
+  { id: "view_reports", label: "View Reports" },
+  { id: "manage_payments", label: "Manage Payments" },
+  { id: "manage_maintenance", label: "Manage Maintenance" },
+];
 
 const AddManagerModal = ({ open, onClose, onAddManager }) => {
   const [form, setForm] = useState(defaultForm);
+  const [selectedAuthorities, setSelectedAuthorities] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAuthorityChange = (authorityId) => {
+    setSelectedAuthorities((prev) => {
+      if (prev.includes(authorityId)) {
+        return prev.filter((id) => id !== authorityId);
+      }
+      return [...prev, authorityId];
+    });
   };
 
   const handleSubmit = (e) => {
@@ -31,9 +52,11 @@ const AddManagerModal = ({ open, onClose, onAddManager }) => {
         rating: parseFloat(form.rating),
         propertiesManaged: parseInt(form.propertiesManaged) || 0,
         EmiratesCovered: parseInt(form.EmiratesCovered) || 0,
+        authorities: selectedAuthorities,
       });
     }
     setForm(defaultForm);
+    setSelectedAuthorities([]);
     onClose();
   };
 
@@ -191,12 +214,38 @@ const AddManagerModal = ({ open, onClose, onAddManager }) => {
               </div>
             </div>
 
+            {/* Authorities Section */}
+            <div className="col-span-2 pt-4 mt-4 border-t border-gray-200">
+              <h3 className="mb-4 text-lg font-medium text-gray-900">
+                Manager Authorities
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {authorityOptions.map((authority) => (
+                  <div key={authority.id} className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      id={`authority-${authority.id}`}
+                      checked={selectedAuthorities.includes(authority.id)}
+                      onChange={() => handleAuthorityChange(authority.id)}
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <label
+                      htmlFor={`authority-${authority.id}`}
+                      className="text-sm text-gray-700"
+                    >
+                      {authority.label}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Form Actions */}
             <div className="flex justify-end col-span-2 pt-4 space-x-3 border-t border-gray-200">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 "
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
               >
                 Cancel
               </button>

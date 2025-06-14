@@ -1,10 +1,8 @@
-import PropertyManagerProfileMaster from '@/components/landlord/PropertyManagerProfiles/PropertyManagerProfileMaster'
-import React from 'react'
+import PropertyManagerProfileMaster from "@/components/landlord/PropertyManagerProfiles/PropertyManagerProfileMaster";
+import React from "react";
 
 const ManagersProfile = () => {
-  return (
-    <PropertyManagerProfileMaster />
-  )
-}
+  return <PropertyManagerProfileMaster />;
+};
 
-export default ManagersProfile
+export default ManagersProfile;
