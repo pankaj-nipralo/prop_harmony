@@ -19,6 +19,7 @@ import {
   CreditCard,
   BarChart3,
   Settings,
+  SquareChartGantt,
   FileUser,
 } from "lucide-react";
 import { TopBar } from "@/components/layout/Topbar";
@@ -38,6 +39,11 @@ const navItems = [
     label: "Property Managers",
     path: "/landlord/property-manager",
     icon: Briefcase,
+  },
+  {
+    label: "Contractors",
+    path: "/landlord/contractors",
+    icon: SquareChartGantt,
   },
   {
     label: "Issue Warning",

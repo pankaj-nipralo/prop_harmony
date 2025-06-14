@@ -7,12 +7,12 @@ const ManagerHeader = ({ onAddManager }) => {
       <div className="flex items-center gap-2">
         <Users className="w-6 h-6 text-gray-700" />
         <h1 className="text-2xl font-semibold text-gray-900">
-          Property Managers
+          My Property Managers
         </h1>
       </div>
       <button
         onClick={onAddManager}
-        className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
+        className="px-4 py-2 font-medium text-white transition-colors duration-200 bg-blue-600 rounded-lg hover:bg-blue-700"
       >
         Add Property Manager
       </button>

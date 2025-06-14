@@ -24,9 +24,10 @@ import Dashboard from "./pages/landlord/Dashboard";
 import Properties from "./pages/landlord/Properties";
 import PropertiesDetails from "./components/landlord/Properties/PropertiesDetails";
 import PropertyListings from "./pages/landlord/PropertyListings";
-import Bookkeeping from "./pages/landlord/Bookkeeping"; 
-import DocumentVaultMaster from "./components/landlord/DocumentVault/DocumentVaultMaster"; 
+import Bookkeeping from "./pages/landlord/Bookkeeping";
+import DocumentVaultMaster from "./components/landlord/DocumentVault/DocumentVaultMaster";
 import InvestmentCalculator from "./pages/landlord/InvestmentCalculator";
+import Contractors from "./pages/landlord/Contractors";
 import IssueWarning from "./pages/landlord/IssueWarning";
 import Maintenance from "./pages/landlord/Maintenance";
 import Messages from "./pages/landlord/Messages";
@@ -55,12 +56,12 @@ import TenantSettings from "./components/tenants/TenantsSettings/TenantSettings"
 
 // Property Manager Pages
 import ManagerDashbord from "./pages/propertyManager/ManagerDashboard";
-import ManagerProperties from "./pages/propertyManager/Properties"; 
+import ManagerProperties from "./pages/propertyManager/Properties";
 import ManagerPropertyInspection from "./pages/propertyManager/PropertyInspection";
 import ManagerWorkOrders from "./pages/propertyManager/WorkOrders";
 import ManagerRentCollection from "./pages/propertyManager/RentCollection";
 import ManagerLeaseManagement from "./pages/propertyManager/LeaseManagement";
-import ManagerMessages from "./pages/propertyManager/Messages"; 
+import ManagerMessages from "./pages/propertyManager/Messages";
 import ManagerSettings from "./pages/propertyManager/Settings";
 import ManagerContractors from "./pages/propertyManager/ManagerContractors";
 
@@ -96,6 +97,7 @@ function App() {
             element={<InvestmentCalculator />}
           />
           <Route path="issue-warning" element={<IssueWarning />} />
+          <Route path="contractors" element={<Contractors />} />
           <Route path="maintenance" element={<Maintenance />} />
           <Route path="messages" element={<Messages />} />
           <Route path="my-tenants" element={<MyTenants />} />
@@ -151,7 +153,7 @@ function App() {
           }
         >
           <Route path="dashboard" element={<ManagerDashbord />} />
-          <Route path="properties" element={<ManagerProperties />} /> 
+          <Route path="properties" element={<ManagerProperties />} />
           <Route
             path="property-inspection"
             element={<ManagerPropertyInspection />}
@@ -160,7 +162,7 @@ function App() {
           <Route path="rent-collection" element={<ManagerRentCollection />} />
           <Route path="contractors" element={<ManagerContractors />} />
           <Route path="lease-management" element={<ManagerLeaseManagement />} />
-          <Route path="emails" element={<ManagerMessages />} /> 
+          <Route path="emails" element={<ManagerMessages />} />
           <Route path="settings" element={<ManagerSettings />} />
 
           <Route path="*" element={<Navigate to="/manager/dashboard" />} />
