@@ -30,11 +30,11 @@ export const generateDashboardData = () => {
     
     // Maintenance requests
     maintenanceRequests: [
-      { property: "Sunset Apartments #203", issue: "AC Repair", tenant: "David Miller", status: "In Progress", priority: "High" },
-      { property: "Marina View Villa #3", issue: "Plumbing Leak", tenant: "Michael Chen", status: "Pending", priority: "Critical" },
-      { property: "Downtown Loft #5A", issue: "Electrical Issue", tenant: "Lisa Wang", status: "In Progress", priority: "Medium" },
-      { property: "Sunset Apartments #101", issue: "Appliance Repair", tenant: "Sarah Johnson", status: "Pending", priority: "Low" },
-      { property: "Palm Residence #7", issue: "Door Lock Replacement", tenant: "James Wilson", status: "In Progress", priority: "Medium" }
+      { landlord: "Pankaj Gupta", property: "Sunset Apartments #203", issue: "AC Repair", tenant: "David Miller", status: "In Progress", priority: "High" },
+      { landlord: "Uzair Sayyed", property: "Marina View Villa #3", issue: "Plumbing Leak", tenant: "Michael Chen", status: "Pending", priority: "Critical" },
+      { landlord: "Gaurav Kanchan", property: "Downtown Loft #5A", issue: "Electrical Issue", tenant: "Lisa Wang", status: "In Progress", priority: "Medium" },
+      { landlord: "Pankaj Gupta", property: "Sunset Apartments #101", issue: "Appliance Repair", tenant: "Sarah Johnson", status: "Pending", priority: "Low" },
+      { landlord: "Pankaj Gupta", property: "Palm Residence #7", issue: "Door Lock Replacement", tenant: "James Wilson", status: "In Progress", priority: "Medium" }
     ],
     
     // Recent activity

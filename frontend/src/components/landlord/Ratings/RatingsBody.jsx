@@ -21,6 +21,8 @@ import {
   ratingFilters,
   filterReviews,
   searchReviews,
+  convertRatingToGrade,
+  getGradeColor,
 } from "@/data/landlord/ratings/data";
 
 const RatingsBody = ({
@@ -219,8 +221,8 @@ const RatingsBody = ({
                     {/* Review Header */}
                     <div className="flex items-start justify-between">
                       <div className="flex items-start flex-1 gap-4">
-                        {/* Rating */}
-                        <div className="flex flex-col items-center gap-1">
+                        {/* Rating & Grade */}
+                        <div className="flex flex-col items-center gap-2">
                           <div
                             className={`text-2xl font-bold ${getRatingColor(
                               review.rating
@@ -228,11 +230,20 @@ const RatingsBody = ({
                           >
                             {review.rating}
                           </div>
+                          <div
+                            className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-white ${
+                              getGradeColor(
+                                convertRatingToGrade(review.rating).grade
+                              ).bg
+                            }`}
+                          >
+                            {convertRatingToGrade(review.rating).grade}
+                          </div>
                           <div className="flex items-center">
                             {[1, 2, 3, 4, 5].map((star) => (
                               <Star
                                 key={star}
-                                size={14}
+                                size={12}
                                 className={`${
                                   star <= Math.round(review.rating)
                                     ? "text-yellow-400"

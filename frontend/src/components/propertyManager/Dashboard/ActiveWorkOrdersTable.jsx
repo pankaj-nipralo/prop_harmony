@@ -18,16 +18,18 @@ const ActiveWorkOrdersTable = ({ data }) => {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Property</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Issue</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Tenant</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Status</th>
-                  <th className="px-4 py-3 text-left font-medium text-gray-500">Priority</th>
+                  <th className="px-4 py-3 font-medium text-left text-gray-500">Landlord</th>
+                  <th className="px-4 py-3 font-medium text-left text-gray-500">Property</th>
+                  <th className="px-4 py-3 font-medium text-left text-gray-500">Issue</th>
+                  <th className="px-4 py-3 font-medium text-left text-gray-500">Tenant</th>
+                  <th className="px-4 py-3 font-medium text-left text-gray-500">Status</th>
+                  <th className="px-4 py-3 font-medium text-left text-gray-500">Priority</th>
                 </tr>
               </thead>
               <tbody>
                 {data.maintenanceRequests.map((request, index) => (
                   <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="px-4 py-3 text-gray-700">{request.landlord}</td>
                     <td className="px-4 py-3 text-gray-700">{request.property}</td>
                     <td className="px-4 py-3 text-gray-700">{request.issue}</td>
                     <td className="px-4 py-3 text-gray-700">{request.tenant}</td>
@@ -61,7 +63,7 @@ const ActiveWorkOrdersTable = ({ data }) => {
             </table>
           </div>
         ) : (
-          <div className="py-8 text-center text-gray-400 text-base">
+          <div className="py-8 text-base text-center text-gray-400">
             No active work orders found
           </div>
         )}
