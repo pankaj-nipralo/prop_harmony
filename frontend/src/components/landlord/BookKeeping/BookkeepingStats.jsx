@@ -9,6 +9,7 @@ import {
   Calendar,
   Building
 } from "lucide-react";
+import DirhamSvg from '@/assets/Dirham';
 
 const BookkeepingStats = ({ transactions }) => {
   // Calculate statistics
@@ -80,7 +81,7 @@ const BookkeepingStats = ({ transactions }) => {
       label: "Net Profit", 
       value: `AED ${netProfit.toLocaleString()}`,
       subtitle: "Income - Expenses",
-      icon: DollarSign,
+      icon: () => <DirhamSvg size={20} color1={netProfit >= 0 ? "#16a34a" : "#dc2626"} />,
       color: netProfit >= 0 ? "text-green-600" : "text-red-600",
       bgColor: netProfit >= 0 ? "bg-green-50" : "bg-red-50",
       borderColor: netProfit >= 0 ? "border-green-200" : "border-red-200",

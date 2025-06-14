@@ -82,6 +82,7 @@ const DashboardMaster = () => {
           stats={stats}
           recentPayments={recentPayments}
           recentMaintenance={recentMaintenance}
+          propertyData={propertyData}
         />
       )}
 

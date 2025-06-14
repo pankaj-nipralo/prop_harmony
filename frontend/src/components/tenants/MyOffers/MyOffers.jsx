@@ -630,7 +630,7 @@ const MyOffers = () => {
                       }
                       className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
                     >
-                      <MessageSquare className="w-2 h-2" />
+                      <MessageSquare className="w-4 h-4" />
                       Message Tenant
                     </button>
                   ) : (

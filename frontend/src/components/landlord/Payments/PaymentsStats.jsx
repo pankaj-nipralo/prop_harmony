@@ -1,7 +1,6 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import {
-  DollarSign,
   TrendingUp,
   Clock,
   AlertTriangle,
@@ -11,6 +10,7 @@ import {
   Target,
 } from "lucide-react";
 import { formatCurrency } from "@/data/landlord/payments/data";
+import DirhamSvg from '@/assets/Dirham';
 
 const PaymentsStats = ({ stats = {}, isLoading }) => {
   // Provide default values for all stats properties to prevent undefined errors
@@ -33,7 +33,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
       title: "Total Collected",
       value: formatCurrency(safeStats.paidAmount ?? 0),
       subtitle: `${safeStats.paidCount ?? 0} payments`,
-      icon: DollarSign,
+      icon: () => <DirhamSvg size={20} color1="#16a34a" />,
       color: "green",
       bgColor: "bg-green-50",
       iconColor: "text-green-600",
@@ -150,7 +150,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
                 </div>
               </div>
               <div className={`p-3 rounded-lg ${stat.bgColor}`}>
-                <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
+                {typeof stat.icon === 'function' ? stat.icon() : null}
               </div>
             </div>
           </Card>

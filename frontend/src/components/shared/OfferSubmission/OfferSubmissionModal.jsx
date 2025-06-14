@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
-  DollarSign,
   Home,
   MapPin,
   User,
@@ -12,13 +11,9 @@ import {
   AlertCircle,
   CheckCircle,
 } from "lucide-react";
+import DirhamSvg from "@/assets/Dirham";
 
-const OfferSubmissionModal = ({ 
-  isOpen, 
-  onClose, 
-  property, 
-  onSubmitOffer 
-}) => {
+const OfferSubmissionModal = ({ isOpen, onClose, property, onSubmitOffer }) => {
   const [offerData, setOfferData] = useState({
     amount: property?.price || "",
     message: "",
@@ -41,9 +36,9 @@ const OfferSubmissionModal = ({
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleInputChange = (field, value) => {
-    if (field.includes('.')) {
-      const [parent, child] = field.split('.');
-      setOfferData(prev => ({
+    if (field.includes(".")) {
+      const [parent, child] = field.split(".");
+      setOfferData((prev) => ({
         ...prev,
         [parent]: {
           ...prev[parent],
@@ -51,7 +46,7 @@ const OfferSubmissionModal = ({
         },
       }));
     } else {
-      setOfferData(prev => ({
+      setOfferData((prev) => ({
         ...prev,
         [field]: value,
       }));
@@ -64,8 +59,8 @@ const OfferSubmissionModal = ({
 
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       // Create offer object
       const offer = {
         id: Date.now(),
@@ -81,8 +76,8 @@ const OfferSubmissionModal = ({
         myLastOffer: parseFloat(offerData.amount),
         landlordLastOffer: null,
         status: "pending",
-        submittedDate: new Date().toISOString().split('T')[0],
-        lastActivity: new Date().toISOString().split('T')[0],
+        submittedDate: new Date().toISOString().split("T")[0],
+        lastActivity: new Date().toISOString().split("T")[0],
         negotiationHistory: [
           {
             id: 1,
@@ -99,14 +94,15 @@ const OfferSubmissionModal = ({
       };
 
       onSubmitOffer(offer);
-      
+
       // Show success notification
       const notification = document.createElement("div");
-      notification.className = "fixed z-50 px-6 py-3 text-white bg-green-500 rounded-lg shadow-lg top-4 right-4";
+      notification.className =
+        "fixed z-50 px-6 py-3 text-white bg-green-500 rounded-lg shadow-lg top-4 right-4";
       notification.textContent = "Rental application submitted successfully!";
       document.body.appendChild(notification);
       setTimeout(() => notification.remove(), 4000);
-      
+
       onClose();
     } catch (error) {
       console.error("Error submitting offer:", error);
@@ -132,29 +128,31 @@ const OfferSubmissionModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-2xl bg-white border-0 rounded-lg shadow-xl max-h-screen overflow-y-auto">
+      <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
         <div className="p-6">
           <h2 className="mb-4 text-2xl font-semibold text-gray-800">
             Submit Rental Application
           </h2>
 
           {/* Property Summary */}
-          <div className="p-4 mb-6 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="p-4 mb-6 border border-blue-200 rounded-lg bg-blue-50">
             <div className="flex gap-4">
               <img
                 src={property.image}
                 alt={property.title}
-                className="w-20 h-20 object-cover rounded-lg"
+                className="object-cover w-20 h-20 rounded-lg"
               />
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900">{property.title}</h3>
-                <div className="flex items-center gap-2 text-sm text-gray-600 mb-1">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {property.title}
+                </h3>
+                <div className="flex items-center gap-2 mb-1 text-sm text-gray-600">
                   <MapPin className="w-4 h-4" />
                   {property.address}
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <DollarSign className="w-4 h-4" />
-                  Listed at ${property.price.toLocaleString()}/month
+                  <DirhamSvg size={15} color1="" />
+                  Listed at {property.price.toLocaleString()}/month
                 </div>
               </div>
             </div>
@@ -190,20 +188,29 @@ const OfferSubmissionModal = ({
             {/* Step 1: Offer Details */}
             {currentStep === 1 && (
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Offer Details</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                  Offer Details
+                </h3>
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Your Offer ($/month)
+                      <span className="flex items-center gap-1">
+                        Your Offer (<DirhamSvg size={15} color1="" />
+                        /month)
+                      </span>
                     </label>
                     <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <span className="absolute flex items-center -translate-y-1/2 left-3 top-1/2">
+                        <DirhamSvg size={15} color1="" />
+                      </span>
                       <input
                         type="number"
                         value={offerData.amount}
-                        onChange={(e) => handleInputChange('amount', e.target.value)}
-                        className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        onChange={(e) =>
+                          handleInputChange("amount", e.target.value)
+                        }
+                        className="w-full py-2 pl-10 pr-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your offer"
                         min="0"
                         step="50"
@@ -219,7 +226,9 @@ const OfferSubmissionModal = ({
                     <input
                       type="date"
                       value={offerData.moveInDate}
-                      onChange={(e) => handleInputChange('moveInDate', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("moveInDate", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
                     />
@@ -231,7 +240,9 @@ const OfferSubmissionModal = ({
                     </label>
                     <select
                       value={offerData.leaseTerm}
-                      onChange={(e) => handleInputChange('leaseTerm', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("leaseTerm", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="6">6 months</option>
@@ -248,7 +259,9 @@ const OfferSubmissionModal = ({
                   </label>
                   <textarea
                     value={offerData.message}
-                    onChange={(e) => handleInputChange('message', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("message", e.target.value)
+                    }
                     rows={4}
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Introduce yourself and explain why you're interested in this property..."
@@ -260,9 +273,11 @@ const OfferSubmissionModal = ({
             {/* Step 2: Personal Information */}
             {currentStep === 2 && (
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                  Personal Information
+                </h3>
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
                       First Name
@@ -270,7 +285,12 @@ const OfferSubmissionModal = ({
                     <input
                       type="text"
                       value={offerData.tenantInfo.firstName}
-                      onChange={(e) => handleInputChange('tenantInfo.firstName', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "tenantInfo.firstName",
+                          e.target.value
+                        )
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
                     />
@@ -283,7 +303,9 @@ const OfferSubmissionModal = ({
                     <input
                       type="text"
                       value={offerData.tenantInfo.lastName}
-                      onChange={(e) => handleInputChange('tenantInfo.lastName', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("tenantInfo.lastName", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
                     />
@@ -296,7 +318,9 @@ const OfferSubmissionModal = ({
                     <input
                       type="email"
                       value={offerData.tenantInfo.email}
-                      onChange={(e) => handleInputChange('tenantInfo.email', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("tenantInfo.email", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
                     />
@@ -309,7 +333,9 @@ const OfferSubmissionModal = ({
                     <input
                       type="tel"
                       value={offerData.tenantInfo.phone}
-                      onChange={(e) => handleInputChange('tenantInfo.phone', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("tenantInfo.phone", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
                     />
@@ -321,20 +347,29 @@ const OfferSubmissionModal = ({
             {/* Step 3: Financial Information */}
             {currentStep === 3 && (
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Financial Information</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                  Financial Information
+                </h3>
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
                       Monthly Income
                     </label>
                     <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <span className="absolute flex items-center -translate-y-1/2 left-3 top-1/2">
+                        <DirhamSvg size={15} color1="" />
+                      </span>
                       <input
                         type="number"
                         value={offerData.tenantInfo.monthlyIncome}
-                        onChange={(e) => handleInputChange('tenantInfo.monthlyIncome', e.target.value)}
-                        className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        onChange={(e) =>
+                          handleInputChange(
+                            "tenantInfo.monthlyIncome",
+                            e.target.value
+                          )
+                        }
+                        className="w-full py-2 pl-10 pr-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter monthly income"
                         required
                       />
@@ -347,7 +382,12 @@ const OfferSubmissionModal = ({
                     </label>
                     <select
                       value={offerData.tenantInfo.employmentStatus}
-                      onChange={(e) => handleInputChange('tenantInfo.employmentStatus', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "tenantInfo.employmentStatus",
+                          e.target.value
+                        )
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="full-time">Full-time</option>
@@ -365,7 +405,12 @@ const OfferSubmissionModal = ({
                     <input
                       type="number"
                       value={offerData.tenantInfo.creditScore}
-                      onChange={(e) => handleInputChange('tenantInfo.creditScore', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "tenantInfo.creditScore",
+                          e.target.value
+                        )
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       placeholder="Enter credit score"
                       min="300"
@@ -380,7 +425,12 @@ const OfferSubmissionModal = ({
                     <input
                       type="number"
                       value={offerData.tenantInfo.previousRentals}
-                      onChange={(e) => handleInputChange('tenantInfo.previousRentals', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "tenantInfo.previousRentals",
+                          e.target.value
+                        )
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       placeholder="Number of previous rentals"
                       min="0"
@@ -395,7 +445,9 @@ const OfferSubmissionModal = ({
                   <input
                     type="number"
                     value={offerData.tenantInfo.references}
-                    onChange={(e) => handleInputChange('tenantInfo.references', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("tenantInfo.references", e.target.value)
+                    }
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Number of references you can provide"
                     min="0"
@@ -426,7 +478,7 @@ const OfferSubmissionModal = ({
                 >
                   Cancel
                 </button>
-                
+
                 {currentStep < 3 ? (
                   <button
                     type="button"

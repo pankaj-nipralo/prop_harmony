@@ -2,7 +2,7 @@
 export const propertyData = {
   name: "Oakwood Apartments",
   address: "123 Main Street, Apt 4B, San Francisco, CA 94107",
-  monthlyRent: "AED 1,450",
+  monthlyRent: "1,450",
   leaseStart: "June 15, 2024",
   leaseEnd: "June 14, 2025",
   propertyManager: {

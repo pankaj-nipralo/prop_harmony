@@ -10,6 +10,7 @@ import {
   Mail,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import DirhamSvg from "@/assets/Dirham";
 
 const PropertiesTab = ({ propertyData }) => {
   const navigate = useNavigate();
@@ -59,11 +60,12 @@ const PropertiesTab = ({ propertyData }) => {
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <div className="flex items-center mb-2 text-green-600">
-                    <DollarSign className="w-4 h-4 mr-1" />
+                  <div className="flex items-center gap-1 mb-2 text-green-600">
+                    {/* <DirhamSvg size={15} color1="" /> */}
                     <span className="text-sm font-medium">Monthly Rent</span>
                   </div>
-                  <div className="text-lg font-semibold text-gray-900">
+                  <div className="flex items-center gap-1 text-lg font-semibold text-gray-900">
+                    <DirhamSvg size={15} color1="" />
                     {propertyData.monthlyRent}
                   </div>
                 </div>

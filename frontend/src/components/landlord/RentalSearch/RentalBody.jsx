@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import OfferSubmissionModal from "../../shared/OfferSubmission/OfferSubmissionModal";
 import { Star, Heart, MapPin, Bed, Bath, Ruler, User } from "lucide-react";
+import DirhamSvg from "@/assets/Dirham";
 
 const rentalData = [
   {
@@ -240,8 +241,9 @@ const RentalBody = () => {
                 <MapPin className="w-4 h-4 mr-1 text-gray-400" />
                 {rental.location}
               </div>
-              <div className="mb-3 text-xl font-bold text-blue-500">
-                AED {rental.price.toLocaleString()}/month
+              <div className="flex items-center gap-1 mb-3 text-xl font-bold text-blue-500">
+                <DirhamSvg size={17} color1="" />{" "}
+                {rental.price.toLocaleString()}/month
               </div>
               <div className="grid grid-cols-2 gap-2 p-3 mb-3 rounded-lg bg-gray-50">
                 <div className="flex items-center text-sm text-gray-600">
@@ -276,7 +278,9 @@ const RentalBody = () => {
                     href={`tel:${rental.landlordPhone}`}
                     className="items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-blue-500 transition-colors border border-blue-500 rounded-lg hover:bg-blue-50"
                   >
-                    <button className="flex text-center justify-self-center">Contact</button>
+                    <button className="flex text-center justify-self-center">
+                      Contact
+                    </button>
                   </a>
                 </div>
                 {rental.status === "Available" && (
@@ -322,8 +326,9 @@ const RentalBody = () => {
                   <MapPin className="w-4 h-4 mr-1 text-gray-400" />
                   {selected.location}
                 </div>
-                <div className="mb-4 text-2xl font-bold text-blue-500">
-                  AED {selected.price.toLocaleString()}/month
+                <div className="flex items-center gap-1 mb-4 text-2xl font-bold text-blue-500">
+                  <DirhamSvg size={20} color1="" />{" "}
+                  {selected.price.toLocaleString()}/month
                 </div>
                 <div className="flex items-center gap-4 mb-6 text-sm text-gray-600">
                   <div className="flex items-center">

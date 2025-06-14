@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { TrendingUp, DollarSign, Calculator, Target } from "lucide-react";
+import DirhamSvg from '@/assets/Dirham';
 import { calculateInvestmentMetrics } from "@/data/landlord/investment/data";
 
 const InvestmentStats = ({ calculations }) => {
@@ -87,7 +88,7 @@ const InvestmentStats = ({ calculations }) => {
             </p>
           </div>
           <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg">
-            <DollarSign className="w-6 h-6 text-blue-600" />
+            <DirhamSvg size={24} color1="#2563eb" />
           </div>
         </div>
       </Card>

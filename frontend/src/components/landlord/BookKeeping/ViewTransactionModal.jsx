@@ -5,7 +5,6 @@ import {
   X, 
   Calendar, 
   Building, 
-  DollarSign, 
   User, 
   Receipt, 
   CreditCard,
@@ -13,6 +12,7 @@ import {
   Tag,
   Clock
 } from "lucide-react";
+import DirhamSvg from '@/assets/Dirham';
 
 const ViewTransactionModal = ({ open, onClose, transaction }) => {
   if (!transaction) return null;
@@ -52,7 +52,7 @@ const ViewTransactionModal = ({ open, onClose, transaction }) => {
             <Card className="p-4 border-0 bg-gray-50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <DollarSign className="w-6 h-6 text-blue-600" />
+                  <DirhamSvg size={24} color1="#2563eb" />
                   <div>
                     <p className="text-sm text-gray-600">Amount</p>
                     <p className={`text-2xl font-bold ${

@@ -9,6 +9,11 @@ import {
   Percent,
   Calendar,
   TrendingUp,
+  CheckCircle,
+  XCircle,
+  BarChart3,
+  PieChart,
+  ArrowUpDown,
 } from "lucide-react";
 import {
   defaultCalculation,
@@ -17,6 +22,7 @@ import {
   generateAmortizationSchedule,
 } from "@/data/landlord/investment/data";
 import InvestmentCharts from "./InvestmentCharts";
+import DirhamSvg from '@/assets/Dirham';
 
 const InvestmentCalculatorModal = ({
   open,
@@ -554,7 +560,7 @@ const InvestmentCalculatorModal = ({
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card className="p-4 border-0 shadow-sm">
                   <div className="text-center">
-                    <DollarSign className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+                    <DirhamSvg size={32} color1="#2563eb" className="mx-auto mb-2" />
                     <p className="text-sm text-gray-600">Monthly Cash Flow</p>
                     <p
                       className={`text-xl font-bold ${

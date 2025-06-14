@@ -175,28 +175,37 @@ const InspectionReportModal = ({ open, onClose, inspection, onSaveReport }) => {
       return;
     }
 
-    // Process each file and update state immediately for each one
-    validFiles.forEach((file, index) => {
+    // Process each file and update state once with all new photos
+    const newPhotos = [];
+
+    validFiles.forEach((file) => {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const newPhoto = {
-          id: `${Date.now()}_${roomIndex}_${index}_${Math.random()}`, // Unique ID with room isolation
+        newPhotos.push({
+          id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
           file: file,
           url: e.target.result,
           name: file.name,
           size: file.size,
           type: file.type,
-        };
+        });
 
-        // Update state immediately for each photo - ensures immediate preview
-        setReportData((prev) => ({
-          ...prev,
-          roomAssessments: prev.roomAssessments.map((room, i) =>
-            i === roomIndex
-              ? { ...room, photos: [...(room.photos || []), newPhoto] }
-              : room
-          ),
-        }));
+        // When all files are processed, update state once
+        if (newPhotos.length === validFiles.length) {
+          setReportData((prev) => ({
+            ...prev,
+            roomAssessments: prev.roomAssessments.map((room, i) =>
+              i === roomIndex
+                ? { ...room, photos: [...(room.photos || []), ...newPhotos] }
+                : room
+            ),
+          }));
+
+          // Clear the file input
+          if (fileInputRefs.current[roomIndex]) {
+            fileInputRefs.current[roomIndex].value = "";
+          }
+        }
       };
 
       reader.onerror = () => {
@@ -205,11 +214,6 @@ const InspectionReportModal = ({ open, onClose, inspection, onSaveReport }) => {
 
       reader.readAsDataURL(file);
     });
-
-    // Clear the file input to allow re-uploading the same file
-    if (fileInputRefs.current[roomIndex]) {
-      fileInputRefs.current[roomIndex].value = "";
-    }
   };
 
   const removePhoto = (roomIndex, photoId) => {
@@ -596,6 +600,11 @@ const InspectionReportModal = ({ open, onClose, inspection, onSaveReport }) => {
                                       src={photo.url}
                                       alt={photo.name}
                                       className="object-cover w-full h-full"
+                                      onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src =
+                                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f3f4f6'/%3E%3Ctext x='50%' y='50%' font-family='sans-serif' font-size='12' text-anchor='middle' fill='%239ca3af'%3EImage not available%3C/text%3E%3C/svg%3E";
+                                      }}
                                     />
                                     <div className="absolute inset-0 flex items-center justify-center transition-opacity bg-black bg-opacity-0 group-hover:bg-opacity-30">
                                       <button

@@ -29,6 +29,7 @@ import {
   paymentMethods,
   paymentStatuses,
 } from "@/data/landlord/payments/data";
+import DirhamSvg from '@/assets/Dirham';
 
 const PaymentsBody = ({
   payments,
@@ -89,7 +90,7 @@ const PaymentsBody = ({
       case "overdue":
         return <AlertTriangle className="w-4 h-4 text-red-600" />;
       case "partial":
-        return <DollarSign className="w-4 h-4 text-orange-600" />;
+        return <DirhamSvg size={16} color1="#ea580c" />;
       default:
         return <Clock className="w-4 h-4 text-gray-600" />;
     }

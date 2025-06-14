@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import {
   TrendingUp,
-  DollarSign,
   Percent,
   Calendar,
   CheckCircle,
@@ -11,6 +10,7 @@ import {
   PieChart,
   ArrowUpDown,
 } from "lucide-react";
+import DirhamSvg from '@/assets/Dirham';
 import {
   BarChart,
   Bar,

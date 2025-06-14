@@ -16,6 +16,7 @@ import {
 import { calculateInvestmentMetrics } from "@/data/landlord/investment/data";
 import InvestmentCalculatorModal from "./InvestmentCalculatorModal";
 import InvestmentComparison from "./InvestmentComparison";
+import DirhamSvg from '@/assets/Dirham';
 
 const InvestmentBody = ({
   calculations,
@@ -296,7 +297,7 @@ const InvestmentBody = ({
                         {/* Key Metrics */}
                         <div className="grid grid-cols-2 gap-4">
                           <div className="p-3 text-center rounded-lg bg-gray-50">
-                            <DollarSign className="w-5 h-5 mx-auto mb-1 text-blue-600" />
+                            <DirhamSvg size={20} color1="#2563eb" className="mx-auto mb-1" />
                             <p className="text-xs text-gray-600">
                               Monthly Cash Flow
                             </p>
