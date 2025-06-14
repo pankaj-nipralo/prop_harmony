@@ -15,9 +15,9 @@ export const generateDashboardData = () => {
     // Lease information
     upcomingRenewals: 3,
     leaseExpirations: [
-      { tenant: "Sarah Johnson", property: "Sunset Apartments #101", landlord: "Ahmed Al Mansouri", expiryDate: "2024-07-15", status: "Pending Renewal" },
-      { tenant: "Michael Chen", property: "Marina View Villa #3", landlord: "Fatima Al Zaabi", expiryDate: "2024-07-22", status: "Not Renewing" },
-      { tenant: "Emma Wilson", property: "Downtown Loft #7B", landlord: "Ahmed Al Mansouri", expiryDate: "2024-08-05", status: "Renewal Confirmed" }
+      { tenant: "Sarah Johnson", property: "Sunset Apartments #101", landlord: "Pankaj Gupta", expiryDate: "2024-07-15", status: "Pending Renewal" },
+      { tenant: "Michael Chen", property: "Marina View Villa #3", landlord: "Gaurav Kanchan", expiryDate: "2024-07-22", status: "Not Renewing" },
+      { tenant: "Emma Wilson", property: "Downtown Loft #7B", landlord: "Uzair Sayyed", expiryDate: "2024-08-05", status: "Renewal Confirmed" }
     ],
     
     // Rent collection data

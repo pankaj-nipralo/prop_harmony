@@ -6,11 +6,86 @@ import OccupancyRateChart from "./OccupancyRateChart";
 import ActiveWorkOrdersTable from "./ActiveWorkOrdersTable";
 import LeaseExpirationsTable from "./LeaseExpirationsTable";
 import { generateDashboardData } from "@/data/propertyManager/dashboard/data";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const DashboardMaster = () => { 
+const DashboardMaster = () => {
   const [dashboardData, setDashboardData] = useState(generateDashboardData());
+  const [selectedLandlord, setSelectedLandlord] = useState("all");
+  const [filteredData, setFilteredData] = useState(dashboardData);
 
-  // Simulate data loading 
+  // Get unique landlords from the data
+  const landlords = ["all", ...new Set(dashboardData.maintenanceRequests.map(req => req.landlord))];
+
+  // Filter data when landlord selection changes
+  useEffect(() => {
+    if (selectedLandlord === "all") {
+      setFilteredData(dashboardData);
+    } else {
+      // Filter maintenance requests
+      const filteredMaintenanceRequests = dashboardData.maintenanceRequests.filter(
+        req => req.landlord === selectedLandlord
+      );
+
+      // Filter lease expirations
+      const filteredLeaseExpirations = dashboardData.leaseExpirations.filter(
+        lease => lease.landlord === selectedLandlord
+      );
+
+      // Filter recent activity
+      const filteredRecentActivity = dashboardData.recentActivity.filter(activity => 
+        activity.message.toLowerCase().includes(selectedLandlord.toLowerCase())
+      );
+
+      // Filter notifications
+      const filteredNotifications = dashboardData.notifications.filter(notification => 
+        notification.message.toLowerCase().includes(selectedLandlord.toLowerCase())
+      );
+
+      // Calculate filtered rent collection data
+      const filteredRentCollection = {
+        months: dashboardData.rentCollection.months,
+        collected: dashboardData.rentCollection.collected.map((amount, index) => {
+          // For demo purposes, we'll reduce the amount by a random factor between 0.3 and 0.7
+          // In a real app, this would be actual filtered data
+          return Math.round(amount * (0.3 + Math.random() * 0.4));
+        }),
+        pending: dashboardData.rentCollection.pending.map((amount, index) => {
+          return Math.round(amount * (0.3 + Math.random() * 0.4));
+        }),
+        overdue: dashboardData.rentCollection.overdue.map((amount, index) => {
+          return Math.round(amount * (0.3 + Math.random() * 0.4));
+        })
+      };
+
+      // Calculate filtered occupancy rate (as a number)
+      const filteredOccupancyRate = Math.round(dashboardData.occupancyRate * (0.7 + Math.random() * 0.3));
+
+      // Calculate filtered stats
+      const filteredStats = {
+        totalProperties: Math.round(dashboardData.totalProperties * (0.3 + Math.random() * 0.4)),
+        occupiedUnits: Math.round(dashboardData.occupiedUnits * (0.3 + Math.random() * 0.4)),
+        occupancyRate: filteredOccupancyRate,
+        activeWorkOrders: filteredMaintenanceRequests.length,
+        inProgressOrders: filteredMaintenanceRequests.filter(req => req.status === "In Progress").length,
+        pendingOrders: filteredMaintenanceRequests.filter(req => req.status === "Pending").length,
+        completedOrders: Math.round(dashboardData.completedOrders * (0.3 + Math.random() * 0.4)),
+        upcomingRenewals: filteredLeaseExpirations.length
+      };
+
+      const filtered = {
+        ...dashboardData,
+        ...filteredStats,
+        maintenanceRequests: filteredMaintenanceRequests,
+        leaseExpirations: filteredLeaseExpirations,
+        recentActivity: filteredRecentActivity,
+        notifications: filteredNotifications,
+        rentCollection: filteredRentCollection,
+        occupancyRate: filteredOccupancyRate
+      };
+
+      setFilteredData(filtered);
+    }
+  }, [selectedLandlord, dashboardData]);
 
   return (
     <div className="min-h-screen">
@@ -18,23 +93,47 @@ const DashboardMaster = () => {
         {/* Header */}
         <DashboardHeader />
 
+        {/* Landlord Filter */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-4 bg-gray-100 rounded-lg mb-6 shadow-sm">
+          <label className="text-sm font-medium text-gray-700 whitespace-nowrap">
+            Filter by Landlord:
+          </label>
+
+          <Select value={selectedLandlord} onValueChange={setSelectedLandlord}>
+            <SelectTrigger className="w-full sm:w-[220px] bg-white border border-gray-300 text-sm rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <SelectValue placeholder="Select landlord" />
+            </SelectTrigger>
+            <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-lg">
+              {landlords.map((landlord) => (
+                <SelectItem
+                  key={landlord}
+                  value={landlord}
+                  className="text-sm px-3 py-2 hover:bg-blue-50 cursor-pointer rounded-md"
+                >
+                  {landlord === "all" ? "All Landlords" : landlord}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Stats Cards */}
-        <DashboardStats data={dashboardData} />
+        <DashboardStats data={filteredData} />
 
         {/* Charts Row - Side by Side */}
         <div className="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-2">
-          <RentCollectionChart data={dashboardData} />
-          <OccupancyRateChart data={dashboardData} />
+          <RentCollectionChart data={filteredData} />
+          <OccupancyRateChart data={filteredData} />
         </div>
 
         {/* Active Work Orders Table */}
         <div className="mb-8">
-          <ActiveWorkOrdersTable data={dashboardData} />
+          <ActiveWorkOrdersTable data={filteredData} />
         </div>
 
         {/* Upcoming Lease Expirations Table */}
         <div>
-          <LeaseExpirationsTable data={dashboardData} />
+          <LeaseExpirationsTable data={filteredData} />
         </div>
       </div>
     </div>

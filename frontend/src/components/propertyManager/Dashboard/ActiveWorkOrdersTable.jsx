@@ -1,8 +1,12 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Wrench } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ActiveWorkOrdersTable = ({ data }) => {
+  const { user } = useAuth();
+  const isPropertyManager = user?.role === "property_manager";
+
   return (
     <Card className="bg-white border-0 shadow-md">
       <CardHeader className="pb-2">
@@ -18,7 +22,9 @@ const ActiveWorkOrdersTable = ({ data }) => {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="px-4 py-3 font-medium text-left text-gray-500">Landlord</th>
+                  {isPropertyManager && (
+                    <th className="px-4 py-3 font-medium text-left text-gray-500">Landlord</th>
+                  )}
                   <th className="px-4 py-3 font-medium text-left text-gray-500">Property</th>
                   <th className="px-4 py-3 font-medium text-left text-gray-500">Issue</th>
                   <th className="px-4 py-3 font-medium text-left text-gray-500">Tenant</th>
@@ -29,7 +35,9 @@ const ActiveWorkOrdersTable = ({ data }) => {
               <tbody>
                 {data.maintenanceRequests.map((request, index) => (
                   <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="px-4 py-3 text-gray-700">{request.landlord}</td>
+                    {isPropertyManager && (
+                      <td className="px-4 py-3 text-gray-700">{request.landlord}</td>
+                    )}
                     <td className="px-4 py-3 text-gray-700">{request.property}</td>
                     <td className="px-4 py-3 text-gray-700">{request.issue}</td>
                     <td className="px-4 py-3 text-gray-700">{request.tenant}</td>
