@@ -15,6 +15,7 @@ import {
   Filter,
   Calendar,
   DollarSign,
+  Star,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -22,6 +23,7 @@ import {
   maintenanceCategories,
   maintenanceStatuses,
   priorityLevels,
+  techniciansList,
 } from "@/data/landlord/maintenance/data";
 import ViewMaintenanceModal from "./ViewMaintenanceModal";
 import EditMaintenanceModal from "./EditMaintenanceModal";
@@ -43,6 +45,21 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
   const [deleteModal, setDeleteModal] = useState({
     open: false,
     maintenance: null,
+  });
+  const [assignModal, setAssignModal] = useState({
+    open: false,
+    maintenance: null,
+    selectedTechnician: null,
+    remarks: "",
+  });
+  const [confirmModal, setConfirmModal] = useState({
+    open: false,
+    maintenance: null,
+  });
+  const [resolveModal, setResolveModal] = useState({
+    open: false,
+    maintenance: null,
+    closingRemarks: "",
   });
   const { user } = useAuth();
   const isPropertyManager = user?.role === "property_manager";
@@ -164,6 +181,95 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
         ),
       }))
     );
+  };
+
+  const handleAssign = (request) => {
+    setAssignModal({
+      open: true,
+      maintenance: request,
+      selectedTechnician: null,
+      remarks: "",
+    });
+  };
+
+  const handleConfirm = (request) => {
+    setConfirmModal({
+      open: true,
+      maintenance: request,
+    });
+  };
+
+  const handleResolve = (request) => {
+    setResolveModal({
+      open: true,
+      maintenance: request,
+      closingRemarks: "",
+    });
+  };
+
+  const handleAssignSubmit = () => {
+    const { maintenance, selectedTechnician, remarks } = assignModal;
+    if (!selectedTechnician) return;
+
+    setMaintenance((prev) =>
+      prev.map((group) => ({
+        ...group,
+        maintenanceList: group.maintenanceList.map((request) =>
+          request.id === maintenance.id
+            ? {
+                ...request,
+                status: "In Progress",
+                assignedTechnician: selectedTechnician.name,
+                technicianPhone: selectedTechnician.phone,
+                technicianEmail: selectedTechnician.email,
+                remarks,
+                lastUpdated: new Date().toISOString().split("T")[0],
+              }
+            : request
+        ),
+      }))
+    );
+    setAssignModal({ open: false, maintenance: null, selectedTechnician: null, remarks: "" });
+  };
+
+  const handleConfirmSubmit = () => {
+    const { maintenance } = confirmModal;
+    setMaintenance((prev) =>
+      prev.map((group) => ({
+        ...group,
+        maintenanceList: group.maintenanceList.map((request) =>
+          request.id === maintenance.id
+            ? {
+                ...request,
+                status: "In Progress",
+                lastUpdated: new Date().toISOString().split("T")[0],
+              }
+            : request
+        ),
+      }))
+    );
+    setConfirmModal({ open: false, maintenance: null });
+  };
+
+  const handleResolveSubmit = () => {
+    const { maintenance, closingRemarks } = resolveModal;
+    setMaintenance((prev) =>
+      prev.map((group) => ({
+        ...group,
+        maintenanceList: group.maintenanceList.map((request) =>
+          request.id === maintenance.id
+            ? {
+                ...request,
+                status: "Completed",
+                closingRemarks,
+                completedDate: new Date().toISOString().split("T")[0],
+                lastUpdated: new Date().toISOString().split("T")[0],
+              }
+            : request
+        ),
+      }))
+    );
+    setResolveModal({ open: false, maintenance: null, closingRemarks: "" });
   };
 
   return (
@@ -379,9 +485,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                         <div className="flex items-center gap-2">
                           {request.status === "Pending" && (
                             <button
-                              onClick={() =>
-                                handleStatusChange(request.id, "Open")
-                              }
+                              onClick={() => handleAssign(request)}
                               className="px-3 py-1 text-xs text-white transition-colors bg-orange-600 rounded hover:bg-orange-700"
                             >
                               Assign
@@ -389,22 +493,18 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                           )}
                           {request.status === "Open" && (
                             <button
-                              onClick={() =>
-                                handleStatusChange(request.id, "In Progress")
-                              }
+                              onClick={() => handleConfirm(request)}
                               className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded hover:bg-blue-700"
                             >
-                              Start Work
+                              Confirm
                             </button>
                           )}
                           {request.status === "In Progress" && (
                             <button
-                              onClick={() =>
-                                handleStatusChange(request.id, "Completed")
-                              }
+                              onClick={() => handleResolve(request)}
                               className="px-3 py-1 text-xs text-white transition-colors bg-green-600 rounded hover:bg-green-700"
                             >
-                              Complete
+                              Resolve
                             </button>
                           )}
                         </div>
@@ -455,6 +555,208 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
         maintenance={editModal.maintenance}
         onUpdateMaintenance={handleUpdateMaintenance}
       />
+
+      {/* Updated Assign Modal */}
+      <Dialog
+        open={assignModal.open}
+        onOpenChange={() => setAssignModal({ open: false, maintenance: null, selectedTechnician: null, remarks: "" })}
+      >
+        <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
+          <div className="p-6">
+            <h2 className="mb-4 text-xl font-semibold text-gray-800">
+              Assign Maintenance Request
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Select Technician
+                </label>
+                <div className="space-y-2 max-h-60 overflow-y-auto">
+                  {techniciansList
+                    .filter((tech) => 
+                      tech.specialization.includes(assignModal.maintenance?.category) &&
+                      tech.availability === "Available"
+                    )
+                    .map((technician) => (
+                      <div
+                        key={technician.id}
+                        onClick={() =>
+                          setAssignModal((prev) => ({
+                            ...prev,
+                            selectedTechnician: technician,
+                          }))
+                        }
+                        className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                          assignModal.selectedTechnician?.id === technician.id
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 hover:border-blue-300 hover:bg-blue-50/50"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h3 className="font-medium text-gray-900">
+                              {technician.name}
+                            </h3>
+                            <p className="text-sm text-gray-500">
+                              {technician.specialization.join(", ")}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="flex items-center">
+                              <Star className="w-4 h-4 text-yellow-400" />
+                              <span className="ml-1 text-sm font-medium">
+                                {technician.rating}
+                              </span>
+                            </div>
+                            <span className="text-sm text-gray-500">
+                              ({technician.completedJobs} jobs)
+                            </span>
+                          </div>
+                        </div>
+                        <div className="mt-2 text-sm text-gray-500">
+                          <p>{technician.email}</p>
+                          <p>{technician.phone}</p>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+                {techniciansList.filter(
+                  (tech) =>
+                    tech.specialization.includes(assignModal.maintenance?.category) &&
+                    tech.availability === "Available"
+                ).length === 0 && (
+                  <p className="mt-2 text-sm text-gray-500">
+                    No available technicians found for this category.
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Remarks
+                </label>
+                <textarea
+                  value={assignModal.remarks}
+                  onChange={(e) =>
+                    setAssignModal((prev) => ({
+                      ...prev,
+                      remarks: e.target.value,
+                    }))
+                  }
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  rows={3}
+                  placeholder="Add any additional remarks..."
+                />
+              </div>
+            </div>
+            <div className="flex justify-end mt-6 space-x-3">
+              <button
+                onClick={() =>
+                  setAssignModal({
+                    open: false,
+                    maintenance: null,
+                    selectedTechnician: null,
+                    remarks: "",
+                  })
+                }
+                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAssignSubmit}
+                disabled={!assignModal.selectedTechnician}
+                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Assign
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Confirm Modal */}
+      <Dialog
+        open={confirmModal.open}
+        onOpenChange={() => setConfirmModal({ open: false, maintenance: null })}
+      >
+        <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
+          <div className="p-6">
+            <h2 className="mb-4 text-xl font-semibold text-gray-800">
+              Confirm Action
+            </h2>
+            <p className="mb-6 text-gray-600">
+              Are you sure you want to confirm this action? This will mark the maintenance request as in progress.
+            </p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setConfirmModal({ open: false, maintenance: null })}
+                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmSubmit}
+                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Resolve Modal */}
+      <Dialog
+        open={resolveModal.open}
+        onOpenChange={() => setResolveModal({ open: false, maintenance: null, closingRemarks: "" })}
+      >
+        <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
+          <div className="p-6">
+            <h2 className="mb-4 text-xl font-semibold text-gray-800">
+              Resolve Maintenance Request
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Closing Remarks
+                </label>
+                <textarea
+                  value={resolveModal.closingRemarks}
+                  onChange={(e) =>
+                    setResolveModal((prev) => ({
+                      ...prev,
+                      closingRemarks: e.target.value,
+                    }))
+                  }
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  rows={3}
+                  placeholder="Add closing remarks..."
+                />
+              </div>
+            </div>
+            <div className="flex justify-end mt-6 space-x-3">
+              <button
+                onClick={() =>
+                  setResolveModal({
+                    open: false,
+                    maintenance: null,
+                    closingRemarks: "",
+                  })
+                }
+                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleResolveSubmit}
+                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-md hover:bg-green-700"
+              >
+                Mark as Resolved
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Delete Confirmation Dialog */}
       <Dialog
