@@ -41,34 +41,42 @@ const DashboardMaster = () => {
         notification.message.toLowerCase().includes(selectedLandlord.toLowerCase())
       );
 
-      // Calculate filtered rent collection data
+      // Calculate filtered rent collection data based on the selected landlord's properties
+      const landlordProperties = new Set(
+        filteredMaintenanceRequests.map(req => req.property)
+      );
+
+      // Calculate rent collection data for the selected landlord's properties
       const filteredRentCollection = {
         months: dashboardData.rentCollection.months,
         collected: dashboardData.rentCollection.collected.map((amount, index) => {
-          // For demo purposes, we'll reduce the amount by a random factor between 0.3 and 0.7
-          // In a real app, this would be actual filtered data
-          return Math.round(amount * (0.3 + Math.random() * 0.4));
+          // Calculate a proportional amount based on the number of properties
+          const propertyRatio = landlordProperties.size / dashboardData.totalProperties;
+          return Math.round(amount * propertyRatio);
         }),
         pending: dashboardData.rentCollection.pending.map((amount, index) => {
-          return Math.round(amount * (0.3 + Math.random() * 0.4));
+          const propertyRatio = landlordProperties.size / dashboardData.totalProperties;
+          return Math.round(amount * propertyRatio);
         }),
         overdue: dashboardData.rentCollection.overdue.map((amount, index) => {
-          return Math.round(amount * (0.3 + Math.random() * 0.4));
+          const propertyRatio = landlordProperties.size / dashboardData.totalProperties;
+          return Math.round(amount * propertyRatio);
         })
       };
 
-      // Calculate filtered occupancy rate (as a number)
-      const filteredOccupancyRate = Math.round(dashboardData.occupancyRate * (0.7 + Math.random() * 0.3));
+      // Calculate filtered occupancy rate based on the selected landlord's properties
+      const propertyRatio = landlordProperties.size / dashboardData.totalProperties;
+      const filteredOccupancyRate = Math.round(dashboardData.occupancyRate * propertyRatio);
 
       // Calculate filtered stats
       const filteredStats = {
-        totalProperties: Math.round(dashboardData.totalProperties * (0.3 + Math.random() * 0.4)),
-        occupiedUnits: Math.round(dashboardData.occupiedUnits * (0.3 + Math.random() * 0.4)),
+        totalProperties: landlordProperties.size,
+        occupiedUnits: Math.round(dashboardData.occupiedUnits * propertyRatio),
         occupancyRate: filteredOccupancyRate,
         activeWorkOrders: filteredMaintenanceRequests.length,
         inProgressOrders: filteredMaintenanceRequests.filter(req => req.status === "In Progress").length,
         pendingOrders: filteredMaintenanceRequests.filter(req => req.status === "Pending").length,
-        completedOrders: Math.round(dashboardData.completedOrders * (0.3 + Math.random() * 0.4)),
+        completedOrders: Math.round(dashboardData.completedOrders * propertyRatio),
         upcomingRenewals: filteredLeaseExpirations.length
       };
 

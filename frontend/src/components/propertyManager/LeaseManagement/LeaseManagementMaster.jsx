@@ -13,22 +13,22 @@ import {
 } from "lucide-react";
 import {
   Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
+  DialogContent, 
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+// import { useAuth } from "@/contexts/AuthContext";
 
 // Lease data for table
 const leaseData = [
   {
     id: 1,
+    landlord: "Pankaj Gupta",
     property: "Sunset Apartments",
     unit: "Unit 101",
     tenant: "John Smith",
-    landlord: "ABC Properties",
+
     startDate: "1/1/2023",
     endDate: "1/1/2024",
     daysUntilExpiry: -30,
@@ -37,10 +37,10 @@ const leaseData = [
   },
   {
     id: 2,
+    landlord: "Gaurav Kanchan",
     property: "Marina View",
     unit: "Unit 205",
     tenant: "Sarah Johnson",
-    landlord: "Ocean Properties",
     startDate: "6/1/2023",
     endDate: "6/1/2024",
     daysUntilExpiry: 15,
@@ -49,10 +49,10 @@ const leaseData = [
   },
   {
     id: 3,
+    landlord: "Uzair Sayyed",
     property: "Central Plaza",
     unit: "Unit 304",
     tenant: "Mike Wilson",
-    landlord: "City Investments",
     startDate: "9/1/2023",
     endDate: "9/1/2024",
     daysUntilExpiry: 90,
@@ -81,6 +81,7 @@ const filterOptions = [
 
 const LeaseManagementMaster = () => {
   const [filter, setFilter] = useState("all");
+  const [landlordFilter, setLandlordFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [leases, setLeases] = useState(leaseData);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -95,6 +96,7 @@ const LeaseManagementMaster = () => {
     startDate: "",
     endDate: "",
   });
+  // const { user } = useAuth();
 
   // Handle form input changes
   const handleInputChange = (e) => {
@@ -175,15 +177,25 @@ const LeaseManagementMaster = () => {
     setSelectedLease(null);
   };
 
+  // Get unique landlords for filter options
+  const landlordOptions = [
+    { label: "All Landlords", value: "all" },
+    ...Array.from(new Set(leases.map(lease => lease.landlord))).map(landlord => ({
+      label: landlord,
+      value: landlord
+    }))
+  ];
+
   // Filtering logic
   const filteredLeases = leases.filter((row) => {
     const matchesFilter = filter === "all" || row.status === filter;
+    const matchesLandlord = landlordFilter === "all" || row.landlord === landlordFilter;
     const matchesSearch = Object.values(row).some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    return matchesFilter && matchesSearch;
+    return matchesFilter && matchesLandlord && matchesSearch;
   });
 
   return (
@@ -404,13 +416,25 @@ const LeaseManagementMaster = () => {
             />
           </div>
 
-          <div className="flex gap-3 bg-white">
+          <div className="flex gap-3">
             <select
               className="px-4 py-2.5 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             >
               {filterOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+
+            <select
+              className="px-4 py-2.5 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+              value={landlordFilter}
+              onChange={(e) => setLandlordFilter(e.target.value)}
+            >
+              {landlordOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
                   {opt.label}
                 </option>
@@ -436,6 +460,9 @@ const LeaseManagementMaster = () => {
               <thead className="bg-gray-50">
                 <tr className="text-gray-700">
                   <th className="px-4 py-3 font-semibold text-left">
+                    Landlord
+                  </th>
+                  <th className="px-4 py-3 font-semibold text-left">
                     Property
                   </th>
                   <th className="px-4 py-3 font-semibold text-left">Tenant</th>
@@ -457,6 +484,11 @@ const LeaseManagementMaster = () => {
                   >
                     <td className="px-4 py-4">
                       <div className="font-semibold text-gray-900">
+                        {row.landlord}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="font-semibold text-gray-900">
                         {row.property}
                       </div>
                       <div className="text-xs text-gray-500">{row.unit}</div>
@@ -472,13 +504,12 @@ const LeaseManagementMaster = () => {
                     <td className="px-4 py-4">
                       <div className="text-gray-700">{row.endDate}</div>
                       <div
-                        className={`text-xs font-medium ${
-                          row.daysUntilExpiry < 0
+                        className={`text-xs font-medium ${row.daysUntilExpiry < 0
                             ? "text-red-600"
                             : row.daysUntilExpiry <= 30
-                            ? "text-yellow-600"
-                            : "text-green-600"
-                        }`}
+                              ? "text-yellow-600"
+                              : "text-green-600"
+                          }`}
                       >
                         {row.daysUntilExpiry < 0
                           ? `Expired ${Math.abs(row.daysUntilExpiry)} days ago`
@@ -488,9 +519,8 @@ const LeaseManagementMaster = () => {
                     <td className="px-4 py-4">
                       <div className="flex flex-col gap-1">
                         <span
-                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium max-w-fit ${
-                            statusColors[row.status]
-                          }`}
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium max-w-fit ${statusColors[row.status]
+                            }`}
                         >
                           {row.status}
                         </span>
@@ -499,9 +529,8 @@ const LeaseManagementMaster = () => {
                     <td className="px-4 py-4">
                       <div className="flex flex-col gap-1">
                         <span
-                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium max-w-fit ${
-                            renewalColors[row.renewalStatus]
-                          }`}
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium max-w-fit ${renewalColors[row.renewalStatus]
+                            }`}
                         >
                           {row.renewalStatus}
                         </span>
@@ -521,6 +550,9 @@ const LeaseManagementMaster = () => {
                               View
                             </Button>
                           </DialogTrigger>
+
+
+
                           <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
                             <div className="p-6">
                               <div className="flex items-center justify-between mb-6">
@@ -582,9 +614,8 @@ const LeaseManagementMaster = () => {
                                     Status
                                   </Label>
                                   <span
-                                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                                      statusColors[selectedLease?.status]
-                                    }`}
+                                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${statusColors[selectedLease?.status]
+                                      }`}
                                   >
                                     {selectedLease?.status}
                                   </span>
@@ -594,11 +625,10 @@ const LeaseManagementMaster = () => {
                                     Renewal Status
                                   </Label>
                                   <span
-                                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                                      renewalColors[
-                                        selectedLease?.renewalStatus
+                                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${renewalColors[
+                                      selectedLease?.renewalStatus
                                       ]
-                                    }`}
+                                      }`}
                                   >
                                     {selectedLease?.renewalStatus}
                                   </span>

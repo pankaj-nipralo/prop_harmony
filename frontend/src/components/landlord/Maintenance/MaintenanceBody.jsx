@@ -25,6 +25,7 @@ import {
 } from "@/data/landlord/maintenance/data";
 import ViewMaintenanceModal from "./ViewMaintenanceModal";
 import EditMaintenanceModal from "./EditMaintenanceModal";
+import { useAuth } from "@/contexts/AuthContext";
 
 const MaintenanceBody = ({ maintenance, setMaintenance }) => {
   const [search, setSearch] = useState("");
@@ -43,6 +44,8 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
     open: false,
     maintenance: null,
   });
+  const { user } = useAuth();
+  const isPropertyManager = user?.role === "property_manager";
 
   if (!maintenance || !Array.isArray(maintenance) || maintenance.length === 0) {
     return <div className="text-gray-500">No maintenance requests found.</div>;
@@ -256,6 +259,11 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                     <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Request
                     </th>
+                    {isPropertyManager && (
+                      <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                        Landlord
+                      </th>
+                    )}
                     <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
                       Property
                     </th>
@@ -304,9 +312,19 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                         </div>
                       </td>
 
+                      {isPropertyManager && (
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="text-sm text-gray-900">
+                              {request.landlordName}
+                            </div>
+                          </div>
+                        </td>
+                      )}
+
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <Building className="w-4 h-4 mr-2 text-gray-400" />
+                          {/* <Building className="w-4 h-4 mr-2 text-gray-400" /> */}
                           <div className="text-sm text-gray-900">
                             {request.propertyName}
                           </div>
