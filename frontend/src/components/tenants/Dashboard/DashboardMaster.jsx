@@ -62,11 +62,10 @@ const DashboardMaster = () => {
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`flex items-center cursor-pointer gap-2 px-5 py-2.5 text-sm font-medium rounded-lg transition-all focus:outline-none ${
-              activeTab === key
+            className={`flex items-center cursor-pointer gap-2 px-5 py-2.5 text-sm font-medium rounded-lg transition-all focus:outline-none ${activeTab === key
                 ? "bg-blue-600 text-white shadow"
                 : "text-gray-700 hover:bg-gray-100 "
-            }`}
+              }`}
           >
             <Icon className="w-4 h-4" />
             {label}
@@ -125,7 +124,7 @@ const DashboardMaster = () => {
                 <button
                   onClick={() => {
                     setShowReportModal(false);
-                    navigate("/tenants/issue-warning");
+                    navigate("/tenants/report-landlord");
                   }}
                   className="flex-1 px-4 py-2 font-medium text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
                 >
