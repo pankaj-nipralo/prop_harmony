@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import { Building2, Plus } from "lucide-react";
+import { Building2, Plus, Eye, Pencil, Trash2 } from "lucide-react";
 
 const defaultForm = {
   property: "",
@@ -453,12 +453,17 @@ const ListingBody = () => {
           <span className="mt-1 text-sm text-gray-500">Inquiries</span>
         </div>
       </div>
+
+      {/* Cards */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {listings.map((listing) => (
           <div
             key={listing.id}
-            className="flex flex-col gap-3 p-6 bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg hover:border-blue-300 transition-all duration-200"
+            className=" flex flex-col gap-3 p-6 bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg transition-all duration-200"
           >
+            
+
+            {/* Content */}
             <div className="flex items-start justify-between mb-2">
               <div className="flex-1 mr-2">
                 <div className="text-lg font-semibold text-gray-900 mb-1">
@@ -468,14 +473,46 @@ const ListingBody = () => {
                   {listing.property || listing.location}
                 </div>
               </div>
-              <span className="px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full whitespace-nowrap">
-                {listing.status || "Active"}
-              </span>
+
+              {/* Action Icons */}
+            <div className="top-3 right-3 flex gap-1">
+              <button
+                onClick={() => openViewModal(listing)}
+                className="p-1.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition"
+                title="View"
+              >
+                <Eye size={18} />
+              </button>
+              <button
+                onClick={() => openEditModal(listing)}
+                className="p-1.5 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-full transition"
+                title="Edit"
+              >
+                <Pencil size={18} />
+              </button>
+              <button
+                onClick={() => {
+                  if (window.confirm("Are you sure you want to delete this listing?")) {
+                    handleDelete(listing.id);
+                  }
+                }}
+                className="p-1.5 text-red-600 hover:bg-red-50 rounded-full transition"
+                title="Delete"
+              >
+                <Trash2 size={18} />
+              </button>
             </div>
+             
+            </div>
+
             <div className="text-xl font-bold text-blue-500 mb-2">
-              AED {listing.rent || listing.price}/month
+               {listing.rent || listing.price}/month
             </div>
-            <div className="text-sm text-gray-700 line-clamp-2 mb-3">{listing.description}</div>
+
+            <div className="text-sm text-gray-700 line-clamp-2 mb-3">
+              {listing.description}
+            </div>
+
             <div className="flex justify-between p-3 bg-gray-50 rounded-lg text-sm">
               <div className="text-center">
                 <div className="font-semibold text-gray-900">{listing.views}</div>
@@ -485,27 +522,6 @@ const ListingBody = () => {
                 <div className="font-semibold text-gray-900">{listing.inquiries}</div>
                 <div className="text-xs text-gray-500">Inquiries</div>
               </div>
-            </div>
-            <div className="flex gap-2 mt-4">
-              <button
-                className="flex-1 px-3 py-2 text-sm font-medium text-blue-500 border border-blue-500 rounded-lg hover:bg-blue-50 transition-colors"
-                onClick={() => openViewModal(listing)}
-              >
-                View
-              </button>
-              <button
-                className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                onClick={() => openEditModal(listing)}
-              >
-                Edit
-              </button>
-              <button
-                className="flex-1 px-3 py-2 text-sm font-medium text-red-600 border border-red-300 rounded-lg hover:bg-red-50 transition-colors"
-                onClick={() => handleDelete(listing.id)}
-                aria-label="Delete"
-              >
-                Delete
-              </button>
             </div>
           </div>
         ))}
