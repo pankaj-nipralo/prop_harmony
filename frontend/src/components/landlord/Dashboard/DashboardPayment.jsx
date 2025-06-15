@@ -4,6 +4,7 @@ import {
   TrendingUp,
   TrendingDown,
   IndianRupee,
+  Calendar,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
@@ -117,43 +118,70 @@ const DashboardPayment = () => {
             Recent Payments
           </CardTitle>
         </CardHeader>
-        <CardContent className="overflow-x-auto">
-          <table className="w-full min-w-[600px] text-xs md:text-sm text-left font-sans border border-gray-200 rounded-lg">
-            <thead>
-              <tr className="text-gray-500 border-b border-gray-200">
-                <th className="px-2 py-2 font-semibold">Property</th>
-                <th className="px-2 py-2 font-semibold">Tenant</th>
-                <th className="px-2 py-2 font-semibold">Amount</th>
-                <th className="px-2 py-2 font-semibold">Date</th>
-                <th className="px-2 py-2 font-semibold">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentPayments.map((payment, idx) => (
-                <tr
-                  key={idx}
-                  className="transition-colors border-b border-gray-200 hover:bg-gray-50"
-                >
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {payment.property}
-                  </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {payment.tenant}
-                  </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {payment.amount}
-                  </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {payment.date}
-                  </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {statusBadge(payment.status)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <CardContent>
+          {recentPayments.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[600px] text-sm text-left text-gray-700">
+                <thead className="sticky top-0 z-10 bg-white shadow-sm">
+                  <tr>
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                      Property
+                    </th>
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                      Tenant
+                    </th>
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                      Amount
+                    </th>
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                      Date
+                    </th>
+                    <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {recentPayments.map((payment, index) => (
+                    <tr
+                      key={index}
+                      className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } hover:bg-blue-50 transition-colors duration-150`}
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {payment.property}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {payment.tenant}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        ₹{payment.amount}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <Calendar className="w-3 h-3 mr-1 text-gray-400" />
+                          <span className="text-sm text-gray-900">
+                            {payment.date}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full ${statusBadge(payment.status)}`}>
+                          {payment.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="py-8 text-center text-gray-400 text-base">
+              No payment records found
+            </div>
+          )}
         </CardContent>
+
       </Card>
     </div>
   );
