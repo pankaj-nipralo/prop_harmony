@@ -24,8 +24,11 @@ import {
   Save,
   X,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const MyOffers = () => {
+  const navigate = useNavigate();
+
   // Load offers from localStorage and merge with sample data
   const loadOffers = () => {
     const savedOffers = JSON.parse(
@@ -612,7 +615,7 @@ const MyOffers = () => {
                       </button>
 
                       <button
-                        onClick={() => handleDeclineApplication(application.id)}
+                        onClick={() => handleDeclineOffer(application.id)}
                         className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-red-600 transition-colors rounded-lg bg-red-50 hover:bg-red-100 myButton"
                       >
                         <XCircle className="w-4 h-4" />
@@ -622,12 +625,7 @@ const MyOffers = () => {
                   ) : application.status === "agreed" &&
                     application.canMessage ? (
                     <button
-                      onClick={() =>
-                        setMessageModal({
-                          open: true,
-                          applicationId: application.id,
-                        })
-                      }
+                      onClick={() => navigate('/tenants/emails')}
                       className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
                     >
                       <MessageSquare className="w-4 h-4" />
@@ -652,7 +650,7 @@ const MyOffers = () => {
                     onClick={() =>
                       setHistoryModal({
                         open: true,
-                        applicationId: application.id,
+                        offerId: application.id,
                       })
                     }
                     className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-3 text-sm font-medium text-gray-600 transition-colors rounded-lg bg-gray-50 hover:bg-gray-100 myButton"
@@ -747,14 +745,14 @@ const MyOffers = () => {
           open={historyModal.open}
           onOpenChange={() => setHistoryModal({ open: false, offerId: null })}
         >
-          <DialogContent className="w-full max-w-2xl bg-white border-0 rounded-lg shadow-xl">
+          <DialogContent className="w-full max-w-2xl bg-white border-0 max-h-[90vh] rounded-lg shadow-xl">
             <div className="p-6">
               <h2 className="mb-4 text-xl font-semibold text-gray-800">
                 Negotiation History
               </h2>
 
               {historyModal.offerId && (
-                <div className="space-y-4">
+                <div className="space-y-4 max-h-[60vh] overflow-y-auto">
                   {offers
                     .find((o) => o.id === historyModal.offerId)
                     ?.negotiationHistory.map((item, index) => (

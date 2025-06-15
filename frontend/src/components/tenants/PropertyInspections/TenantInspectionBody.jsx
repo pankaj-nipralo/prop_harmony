@@ -32,7 +32,7 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
   const [statusFilter, setStatusFilter] = useState("All Status");
   const [priorityFilter, setPriorityFilter] = useState("All Priorities");
   const [viewMode, setViewMode] = useState("requests"); // "requests" or "reports"
-  
+
   const [responseModal, setResponseModal] = useState({
     open: false,
     inspection: null,
@@ -48,7 +48,7 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
 
   // Flatten all inspections and filter for current tenant
   const allInspections = inspections.flatMap((group) => group.inspectionsList);
-  const tenantInspections = allInspections.filter(inspection => 
+  const tenantInspections = allInspections.filter(inspection =>
     inspection.tenantEmail === "mike.tenant@email.com" // In real app, use current user email
   );
 
@@ -56,18 +56,18 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
   const filteredByMode =
     viewMode === "requests"
       ? tenantInspections.filter((i) =>
-          [
-            "Pending Tenant Response",
-            "Tenant Accepted",
-            "Tenant Declined",
-            "Reschedule Requested",
-            "Confirmed",
-            "In Progress",
-          ].includes(i.status)
-        )
+        [
+          "Pending Tenant Response",
+          "Tenant Accepted",
+          "Tenant Declined",
+          "Reschedule Requested",
+          "Confirmed",
+          "In Progress",
+        ].includes(i.status)
+      )
       : tenantInspections.filter((i) =>
-          ["Completed", "Report Generated"].includes(i.status)
-        );
+        ["Completed", "Report Generated"].includes(i.status)
+      );
 
   // Apply filters
   const filteredInspections = filteredByMode.filter((inspection) => {
@@ -149,21 +149,19 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
         <div className="flex p-1 bg-white rounded-lg">
           <button
             onClick={() => setViewMode("requests")}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
-              viewMode === "requests"
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${viewMode === "requests"
                 ? "bg-blue-600 text-white shadow-sm"
                 : "text-gray-600 hover:text-gray-800"
-            }`}
+              }`}
           >
             Inspection Requests
           </button>
           <button
             onClick={() => setViewMode("reports")}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
-              viewMode === "reports"
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${viewMode === "reports"
                 ? "bg-blue-600 text-white shadow-sm"
                 : "text-gray-600 hover:text-gray-800"
-            }`}
+              }`}
           >
             Inspection Reports
           </button>
@@ -308,13 +306,12 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            inspection.inspectionType === "Routine"
+                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${inspection.inspectionType === "Routine"
                               ? "bg-green-100 text-green-800"
                               : inspection.inspectionType === "Maintenance"
-                              ? "bg-red-100 text-red-800"
-                              : "bg-blue-100 text-blue-800"
-                          }`}
+                                ? "bg-red-100 text-red-800"
+                                : "bg-blue-100 text-blue-800"
+                            }`}
                         >
                           {inspection.inspectionType}
                         </span>
@@ -354,7 +351,7 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
                                   Respond
                                 </button>
                               )}
-                              
+
                               {viewMode === "reports" && inspection.status === "Report Generated" && (
                                 <>
                                   <button
@@ -364,26 +361,31 @@ const TenantInspectionBody = ({ inspections, updateInspection }) => {
                                     <Eye size={14} />
                                     View Report
                                   </button>
-                                  <button
+                                  {/* <button
                                     onClick={() => handleAddComment(inspection)}
                                     className="flex items-center gap-1 px-3 py-1 text-xs text-green-600 transition-colors rounded cursor-pointer bg-green-50 hover:bg-green-100 myButton"
                                   >
                                     <MessageSquare size={14} />
                                     Comment
-                                  </button>
+                                  </button> */}
                                 </>
                               )}
                             </>
                           )}
-                          
+
                           {/* View details - available to all */}
-                          <button
-                            onClick={() => handleViewReport(inspection)}
-                            className="flex items-center gap-1 px-3 py-1 text-xs text-gray-100 transition-colors myButton"
-                          >
-                            <Eye size={14} />
-                            View
-                          </button>
+                          {
+                            inspection.status !== "Report Generated" && (
+
+                              <button
+                                onClick={() => handleViewReport(inspection)}
+                                className="flex items-center gap-1 px-3 py-1 text-xs text-gray-100 transition-colors myButton"
+                              >
+                                <Eye size={14} />
+                                View
+                              </button>
+                            )
+                          }
                         </div>
                       </td>
                     </tr>

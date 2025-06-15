@@ -124,7 +124,7 @@ const TenantInspectionMaster = () => {
         </div>
 
         {/* Quick Actions */}
-        {stats.needsResponse > 0 && (
+        {/* {stats.needsResponse > 0 && (
           <Card className="p-6 mb-8 border-0 shadow-sm bg-gradient-to-r from-orange-50 to-orange-100">
             <div className="flex items-center gap-4">
               <div className="flex items-center justify-center w-12 h-12 bg-orange-200 rounded-lg">
@@ -139,14 +139,18 @@ const TenantInspectionMaster = () => {
                 </p>
               </div>
               <div className="flex gap-2">
-                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-orange-600 rounded-lg hover:bg-orange-700 myButton">
+                <button 
+                onClick={() => {
+                  
+                }}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-orange-600 rounded-lg hover:bg-orange-700 myButton">
                   <MessageSquare className="w-4 h-4" />
                   Respond Now
                 </button>
               </div>
             </div>
           </Card>
-        )}
+        )} */}
 
         {/* Main Content */}
         <TenantInspectionBody 

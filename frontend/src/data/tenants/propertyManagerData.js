@@ -14,9 +14,9 @@ export const managerData = {
   },
   languages: ["English", "Arabic"],
   contactOptions: [
-    { type: "call", label: "Call", icon: "Phone" },
-    { type: "email", label: "Email", icon: "Mail" },
-    { type: "message", label: "Message", icon: "MessageCircle" }
+    { type: "call", label: "Call", icon: "Phone", phoneNo: "+971-50-987-6543" },
+    { type: "email", label: "Email", icon: "Mail", emailId: "john.manager@propharmony.com" },
+    // { type: "message", label: "Message", icon: "MessageCircle" }
   ]
 };
 

@@ -17,7 +17,7 @@ const PastPropertiesList = ({ properties, onViewDocuments }) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {properties.map((property) => (
         <PastPropertiesCard
           key={property.id}
@@ -26,6 +26,7 @@ const PastPropertiesList = ({ properties, onViewDocuments }) => {
         />
       ))}
     </div>
+
   );
 };
 

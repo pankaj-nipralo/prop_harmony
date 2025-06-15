@@ -138,6 +138,13 @@ const ManagerProfile = ({ manager }) => {
               {manager.contactOptions.map((option, index) => (
                 <button
                   key={index}
+                  onClick={() => {
+                    if (option.type === 'call') {
+                      window.location.href = `tel:${option.phoneNo}`;
+                    } else if (option.type === 'email') {
+                      window.location.href = `mailto:${option.emailId}`;
+                    }
+                  }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${getContactColor(option.type)}`}
                 >
                   {getContactIcon(option.type)}

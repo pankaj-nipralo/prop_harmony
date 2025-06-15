@@ -49,6 +49,8 @@ const TenantSettings = () => {
     message: "",
     action: null,
   });
+  const [showPaymentModal, setShowPaymentModal] = useState({ open: false, method: null });
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState({ open: false, methodId: null });
 
   // Form states
   const [profileData, setProfileData] = useState({
@@ -166,6 +168,13 @@ const TenantSettings = () => {
 
   // Loading state
   const [isLoading, setIsLoading] = useState(false);
+
+  // Payment method form state
+  const [paymentForm, setPaymentForm] = useState({
+    name: "",
+    type: "bank",
+  });
+  const [formError, setFormError] = useState("");
 
   // Settings sections configuration for tenants
   const settingsSections = [
@@ -303,6 +312,73 @@ const TenantSettings = () => {
   };
 
   const passwordValidation = validatePassword(passwordData.newPassword);
+
+  // Handler for Add/Edit
+  const handleAddEditPayment = (method = null) => {
+    if (method) {
+      setPaymentForm({
+        name: method.name,
+        type: method.type,
+      });
+    } else {
+      setPaymentForm({
+        name: "",
+        type: "bank",
+      });
+    }
+    setShowPaymentModal({ open: true, method });
+  };
+
+  // Handler for Delete
+  const handleDeletePayment = (methodId) => {
+    setShowDeleteConfirm({ open: true, methodId });
+  };
+
+  // Confirm delete
+  const confirmDeletePayment = () => {
+    setPaymentSettings((prev) => ({
+      ...prev,
+      savedPaymentMethods: prev.savedPaymentMethods.filter(
+        (m) => m.id !== showDeleteConfirm.methodId
+      ),
+    }));
+    setShowDeleteConfirm({ open: false, methodId: null });
+  };
+
+  // Handler for saving payment method
+  const handleSavePaymentMethod = () => {
+    if (!paymentForm.name.trim()) {
+      setFormError("Name is required.");
+      return;
+    }
+    setFormError("");
+    if (showPaymentModal.method) {
+      // Edit existing
+      setPaymentSettings((prev) => ({
+        ...prev,
+        savedPaymentMethods: prev.savedPaymentMethods.map((m) =>
+          m.id === showPaymentModal.method.id
+            ? { ...m, ...paymentForm }
+            : m
+        ),
+      }));
+    } else {
+      // Add new
+      setPaymentSettings((prev) => ({
+        ...prev,
+        savedPaymentMethods: [
+          ...prev.savedPaymentMethods,
+          {
+            id: Date.now(),
+            ...paymentForm,
+            isDefault: prev.savedPaymentMethods.length === 0, // first one is default
+          },
+        ],
+      }));
+    }
+    setShowPaymentModal({ open: false, method: null });
+    setPaymentForm({ name: "", type: "bank" });
+  };
 
   return (
     <div className="min-h-screen">
@@ -1035,13 +1111,16 @@ const TenantSettings = () => {
                   </div>
                 </Card>
 
-                {/* <Card className="p-6 border-0 shadow-sm">
+                <Card className="p-6 border-0 shadow-sm bg-white">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
                       <DollarSign className="w-5 h-5 text-blue-600" />
                       Saved Payment Methods
                     </h3>
-                    <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100 myButton">
+                    <button
+                      className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100 myButton"
+                      onClick={() => handleAddEditPayment(null)}
+                    >
                       <Plus className="w-4 h-4" />
                       Add Payment Method
                     </button>
@@ -1109,10 +1188,16 @@ const TenantSettings = () => {
                                 Set Default
                               </button>
                             )}
-                            <button className="p-2 text-gray-400 transition-colors rounded hover:text-gray-600 hover:bg-gray-100">
+                            {/* <button
+                              className="p-2 text-gray-400 transition-colors rounded hover:text-gray-600 hover:bg-gray-100"
+                              onClick={() => handleAddEditPayment(method)}
+                            >
                               <Edit className="w-4 h-4" />
-                            </button>
-                            <button className="p-2 text-red-400 transition-colors rounded hover:text-red-600 hover:bg-red-50">
+                            </button> */}
+                            <button
+                              className="p-2 text-red-400 transition-colors rounded hover:text-red-600 hover:bg-red-50"
+                              onClick={() => handleDeletePayment(method.id)}
+                            >
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </div>
@@ -1131,13 +1216,16 @@ const TenantSettings = () => {
                         Add a payment method to enable auto-pay and quick
                         payments.
                       </p>
-                      <button className="flex items-center gap-2 px-4 py-2 mx-auto text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton">
+                      <button
+                        className="flex items-center gap-2 px-4 py-2 mx-auto text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
+                        onClick={() => handleAddEditPayment(null)}
+                      >
                         <Plus className="w-4 h-4" />
                         Add Your First Payment Method
                       </button>
                     </div>
                   )}
-                </Card> */}
+                </Card>
 
                 <Card className="p-6 bg-white border-0 shadow-sm">
                   <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
@@ -1557,6 +1645,96 @@ const TenantSettings = () => {
                 className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600 myButton"
               >
                 Confirm
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add/Edit Payment Modal */}
+      <Dialog open={showPaymentModal.open} onOpenChange={() => setShowPaymentModal({ open: false, method: null })}>
+        <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
+          <div className="p-6">
+            <h2 className="mb-4 text-xl font-semibold text-gray-800">
+              {showPaymentModal.method ? "Edit Payment Method" : "Add Payment Method"}
+            </h2>
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                handleSavePaymentMethod();
+              }}
+            >
+              <div className="mb-4">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  value={paymentForm.name}
+                  onChange={e => setPaymentForm(f => ({ ...f, name: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="e.g. Visa ****1234 or Chase Checking ****5678"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Type
+                </label>
+                <select
+                  value={paymentForm.type}
+                  onChange={e => setPaymentForm(f => ({ ...f, type: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="bank">Bank Account</option>
+                  <option value="card">Credit Card</option>
+                </select>
+              </div>
+              {formError && (
+                <div className="mb-2 text-sm text-red-600">{formError}</div>
+              )}
+              <div className="flex justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setShowPaymentModal({ open: false, method: null })}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Modal */}
+      <Dialog open={showDeleteConfirm.open} onOpenChange={() => setShowDeleteConfirm({ open: false, methodId: null })}>
+        <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
+          <div className="p-6">
+            <h2 className="mb-4 text-xl font-semibold text-gray-800">
+              Delete Payment Method
+            </h2>
+            <p className="mb-6 text-gray-600">
+              Are you sure you want to delete this payment method? This action cannot be undone.
+            </p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setShowDeleteConfirm({ open: false, methodId: null })}
+                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeletePayment}
+                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-red-500 rounded-md hover:bg-red-600"
+              >
+                Delete
               </button>
             </div>
           </div>

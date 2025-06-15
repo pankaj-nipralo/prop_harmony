@@ -67,18 +67,18 @@ const InspectionBody = () => {
   const filteredByMode =
     viewMode === "requests"
       ? allInspections.filter((i) =>
-          [
-            "Pending Tenant Response",
-            "Tenant Accepted",
-            "Tenant Declined",
-            "Reschedule Requested",
-            "Confirmed",
-            "In Progress",
-          ].includes(i.status)
-        )
+        [
+          "Pending Tenant Response",
+          "Tenant Accepted",
+          "Tenant Declined",
+          "Reschedule Requested",
+          "Confirmed",
+          "In Progress",
+        ].includes(i.status)
+      )
       : allInspections.filter((i) =>
-          ["Completed", "Report Generated"].includes(i.status)
-        );
+        ["Completed", "Report Generated"].includes(i.status)
+      );
 
   // Apply filters
   const filteredInspections = filteredByMode.filter((inspection) => {
@@ -288,21 +288,19 @@ const InspectionBody = () => {
         <div className="flex gap-2 p-1 bg-white border border-gray-200 rounded-lg ">
           <button
             onClick={() => setViewMode("requests")}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${
-              viewMode === "requests"
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${viewMode === "requests"
                 ? "bg-blue-600 text-white shadow"
                 : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
-            }`}
+              }`}
           >
             Inspection Requests
           </button>
           <button
             onClick={() => setViewMode("reports")}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${
-              viewMode === "reports"
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${viewMode === "reports"
                 ? "bg-blue-600 text-white shadow"
                 : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
-            }`}
+              }`}
           >
             Inspection Reports
           </button>
@@ -357,9 +355,8 @@ const InspectionBody = () => {
                   {displayedInspections.map((inspection, index) => (
                     <tr
                       key={inspection.id}
-                      className={`${
-                        index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                      } hover:bg-blue-50 transition-colors duration-150`}
+                      className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } hover:bg-blue-50 transition-colors duration-150`}
                     >
                       {/* Property */}
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -387,13 +384,12 @@ const InspectionBody = () => {
                       {/* Type */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            inspection.inspectionType === "Routine"
+                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${inspection.inspectionType === "Routine"
                               ? "bg-green-100 text-green-800"
                               : inspection.inspectionType === "Maintenance"
-                              ? "bg-red-100 text-red-800"
-                              : "bg-blue-100 text-blue-800"
-                          }`}
+                                ? "bg-red-100 text-red-800"
+                                : "bg-blue-100 text-blue-800"
+                            }`}
                         >
                           {inspection.inspectionType}
                         </span>
@@ -433,8 +429,8 @@ const InspectionBody = () => {
                           {["landlord", "property_manager"].includes(
                             user?.role
                           ) && (
-                            <>
-                              {/* {inspection.status ===
+                              <>
+                                {/* {inspection.status ===
                                 "Pending Tenant Response" && (
                                 <button
                                   onClick={() =>
@@ -445,58 +441,58 @@ const InspectionBody = () => {
                                   Simulate Response
                                 </button>
                               )} */}
-                              {inspection.status === "Tenant Accepted" && (
-                                <button
-                                  onClick={() =>
-                                    handleConfirmInspection(inspection.id)
-                                  }
-                                  className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700 myButton"
-                                >
-                                  Confirm
-                                </button>
-                              )}
-                              {inspection.status === "Reschedule Requested" && (
-                                <div className="flex gap-1">
+                                {inspection.status === "Tenant Accepted" && (
                                   <button
                                     onClick={() =>
                                       handleConfirmInspection(inspection.id)
                                     }
-                                    className="px-2 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700 myButton"
+                                    className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700 myButton"
                                   >
-                                    Accept
+                                    Confirm
                                   </button>
+                                )}
+                                {inspection.status === "Reschedule Requested" && (
+                                  <div className="flex gap-1">
+                                    <button
+                                      onClick={() =>
+                                        handleConfirmInspection(inspection.id)
+                                      }
+                                      className="px-2 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700 myButton"
+                                    >
+                                      Accept
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        handleTenantResponse(inspection)
+                                      }
+                                      className="px-2 py-1 text-xs text-white transition-colors bg-orange-600 rounded cursor-pointer hover:bg-orange-700 myButton"
+                                    >
+                                      Counter
+                                    </button>
+                                  </div>
+                                )}
+                                {inspection.status === "Confirmed" && (
                                   <button
                                     onClick={() =>
-                                      handleTenantResponse(inspection)
+                                      handleMarkComplete(inspection.id)
                                     }
-                                    className="px-2 py-1 text-xs text-white transition-colors bg-orange-600 rounded cursor-pointer hover:bg-orange-700 myButton"
+                                    className="px-3 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700 myButton"
                                   >
-                                    Counter
+                                    Start Inspection
                                   </button>
-                                </div>
-                              )}
-                              {inspection.status === "Confirmed" && (
-                                <button
-                                  onClick={() =>
-                                    handleMarkComplete(inspection.id)
-                                  }
-                                  className="px-3 py-1 text-xs text-white transition-colors bg-green-600 rounded cursor-pointer hover:bg-green-700 myButton"
-                                >
-                                  Start Inspection
-                                </button>
-                              )}
-                              {inspection.status === "Completed" && (
-                                <button
-                                  onClick={() =>
-                                    handleGenerateReport(inspection)
-                                  }
-                                  className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700 myButton"
-                                >
-                                  Generate Report
-                                </button>
-                              )}
-                            </>
-                          )}
+                                )}
+                                {inspection.status === "Completed" && (
+                                  <button
+                                    onClick={() =>
+                                      handleGenerateReport(inspection)
+                                    }
+                                    className="px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700 myButton"
+                                  >
+                                    Generate Report
+                                  </button>
+                                )}
+                              </>
+                            )}
 
                           {/* Common actions for all roles */}
                           <button
@@ -511,14 +507,14 @@ const InspectionBody = () => {
                           {["landlord", "property_manager"].includes(
                             user?.role
                           ) && (
-                            <button
-                              onClick={() => handleDeleteInspection(inspection)}
-                              className="flex items-center gap-1 px-3 py-1 text-xs text-red-600 transition-colors rounded cursor-pointer bg-red-50 hover:bg-red-100"
-                            >
-                              <Trash2 size={14} />
-                              Delete
-                            </button>
-                          )}
+                              <button
+                                onClick={() => handleDeleteInspection(inspection)}
+                                className="flex items-center gap-1 px-3 py-1 text-xs text-red-600 transition-colors rounded cursor-pointer bg-red-50 hover:bg-red-100"
+                              >
+                                <Trash2 size={14} />
+                                Delete
+                              </button>
+                            )}
                         </div>
                       </td>
                     </tr>
@@ -555,9 +551,8 @@ const InspectionBody = () => {
                   {displayedInspections.map((inspection, index) => (
                     <tr
                       key={inspection.id}
-                      className={`${
-                        index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                      } hover:bg-blue-50 transition-colors duration-150`}
+                      className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } hover:bg-blue-50 transition-colors duration-150`}
                     >
                       {/* Property */}
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -592,13 +587,12 @@ const InspectionBody = () => {
                       {/* Overall Condition */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            inspection.overallCondition === "Good"
+                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${inspection.overallCondition === "Good"
                               ? "bg-green-100 text-green-800"
                               : inspection.overallCondition === "Fair"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-blue-100 text-blue-800"
-                          }`}
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-blue-100 text-blue-800"
+                            }`}
                         >
                           {inspection.overallCondition}
                         </span>
@@ -616,7 +610,9 @@ const InspectionBody = () => {
                               View Report
                             </button>
                           ) : (
-                            user?.role === "landlord" && (
+                            ["landlord", "property_manager"].includes(
+                              user?.role
+                            ) && (
                               <button
                                 onClick={() => handleGenerateReport(inspection)}
                                 className="flex items-center gap-1 px-3 py-1 text-xs text-white transition-colors bg-blue-600 rounded cursor-pointer hover:bg-blue-700 myButton"
