@@ -37,7 +37,7 @@ const DashboardCards = () => {
         </CardHeader>
         <CardContent>
           <div className="gap-2 text-2xl font-bold text-gray-800 ">
-            <DirhamSvg size={20} className="inline-block align-middle " />
+            <DirhamSvg size={18} className="mb-1.5 mr-2" />
              {dashboardData.monthlyIncome.toLocaleString()}
           </div>
           <p className="flex items-center mt-1 text-xs font-medium text-green-500">

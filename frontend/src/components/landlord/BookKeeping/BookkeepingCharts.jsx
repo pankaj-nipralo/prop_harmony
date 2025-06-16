@@ -509,17 +509,17 @@ const BookkeepingCharts = ({ transactions }) => {
             <div className="text-center">
               <p className="text-sm font-medium text-gray-600">Total Income</p>
               <p className="text-2xl font-bold text-blue-600">
-                AED {totalIncome.toLocaleString()}
+                {totalIncome.toLocaleString()}
               </p>
             </div>
           </Card>
-          <Card className="p-4 border-0 shadow-sm">
+          <Card className="p-4 bg-white border-0 shadow-sm">
             <div className="text-center">
               <p className="text-sm font-medium text-gray-600">
                 Total Expenses
               </p>
               <p className="text-2xl font-bold text-red-600">
-                AED {totalExpenses.toLocaleString()}
+                {totalExpenses.toLocaleString()}
               </p>
             </div>
           </Card>
@@ -531,7 +531,7 @@ const BookkeepingCharts = ({ transactions }) => {
                   netProfit >= 0 ? "text-green-600" : "text-red-600"
                 }`}
               >
-                AED {netProfit.toLocaleString()}
+                {netProfit.toLocaleString()}
               </p>
             </div>
           </Card>
@@ -570,7 +570,7 @@ const BookkeepingCharts = ({ transactions }) => {
                 tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`}
               />
               <Tooltip
-                formatter={(value) => [`AED ${value.toLocaleString()}`, ""]}
+                formatter={(value) => [`${value.toLocaleString()}`, ""]}
               />
               <Legend />
               <Bar dataKey="netProfit" fill="#3B82F6" name="Net Profit" />

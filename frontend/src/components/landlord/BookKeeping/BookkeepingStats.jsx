@@ -59,7 +59,7 @@ const BookkeepingStats = ({ transactions }) => {
     {
       id: 1,
       label: "Total Income",
-      value: `AED ${totalIncome.toLocaleString()}`,
+      value: `${totalIncome.toLocaleString()}`,
       subtitle: "All time revenue",
       icon: TrendingUp,
       color: "text-green-600",
@@ -69,7 +69,7 @@ const BookkeepingStats = ({ transactions }) => {
     {
       id: 2,
       label: "Total Expenses",
-      value: `AED ${totalExpenses.toLocaleString()}`,
+      value: `${totalExpenses.toLocaleString()}`,
       subtitle: "All time costs",
       icon: TrendingDown,
       color: "text-red-600",
@@ -79,9 +79,9 @@ const BookkeepingStats = ({ transactions }) => {
     {
       id: 3,
       label: "Net Profit", 
-      value: `AED ${netProfit.toLocaleString()}`,
+      value: `${netProfit.toLocaleString()}`,
       subtitle: "Income - Expenses",
-      icon: () => <DirhamSvg size={20} color1={netProfit >= 0 ? "#16a34a" : "#dc2626"} />,
+      icon: TrendingUp ,
       color: netProfit >= 0 ? "text-green-600" : "text-red-600",
       bgColor: netProfit >= 0 ? "bg-green-50" : "bg-red-50",
       borderColor: netProfit >= 0 ? "border-green-200" : "border-red-200",
@@ -137,6 +137,7 @@ const BookkeepingStats = ({ transactions }) => {
                 <div className="flex items-center gap-3 mb-2">
                   <IconComponent className={cn("w-6 h-6", stat.color)} />
                   <h3 className={cn("text-3xl font-bold", stat.color)}>
+                    <DirhamSvg size={22} className="inline-block mb-2 mr-1" />
                     {stat.value}
                   </h3>
                 </div>
