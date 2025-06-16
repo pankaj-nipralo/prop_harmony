@@ -3,6 +3,7 @@ import { Wrench, CheckCircle, Clock, AlertCircle, ArrowRight, User, Calendar, Do
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { maintenanceData } from "@/data/landlord/maintenance/data";
 import { Link } from "react-router-dom";
+import DirhamSvg from '@/assets/Dirham';
 
 // Get the maintenance list directly from maintenanceData
 const maintenanceList = maintenanceData[0]?.maintenanceList || [];
@@ -82,7 +83,7 @@ const DashboardMaintenance = () => {
         {maintenanceStats.map((stat) => (
           <Card key={stat.label} className={`flex flex-col border-0 shadow-md bg-white ${stat.color}`}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-sm font-medium text-gray-500">
                 {stat.label}
                 {stat.icon}
               </CardTitle>
@@ -96,14 +97,14 @@ const DashboardMaintenance = () => {
 
       {/* Maintenance Requests Table */}
       <Card className="bg-white border-0 shadow-md">
-        <CardHeader className="pb-2 flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
           <div className="flex items-center gap-2">
             <Wrench className="w-5 h-5 text-gray-400" />
             <CardTitle className="text-lg font-semibold text-gray-800">Recent Maintenance Requests</CardTitle>
           </div>
           <Link 
             to="/landlord/maintenance" 
-            className="text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1"
+            className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800"
           >
             View All <ArrowRight className="w-4 h-4" />
           </Link>
@@ -184,8 +185,8 @@ const DashboardMaintenance = () => {
                           </span>
                         </div>
                         {request.estimatedCost && (
-                          <div className="flex items-center mt-1">
-                            <DollarSign className="w-3 h-3 mr-1 text-gray-400" />
+                          <div className="flex items-center gap-1 mt-1">
+                            <DirhamSvg size={13}  className="!m-0 text-gray-400 " />
                             <span className="text-xs text-gray-500">
                               {request.estimatedCost}
                             </span>
@@ -198,7 +199,7 @@ const DashboardMaintenance = () => {
               </table>
             </div>
           ) : (
-            <div className="py-8 text-center text-gray-400 text-base">
+            <div className="py-8 text-base text-center text-gray-400">
               No maintenance requests found
             </div>
           )}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Building2, Plus, Eye, Pencil, Trash2 } from "lucide-react";
+import DirhamSvg from "@/assets/Dirham";
 
 const defaultForm = {
   property: "",
@@ -94,8 +95,8 @@ const ListingBody = () => {
       phone: "+971-50-123-4567",
       email: "sp@redeye.com",
       status: "Active",
-      views: 0,
-      inquiries: 0,
+      views: 1032,
+      inquiries: 23,
     },
     {
       id: 2,
@@ -112,8 +113,8 @@ const ListingBody = () => {
       phone: "+971-55-987-6543",
       email: "sarah@example.com",
       status: "Active",
-      views: 0,
-      inquiries: 0,
+      views: 1230,
+      inquiries: 10,
     },
   ]);
   const [modalType, setModalType] = useState("create"); // create | view | edit
@@ -197,7 +198,7 @@ const ListingBody = () => {
         <Dialog open={showModal} onOpenChange={setShowModal}>
           <DialogTrigger asChild>
             <button
-              className="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition"
+              className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition bg-blue-500 rounded-lg hover:bg-blue-600"
               onClick={openCreateModal}
             >
               <Plus className="w-5 h-5" /> Add Listing
@@ -219,11 +220,11 @@ const ListingBody = () => {
                     value={selectedListing.title}
                   />
                   <DetailItem
-                    label="Monthly Rent (AED)"
+                    label="Monthly Rent "
                     value={selectedListing.rent || selectedListing.price}
                   />
                   <DetailItem
-                    label="Security Deposit (AED)"
+                    label="Security Deposit "
                     value={selectedListing.deposit}
                   />
                 </div>
@@ -327,7 +328,7 @@ const ListingBody = () => {
 
                   <div className="grid grid-cols-3 gap-4">
                     <FormField
-                      label="Monthly Rent (AED) *"
+                      label="Monthly Rent  *"
                       name="rent"
                       type="text"
                       value={form.rent}
@@ -335,7 +336,7 @@ const ListingBody = () => {
                       required
                     />
                     <FormField
-                      label="Security Deposit (AED)"
+                      label="Security Deposit "
                       name="deposit"
                       type="text"
                       value={form.deposit}
@@ -434,21 +435,21 @@ const ListingBody = () => {
         </Dialog>
       </div>
       <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2 lg:grid-cols-4">
-        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 rounded-xl shadow-md">
+        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 shadow-md rounded-xl">
           <span className="text-2xl font-bold text-gray-800">{listings.length}</span>
           <span className="mt-1 text-sm text-gray-500">Total Listings</span>
         </div>
-        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 rounded-xl shadow-md">
+        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 shadow-md rounded-xl">
           <span className="text-2xl font-bold text-green-600">
             {listings.filter((l) => l.status === "Active").length}
           </span>
           <span className="mt-1 text-sm text-gray-500">Active</span>
         </div>
-        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 rounded-xl shadow-md">
+        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 shadow-md rounded-xl">
           <span className="text-2xl font-bold text-blue-600">0</span>
           <span className="mt-1 text-sm text-gray-500">Total Views</span>
         </div>
-        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 rounded-xl shadow-md">
+        <div className="flex flex-col items-center flex-1 p-6 bg-white border border-gray-200 shadow-md rounded-xl">
           <span className="text-2xl font-bold text-purple-600">0</span>
           <span className="mt-1 text-sm text-gray-500">Inquiries</span>
         </div>
@@ -459,14 +460,14 @@ const ListingBody = () => {
         {listings.map((listing) => (
           <div
             key={listing.id}
-            className=" flex flex-col gap-3 p-6 bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg transition-all duration-200"
+            className="flex flex-col gap-3 p-6 transition-all duration-200 bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg"
           >
             
 
             {/* Content */}
             <div className="flex items-start justify-between mb-2">
               <div className="flex-1 mr-2">
-                <div className="text-lg font-semibold text-gray-900 mb-1">
+                <div className="mb-1 text-lg font-semibold text-gray-900">
                   {listing.title}
                 </div>
                 <div className="text-sm text-gray-500">
@@ -475,7 +476,7 @@ const ListingBody = () => {
               </div>
 
               {/* Action Icons */}
-            <div className="top-3 right-3 flex gap-1">
+            <div className="flex gap-1 top-3 right-3">
               <button
                 onClick={() => openViewModal(listing)}
                 className="p-1.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition"
@@ -505,15 +506,15 @@ const ListingBody = () => {
              
             </div>
 
-            <div className="text-xl font-bold text-blue-500 mb-2">
-               {listing.rent || listing.price}/month
+            <div className="mb-2 text-xl font-bold text-blue-500">
+               <DirhamSvg color1="" className="mb-1 mr-1" />{listing.rent || listing.price}/month
             </div>
 
-            <div className="text-sm text-gray-700 line-clamp-2 mb-3">
+            <div className="mb-3 text-sm text-gray-700 line-clamp-2">
               {listing.description}
             </div>
 
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg text-sm">
+            <div className="flex justify-between p-3 text-sm rounded-lg bg-gray-50">
               <div className="text-center">
                 <div className="font-semibold text-gray-900">{listing.views}</div>
                 <div className="text-xs text-gray-500">Views</div>

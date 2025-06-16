@@ -157,13 +157,13 @@ const PropertyManagerProfileMaster = () => {
   };
 
   const renderManagerCard = (manager) => (
-    <Card key={manager.id} className="w-full max-w-full hover:shadow-lg transition-shadow duration-200 border-0 bg-white">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-t-lg">
+    <Card key={manager.id} className="w-full max-w-full transition-shadow duration-200 bg-white border-0 hover:shadow-lg">
+      <CardHeader className="rounded-t-lg bg-gradient-to-r from-blue-50 to-blue-100">
         <div className="flex items-center gap-4">
           <img
             src={manager.image}
             alt={manager.name}
-            className="w-16 h-16 rounded-full object-cover  "
+            className="object-cover w-16 h-16 rounded-full "
           />
           <div>
             <CardTitle className="text-blue-900">{manager.name}</CardTitle>
@@ -180,15 +180,15 @@ const PropertyManagerProfileMaster = () => {
             <Briefcase className="w-4 h-4 mr-2 text-blue-600" />
             <span>{manager.experience} years experience</span>
           </div>
-          <div className="flex items-center text-gray-700">
+          {/* <div className="flex items-center text-gray-700">
             <Star className="w-4 h-4 mr-2 text-yellow-400" />
             <span>{manager.rating} rating</span>
-          </div>
+          </div> */}
           <div className="flex flex-wrap gap-2 mt-2">
             {manager.services.map((service, index) => (
               <span
                 key={index}
-                className="px-3 py-1 text-sm bg-blue-50 text-blue-700 rounded-full"
+                className="px-3 py-1 text-sm text-blue-700 rounded-full bg-blue-50"
               >
                 {service}
               </span>
@@ -202,34 +202,34 @@ const PropertyManagerProfileMaster = () => {
             <Button
               variant="outline"
               onClick={() => setSelectedManager(manager)}
-              className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+              className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-700"
             >
               View Profile
             </Button>
           </DialogTrigger>
-          <DialogContent className="md:max-w-3xl bg-white border-0 shadow-xl">
+          <DialogContent className="bg-white border-0 shadow-xl md:max-w-3xl">
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold">Property Manager Profile</DialogTitle>
             </DialogHeader>
             <div className="grid grid-rows-3 gap-6">
-              <div className="space-y-4 row-span-2">
+              <div className="row-span-2 space-y-4">
                 <img
                   src={manager.image}
                   alt={manager.name}
-                  className="w-32 h-32 rounded-full object-cover mx-auto ring-4 ring-blue-100"
+                  className="object-cover w-32 h-32 mx-auto rounded-full ring-4 ring-blue-100"
                 />
                 <div className="text-center">
                   <h3 className="text-xl font-bold text-blue-900">{manager.name}</h3>
                   <p className="text-blue-600">{manager.location}</p>
                 </div>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2">Bio</h4>
+                <div className="p-4 rounded-lg bg-blue-50">
+                  <h4 className="mb-2 font-semibold text-blue-900">Bio</h4>
                   <p className="text-gray-700">{manager.bio}</p>
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex flex-col bg-blue-50 p-3 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-1">Services Offered</h4>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="flex flex-col p-3 rounded-lg bg-blue-50">
+                  <h4 className="mb-1 font-semibold text-blue-900">Services Offered</h4>
                   <ul className="space-y-1">
                     {manager.services.map((service, index) => (
                       <li key={index} className="flex items-center text-gray-700">
@@ -240,8 +240,8 @@ const PropertyManagerProfileMaster = () => {
                   </ul>
                 </div>
 
-                <div className="flex flex-col bg-blue-50 p-3 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-1">Portfolio</h4>
+                <div className="flex flex-col p-3 rounded-lg bg-blue-50">
+                  <h4 className="mb-1 font-semibold text-blue-900">Portfolio</h4>
                   <div className="flex flex-wrap gap-1.5">
                     {manager.portfolio.map((item, index) => (
                       <span
@@ -256,11 +256,11 @@ const PropertyManagerProfileMaster = () => {
               </div>
 
             </div>
-            {/* <div className="mt-6 bg-blue-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-blue-900 mb-4">Reviews</h4>
+            {/* <div className="p-4 mt-6 rounded-lg bg-blue-50">
+              <h4 className="mb-4 font-semibold text-blue-900">Reviews</h4>
               <div className="space-y-4">
                 {manager.reviews.map((review, index) => (
-                  <div key={index} className="bg-white p-4 rounded-lg">
+                  <div key={index} className="p-4 bg-white rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-medium text-blue-900">{review.author}</span>
                       <div className="flex">
@@ -282,7 +282,7 @@ const PropertyManagerProfileMaster = () => {
         </Dialog>
         <Button
           onClick={() => setShowInviteModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white"
+          className="text-white bg-blue-600 hover:bg-blue-700"
         >
           <Mail className="w-4 h-4 mr-2" />
           Send Invite
@@ -292,22 +292,22 @@ const PropertyManagerProfileMaster = () => {
   )
 
   return (
-    <div className=" p-6 mx-auto space-y-6 min-h-screen">
+    <div className="min-h-screen p-6 mx-auto space-y-6 ">
       <div className="flex flex-col gap-6">
-        <div className=" ">
-          <div className="flex justify-between items-center mb-6">
+        <div className="">
+          <div className="flex items-center justify-between mb-6">
             <h1 className="text-3xl font-semibold">Find Property Managers</h1>
             <Button
               // variant="outline"
               onClick={resetFilters}
-              className="text-sm text-blue-600 border border-blue-600 hover:text-blue-700 cursor-pointer hover:bg-blue-500 hover:text-white  transition-all duration-300 ease-out"
+              className="text-sm text-blue-600 transition-all duration-300 ease-out border border-blue-600 cursor-pointer hover:bg-blue-500 hover:text-white"
             >
               Reset Filters
             </Button>
           </div>
 
           {/* Search and Filters */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
             {/* Search Input */}
             <div className="relative w-full col-span-3">
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-blue-600" />
@@ -315,61 +315,61 @@ const PropertyManagerProfileMaster = () => {
                 placeholder="Search by name, city, or expertise..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 py-2 text-sm bg-white border border-blue-200 focus:ring-blue-600 focus:outline-none focus:border-none rounded-md"
+                className="w-full py-2 pl-10 text-sm bg-white border border-blue-200 rounded-md focus:ring-blue-600 focus:outline-none focus:border-none"
               />
             </div>
 
             {/* Location Filter */}
             <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-              <SelectTrigger className="w-full py-2 text-sm bg-white border border-blue-200 focus:border-blue-600 focus:ring-blue-600 rounded-md">
+              <SelectTrigger className="w-full py-2 text-sm bg-white border border-blue-200 rounded-md focus:border-blue-600 focus:ring-blue-600">
                 <SelectValue placeholder="Location" />
               </SelectTrigger>
-              <SelectContent className="bg-white border border-blue-100 shadow-md rounded-md text-sm">
-                <SelectItem value="dubai" className="hover:bg-gray-50 px-3 py-2">Dubai</SelectItem>
-                <SelectItem value="mumbai" className="hover:bg-gray-50 px-3 py-2">Mumbai</SelectItem>
-                <SelectItem value="bangalore" className="hover:bg-gray-50 px-3 py-2">Bangalore</SelectItem>
-                <SelectItem value="delhi" className="hover:bg-gray-50 px-3 py-2">Delhi NCR</SelectItem>
-                <SelectItem value="abu dhabi" className="hover:bg-gray-50 px-3 py-2">Abu Dhabi</SelectItem>
-                <SelectItem value="sharjah" className="hover:bg-gray-50 px-3 py-2">Sharjah</SelectItem>
+              <SelectContent className="text-sm bg-white border border-blue-100 rounded-md shadow-md">
+                <SelectItem value="dubai" className="px-3 py-2 hover:bg-gray-50">Dubai</SelectItem>
+                <SelectItem value="mumbai" className="px-3 py-2 hover:bg-gray-50">Mumbai</SelectItem>
+                <SelectItem value="bangalore" className="px-3 py-2 hover:bg-gray-50">Bangalore</SelectItem>
+                <SelectItem value="delhi" className="px-3 py-2 hover:bg-gray-50">Delhi NCR</SelectItem>
+                <SelectItem value="abu dhabi" className="px-3 py-2 hover:bg-gray-50">Abu Dhabi</SelectItem>
+                <SelectItem value="sharjah" className="px-3 py-2 hover:bg-gray-50">Sharjah</SelectItem>
               </SelectContent>
             </Select>
 
             {/* Experience Filter */}
             <Select value={selectedExperience} onValueChange={setSelectedExperience}>
-              <SelectTrigger className="w-full py-2 text-sm bg-white border border-blue-200 focus:border-blue-600 focus:ring-blue-600 rounded-md">
+              <SelectTrigger className="w-full py-2 text-sm bg-white border border-blue-200 rounded-md focus:border-blue-600 focus:ring-blue-600">
                 <SelectValue placeholder="Experience" />
               </SelectTrigger>
-              <SelectContent className="bg-white border border-blue-100 shadow-md rounded-md text-sm">
-                <SelectItem value="0-2" className="hover:bg-gray-50 px-3 py-2">0-2 years</SelectItem>
-                <SelectItem value="3-5" className="hover:bg-gray-50 px-3 py-2">3-5 years</SelectItem>
-                <SelectItem value="5+" className="hover:bg-gray-50 px-3 py-2">5+ years</SelectItem>
+              <SelectContent className="text-sm bg-white border border-blue-100 rounded-md shadow-md">
+                <SelectItem value="0-2" className="px-3 py-2 hover:bg-gray-50">0-2 years</SelectItem>
+                <SelectItem value="3-5" className="px-3 py-2 hover:bg-gray-50">3-5 years</SelectItem>
+                <SelectItem value="5+" className="px-3 py-2 hover:bg-gray-50">5+ years</SelectItem>
               </SelectContent>
             </Select>
 
             {/* Rating Filter */}
             {/* <Select value={selectedRating} onValueChange={setSelectedRating}>
-              <SelectTrigger className="w-full py-2 text-sm bg-white border border-blue-200 focus:border-blue-600 focus:ring-blue-600 rounded-md">
+              <SelectTrigger className="w-full py-2 text-sm bg-white border border-blue-200 rounded-md focus:border-blue-600 focus:ring-blue-600">
                 <SelectValue placeholder="Rating" />
               </SelectTrigger>
-              <SelectContent className="bg-white border border-blue-100 shadow-md rounded-md text-sm">
-                <SelectItem value="4+" className="hover:bg-gray-50 px-3 py-2">4+ stars</SelectItem>
-                <SelectItem value="3+" className="hover:bg-gray-50 px-3 py-2">3+ stars</SelectItem>
-                <SelectItem value="2+" className="hover:bg-gray-50 px-3 py-2">2+ stars</SelectItem>
+              <SelectContent className="text-sm bg-white border border-blue-100 rounded-md shadow-md">
+                <SelectItem value="4+" className="px-3 py-2 hover:bg-gray-50">4+ stars</SelectItem>
+                <SelectItem value="3+" className="px-3 py-2 hover:bg-gray-50">3+ stars</SelectItem>
+                <SelectItem value="2+" className="px-3 py-2 hover:bg-gray-50">2+ stars</SelectItem>
               </SelectContent>
             </Select> */}
 
             {/* Services Filter */}
             {/* <Select value={selectedService} onValueChange={setSelectedService}>
-              <SelectTrigger className="w-full py-2 text-sm bg-white border border-blue-200 focus:border-blue-600 focus:ring-blue-600 rounded-md">
+              <SelectTrigger className="w-full py-2 text-sm bg-white border border-blue-200 rounded-md focus:border-blue-600 focus:ring-blue-600">
                 <SelectValue placeholder="Services" />
               </SelectTrigger>
-              <SelectContent className="bg-white border border-blue-100 shadow-md rounded-md text-sm">
-                <SelectItem value="residential" className="hover:bg-gray-50 px-3 py-2">Residential</SelectItem>
-                <SelectItem value="commercial" className="hover:bg-gray-50 px-3 py-2">Commercial</SelectItem>
-                <SelectItem value="luxury residential" className="hover:bg-gray-50 px-3 py-2">Luxury Residential</SelectItem>
-                <SelectItem value="property maintenance" className="hover:bg-gray-50 px-3 py-2">Property Maintenance</SelectItem>
-                <SelectItem value="tech office spaces" className="hover:bg-gray-50 px-3 py-2">Tech Office Spaces</SelectItem>
-                <SelectItem value="property analytics" className="hover:bg-gray-50 px-3 py-2">Property Analytics</SelectItem>
+              <SelectContent className="text-sm bg-white border border-blue-100 rounded-md shadow-md">
+                <SelectItem value="residential" className="px-3 py-2 hover:bg-gray-50">Residential</SelectItem>
+                <SelectItem value="commercial" className="px-3 py-2 hover:bg-gray-50">Commercial</SelectItem>
+                <SelectItem value="luxury residential" className="px-3 py-2 hover:bg-gray-50">Luxury Residential</SelectItem>
+                <SelectItem value="property maintenance" className="px-3 py-2 hover:bg-gray-50">Property Maintenance</SelectItem>
+                <SelectItem value="tech office spaces" className="px-3 py-2 hover:bg-gray-50">Tech Office Spaces</SelectItem>
+                <SelectItem value="property analytics" className="px-3 py-2 hover:bg-gray-50">Property Analytics</SelectItem>
               </SelectContent>
             </Select> */}
           </div>
@@ -381,11 +381,11 @@ const PropertyManagerProfileMaster = () => {
         </div>
 
         {/* Property Manager Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredManagers.length > 0 ? (
             filteredManagers.map(renderManagerCard)
           ) : (
-            <div className="col-span-full text-center py-8">
+            <div className="py-8 text-center col-span-full">
               <p className="text-gray-500">No property managers found matching your criteria</p>
               <Button
                 variant="outline"
@@ -401,9 +401,9 @@ const PropertyManagerProfileMaster = () => {
 
       {/* Invite Modal */}
       <Dialog open={showInviteModal} onOpenChange={setShowInviteModal}>
-        <DialogContent className="bg-white border border-blue-100 rounded-xl shadow-2xl p-6 max-w-md w-full">
+        <DialogContent className="w-full max-w-md p-6 bg-white border border-blue-100 shadow-2xl rounded-xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-blue-900 mb-4">
+            <DialogTitle className="mb-4 text-2xl font-bold text-blue-900">
               Send Invitation
             </DialogTitle>
           </DialogHeader>
@@ -415,10 +415,10 @@ const PropertyManagerProfileMaster = () => {
                 Select Property
               </Label>
               <Select>
-                <SelectTrigger className="w-full border rounded-md py-2 px-3 text-sm bg-white border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                <SelectTrigger className="w-full px-3 py-2 text-sm transition bg-white border border-blue-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                   <SelectValue placeholder="Choose a property" />
                 </SelectTrigger>
-                <SelectContent className="bg-white border border-blue-100 shadow-md rounded-md text-sm">
+                <SelectContent className="text-sm bg-white border border-blue-100 rounded-md shadow-md">
                   <SelectItem value="property1" className="px-3 py-2 hover:bg-gray-50">Property 1</SelectItem>
                   <SelectItem value="property2" className="px-3 py-2 hover:bg-gray-50">Property 2</SelectItem>
                 </SelectContent>
@@ -433,7 +433,7 @@ const PropertyManagerProfileMaster = () => {
               <textarea
                 id="message"
                 placeholder="Write your invitation message..."
-                className="w-full h-32 text-sm rounded-md p-3 bg-transparent resize-none focus:outline-none border shadow-none"
+                className="w-full h-32 p-3 text-sm bg-transparent border rounded-md shadow-none resize-none focus:outline-none"
               />
 
             </div>
@@ -444,7 +444,7 @@ const PropertyManagerProfileMaster = () => {
                 setShowInviteModal(false); // Close modal
                 toast.success("Invitation sent successfully"); // Show toast
               }}
-              className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-md flex items-center justify-center transition"
+              className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white transition bg-blue-600 rounded-md cursor-pointer hover:bg-blue-700"
             >
               <Mail className="w-4 h-4 mr-2" />
               Send Invitation

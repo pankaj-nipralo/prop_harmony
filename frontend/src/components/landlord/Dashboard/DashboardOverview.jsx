@@ -23,6 +23,7 @@ import {
   Cell,
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import DirhamSvg from "@/assets/Dirham";
 
 const incomeExpenseData = [
   { month: "Jan", income: 8500, expenses: 4200 },
@@ -96,15 +97,36 @@ const DashboardOverview = () => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="p-4 bg-green-100 rounded-lg shadow">
             <h3 className="text-lg font-semibold">Collected</h3>
-            <p className="text-green-600">AED 8500</p>
+            <div className="flex items-center gap-2 text-gray-600 jusitfy-start">
+              <DirhamSvg
+                size={16}
+                className="inline-block !m-0 align-middle"
+                color1=""
+              />{" "}
+              <p className="text-lg font-bold">5300</p>
+            </div>
           </div>
           <div className="p-4 rounded-lg shadow bg-amber-100">
             <h3 className="text-lg font-semibold">Pending</h3>
-            <p className="text-gray-600">AED 0</p>
+            <div className="flex items-center gap-2 text-gray-600 jusitfy-start">
+              <DirhamSvg
+                size={16}
+                className="self-center inline-block !m-0"
+                color1=""
+              />{" "}
+              <p className="text-lg font-bold ">0</p>
+            </div>
           </div>
           <div className="p-4 bg-red-100 rounded-lg shadow">
             <h3 className="text-lg font-semibold">Overdue</h3>
-            <p className="text-gray-600">AED 0</p>
+            <div className="flex items-center gap-2 text-gray-600 jusitfy-start">
+              <DirhamSvg
+                size={16}
+                className="inline-block !m-0 align-middle"
+                color1=""
+              />{" "}
+              <p className="text-lg font-bold">0</p>
+            </div>
           </div>
         </div>
       </div>

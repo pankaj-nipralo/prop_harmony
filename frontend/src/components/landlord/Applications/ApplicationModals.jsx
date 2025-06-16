@@ -13,6 +13,7 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
+import DirhamSvg from "@/assets/Dirham";
 
 const ApplicationModals = ({
   // Modal states
@@ -65,15 +66,15 @@ const ApplicationModals = ({
               <div className="space-y-4">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Your Counter Offer ($/month)
+                    Your Counter Offer (per month)
                   </label>
                   <div className="relative">
-                    <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <DirhamSvg className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                     <input
                       type="number"
                       value={negotiateAmount}
                       onChange={(e) => setNegotiateAmount(e.target.value)}
-                      className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full py-2 pl-10 pr-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       placeholder="Enter amount"
                       min="0"
                       step="50"
@@ -96,7 +97,7 @@ const ApplicationModals = ({
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-3 mt-6">
+              <div className="flex justify-end mt-6 space-x-3">
                 <button
                   type="button"
                   onClick={() => setNegotiateModal({ open: false, applicationId: null })}
@@ -139,7 +140,7 @@ const ApplicationModals = ({
                   ?.negotiationHistory.map((item, index) => (
                     <div
                       key={item.id}
-                      className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg"
+                      className="flex items-start gap-4 p-4 rounded-lg bg-gray-50"
                     >
                       <div
                         className={`p-2 rounded-full ${
@@ -166,7 +167,7 @@ const ApplicationModals = ({
                         
                         <div className="flex items-center gap-2 mb-2">
                           <span className="text-lg font-bold text-blue-600">
-                            ${item.amount.toLocaleString()}/month
+                            <DirhamSvg color1="" className="mb-1 mr-1" />{item.amount.toLocaleString()}/month
                           </span>
                           {index === 0 && (
                             <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">
@@ -216,8 +217,8 @@ const ApplicationModals = ({
                   return (
                     <>
                       {/* Basic Info */}
-                      <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                        <User className="w-12 h-12 text-gray-600 bg-white rounded-full p-3" />
+                      <div className="flex items-center gap-4 p-4 rounded-lg bg-gray-50">
+                        <User className="w-12 h-12 p-3 text-gray-600 bg-white rounded-full" />
                         <div className="flex-1">
                           <h3 className="text-lg font-semibold text-gray-900">
                             {application.tenantName}
@@ -235,7 +236,7 @@ const ApplicationModals = ({
 
                       {/* Financial Info */}
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="p-4 border border-green-200 rounded-lg bg-green-50">
                           <div className="flex items-center gap-2 mb-2">
                             <TrendingUp className="w-5 h-5 text-green-600" />
                             <span className="text-sm font-medium text-green-800">Credit Score</span>
@@ -245,7 +246,7 @@ const ApplicationModals = ({
                           </p>
                         </div>
 
-                        <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <div className="p-4 border border-blue-200 rounded-lg bg-blue-50">
                           <div className="flex items-center gap-2 mb-2">
                             <DollarSign className="w-5 h-5 text-blue-600" />
                             <span className="text-sm font-medium text-blue-800">Monthly Income</span>
@@ -255,7 +256,7 @@ const ApplicationModals = ({
                           </p>
                         </div>
 
-                        <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <div className="p-4 border border-purple-200 rounded-lg bg-purple-50">
                           <div className="flex items-center gap-2 mb-2">
                             <Briefcase className="w-5 h-5 text-purple-600" />
                             <span className="text-sm font-medium text-purple-800">Employment</span>
@@ -265,7 +266,7 @@ const ApplicationModals = ({
                           </p>
                         </div>
 
-                        <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                        <div className="p-4 border border-orange-200 rounded-lg bg-orange-50">
                           <div className="flex items-center gap-2 mb-2">
                             <Home className="w-5 h-5 text-orange-600" />
                             <span className="text-sm font-medium text-orange-800">Rental History</span>
@@ -277,7 +278,7 @@ const ApplicationModals = ({
                       </div>
 
                       {/* References */}
-                      <div className="p-4 bg-gray-50 rounded-lg">
+                      <div className="p-4 rounded-lg bg-gray-50">
                         <div className="flex items-center gap-2 mb-3">
                           <FileText className="w-5 h-5 text-gray-600" />
                           <span className="text-sm font-medium text-gray-800">References</span>
@@ -361,7 +362,7 @@ const ApplicationModals = ({
             </h2>
             
             <div className="space-y-4">
-              <div className="h-64 p-4 bg-gray-50 rounded-lg overflow-y-auto">
+              <div className="h-64 p-4 overflow-y-auto rounded-lg bg-gray-50">
                 <div className="space-y-3">
                   <div className="flex justify-start">
                     <div className="max-w-xs p-3 bg-white border rounded-lg rounded-bl-none">
@@ -373,7 +374,7 @@ const ApplicationModals = ({
                   </div>
                   
                   <div className="flex justify-end">
-                    <div className="max-w-xs p-3 bg-blue-500 text-white rounded-lg rounded-br-none">
+                    <div className="max-w-xs p-3 text-white bg-blue-500 rounded-lg rounded-br-none">
                       <p className="text-sm">
                         Hello! Great to hear from you. How about tomorrow at 3 PM?
                       </p>
@@ -405,7 +406,7 @@ const ApplicationModals = ({
                     }
                   }}
                   disabled={!chatMessage.trim()}
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors myButton disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600 myButton disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="w-4 h-4" />
                 </button>

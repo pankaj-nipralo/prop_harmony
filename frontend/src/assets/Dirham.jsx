@@ -1,13 +1,14 @@
 // DirhamSvg.tsx
 import React from "react";
 
-const DirhamSvg = ({ color1 = "#000000", size = 16 }) => (
+const DirhamSvg = ({ color1 = "", size = 16, className = "" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1000 870"
     width={size}
     height={size}
     fill="currentColor"
+    className={`inline-block align-middle  ${className}`}
   >
     <path
       id="Layer copy"

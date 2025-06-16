@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Star, ArrowLeft, MapPin, Calendar } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import DirhamSvg from "@/assets/Dirham";
 
 const mockProperties = [
   {
@@ -60,8 +61,8 @@ const initialTenants = [
   },
 ];
 const initialTransactions = [
-  { date: "2025-05-01", description: "Rent Payment", amount: "AED 8,500" },
-  { date: "2025-04-01", description: "Rent Payment", amount: "AED 8,500" },
+  { date: "2025-05-01", description: "Rent Payment", amount: "8,500" },
+  { date: "2025-04-01", description: "Rent Payment", amount: "8,500" },
 ];
 
 const PropertiesDetails = () => {
@@ -616,19 +617,22 @@ const PropertiesDetails = () => {
               <div className="p-6 bg-white border border-gray-200 rounded-xl">
                 <div className="mb-1 text-sm text-gray-500">Monthly Rent</div>
                 <div className="text-2xl font-bold text-blue-500">
-                  AED 8,500
+                  <DirhamSvg size={19} color1="" className="mb-1.5 mr-1" /> 8,500
                 </div>
               </div>
               <div className="p-6 bg-white border border-gray-200 rounded-xl">
                 <div className="mb-1 text-sm text-gray-500">
                   Security Deposit
                 </div>
-                <div className="text-2xl font-bold text-blue-500">AED 0</div>
+                <div className="text-2xl font-bold text-blue-500">
+                  {" "}
+                  <DirhamSvg size={19} color1="" className="mb-1.5 mr-1" /> 0
+                </div>
               </div>
               <div className="p-6 bg-white border border-gray-200 rounded-xl">
                 <div className="mb-1 text-sm text-gray-500">Total Paid</div>
                 <div className="text-2xl font-bold text-green-600">
-                  AED 17,000
+                  <DirhamSvg size={19} color1="" className="mb-1.5 mr-1" /> 17,000
                 </div>
               </div>
               <div className="p-6 bg-white border border-gray-200 rounded-xl">
@@ -636,13 +640,13 @@ const PropertiesDetails = () => {
                   Current Balance
                 </div>
                 <div className="text-2xl font-bold text-green-600">
-                  AED 0 credit
+                  <DirhamSvg size={19} color1="" className="mb-1.5 mr-1" /> 0 credit
                 </div>
               </div>
             </div>
             <div className="p-6 mt-4 bg-white border border-gray-200 rounded-xl">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">$</span>
+                <DirhamSvg color1="" className="" />
                 <span className="text-lg font-semibold">
                   Transaction History
                 </span>
@@ -685,6 +689,7 @@ const PropertiesDetails = () => {
                           {txn.description}
                         </td>
                         <td className="px-4 py-3 text-gray-600">
+                          <DirhamSvg color1="" size={14} className="mb-1 mr-1 " />{" "}
                           {txn.amount}
                         </td>
                       </tr>

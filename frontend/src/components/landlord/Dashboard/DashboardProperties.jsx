@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/dialog"; 
 import { Button } from "@/components/ui/button"; 
 import { propertiesData } from "@/data/landlord/dashboard/data";
+import DirhamSvg from "@/assets/Dirham";
 
 const statusColorMap = {
   occupied: "bg-green-100 text-green-700",
@@ -204,8 +205,8 @@ const DashboardProperties = () => {
                 {property.bedrooms > 1 ? "bedrooms" : "bedroom"}
               </div>
               <div className="flex items-center gap-2">
-                <IndianRupee  className="w-4 h-4 text-gray-400" />
-                AED {property.rent}/month
+                <DirhamSvg size={14} color1="" className="text-gray-400 " />
+                {property.rent}/month
               </div>
             </div>
           </div>

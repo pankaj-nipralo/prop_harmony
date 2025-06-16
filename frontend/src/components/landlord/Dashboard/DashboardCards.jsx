@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, FileText, Home, Wrench } from "lucide-react";
 import { dashboardData } from "@/data/landlord/dashboard/data";
+import DirhamSvg from "@/assets/Dirham";
 
 const DashboardCards = () => {
   return (
@@ -35,8 +36,9 @@ const DashboardCards = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-gray-800">
-            AED {dashboardData.monthlyIncome.toLocaleString()}
+          <div className="gap-2 text-2xl font-bold text-gray-800 ">
+            <DirhamSvg size={20} className="inline-block align-middle " />
+             {dashboardData.monthlyIncome.toLocaleString()}
           </div>
           <p className="flex items-center mt-1 text-xs font-medium text-green-500">
             <span className="inline-block mr-1">↑</span>

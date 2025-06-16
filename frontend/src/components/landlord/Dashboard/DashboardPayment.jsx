@@ -7,25 +7,26 @@ import {
   Calendar,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import DirhamSvg from "@/assets/Dirham";
 
 const paymentStats = [
   {
     label: "Collected",
-    value: "AED 8,500",
+    value: "8,500",
     icon: <TrendingUp className="w-5 h-5 text-green-500" />,
     color: "text-green-600",
     bg: "bg-green-50",
   },
   {
     label: "Pending",
-    value: "AED 0",
+    value: "0",
     icon: <CreditCard className="w-5 h-5 text-yellow-500" />,
     color: "text-yellow-600",
     bg: "bg-yellow-50",
   },
   {
     label: "Overdue",
-    value: "AED 0",
+    value: "0",
     icon: <TrendingDown className="w-5 h-5 text-red-500" />,
     color: "text-red-600",
     bg: "bg-red-50",
@@ -36,28 +37,28 @@ const recentPayments = [
   {
     property: "123 Main Street, Apt 4B",
     tenant: "Michael Davis",
-    amount: "AED 1,450",
+    amount: "1,450",
     date: "2025-05-20",
     status: "Paid",
   },
   {
     property: "456 Oak Avenue, Apt 2A",
     tenant: "Jennifer Smith",
-    amount: "AED 1,650",
+    amount: "1,650",
     date: "2025-05-19",
     status: "Paid",
   },
   {
     property: "789 Pine Road, Apt 7C",
     tenant: "Robert Brown",
-    amount: "AED 1,350",
+    amount: "1,350",
     date: "2025-05-18",
     status: "Pending",
   },
   {
     property: "101 Cedar Lane, Apt 1D",
     tenant: "Emily Johnson",
-    amount: "AED 1,550",
+    amount: "1,550",
     date: "2025-05-17",
     status: "Paid",
   },
@@ -101,6 +102,7 @@ const DashboardPayment = () => {
                 <div
                   className={`mt-1 text-lg md:text-xl font-bold ${stat.color} font-sans`}
                 >
+                  <DirhamSvg size={16} className="mb-1 mr-2" />
                   {stat.value}
                 </div>
               </div>
@@ -113,7 +115,7 @@ const DashboardPayment = () => {
       {/* Recent Payments Table */}
       <Card className="bg-white border-0 shadow-md">
         <CardHeader className="flex flex-row items-center gap-2 pb-2">
-          <IndianRupee className="w-5 h-5 text-gray-400" />
+          <DirhamSvg className="w-5 h-5 !m-0 text-gray-400" />
           <CardTitle className="font-sans text-base font-semibold text-gray-800 md:text-lg">
             Recent Payments
           </CardTitle>
@@ -148,14 +150,14 @@ const DashboardPayment = () => {
                       className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"
                         } hover:bg-blue-50 transition-colors duration-150`}
                     >
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         {payment.property}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         {payment.tenant}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        ₹{payment.amount}
+                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                         <DirhamSvg size={12} className="mb-1 mr-1 text-gray-700" />{payment.amount}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -176,7 +178,7 @@ const DashboardPayment = () => {
               </table>
             </div>
           ) : (
-            <div className="py-8 text-center text-gray-400 text-base">
+            <div className="py-8 text-base text-center text-gray-400">
               No payment records found
             </div>
           )}

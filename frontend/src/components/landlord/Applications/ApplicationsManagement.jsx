@@ -27,6 +27,7 @@ import {
   Star,
   FileText,
 } from "lucide-react";
+import DirhamSvg from "@/assets/Dirham";
 
 const ApplicationsManagement = () => {
   // State for applications and negotiations
@@ -524,7 +525,7 @@ const ApplicationsManagement = () => {
                             Listed Price:
                           </span>
                           <span className="text-sm font-medium text-gray-900">
-                            ${application.originalPrice.toLocaleString()}/month
+                            <DirhamSvg color1="" className="mb-1 mr-1" />{application.originalPrice.toLocaleString()}/month
                           </span>
                         </div>
 
@@ -534,7 +535,7 @@ const ApplicationsManagement = () => {
                               Tenant's Offer:
                             </span>
                             <span className="text-sm font-bold text-blue-600">
-                              ${application.tenantLastOffer.toLocaleString()}
+                              <DirhamSvg color1="" className="mb-1 mr-1" />{application.tenantLastOffer.toLocaleString()}
                               /month
                             </span>
                           </div>
@@ -546,7 +547,7 @@ const ApplicationsManagement = () => {
                               My Counter Offer:
                             </span>
                             <span className="text-sm font-bold text-green-600">
-                              ${application.myLastOffer.toLocaleString()}/month
+                              <DirhamSvg color1="" className="mb-1 mr-1" />{application.myLastOffer.toLocaleString()}/month
                             </span>
                           </div>
                         )}
@@ -557,7 +558,7 @@ const ApplicationsManagement = () => {
                               Current Offer:
                             </span>
                             <span className="text-lg font-bold text-blue-600">
-                              ${application.currentOffer.toLocaleString()}/month
+                              <DirhamSvg color1="" className="mb-1 mr-1" />{application.currentOffer.toLocaleString()}/month
                             </span>
                           </div>
                         </div>
@@ -576,7 +577,7 @@ const ApplicationsManagement = () => {
                         className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
                       >
                         <CheckCircle className="w-4 h-4" />
-                        Accept ${application.currentOffer.toLocaleString()}
+                        Accept <DirhamSvg color1="" className="" />{application.currentOffer.toLocaleString()}
                         /month
                       </button>
 
