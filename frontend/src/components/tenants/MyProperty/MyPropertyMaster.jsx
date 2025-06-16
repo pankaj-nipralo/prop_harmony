@@ -30,7 +30,7 @@ const MyPropertyMaster = () => {
   };
 
   const handleContactLandlord = () => {
-    navigate("/tenants/messages", {
+    navigate("/tenants/emails", {
       state: {
         recipient: contactInformation.landlord.name,
         email: contactInformation.landlord.email,
@@ -39,7 +39,7 @@ const MyPropertyMaster = () => {
   };
 
   const handleContactManager = () => {
-    navigate("/tenants/messages", {
+    navigate("/tenants/emails", {
       state: {
         recipient: contactInformation.propertyManager.name,
         email: contactInformation.propertyManager.email,

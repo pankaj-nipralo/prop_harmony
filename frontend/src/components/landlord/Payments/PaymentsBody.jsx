@@ -133,28 +133,28 @@ const PaymentsBody = ({
     }
   };
 
-  if (isLoading) {
-    return (
-      <Card className="p-6 border-0">
-        <div className="space-y-4">
-          {[...Array(5)].map((_, index) => (
-            <div
-              key={index}
-              className="flex items-center space-x-4 animate-pulse"
-            >
-              <div className="w-4 h-4 bg-gray-200 rounded"></div>
-              <div className="flex-1 space-y-2">
-                <div className="w-3/4 h-4 bg-gray-200 rounded"></div>
-                <div className="w-1/2 h-3 bg-gray-200 rounded"></div>
-              </div>
-              <div className="w-20 h-4 bg-gray-200 rounded"></div>
-              <div className="w-16 h-6 bg-gray-200 rounded"></div>
-            </div>
-          ))}
-        </div>
-      </Card>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <Card className="p-6 border-0">
+  //       <div className="space-y-4">
+  //         {[...Array(5)].map((_, index) => (
+  //           <div
+  //             key={index}
+  //             className="flex items-center space-x-4 animate-pulse"
+  //           >
+  //             <div className="w-4 h-4 bg-gray-200 rounded"></div>
+  //             <div className="flex-1 space-y-2">
+  //               <div className="w-3/4 h-4 bg-gray-200 rounded"></div>
+  //               <div className="w-1/2 h-3 bg-gray-200 rounded"></div>
+  //             </div>
+  //             <div className="w-20 h-4 bg-gray-200 rounded"></div>
+  //             <div className="w-16 h-6 bg-gray-200 rounded"></div>
+  //           </div>
+  //         ))}
+  //       </div>
+  //     </Card>
+  //   );
+  // }
 
   return (
     <div className="space-y-6">
@@ -556,7 +556,7 @@ const PaymentsBody = ({
 
         {payments.length === 0 && (
           <div className="py-12 text-center">
-            <DollarSign className="w-12 h-12 mx-auto text-gray-400" />
+            <DirhamSvg className="w-12 h-12 mx-auto text-gray-400" />
             <h3 className="mt-4 text-lg font-medium text-gray-900">
               No payments found
             </h3>

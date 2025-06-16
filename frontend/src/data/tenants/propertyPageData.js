@@ -26,8 +26,8 @@ export const leaseInformation = {
   endDate: "2024-12-31", 
   progress: 100,
   daysRemaining: 0,
-  monthlyRent: "AED 7,500",
-  depositPaid: "AED 7,500",
+  monthlyRent: " 7,500",
+  depositPaid: " 7,500",
   nextPaymentDate: "February 1, 2025",
   dueDate: "1st of each month",
   renewalNotice: "Lease expiring soon. Consider renewal options."
@@ -85,7 +85,7 @@ export const maintenanceHistory = [
     requestDate: "2024-01-15",
     completedDate: "2024-01-17",
     assignedTo: "HVAC Specialist",
-    cost: "AED 450"
+    cost: " 450"
   },
   {
     id: 2,

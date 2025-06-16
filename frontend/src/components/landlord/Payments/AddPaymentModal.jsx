@@ -7,8 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
 import {
-  X,
-  DollarSign,
+  X, 
   Calendar,
   User,
   Home,
@@ -23,6 +22,7 @@ import {
   formatCurrency,
 } from "@/data/landlord/payments/data";
 import { tenantData } from "@/data/landlord/tenant/data";
+import DirhamSvg from "@/assets/Dirham";
 
 const AddPaymentModal = ({
   isOpen,
@@ -218,7 +218,7 @@ const AddPaymentModal = ({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3 text-xl font-bold text-gray-900">
             <div className="p-2 bg-blue-500 rounded-lg">
-              <DollarSign className="w-6 h-6 text-white" />
+              <DirhamSvg className="w-6 h-6 text-white" />
             </div>
             {editingPayment ? "Edit Payment" : "Record New Payment"}
           </DialogTitle>
@@ -267,7 +267,7 @@ const AddPaymentModal = ({
                   type="email"
                   value={formData.tenantEmail}
                   readOnly
-                  className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
               </div>
             </div>
@@ -323,7 +323,7 @@ const AddPaymentModal = ({
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Amount (AED) *
+                  Amount *
                 </label>
                 <input
                   type="number"
@@ -386,7 +386,7 @@ const AddPaymentModal = ({
             <div className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-3">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Late Fee (AED)
+                  Late Fee
                 </label>
                 <input
                   type="number"
@@ -400,7 +400,7 @@ const AddPaymentModal = ({
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Discount (AED)
+                  Discount
                 </label>
                 <input
                   type="number"
@@ -416,9 +416,9 @@ const AddPaymentModal = ({
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Net Amount (AED)
+                  Net Amount
                 </label>
-                <div className="flex items-center px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                <div className="flex items-center px-3 py-2 border border-gray-300 rounded-lg bg-gray-50">
                   <span className="text-lg font-semibold text-gray-900">
                     {formatCurrency(calculateNetAmount())}
                   </span>
@@ -611,7 +611,7 @@ const AddPaymentModal = ({
               >
                 {isLoading ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
                     Saving...
                   </>
                 ) : (

@@ -5,11 +5,11 @@ import {
   User,
   Phone,
   Mail,
-  Calendar,
-  DollarSign,
+  Calendar, 
   AlertCircle,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import DirhamSvg from "@/assets/Dirham";
 
 const PropertyDetailsCard = ({
   property,
@@ -143,14 +143,14 @@ const PropertyDetailsCard = ({
               {/* Rent Information */}
               <div className="col-span-2 p-4 rounded-lg bg-gray-50">
                 <div className="flex items-center gap-2 mb-3">
-                  <DollarSign className="w-4 h-4 text-gray-600" />
+                  <DirhamSvg className="w-4 h-4 text-gray-600" />
                   <h4 className="font-semibold text-gray-900">
                     Rent Information
                   </h4>
                 </div>
                 <div className="mb-4 text-center">
                   <div className="text-2xl font-bold text-gray-900">
-                    {leaseInfo.monthlyRent}
+                     <DirhamSvg size={20} className="mr-1 mb-1.5" color1="" />{leaseInfo.monthlyRent}
                   </div>
                   <div className="text-sm text-gray-600">Monthly Rent</div>
                 </div>

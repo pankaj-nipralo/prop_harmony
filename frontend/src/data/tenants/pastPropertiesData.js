@@ -1,7 +1,7 @@
 // Past Properties Data
 export const pastPropertiesStats = {
   totalProperties: 3,
-  totalRentPaid: "AED 79,800",
+  totalRentPaid: " 79,800",
   avgRatingGiven: 4.4,
   avgRatingReceived: 4.2
 };
@@ -15,8 +15,8 @@ export const pastPropertiesData = [
     propertyDetails: {
       bedrooms: 2,
       bathrooms: 1,
-      monthlyRent: "AED 2,200",
-      totalPaid: "AED 26,400"
+      monthlyRent: " 2,200",
+      totalPaid: " 26,400"
     },
     leasePeriod: {
       startDate: "2022-01-01",
@@ -39,8 +39,8 @@ export const pastPropertiesData = [
     propertyDetails: {
       bedrooms: 1,
       bathrooms: 1,
-      monthlyRent: "AED 1,800",
-      totalPaid: "AED 32,400"
+      monthlyRent: " 1,800",
+      totalPaid: " 32,400"
     },
     leasePeriod: {
       startDate: "2020-06-01",
@@ -63,8 +63,8 @@ export const pastPropertiesData = [
     propertyDetails: {
       bedrooms: "Studio",
       bathrooms: 1,
-      monthlyRent: "AED 1,500",
-      totalPaid: "AED 21,000"
+      monthlyRent: " 1,500",
+      totalPaid: " 21,000"
     },
     leasePeriod: {
       startDate: "2019-03-01",
@@ -94,7 +94,7 @@ export const calculateOverallStats = (properties) => {
   
   return {
     totalProperties,
-    totalRentPaid: `AED ${totalRentPaid.toLocaleString()}`,
+    totalRentPaid: ` ${totalRentPaid.toLocaleString()}`,
     avgRatingGiven: avgRatingGiven.toFixed(1),
     avgRatingReceived: avgRatingReceived.toFixed(1)
   };

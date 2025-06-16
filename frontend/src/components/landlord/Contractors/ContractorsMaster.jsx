@@ -313,7 +313,7 @@ const ContractorManager = () => {
                         htmlFor="rate"
                         className="block mb-2 text-sm font-medium text-gray-700"
                       >
-                        Rate/Hour (AED) *
+                        Rate/Hour *
                       </Label>
                       <Input
                         id="rate"
@@ -497,7 +497,8 @@ const ContractorManager = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                      <DirhamSvg size={12} color1="" className="mb-1 mr-1" /> {c.rate}
+                      <DirhamSvg size={12} color1="" className="mb-1 mr-1" />{" "}
+                      {c.rate}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
@@ -513,7 +514,7 @@ const ContractorManager = () => {
                         {renderStars(c.rating)}
                         <span className="text-xs text-gray-500">({c.rating})</span>
                       </div>
-                    </td> */} 
+                    </td> */}
                     <td className="px-6 py-4">
                       <div className="flex gap-2">
                         <Dialog
@@ -626,7 +627,7 @@ const ContractorManager = () => {
                                   </div>
                                   <div>
                                     <Label className="block mb-2 text-sm font-medium text-gray-700">
-                                      Specialties 
+                                      Specialties
                                     </Label>
                                     <div className="flex flex-wrap gap-2">
                                       {specialtiesList.map((specialty) => (

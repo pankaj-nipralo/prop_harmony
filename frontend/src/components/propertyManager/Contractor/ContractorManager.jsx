@@ -312,7 +312,7 @@ const ContractorManager = () => {
                         htmlFor="rate"
                         className="block mb-2 text-sm font-medium text-gray-700"
                       >
-                        Rate/Hour (AED) *
+                        Rate/Hour *
                       </Label>
                       <Input
                         id="rate"
@@ -603,7 +603,7 @@ const ContractorManager = () => {
                                       htmlFor="edit-rate"
                                       className="block mb-2 text-sm font-medium text-gray-700"
                                     >
-                                      Rate/Hour (AED) *
+                                      Rate/Hour *
                                     </Label>
                                     <Input
                                       id="edit-rate"

@@ -51,21 +51,21 @@ const dummyStats = [
 const dummyPayments = [
   {
     date: "2025-03-30",
-    amount: "AED 20,000",
+    amount: "20,000",
     status: "Paid",
     statusColor: "bg-green-100 text-green-700",
     method: "Bank Transfer",
   },
   {
     date: "2024-12-30",
-    amount: "AED 20,000",
+    amount: "20,000",
     status: "Paid",
     statusColor: "bg-green-100 text-green-700",
     method: "Credit Card",
   },
   {
     date: "2024-09-30",
-    amount: "AED 20,000",
+    amount: "20,000",
     status: "Paid",
     statusColor: "bg-green-100 text-green-700",
     method: "Bank Transfer",
@@ -96,7 +96,7 @@ const dummyMaintenance = [
   },
 ];
 
-const OverviewTab = ({propertyData}) => {
+const OverviewTab = ({ propertyData }) => {
   return (
     <div className="space-y-8">
       {/* Stats Cards */}

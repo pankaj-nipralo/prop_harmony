@@ -1,5 +1,6 @@
 import React from "react";
-import { Building2, DollarSign, Star } from "lucide-react";
+import { Building2, Star } from "lucide-react";
+import DirhamSvg from "@/assets/Dirham";
 
 const PastPropertiesStats = ({ stats }) => {
   const statsCards = [
@@ -13,7 +14,7 @@ const PastPropertiesStats = ({ stats }) => {
     {
       title: "Total Rent Paid",
       value: `${stats.totalRentPaid}`,
-      icon: DollarSign,
+      icon: () => { <DirhamSvg size={12} className="mb-1 mr-1" color1="" />},
       iconColor: "text-green-600",
       bgColor: "bg-green-50",
     },

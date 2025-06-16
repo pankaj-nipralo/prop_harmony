@@ -10,7 +10,7 @@ import {
   Target,
 } from "lucide-react";
 import { formatCurrency } from "@/data/landlord/payments/data";
-import DirhamSvg from '@/assets/Dirham';
+import DirhamSvg from "@/assets/Dirham";
 
 const PaymentsStats = ({ stats = {}, isLoading }) => {
   // Provide default values for all stats properties to prevent undefined errors
@@ -31,7 +31,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
   const statCards = [
     {
       title: "Total Collected",
-      value: formatCurrency(safeStats.paidAmount ?? 0),
+      value: safeStats.paidAmount,
       subtitle: `${safeStats.paidCount ?? 0} payments`,
       icon: () => <DirhamSvg size={20} color1="#16a34a" />,
       color: "green",
@@ -42,9 +42,9 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
     },
     {
       title: "Pending Payments",
-      value: formatCurrency(safeStats.pendingAmount ?? 0),
+      value: safeStats.pendingAmount ?? 0,
       subtitle: `${safeStats.pendingCount ?? 0} pending`,
-      icon: Clock,
+      icon: () => <Clock />,
       color: "yellow",
       bgColor: "bg-yellow-50",
       iconColor: "text-yellow-600",
@@ -53,7 +53,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
     },
     {
       title: "Overdue Amount",
-      value: formatCurrency(safeStats.overdueAmount ?? 0),
+      value: safeStats.overdueAmount ?? 0,
       subtitle: `${safeStats.overdueCount ?? 0} overdue`,
       icon: AlertTriangle,
       color: "red",
@@ -78,7 +78,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
   const additionalStats = [
     {
       title: "Average Payment",
-      value: formatCurrency(safeStats.averagePayment ?? 0),
+      value: safeStats.averagePayment ?? 0,
       icon: PieChart,
       color: "purple",
     },
@@ -90,7 +90,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
     },
     {
       title: "This Month",
-      value: formatCurrency(safeStats.totalAmount ?? 0),
+      value: safeStats.totalAmount ?? 0,
       icon: Calendar,
       color: "teal",
     },
@@ -102,24 +102,24 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
     },
   ];
 
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {[...Array(4)].map((_, index) => (
-          <Card key={index} className="p-6 border-0 animate-pulse">
-            <div className="flex items-center justify-between">
-              <div className="space-y-2">
-                <div className="w-20 h-4 bg-gray-200 rounded"></div>
-                <div className="w-16 h-6 bg-gray-200 rounded"></div>
-                <div className="w-12 h-3 bg-gray-200 rounded"></div>
-              </div>
-              <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
-            </div>
-          </Card>
-        ))}
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+  //       {[...Array(4)].map((_, index) => (
+  //         <Card key={index} className="p-6 border-0 animate-pulse">
+  //           <div className="flex items-center justify-between">
+  //             <div className="space-y-2">
+  //               <div className="w-20 h-4 bg-gray-200 rounded"></div>
+  //               <div className="w-16 h-6 bg-gray-200 rounded"></div>
+  //               <div className="w-12 h-3 bg-gray-200 rounded"></div>
+  //             </div>
+  //             <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+  //           </div>
+  //         </Card>
+  //       ))}
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="space-y-6">
@@ -150,7 +150,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
                 </div>
               </div>
               <div className={`p-3 rounded-lg ${stat.bgColor}`}>
-                {typeof stat.icon === 'function' ? stat.icon() : null}
+                {typeof stat.icon === "function" ? stat.icon() : stat.icon}
               </div>
             </div>
           </Card>

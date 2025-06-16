@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { 
-  maintenanceCategories, 
-  priorityLevels, 
+import {
+  maintenanceCategories,
+  priorityLevels,
   techniciansList,
-  maintenanceStatuses 
+  maintenanceStatuses,
 } from "@/data/landlord/maintenance/data";
 import { tenantData } from "@/data/landlord/tenant/data";
 import { Calendar, X } from "lucide-react";
 
-const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance }) => {
+const EditMaintenanceModal = ({
+  open,
+  onClose,
+  maintenance,
+  onUpdateMaintenance,
+}) => {
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -32,7 +37,7 @@ const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance 
   });
 
   // Get all tenants for dropdown
-  const allTenants = tenantData.flatMap(group => group.tenantsList);
+  const allTenants = tenantData.flatMap((group) => group.tenantsList);
 
   // Populate form when maintenance prop changes
   useEffect(() => {
@@ -66,13 +71,14 @@ const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance 
 
     // Auto-populate tenant details when tenant is selected
     if (name === "tenantName" && value) {
-      const selectedTenant = allTenants.find(t => t.name === value);
+      const selectedTenant = allTenants.find((t) => t.name === value);
       if (selectedTenant) {
-        setForm(prev => ({
+        setForm((prev) => ({
           ...prev,
           tenantEmail: selectedTenant.email,
           tenantPhone: selectedTenant.phone,
-          propertyName: selectedTenant.address.split(" Unit")[0] || selectedTenant.address,
+          propertyName:
+            selectedTenant.address.split(" Unit")[0] || selectedTenant.address,
           propertyAddress: selectedTenant.address,
         }));
       }
@@ -80,9 +86,9 @@ const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance 
 
     // Auto-populate technician details when technician is selected
     if (name === "assignedTechnician" && value) {
-      const selectedTechnician = techniciansList.find(t => t.name === value);
+      const selectedTechnician = techniciansList.find((t) => t.name === value);
       if (selectedTechnician) {
-        setForm(prev => ({
+        setForm((prev) => ({
           ...prev,
           technicianPhone: selectedTechnician.phone,
           technicianEmail: selectedTechnician.email,
@@ -92,9 +98,9 @@ const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance 
 
     // Auto-set completion date when status changes to Completed
     if (name === "status" && value === "Completed" && !form.completedDate) {
-      setForm(prev => ({
+      setForm((prev) => ({
         ...prev,
-        completedDate: new Date().toISOString().split('T')[0]
+        completedDate: new Date().toISOString().split("T")[0],
       }));
     }
   };
@@ -105,7 +111,7 @@ const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance 
       const updatedMaintenance = {
         ...maintenance,
         ...form,
-        lastUpdated: new Date().toISOString().split('T')[0],
+        lastUpdated: new Date().toISOString().split("T")[0],
       };
       onUpdateMaintenance(updatedMaintenance);
     }
@@ -121,7 +127,7 @@ const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance 
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-800">
               Edit Maintenance Request
-            </h2> 
+            </h2>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -285,7 +291,7 @@ const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance 
                   name="estimatedCost"
                   value={form.estimatedCost}
                   onChange={handleChange}
-                  placeholder="AED 500"
+                  placeholder="500"
                   className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -318,7 +324,7 @@ const EditMaintenanceModal = ({ open, onClose, maintenance, onUpdateMaintenance 
                     name="actualCost"
                     value={form.actualCost}
                     onChange={handleChange}
-                    placeholder="AED 450"
+                    placeholder="450"
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>

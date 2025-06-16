@@ -454,7 +454,7 @@ export const getTemplateData = (tenant, property) => {
   return {
     tenantName: tenant?.name || "Tenant",
     propertyName: property?.name || "Property",
-    amount: tenant?.rent || "AED 8,500",
+    amount: tenant?.rent || "8,500",
     month: nextMonth.toLocaleDateString("en-US", {
       month: "long",
       year: "numeric",

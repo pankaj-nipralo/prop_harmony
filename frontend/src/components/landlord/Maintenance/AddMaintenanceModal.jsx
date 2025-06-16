@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { 
-  maintenanceCategories, 
-  priorityLevels, 
-  techniciansList 
+import {
+  maintenanceCategories,
+  priorityLevels,
+  techniciansList,
 } from "@/data/landlord/maintenance/data";
 import { tenantData } from "@/data/landlord/tenant/data";
 import { Calendar, X } from "lucide-react";
@@ -30,7 +30,7 @@ const AddMaintenanceModal = ({ open, onClose, onAddMaintenance }) => {
   const [form, setForm] = useState(defaultForm);
 
   // Get all tenants for dropdown
-  const allTenants = tenantData.flatMap(group => group.tenantsList);
+  const allTenants = tenantData.flatMap((group) => group.tenantsList);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,13 +38,14 @@ const AddMaintenanceModal = ({ open, onClose, onAddMaintenance }) => {
 
     // Auto-populate tenant details when tenant is selected
     if (name === "tenantName" && value) {
-      const selectedTenant = allTenants.find(t => t.name === value);
+      const selectedTenant = allTenants.find((t) => t.name === value);
       if (selectedTenant) {
-        setForm(prev => ({
+        setForm((prev) => ({
           ...prev,
           tenantEmail: selectedTenant.email,
           tenantPhone: selectedTenant.phone,
-          propertyName: selectedTenant.address.split(" Unit")[0] || selectedTenant.address,
+          propertyName:
+            selectedTenant.address.split(" Unit")[0] || selectedTenant.address,
           propertyAddress: selectedTenant.address,
         }));
       }
@@ -52,9 +53,9 @@ const AddMaintenanceModal = ({ open, onClose, onAddMaintenance }) => {
 
     // Auto-populate technician details when technician is selected
     if (name === "assignedTechnician" && value) {
-      const selectedTechnician = techniciansList.find(t => t.name === value);
+      const selectedTechnician = techniciansList.find((t) => t.name === value);
       if (selectedTechnician) {
-        setForm(prev => ({
+        setForm((prev) => ({
           ...prev,
           technicianPhone: selectedTechnician.phone,
           technicianEmail: selectedTechnician.email,
@@ -74,9 +75,12 @@ const AddMaintenanceModal = ({ open, onClose, onAddMaintenance }) => {
         completedDate: null,
         photos: [],
         createdBy: "Property Manager",
-        createdDate: new Date().toISOString().split('T')[0],
-        lastUpdated: new Date().toISOString().split('T')[0],
-        tags: [form.category.toLowerCase().replace(/\s+/g, '-'), form.priority.toLowerCase()]
+        createdDate: new Date().toISOString().split("T")[0],
+        lastUpdated: new Date().toISOString().split("T")[0],
+        tags: [
+          form.category.toLowerCase().replace(/\s+/g, "-"),
+          form.priority.toLowerCase(),
+        ],
       };
       onAddMaintenance(newMaintenance);
     }
@@ -92,7 +96,6 @@ const AddMaintenanceModal = ({ open, onClose, onAddMaintenance }) => {
             <h2 className="text-xl font-semibold text-gray-800">
               Create Work Order
             </h2>
-            
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -202,11 +205,13 @@ const AddMaintenanceModal = ({ open, onClose, onAddMaintenance }) => {
                 className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select technician...</option>
-                {techniciansList.filter(t => t.availability === "Available").map((technician) => (
-                  <option key={technician.id} value={technician.name}>
-                    {technician.name} - {technician.specialization.join(", ")}
-                  </option>
-                ))}
+                {techniciansList
+                  .filter((t) => t.availability === "Available")
+                  .map((technician) => (
+                    <option key={technician.id} value={technician.name}>
+                      {technician.name} - {technician.specialization.join(", ")}
+                    </option>
+                  ))}
               </select>
             </div>
 
@@ -237,7 +242,7 @@ const AddMaintenanceModal = ({ open, onClose, onAddMaintenance }) => {
                   name="estimatedCost"
                   value={form.estimatedCost}
                   onChange={handleChange}
-                  placeholder="AED 500"
+                  placeholder="500"
                   className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>

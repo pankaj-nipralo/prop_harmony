@@ -118,7 +118,6 @@ const AddTransactionModal = ({ open, onClose, onAddTransaction }) => {
             <h2 className="text-xl font-semibold text-gray-800">
               Add Transaction
             </h2>
-         
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -196,7 +195,7 @@ const AddTransactionModal = ({ open, onClose, onAddTransaction }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Amount (AED) *
+                  Amount *
                 </label>
                 <input
                   name="amount"

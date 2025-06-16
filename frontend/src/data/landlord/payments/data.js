@@ -12,7 +12,7 @@ export const paymentsData = [
         propertyName: "Marina View Villa",
         propertyAddress: "123 Marina Street, Dubai Marina",
         amount: 8500,
-        currency: "AED",
+        currency: "",
         paymentType: "rent",
         paymentMethod: "bank_transfer",
         status: "paid",
@@ -43,7 +43,7 @@ export const paymentsData = [
         propertyName: "Sunset Apartments",
         propertyAddress: "456 Oak Avenue, Apt 2A",
         amount: 7200,
-        currency: "AED",
+        currency: "",
         paymentType: "rent",
         paymentMethod: "online",
         status: "pending",
@@ -74,7 +74,7 @@ export const paymentsData = [
         propertyName: "Downtown Loft",
         propertyAddress: "789 Pine Road, Apt 7C",
         amount: 6800,
-        currency: "AED",
+        currency: "",
         paymentType: "rent",
         paymentMethod: "cash",
         status: "overdue",
@@ -105,7 +105,7 @@ export const paymentsData = [
         propertyName: "Downtown Loft",
         propertyAddress: "789 Pine Road, Apt 5B",
         amount: 5000,
-        currency: "AED",
+        currency: "",
         paymentType: "security_deposit",
         paymentMethod: "bank_transfer",
         status: "paid",
@@ -136,7 +136,7 @@ export const paymentsData = [
         propertyName: "Sunset Apartments",
         propertyAddress: "456 Oak Avenue, Apt 3B",
         amount: 450,
-        currency: "AED",
+        currency: "",
         paymentType: "utilities",
         paymentMethod: "check",
         status: "paid",
@@ -167,7 +167,7 @@ export const paymentsData = [
         propertyName: "Marina View Villa",
         propertyAddress: "123 Marina Street, Dubai Marina",
         amount: 1200,
-        currency: "AED",
+        currency: "",
         paymentType: "maintenance",
         paymentMethod: "bank_transfer",
         status: "partial",
@@ -306,7 +306,7 @@ export const filterPayments = (payments, filters) => {
   });
 };
 
-export const formatCurrency = (amount, currency = "AED") => {
+export const formatCurrency = (amount, currency = "") => {
   return new Intl.NumberFormat('en-AE', {
     style: 'currency',
     currency: currency,

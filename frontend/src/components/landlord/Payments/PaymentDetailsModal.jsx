@@ -30,6 +30,7 @@ import {
   formatPaymentDate,
   getPaymentStatusColor,
 } from "@/data/landlord/payments/data";
+import DirhamSvg from "@/assets/Dirham";
 
 const PaymentDetailsModal = ({
   isOpen,
@@ -50,7 +51,7 @@ const PaymentDetailsModal = ({
       case "overdue":
         return <AlertTriangle className="w-5 h-5 text-red-600" />;
       case "partial":
-        return <DollarSign className="w-5 h-5 text-orange-600" />;
+        return <DirhamSvg className="w-5 h-5 text-orange-600" />;
       default:
         return <Clock className="w-5 h-5 text-gray-600" />;
     }
@@ -198,7 +199,7 @@ const PaymentDetailsModal = ({
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full">
                     <User className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
@@ -209,7 +210,7 @@ const PaymentDetailsModal = ({
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-3 ml-12">
+                <div className="flex items-center ml-12 space-x-3">
                   <Mail className="w-4 h-4 text-gray-400" />
                   <span className="text-sm text-gray-600">
                     {payment.tenantEmail}
@@ -228,7 +229,7 @@ const PaymentDetailsModal = ({
 
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-full">
                   <Home className="w-6 h-6 text-green-600" />
                 </div>
                 <div>
@@ -239,7 +240,7 @@ const PaymentDetailsModal = ({
                 </div>
               </div>
 
-              <div className="flex items-center space-x-3 ml-12">
+              <div className="flex items-center ml-12 space-x-3">
                 <MapPin className="w-4 h-4 text-gray-400" />
                 <span className="text-sm text-gray-600">
                   {payment.propertyAddress}
@@ -266,7 +267,7 @@ const PaymentDetailsModal = ({
 
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600">Payment Method:</span>
-                  <span className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                  <span className="flex items-center gap-2 text-sm font-medium text-gray-900">
                     <span>{getPaymentMethodIcon(payment.paymentMethod)}</span>
                     {payment.paymentMethod.replace("_", " ").toUpperCase()}
                   </span>
@@ -295,7 +296,7 @@ const PaymentDetailsModal = ({
                     <span className="text-sm text-gray-600">
                       Transaction ID:
                     </span>
-                    <span className="text-sm font-medium text-gray-900 font-mono">
+                    <span className="font-mono text-sm font-medium text-gray-900">
                       {payment.transactionId}
                     </span>
                   </div>
@@ -340,20 +341,20 @@ const PaymentDetailsModal = ({
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Description
                 </label>
-                <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded-lg">
+                <p className="p-3 text-sm text-gray-900 rounded-lg bg-gray-50">
                   {payment.description}
                 </p>
               </div>
 
               {payment.notes && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
                     Notes
                   </label>
-                  <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded-lg">
+                  <p className="p-3 text-sm text-gray-900 rounded-lg bg-gray-50">
                     {payment.notes}
                   </p>
                 </div>

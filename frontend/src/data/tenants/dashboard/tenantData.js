@@ -5,29 +5,29 @@ export const stats = [
     value: "0%",
     subtitle: "0 days remaining",
     icon: "Clock",
-    color: "text-blue-500"
+    color: "text-blue-500",
   },
   {
-    title: "Monthly Rent", 
-    value: "AED 0",
+    title: "Monthly Rent",
+    value: "0",
     subtitle: "Annual: AED 0",
     icon: "DollarSign",
-    color: "text-green-500"
+    color: "text-green-500",
   },
   {
     title: "On-time Payment Rate",
-    value: "0%", 
+    value: "0%",
     subtitle: "Excellent record!",
     icon: "CheckCircle",
-    color: "text-green-500"
+    color: "text-green-500",
   },
   {
     title: "Avg Utility Cost",
-    value: "AED 0",
+    value: "0",
     subtitle: "Per month",
     icon: "Home",
-    color: "text-purple-500"
-  }
+    color: "text-purple-500",
+  },
 ];
 
 export const recentPayments = [
@@ -41,5 +41,5 @@ export const recentMaintenance = [
 export const landlordInfo = {
   name: "Property Owner",
   phone: "+971-50-123-4567",
-  email: "landlord@propharmony.com"
+  email: "landlord@propharmony.com",
 };
