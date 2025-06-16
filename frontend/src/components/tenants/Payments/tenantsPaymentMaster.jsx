@@ -16,7 +16,7 @@ import {
   Shield,
   Banknote,
   Smartphone,
-  Receipt,
+  ReceiptText,
   Eye,
   Trash2,
   Edit,
@@ -299,7 +299,7 @@ const TenantPaymentMaster = () => {
         <Card className="p-6 bg-white border-0 shadow-sm">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-green-100 rounded-lg">
-              <Receipt className="w-6 h-6 text-green-600" />
+              <ReceiptText className="w-6 h-6 text-green-600" />
             </div>
             <div>
               <p className="text-sm font-medium text-gray-600">
@@ -307,7 +307,7 @@ const TenantPaymentMaster = () => {
               </p>
               <p className="text-2xl font-bold text-gray-900">
                 <DirhamSvg size={20} className="mb-1.5 mr-1" />
-                ${totalPaidThisYear.toFixed(2)}
+                {totalPaidThisYear.toFixed(2)}
               </p>
             </div>
           </div>
@@ -327,7 +327,8 @@ const TenantPaymentMaster = () => {
                 <p className="text-orange-700">
                   Your rent payment of{" "}
                   <span className="font-bold">
-                    ${currentBalance.toFixed(2)}
+                    <DirhamSvg size={14} className="mb-1" />
+                    {currentBalance.toFixed(2)}
                   </span>{" "}
                   is due on{" "}
                   <span className="font-bold">
@@ -391,7 +392,7 @@ const TenantPaymentMaster = () => {
         >
           <div className="text-center">
             <div className="flex items-center justify-center w-16 h-16 p-4 mx-auto mb-4 bg-purple-100 rounded-full">
-              <DollarSign className="w-8 h-8 text-purple-600" />
+              <DirhamSvg className="w-6 h-6 text-purple-600" />
             </div>
             <h3 className="mb-2 text-lg font-semibold text-gray-900">
               Make Payment
@@ -430,7 +431,8 @@ const TenantPaymentMaster = () => {
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">
-                    ${payment.amount.toFixed(2)}
+                    <DirhamSvg size={14} className="mb-1.5 mr-1" />
+                    {payment.amount.toFixed(2)}
                   </p>
                   <p className="text-sm text-gray-600">
                     {new Date(payment.date).toLocaleDateString()} •{" "}
@@ -482,7 +484,7 @@ const TenantPaymentMaster = () => {
                     Payment Amount
                   </label>
                   <div className="relative">
-                    <DollarSign className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
+                    <DirhamSvg className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                     <input
                       type="number"
                       step="0.01"
@@ -565,7 +567,10 @@ const TenantPaymentMaster = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Amount:</span>
-                    <span className="font-medium">${paymentAmount}</span>
+                    <span className="font-medium">
+                      <DirhamSvg size={14} className="mb-1 mr-1" />
+                      {paymentAmount}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Payment Method:</span>
@@ -651,7 +656,8 @@ const TenantPaymentMaster = () => {
                         {new Date(payment.date).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                        ${payment.amount.toFixed(2)}
+                        <DirhamSvg size={12} className="mb-1 mr-1" />
+                        {payment.amount.toFixed(2)}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         {payment.method}
@@ -811,7 +817,8 @@ const TenantPaymentMaster = () => {
                     <div className="flex justify-between">
                       <span className="text-gray-600">Amount:</span>
                       <span className="font-medium">
-                        ${receiptModal.payment.amount.toFixed(2)}
+                        <DirhamSvg size={14} className="mb-1 mr-1" />
+                        {receiptModal.payment.amount.toFixed(2)}
                       </span>
                     </div>
                     <div className="flex justify-between">
