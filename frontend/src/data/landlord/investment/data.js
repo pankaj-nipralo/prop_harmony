@@ -260,7 +260,7 @@ export const assessInvestment = (calculation) => {
     assessments.push({
       type: "warning",
       title: "Negative Cash Flow Warning",
-      message: `This property will require AED ${Math.abs(metrics.monthlyCashFlow).toFixed(0)} monthly to cover expenses.`
+      message: `This property will require ${Math.abs(metrics.monthlyCashFlow).toFixed(0)} monthly to cover expenses.`
     });
   } else if (metrics.monthlyCashFlow < 500) {
     assessments.push({

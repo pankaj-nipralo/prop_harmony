@@ -4,7 +4,7 @@ import { TrendingUp, DollarSign, Calculator, Target } from "lucide-react";
 import DirhamSvg from '@/assets/Dirham';
 import { calculateInvestmentMetrics } from "@/data/landlord/investment/data";
 
-const InvestmentStats = ({ calculations }) => {
+const   InvestmentStats = ({ calculations }) => {
   if (!calculations || !Array.isArray(calculations) || calculations.length === 0) {
     return (
       <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2 lg:grid-cols-4">
@@ -54,7 +54,7 @@ const InvestmentStats = ({ calculations }) => {
     : 0;
 
   const formatCurrency = (amount) => {
-    return `AED ${amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    return `${amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
   };
 
   const formatPercentage = (percentage) => {
@@ -81,7 +81,7 @@ const InvestmentStats = ({ calculations }) => {
           <div>
             <p className="text-sm font-medium text-gray-600">Total Investment</p>
             <p className="text-2xl font-bold text-gray-900">
-              {formatCurrency(totalInvestment)}
+              <DirhamSvg size={20} className="mb-1" color1="" /> {formatCurrency(totalInvestment)}
             </p>
             <p className="mt-1 text-xs text-gray-500">
               {allCalculations.length} calculation{allCalculations.length !== 1 ? 's' : ''}
@@ -99,10 +99,10 @@ const InvestmentStats = ({ calculations }) => {
           <div>
             <p className="text-sm font-medium text-gray-600">Annual Cash Flow</p>
             <p className={`text-2xl font-bold ${getCashFlowColor(totalAnnualCashFlow)}`}>
-              {totalAnnualCashFlow >= 0 ? '+' : ''}{formatCurrency(totalAnnualCashFlow)}
+               <DirhamSvg size={20} className="mb-1" color1="" />  {totalAnnualCashFlow >= 0 ? '+' : ''}{formatCurrency(totalAnnualCashFlow)}
             </p>
             <p className="mt-1 text-xs text-gray-500">
-              {formatCurrency(totalAnnualCashFlow / 12)} monthly
+               <DirhamSvg size={12} className="mb-1" color1="" />  {formatCurrency(totalAnnualCashFlow / 12)} monthly
             </p>
           </div>
           <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${

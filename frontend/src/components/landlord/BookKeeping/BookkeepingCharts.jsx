@@ -119,7 +119,7 @@ const BookkeepingCharts = ({ transactions }) => {
             propertyName: randomProperty,
             description: `${category.name.toLowerCase()} expense`,
             category: category.name,
-            amount: Math.max(50, amount), // Minimum 50 AED
+            amount: Math.max(50, amount), // Minimum 50 
             type: "Expense",
             paymentMethod: Math.random() > 0.5 ? "Bank Transfer" : "Cash",
             receiptNumber: `EXP-${date.getFullYear()}-${String(
@@ -289,7 +289,7 @@ const BookkeepingCharts = ({ transactions }) => {
                 tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`}
               />
               <Tooltip
-                formatter={(value) => [`AED ${value.toLocaleString()}`, ""]}
+                formatter={(value) => [`${value.toLocaleString()}`, ""]}
               />
               <Legend />
               <Bar dataKey="income" fill="#3B82F6" name="Income" />
@@ -311,7 +311,7 @@ const BookkeepingCharts = ({ transactions }) => {
                 tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`}
               />
               <Tooltip
-                formatter={(value) => [`AED ${value.toLocaleString()}`, ""]}
+                formatter={(value) => [` ${value.toLocaleString()}`, ""]}
               />
               <Legend />
               <Line
@@ -338,7 +338,7 @@ const BookkeepingCharts = ({ transactions }) => {
             <XAxis dataKey="month" />
             <YAxis tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`} />
             <Tooltip
-              formatter={(value) => [`AED ${value.toLocaleString()}`, ""]}
+              formatter={(value) => [` ${value.toLocaleString()}`, ""]}
             />
             <Legend />
             <Area
@@ -404,7 +404,7 @@ const BookkeepingCharts = ({ transactions }) => {
                 ))}
             </Pie>
             <Tooltip
-              formatter={(value) => [`AED ${value.toLocaleString()}`, "Amount"]}
+              formatter={(value) => [` ${value.toLocaleString()}`, "Amount"]}
             />
           </PieChart>
         </ResponsiveContainer>
@@ -423,7 +423,7 @@ const BookkeepingCharts = ({ transactions }) => {
             <XAxis dataKey="category" />
             <YAxis tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`} />
             <Tooltip
-              formatter={(value) => [`AED ${value.toLocaleString()}`, "Amount"]}
+              formatter={(value) => [` ${value.toLocaleString()}`, "Amount"]}
             />
             <Bar dataKey="amount" fill="#3B82F6" />
           </BarChart>
@@ -451,7 +451,7 @@ const BookkeepingCharts = ({ transactions }) => {
             />
             <YAxis tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`} />
             <Tooltip
-              formatter={(value) => [`AED ${value.toLocaleString()}`, ""]}
+              formatter={(value) => [` ${value.toLocaleString()}`, ""]}
             />
             <Legend />
             <Bar dataKey="income" fill="#3B82F6" name="Income" />
@@ -477,7 +477,7 @@ const BookkeepingCharts = ({ transactions }) => {
             />
             <YAxis tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`} />
             <Tooltip
-              formatter={(value) => [`AED ${value.toLocaleString()}`, ""]}
+              formatter={(value) => [` ${value.toLocaleString()}`, ""]}
             />
             <Bar dataKey="netProfit" fill="#10B981" name="Net Profit" />
           </BarChart>

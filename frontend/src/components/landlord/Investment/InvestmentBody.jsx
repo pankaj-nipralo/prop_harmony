@@ -87,7 +87,7 @@ const InvestmentBody = ({
   });
 
   const formatCurrency = (amount) => {
-    return `AED ${amount.toLocaleString("en-US", {
+    return ` ${amount.toLocaleString("en-US", {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     })}`;
@@ -297,7 +297,7 @@ const InvestmentBody = ({
                         {/* Key Metrics */}
                         <div className="grid grid-cols-2 gap-4">
                           <div className="p-3 text-center rounded-lg bg-gray-50">
-                            <DirhamSvg size={20} color1="#2563eb" className="mx-auto mb-1" />
+                            <DirhamSvg size={20} color1="" className="mx-auto mb-1 text-blue-500 " />
                             <p className="text-xs text-gray-600">
                               Monthly Cash Flow
                             </p>
@@ -306,6 +306,7 @@ const InvestmentBody = ({
                                 metrics.monthlyCashFlow
                               )}`}
                             >
+                              <DirhamSvg size={14} className="mb-1" color1="" /> 
                               {metrics.monthlyCashFlow >= 0 ? "+" : ""}
                               {formatCurrency(metrics.monthlyCashFlow)}
                             </p>

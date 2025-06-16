@@ -18,6 +18,7 @@ import { transactionCategories } from "@/data/landlord/bookkeeping/data";
 import BookkeepingCharts from "./BookkeepingCharts";
 import ViewTransactionModal from "./ViewTransactionModal";
 import EditTransactionModal from "./EditTransactionModal";
+import DirhamSvg from "@/assets/Dirham";
 
 const BookkeepingBody = ({ transactions, setTransactions }) => {
   const [search, setSearch] = useState("");
@@ -345,7 +346,13 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
-                              <DollarSign className="w-4 h-4 mr-1 text-gray-400" />
+                              <DirhamSvg
+                                className={`w-4 h-4 mr-1 ${
+                                  transaction.type === "Income"
+                                    ? "text-green-600"
+                                    : "text-red-600"
+                                }`}
+                              />
                               <span
                                 className={`text-sm font-medium ${
                                   transaction.type === "Income"

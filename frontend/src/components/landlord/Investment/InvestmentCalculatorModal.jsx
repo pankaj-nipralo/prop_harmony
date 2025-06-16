@@ -129,7 +129,7 @@ const InvestmentCalculatorModal = ({
   };
 
   const formatCurrency = (amount) => {
-    return `AED ${amount.toLocaleString("en-US", {
+    return `${amount.toLocaleString("en-US", {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     })}`;
@@ -278,7 +278,7 @@ const InvestmentCalculatorModal = ({
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Purchase Price (AED) *
+                      Purchase Price  *
                     </label>
                     <input
                       name="purchasePrice"
@@ -310,7 +310,7 @@ const InvestmentCalculatorModal = ({
                   </div>
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Closing Costs (AED)
+                      Closing Costs  
                     </label>
                     <input
                       name="closingCosts"
@@ -324,7 +324,7 @@ const InvestmentCalculatorModal = ({
                   </div>
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Renovation Costs (AED)
+                      Renovation Costs
                     </label>
                     <input
                       name="renovationCosts"
@@ -350,7 +350,7 @@ const InvestmentCalculatorModal = ({
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Monthly Rent (AED) *
+                      Monthly Rent *
                     </label>
                     <input
                       name="monthlyRent"
@@ -365,7 +365,7 @@ const InvestmentCalculatorModal = ({
                   </div>
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Monthly Expenses (AED)
+                      Monthly Expenses 
                     </label>
                     <input
                       name="monthlyExpenses"
@@ -393,7 +393,7 @@ const InvestmentCalculatorModal = ({
                   </div>
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Annual Insurance (AED)
+                      Annual Insurance 
                     </label>
                     <input
                       name="annualInsurance"
@@ -833,19 +833,19 @@ const InvestmentCalculatorModal = ({
                           Period
                         </th>
                         <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Payment (AED)
+                          Payment
                         </th>
                         <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Principal (AED)
+                          Principal
                         </th>
                         <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Interest (AED)
+                          Interest
                         </th>
                         <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Balance (AED)
+                          Balance
                         </th>
                         <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Total Interest (AED)
+                          Total Interest
                         </th>
                       </tr>
                     </thead>

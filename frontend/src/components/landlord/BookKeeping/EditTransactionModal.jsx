@@ -92,7 +92,7 @@ const EditTransactionModal = ({ open, onClose, transaction, onUpdateTransaction 
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-2xl max-h-screen bg-white border-0 rounded-lg shadow-xl overflow-y-auto">
+      <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-800">
@@ -100,7 +100,7 @@ const EditTransactionModal = ({ open, onClose, transaction, onUpdateTransaction 
             </h2>
             <button
               onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+              className="p-2 text-gray-400 transition-colors rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100"
             >
               <X size={20} />
             </button>
@@ -177,7 +177,7 @@ const EditTransactionModal = ({ open, onClose, transaction, onUpdateTransaction 
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Amount (AED) *
+                  Amount *
                 </label>
                 <input
                   name="amount"
@@ -257,7 +257,7 @@ const EditTransactionModal = ({ open, onClose, transaction, onUpdateTransaction 
                     required
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                  <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  <Calendar className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 pointer-events-none right-3 top-1/2" />
                 </div>
               </div>
 
@@ -312,17 +312,17 @@ const EditTransactionModal = ({ open, onClose, transaction, onUpdateTransaction 
             </div>
 
             {/* Form Actions */}
-            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+            <div className="flex justify-end pt-4 space-x-3 border-t border-gray-200">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors cursor-pointer"
+                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
+                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-md cursor-pointer hover:bg-blue-700"
               >
                 Update Transaction
               </button>
