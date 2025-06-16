@@ -25,17 +25,17 @@ const PastPropertiesStats = ({ stats }) => {
       iconColor: "text-yellow-600",
       bgColor: "bg-yellow-50",
     },
-    {
-      title: "Avg Rating Received",
-      value: stats.avgRatingReceived,
-      icon: Star,
-      iconColor: "text-yellow-600",
-      bgColor: "bg-yellow-50",
-    },
+    // {
+    //   title: "Avg Rating Received",
+    //   value: stats.avgRatingReceived,
+    //   icon: Star,
+    //   iconColor: "text-yellow-600",
+    //   bgColor: "bg-yellow-50",
+    // },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-3">
       {statsCards.map((stat, index) => {
         const Icon = stat.icon;
         return (
@@ -47,7 +47,14 @@ const PastPropertiesStats = ({ stats }) => {
               <div>
                 <p className="text-sm text-gray-500">{stat.title}</p>
                 <p className="mt-1 text-2xl font-bold text-gray-900">
-                  {stat.value}
+                  {stat.title === "Total Rent Paid" ? (
+                    <span className="flex items-center">
+                      <DirhamSvg size={20} className="mt-0.5 mr-1" color1="" />
+                      {stat.value}
+                    </span>
+                  ) : (
+                    stat.value
+                  )}
                 </p>
               </div>
               <div

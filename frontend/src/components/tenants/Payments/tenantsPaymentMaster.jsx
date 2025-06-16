@@ -21,9 +21,7 @@ import {
   Trash2,
   Edit,
 } from "lucide-react";
-import DirhamSvg from '@/assets/Dirham';
-
-
+import DirhamSvg from "@/assets/Dirham";
 
 const TenantPaymentMaster = () => {
   // Payment state
@@ -230,7 +228,7 @@ const TenantPaymentMaster = () => {
             className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg cursor-pointer myButton hover:bg-blue-700"
           >
             {/* <DollarSign size={16} /> */}
-             <DirhamSvg  size={16} color1="#ffffff" />
+            <DirhamSvg size={16} color1="#ffffff" />
             Pay Now
           </button>
           <button
@@ -248,15 +246,16 @@ const TenantPaymentMaster = () => {
         <Card className="p-6 bg-white border-0 shadow-sm">
           <div className="flex items-center gap-4 ">
             <div className="p-3 bg-blue-100 rounded-lg">
-              <DollarSign className="w-6 h-6 text-blue-600" />
+              <DirhamSvg className="w-6 h-6 text-blue-600" />
             </div>
             <div>
               <p className="text-sm font-medium text-gray-600">
                 Current Balance
               </p>
-              <p className="text-2xl font-bold text-gray-900">
-                ${currentBalance.toFixed(2)}
-              </p>
+              <span className="text-2xl font-bold text-gray-900">
+                {/* <DirhamSvg size={20} className="mb-1.5 mr-1" /> */}
+                {currentBalance.toFixed(2)}
+              </span>
             </div>
           </div>
         </Card>
@@ -307,6 +306,7 @@ const TenantPaymentMaster = () => {
                 Total Paid This Year
               </p>
               <p className="text-2xl font-bold text-gray-900">
+                <DirhamSvg size={20} className="mb-1.5 mr-1" />
                 ${totalPaidThisYear.toFixed(2)}
               </p>
             </div>

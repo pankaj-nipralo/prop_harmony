@@ -33,7 +33,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
       title: "Total Collected",
       value: safeStats.paidAmount,
       subtitle: `${safeStats.paidCount ?? 0} payments`,
-      icon: () => <DirhamSvg size={20} color1="#16a34a" />,
+      icon: () => <DirhamSvg size={20} color1="" className="text-green-600" />,
       color: "green",
       bgColor: "bg-green-50",
       iconColor: "text-green-600",
@@ -44,7 +44,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
       title: "Pending Payments",
       value: safeStats.pendingAmount ?? 0,
       subtitle: `${safeStats.pendingCount ?? 0} pending`,
-      icon: () => <Clock />,
+      icon: () => <Clock className="text-yellow-600" />, // FIXED
       color: "yellow",
       bgColor: "bg-yellow-50",
       iconColor: "text-yellow-600",
@@ -55,7 +55,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
       title: "Overdue Amount",
       value: safeStats.overdueAmount ?? 0,
       subtitle: `${safeStats.overdueCount ?? 0} overdue`,
-      icon: AlertTriangle,
+      icon: () => <AlertTriangle className="text-red-600" />, // FIXED
       color: "red",
       bgColor: "bg-red-50",
       iconColor: "text-red-600",
@@ -66,7 +66,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
       title: "Collection Rate",
       value: `${(safeStats.collectionRate ?? 0).toFixed(1)}%`,
       subtitle: "This month",
-      icon: Target,
+      icon: () => <Target className="text-blue-600" />, // FIXED
       color: "blue",
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600",
@@ -78,26 +78,26 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
   const additionalStats = [
     {
       title: "Average Payment",
-      value: safeStats.averagePayment ?? 0,
-      icon: PieChart,
+      value: (safeStats.averagePayment ?? 0).toFixed(2),
+      icon: () => <PieChart className="w-5 h-5 text-purple-600" />, // fixed
       color: "purple",
     },
     {
       title: "Total Payments",
       value: (safeStats.totalPayments ?? 0).toString(),
-      icon: CheckCircle,
+      icon: () => <CheckCircle className="w-5 h-5 text-indigo-600" />, // fixed
       color: "indigo",
     },
     {
       title: "This Month",
       value: safeStats.totalAmount ?? 0,
-      icon: Calendar,
+      icon: () => <Calendar className="w-5 h-5 text-teal-600" />, // fixed
       color: "teal",
     },
     {
       title: "Growth Rate",
       value: "+15.3%",
-      icon: TrendingUp,
+      icon: () => <TrendingUp className="w-5 h-5 text-emerald-600" />, // fixed
       color: "emerald",
     },
   ];
@@ -150,7 +150,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
                 </div>
               </div>
               <div className={`p-3 rounded-lg ${stat.bgColor}`}>
-                {typeof stat.icon === "function" ? stat.icon() : stat.icon}
+                {stat.icon && stat.icon()}
               </div>
             </div>
           </Card>
@@ -163,9 +163,9 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
           <h3 className="text-lg font-semibold text-gray-900">
             Payment Overview
           </h3>
-          <button className="text-sm text-blue-600 hover:text-blue-700">
+          {/* <button className="text-sm text-blue-600 hover:text-blue-700">
             View Details
-          </button>
+          </button> */}
         </div>
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -187,7 +187,7 @@ const PaymentsStats = ({ stats = {}, isLoading }) => {
             return (
               <div key={index} className="text-center">
                 <div className={`inline-flex p-2 rounded-lg ${colors.bg} mb-2`}>
-                  <stat.icon className={`w-5 h-5 ${colors.text}`} />
+                  {stat.icon && stat.icon()}
                 </div>
                 <p className="text-sm font-medium text-gray-600">
                   {stat.title}

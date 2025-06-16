@@ -28,10 +28,10 @@ export const paymentsData = [
         netAmount: 8500,
         paymentPeriod: {
           from: "2024-12-01",
-          to: "2024-12-31"
+          to: "2024-12-31",
         },
         createdAt: "2024-11-28T14:30:00Z",
-        updatedAt: "2024-11-28T14:30:00Z"
+        updatedAt: "2024-11-28T14:30:00Z",
       },
       {
         id: 2,
@@ -59,10 +59,10 @@ export const paymentsData = [
         netAmount: 7200,
         paymentPeriod: {
           from: "2024-12-01",
-          to: "2024-12-31"
+          to: "2024-12-31",
         },
         createdAt: "2024-11-15T10:00:00Z",
-        updatedAt: "2024-12-10T09:00:00Z"
+        updatedAt: "2024-12-10T09:00:00Z",
       },
       {
         id: 3,
@@ -90,10 +90,10 @@ export const paymentsData = [
         netAmount: 7140,
         paymentPeriod: {
           from: "2024-11-01",
-          to: "2024-11-30"
+          to: "2024-11-30",
         },
         createdAt: "2024-10-15T10:00:00Z",
-        updatedAt: "2024-12-15T10:00:00Z"
+        updatedAt: "2024-12-15T10:00:00Z",
       },
       {
         id: 4,
@@ -121,10 +121,10 @@ export const paymentsData = [
         netAmount: 5000,
         paymentPeriod: {
           from: "2024-10-01",
-          to: "2025-10-01"
+          to: "2025-10-01",
         },
         createdAt: "2024-09-28T11:15:00Z",
-        updatedAt: "2024-09-28T11:15:00Z"
+        updatedAt: "2024-09-28T11:15:00Z",
       },
       {
         id: 5,
@@ -152,10 +152,10 @@ export const paymentsData = [
         netAmount: 450,
         paymentPeriod: {
           from: "2024-11-01",
-          to: "2024-11-30"
+          to: "2024-11-30",
         },
         createdAt: "2024-12-03T16:20:00Z",
-        updatedAt: "2024-12-03T16:20:00Z"
+        updatedAt: "2024-12-03T16:20:00Z",
       },
       {
         id: 6,
@@ -183,13 +183,13 @@ export const paymentsData = [
         netAmount: 1100,
         paymentPeriod: {
           from: "2024-12-01",
-          to: "2024-12-31"
+          to: "2024-12-31",
         },
         createdAt: "2024-12-08T10:45:00Z",
-        updatedAt: "2024-12-08T10:45:00Z"
-      }
-    ]
-  }
+        updatedAt: "2024-12-08T10:45:00Z",
+      },
+    ],
+  },
 ];
 
 // Payment types
@@ -200,7 +200,7 @@ export const paymentTypes = [
   { value: "utilities", label: "Utilities" },
   { value: "maintenance", label: "Maintenance" },
   { value: "late_fee", label: "Late Fee" },
-  { value: "other", label: "Other" }
+  { value: "other", label: "Other" },
 ];
 
 // Payment methods
@@ -211,7 +211,7 @@ export const paymentMethods = [
   { value: "check", label: "Check", icon: "📝" },
   { value: "online", label: "Online Payment", icon: "💳" },
   { value: "card", label: "Credit/Debit Card", icon: "💳" },
-  { value: "digital_wallet", label: "Digital Wallet", icon: "📱" }
+  { value: "digital_wallet", label: "Digital Wallet", icon: "📱" },
 ];
 
 // Payment statuses
@@ -221,112 +221,132 @@ export const paymentStatuses = [
   { value: "pending", label: "Pending", color: "yellow" },
   { value: "overdue", label: "Overdue", color: "red" },
   { value: "partial", label: "Partial", color: "orange" },
-  { value: "cancelled", label: "Cancelled", color: "gray" }
+  { value: "cancelled", label: "Cancelled", color: "gray" },
 ];
 
 // Utility functions
 export const getPaymentsByStatus = (payments, status) => {
   if (!payments) return [];
   if (status === "all") return payments;
-  return payments.filter(payment => payment.status === status);
+  return payments.filter((payment) => payment.status === status);
 };
 
 export const getPaymentsByType = (payments, type) => {
   if (!payments) return [];
   if (type === "all") return payments;
-  return payments.filter(payment => payment.paymentType === type);
+  return payments.filter((payment) => payment.paymentType === type);
 };
 
 export const getPaymentsByMethod = (payments, method) => {
   if (!payments) return [];
   if (method === "all") return payments;
-  return payments.filter(payment => payment.paymentMethod === method);
+  return payments.filter((payment) => payment.paymentMethod === method);
 };
 
 export const searchPayments = (payments, searchTerm) => {
   if (!searchTerm || !payments) return payments;
-  
+
   const term = searchTerm.toLowerCase();
-  return payments.filter(payment =>
-    payment.tenantName.toLowerCase().includes(term) ||
-    payment.propertyName.toLowerCase().includes(term) ||
-    payment.paymentId.toLowerCase().includes(term) ||
-    payment.description.toLowerCase().includes(term) ||
-    payment.transactionId?.toLowerCase().includes(term)
+  return payments.filter(
+    (payment) =>
+      payment.tenantName.toLowerCase().includes(term) ||
+      payment.propertyName.toLowerCase().includes(term) ||
+      payment.paymentId.toLowerCase().includes(term) ||
+      payment.description.toLowerCase().includes(term) ||
+      payment.transactionId?.toLowerCase().includes(term)
   );
 };
 
 export const filterPayments = (payments, filters) => {
   if (!payments) return [];
-  
-  return payments.filter(payment => {
+
+  return payments.filter((payment) => {
     // Status filter
-    if (filters.status && filters.status !== "all" && 
-        payment.status !== filters.status) {
+    if (
+      filters.status &&
+      filters.status !== "all" &&
+      payment.status !== filters.status
+    ) {
       return false;
     }
-    
+
     // Type filter
-    if (filters.type && filters.type !== "all" && 
-        payment.paymentType !== filters.type) {
+    if (
+      filters.type &&
+      filters.type !== "all" &&
+      payment.paymentType !== filters.type
+    ) {
       return false;
     }
-    
+
     // Method filter
-    if (filters.method && filters.method !== "all" && 
-        payment.paymentMethod !== filters.method) {
+    if (
+      filters.method &&
+      filters.method !== "all" &&
+      payment.paymentMethod !== filters.method
+    ) {
       return false;
     }
-    
+
     // Property filter
-    if (filters.property && filters.property !== "all" && 
-        payment.propertyName !== filters.property) {
+    if (
+      filters.property &&
+      filters.property !== "all" &&
+      payment.propertyName !== filters.property
+    ) {
       return false;
     }
-    
+
     // Date range filter
-    if (filters.dateFrom && new Date(payment.dueDate) < new Date(filters.dateFrom)) {
+    if (
+      filters.dateFrom &&
+      new Date(payment.dueDate) < new Date(filters.dateFrom)
+    ) {
       return false;
     }
-    
-    if (filters.dateTo && new Date(payment.dueDate) > new Date(filters.dateTo)) {
+
+    if (
+      filters.dateTo &&
+      new Date(payment.dueDate) > new Date(filters.dateTo)
+    ) {
       return false;
     }
-    
+
     // Amount range filter
     if (filters.amountFrom && payment.amount < parseFloat(filters.amountFrom)) {
       return false;
     }
-    
+
     if (filters.amountTo && payment.amount > parseFloat(filters.amountTo)) {
       return false;
     }
-    
+
     return true;
   });
 };
 
-export const formatCurrency = (amount, currency = "") => {
-  return new Intl.NumberFormat('en-AE', {
-    style: 'currency',
-    currency: currency,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2
-  }).format(amount);
+export const formatCurrency = (amount) => {
+  // Just return the number formatted with commas, no currency code
+  return amount != null
+    ? amount.toLocaleString("en-AE", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      })
+    : "";
 };
 
 export const formatPaymentDate = (dateString) => {
   if (!dateString) return "Not paid";
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   });
 };
 
 export const getPaymentStatusColor = (status) => {
-  const statusObj = paymentStatuses.find(s => s.value === status);
+  const statusObj = paymentStatuses.find((s) => s.value === status);
   return statusObj ? statusObj.color : "gray";
 };
 
@@ -339,19 +359,19 @@ export const calculatePaymentStats = (payments) => {
       pendingAmount: 0,
       overdueAmount: 0,
       collectionRate: 0,
-      averagePayment: 0
+      averagePayment: 0,
     };
   }
 
   const totalPayments = payments.length;
   const totalAmount = payments.reduce((sum, p) => sum + p.amount, 0);
-  const paidPayments = payments.filter(p => p.status === "paid");
+  const paidPayments = payments.filter((p) => p.status === "paid");
   const paidAmount = paidPayments.reduce((sum, p) => sum + p.amount, 0);
-  const pendingPayments = payments.filter(p => p.status === "pending");
+  const pendingPayments = payments.filter((p) => p.status === "pending");
   const pendingAmount = pendingPayments.reduce((sum, p) => sum + p.amount, 0);
-  const overduePayments = payments.filter(p => p.status === "overdue");
+  const overduePayments = payments.filter((p) => p.status === "overdue");
   const overdueAmount = overduePayments.reduce((sum, p) => sum + p.amount, 0);
-  
+
   const collectionRate = totalAmount > 0 ? (paidAmount / totalAmount) * 100 : 0;
   const averagePayment = totalPayments > 0 ? totalAmount / totalPayments : 0;
 
@@ -365,6 +385,6 @@ export const calculatePaymentStats = (payments) => {
     averagePayment,
     paidCount: paidPayments.length,
     pendingCount: pendingPayments.length,
-    overdueCount: overduePayments.length
+    overdueCount: overduePayments.length,
   };
 };
