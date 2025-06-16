@@ -137,13 +137,13 @@ export const propertyStats = [
     icon: "Wrench", 
     color: "text-orange-500"
   },
-  {
-    title: "Property Rating",
-    value: "4.8/5",
-    subtitle: "Based on amenities",
-    icon: "Star",
-    color: "text-yellow-500"
-  }
+  // {
+  //   title: "Property Rating",
+  //   value: "4.8/5",
+  //   subtitle: "Based on amenities",
+  //   icon: "Star",
+  //   color: "text-yellow-500"
+  // }
 ];
 
 export const quickActions = [

@@ -25,6 +25,7 @@ import {
   X,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import DirhamSvg from "@/assets/Dirham";
 
 const MyOffers = () => {
   const navigate = useNavigate();
@@ -548,7 +549,7 @@ const MyOffers = () => {
                             Listed Price:
                           </span>
                           <span className="text-sm font-medium text-gray-900">
-                            ${application.originalPrice.toLocaleString()}/month
+                            <DirhamSvg size={12} className="mb-1 mr-1" color1="" />{application.originalPrice.toLocaleString()}/month
                           </span>
                         </div>
 
@@ -558,7 +559,7 @@ const MyOffers = () => {
                               Tenant's Offer:
                             </span>
                             <span className="text-sm font-bold text-blue-600">
-                              ${application.tenantLastOffer.toLocaleString()}
+                               <DirhamSvg size={12} className="mb-1 mr-1" color1="" />{application.tenantLastOffer.toLocaleString()}
                               /month
                             </span>
                           </div>
@@ -570,7 +571,7 @@ const MyOffers = () => {
                               My Counter Offer:
                             </span>
                             <span className="text-sm font-bold text-green-600">
-                              ${application.myLastOffer.toLocaleString()}/month
+                               <DirhamSvg size={12} className="mb-1 mr-1" color1="" />{application.myLastOffer.toLocaleString()}/month
                             </span>
                           </div>
                         )}
@@ -581,7 +582,7 @@ const MyOffers = () => {
                               Current Offer:
                             </span>
                             <span className="text-lg font-bold text-blue-600">
-                              ${application.currentOffer.toLocaleString()}/month
+                               <DirhamSvg size={14} className="mb-1 mr-1" color1="" />{application.currentOffer.toLocaleString()}/month
                             </span>
                           </div>
                         </div>
@@ -600,7 +601,7 @@ const MyOffers = () => {
                         className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 myButton"
                       >
                         <CheckCircle className="w-4 h-4" />
-                        Accept ${application.currentOffer.toLocaleString()}
+                        Accept  <DirhamSvg size={14} className="" color1="" />{application.currentOffer.toLocaleString()}
                         /month
                       </button>
 
@@ -632,8 +633,8 @@ const MyOffers = () => {
                       Message Tenant
                     </button>
                   ) : (
-                    <div className="py-4 text-center">
-                      <p className="text-sm text-gray-500">
+                    <div className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-medium text-blue-500 transition-colors bg-gray-200 rounded-lg">
+                      <p className="text-sm">
                         {application.status === "accepted" &&
                           "Application accepted"}
                         {application.status === "declined" &&
@@ -683,10 +684,10 @@ const MyOffers = () => {
                 <div className="space-y-4">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Your Counter Offer ($/month)
+                      Your Counter Offer (per month)
                     </label>
                     <div className="relative">
-                      <DollarSign className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
+                      <DirhamSvg  className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                       <input
                         type="number"
                         value={negotiateAmount}
@@ -793,7 +794,7 @@ const MyOffers = () => {
 
                           <div className="flex items-center gap-2 mb-2">
                             <span className="text-lg font-bold text-blue-600">
-                              ${item.amount.toLocaleString()}/month
+                               <DirhamSvg size={16} className="mb-1 mr-1" color1="" />{item.amount.toLocaleString()}/month
                             </span>
                             {index === 0 && (
                               <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">

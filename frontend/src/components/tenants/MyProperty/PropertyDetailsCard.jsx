@@ -36,7 +36,7 @@ const PropertyDetailsCard = ({
           </div>
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <div>
+            <div className="p-6 rounded-lg shadow-sm bg-gray-50">
               <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 {property.name}
               </h3>
@@ -88,10 +88,9 @@ const PropertyDetailsCard = ({
                 </div>
               </div>
             </div>
-
-            <div className="space-y-4">
+ 
               {/* Lease Duration */}
-              <div className="p-4 rounded-lg bg-gray-50">
+              <div className="flex flex-col justify-around p-4 rounded-lg bg-gray-50">
                 <div className="flex items-center gap-2 mb-3">
                   <Calendar className="w-4 h-4 text-gray-600" />
                   <h4 className="font-semibold text-gray-900">
@@ -140,10 +139,9 @@ const PropertyDetailsCard = ({
                     </div>
                   </div>
                 )}
-              </div>
-
+              </div> 
               {/* Rent Information */}
-              <div className="p-4 rounded-lg bg-gray-50">
+              <div className="col-span-2 p-4 rounded-lg bg-gray-50">
                 <div className="flex items-center gap-2 mb-3">
                   <DollarSign className="w-4 h-4 text-gray-600" />
                   <h4 className="font-semibold text-gray-900">
@@ -176,14 +174,12 @@ const PropertyDetailsCard = ({
                     </span>
                   </div>
                 </div>
-                <Link
-                  to={"/tenants/payemnts"}
-                  
-                >
-                  <button className="w-full px-4 py-2 mt-3 text-sm font-medium text-white transition-colors bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600">Pay Rent</button>
+                <Link to={"/tenants/payemnts"}>
+                  <button className="w-full px-4 py-2 mt-3 text-sm font-medium text-white transition-colors bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600">
+                    Pay Rent
+                  </button>
                 </Link>
               </div>
-            </div>
           </div>
         </div>
       </div>
