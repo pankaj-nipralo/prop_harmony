@@ -1,84 +1,90 @@
-import React, { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Plus, Mail, Phone, Star, Edit, Trash2, Search, UserCheck } from 'lucide-react';
+import React, { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent, 
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Plus,
+  Mail,
+  Phone,
+  Star,
+  Edit,
+  Trash2,
+  Search,
+  UserCheck,
+} from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import DirhamSvg from "@/assets/Dirham";
 
 // Dummy contractor data
 const contractorData = [
   {
     id: 1,
-    name: 'Ahmed Hassan',
-    company: 'Hassan Plumbing Services',
+    name: "Ahmed Hassan",
+    company: "Hassan Plumbing Services",
     jobsCompleted: 45,
-    email: 'ahmed@hassanplumbing.ae',
-    phone: '+971-50-123-4567',
-    address: 'Dubai Marina, Dubai, UAE',
-    specialties: ['Plumbing', 'Water Heater Repair'],
+    email: "ahmed@hassanplumbing.ae",
+    phone: "+971-50-123-4567",
+    address: "Dubai Marina, Dubai, UAE",
+    specialties: ["Plumbing", "Water Heater Repair"],
     rating: 4.8,
     rate: 150,
-    status: 'active',
+    status: "active",
   },
   {
     id: 2,
-    name: 'Sarah Johnson',
-    company: 'Elite Electrical Solutions',
+    name: "Sarah Johnson",
+    company: "Elite Electrical Solutions",
     jobsCompleted: 62,
-    email: 'sarah@eliteelectrical.ae',
-    phone: '+971-55-987-6543',
-    address: 'Business Bay, Dubai, UAE',
-    specialties: ['Electrical', 'AC Installation', 'Smart Home'],
+    email: "sarah@eliteelectrical.ae",
+    phone: "+971-55-987-6543",
+    address: "Business Bay, Dubai, UAE",
+    specialties: ["Electrical", "AC Installation", "Smart Home"],
     rating: 4.9,
     rate: 175,
-    status: 'active',
+    status: "active",
   },
 ];
 
 const statusColors = {
-  active: 'bg-green-100 text-green-700',
-  inactive: 'bg-gray-100 text-gray-700',
+  active: "bg-green-100 text-green-700",
+  inactive: "bg-gray-100 text-gray-700",
 };
 
 const specialtiesList = [
-  'Plumbing',
-  'Water Heater Repair',
-  'Electrical',
-  'AC Installation',
-  'Smart Home',
+  "Plumbing",
+  "Water Heater Repair",
+  "Electrical",
+  "AC Installation",
+  "Smart Home",
 ];
 
 const ContractorManager = () => {
-  const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [specialtyFilter, setSpecialtyFilter] = useState('all');
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [specialtyFilter, setSpecialtyFilter] = useState("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
   const [contractors, setContractors] = useState(contractorData);
   const [addForm, setAddForm] = useState({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
     specialties: [],
-    rate: '',
-    status: 'active'
+    rate: "",
+    status: "active",
   });
   const [editForm, setEditForm] = useState({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
     specialties: [],
-    rate: '',
-    status: 'active'
+    rate: "",
+    status: "active",
   });
 
   // Filtering logic
@@ -86,9 +92,9 @@ const ContractorManager = () => {
     const matchesSearch =
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.company.toLowerCase().includes(search.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || c.status === statusFilter;
+    const matchesStatus = statusFilter === "all" || c.status === statusFilter;
     const matchesSpecialty =
-      specialtyFilter === 'all' || c.specialties.includes(specialtyFilter);
+      specialtyFilter === "all" || c.specialties.includes(specialtyFilter);
     return matchesSearch && matchesStatus && matchesSpecialty;
   });
 
@@ -101,16 +107,16 @@ const ContractorManager = () => {
       phone: contractor.phone,
       specialties: contractor.specialties,
       rate: contractor.rate,
-      status: contractor.status
+      status: contractor.status,
     });
     setIsEditDialogOpen(true);
   };
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    setContractors(prevContractors => 
-      prevContractors.map(contractor => 
-        contractor.id === selectedContractor.id 
+    setContractors((prevContractors) =>
+      prevContractors.map((contractor) =>
+        contractor.id === selectedContractor.id
           ? { ...contractor, ...editForm }
           : contractor
       )
@@ -120,8 +126,10 @@ const ContractorManager = () => {
   };
 
   const handleDelete = () => {
-    setContractors(prevContractors => 
-      prevContractors.filter(contractor => contractor.id !== selectedContractor.id)
+    setContractors((prevContractors) =>
+      prevContractors.filter(
+        (contractor) => contractor.id !== selectedContractor.id
+      )
     );
     setIsDeleteDialogOpen(false);
     setSelectedContractor(null);
@@ -129,35 +137,35 @@ const ContractorManager = () => {
 
   const handleEditFormChange = (e) => {
     const { name, value } = e.target;
-    setEditForm(prev => ({
+    setEditForm((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSpecialtyChange = (specialty) => {
-    setEditForm(prev => ({
+    setEditForm((prev) => ({
       ...prev,
       specialties: prev.specialties.includes(specialty)
-        ? prev.specialties.filter(s => s !== specialty)
-        : [...prev.specialties, specialty]
+        ? prev.specialties.filter((s) => s !== specialty)
+        : [...prev.specialties, specialty],
     }));
   };
 
   const handleAddFormChange = (e) => {
     const { name, value } = e.target;
-    setAddForm(prev => ({
+    setAddForm((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleAddSpecialtyChange = (specialty) => {
-    setAddForm(prev => ({
+    setAddForm((prev) => ({
       ...prev,
       specialties: prev.specialties.includes(specialty)
-        ? prev.specialties.filter(s => s !== specialty)
-        : [...prev.specialties, specialty]
+        ? prev.specialties.filter((s) => s !== specialty)
+        : [...prev.specialties, specialty],
     }));
   };
 
@@ -168,17 +176,17 @@ const ContractorManager = () => {
       ...addForm,
       jobsCompleted: 0,
       rating: 0,
-      address: 'Dubai, UAE', // Default address
+      address: "Dubai, UAE", // Default address
     };
-    setContractors(prev => [...prev, newContractor]);
+    setContractors((prev) => [...prev, newContractor]);
     setAddForm({
-      name: '',
-      company: '',
-      email: '',
-      phone: '',
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
       specialties: [],
-      rate: '',
-      status: 'active'
+      rate: "",
+      status: "active",
     });
     setIsAddDialogOpen(false);
   };
@@ -192,9 +200,9 @@ const ContractorManager = () => {
         <Star
           key={i}
           className={`inline-block w-4 h-4 ${
-            i < fullStars ? 'text-yellow-400' : 'text-gray-300'
+            i < fullStars ? "text-yellow-400" : "text-gray-300"
           }`}
-          fill={i < fullStars ? '#facc15' : 'none'}
+          fill={i < fullStars ? "#facc15" : "none"}
         />
       );
     }
@@ -210,7 +218,9 @@ const ContractorManager = () => {
             <UserCheck className="w-8 h-8 text-blue-600" />
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Contractors</h1>
-              <p className="mt-1 text-gray-600">Manage contractors and their services</p>
+              <p className="mt-1 text-gray-600">
+                Manage contractors and their services
+              </p>
             </div>
           </div>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -223,74 +233,103 @@ const ContractorManager = () => {
             <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold text-gray-800">Add New Contractor</h2>
+                  <h2 className="text-xl font-semibold text-gray-800">
+                    Add New Contractor
+                  </h2>
                 </div>
                 <form onSubmit={handleAddSubmit} className="space-y-4">
                   <div className="grid gap-4">
                     <div>
-                      <Label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">Name *</Label>
-                      <Input 
-                        id="name" 
+                      <Label
+                        htmlFor="name"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Name *
+                      </Label>
+                      <Input
+                        id="name"
                         name="name"
                         value={addForm.name}
                         onChange={handleAddFormChange}
-                        placeholder="Enter contractor name" 
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        placeholder="Enter contractor name"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       />
                     </div>
                     <div>
-                      <Label htmlFor="company" className="block mb-2 text-sm font-medium text-gray-700">Company *</Label>
-                      <Input 
-                        id="company" 
+                      <Label
+                        htmlFor="company"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Company *
+                      </Label>
+                      <Input
+                        id="company"
                         name="company"
                         value={addForm.company}
                         onChange={handleAddFormChange}
-                        placeholder="Enter company name" 
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        placeholder="Enter company name"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       />
                     </div>
                     <div>
-                      <Label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">Email *</Label>
-                      <Input 
-                        id="email" 
+                      <Label
+                        htmlFor="email"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Email *
+                      </Label>
+                      <Input
+                        id="email"
                         name="email"
-                        type="email" 
+                        type="email"
                         value={addForm.email}
                         onChange={handleAddFormChange}
-                        placeholder="Enter email" 
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        placeholder="Enter email"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       />
                     </div>
                     <div>
-                      <Label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-700">Phone *</Label>
-                      <Input 
-                        id="phone" 
+                      <Label
+                        htmlFor="phone"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Phone *
+                      </Label>
+                      <Input
+                        id="phone"
                         name="phone"
                         value={addForm.phone}
                         onChange={handleAddFormChange}
-                        placeholder="Enter phone number" 
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        placeholder="Enter phone number"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       />
                     </div>
                     <div>
-                      <Label htmlFor="rate" className="block mb-2 text-sm font-medium text-gray-700">Rate/Hour (AED) *</Label>
-                      <Input 
-                        id="rate" 
+                      <Label
+                        htmlFor="rate"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Rate/Hour (AED) *
+                      </Label>
+                      <Input
+                        id="rate"
                         name="rate"
                         type="number"
                         value={addForm.rate}
                         onChange={handleAddFormChange}
-                        placeholder="Enter hourly rate" 
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        placeholder="Enter hourly rate"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       />
                     </div>
                     <div>
-                      <Label className="block mb-2 text-sm font-medium text-gray-700">Specialties *</Label>
+                      <Label className="block mb-2 text-sm font-medium text-gray-700">
+                        Specialties *
+                      </Label>
                       <div className="flex flex-wrap gap-2">
                         {specialtiesList.map((specialty) => (
                           <button
@@ -299,8 +338,8 @@ const ContractorManager = () => {
                             onClick={() => handleAddSpecialtyChange(specialty)}
                             className={`px-3 py-1 text-sm rounded-full transition-colors ${
                               addForm.specialties.includes(specialty)
-                                ? 'bg-blue-100 text-blue-700'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                ? "bg-blue-100 text-blue-700"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                             }`}
                           >
                             {specialty}
@@ -309,7 +348,12 @@ const ContractorManager = () => {
                       </div>
                     </div>
                     <div>
-                      <Label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-700">Status *</Label>
+                      <Label
+                        htmlFor="status"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Status *
+                      </Label>
                       <select
                         id="status"
                         name="status"
@@ -373,71 +417,109 @@ const ContractorManager = () => {
             >
               <option value="all">All Specialties</option>
               {specialtiesList.map((s) => (
-                <option key={s} value={s}>{s}</option>
+                <option key={s} value={s}>
+                  {s}
+                </option>
               ))}
             </select>
           </div>
         </Card>
 
         {/* Contractors Table */}
-        <Card className="border-0 bg-white/80 backdrop-blur-sm">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border border-gray-200">
-              <thead>
+        <Card className="overflow-hidden border-0">
+          <div className="">
+            <table className="w-full text-sm text-left text-gray-700">
+              <thead className="sticky top-0 z-10 bg-white shadow-sm">
                 <tr className="border-b border-gray-200 bg-gray-50/50">
-                  <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Contractor</th>
-                  <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Contact</th>
-                  <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Specialties</th> 
-                  <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Rate/Hour</th>
-                  <th className="px-6 py-4 font-medium text-left text-gray-900 border-r border-gray-200">Status</th>
-                  <th className="px-6 py-4 font-medium text-left text-gray-900">Actions</th>
+                  <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                    Contractor
+                  </th>
+                  <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                    Contact
+                  </th>
+                  <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                    Specialties
+                  </th>
+                  <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                    Rate/Hour
+                  </th>
+                  <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {filteredContractors.map((c) => (
-                  <tr key={c.id} className="border-b border-gray-200 last:border-0 hover:bg-gray-50/50">
-                    <td className="px-6 py-4 border-r border-gray-200">
+                {filteredContractors.map((c, idx) => (
+                  <tr
+                    key={c.id}
+                    className={`${
+                      idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    } hover:bg-blue-50 transition-colors duration-150`}
+                  >
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div className="font-medium text-gray-900">{c.name}</div>
                       <div className="text-sm text-gray-500">{c.company}</div>
-                      <div className="text-xs text-gray-400">{c.jobsCompleted} jobs</div>
+                      <div className="text-xs text-gray-400">
+                        {c.jobsCompleted} jobs
+                      </div>
                     </td>
-                    <td className="px-6 py-4 border-r border-gray-200">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-1 text-sm text-gray-600">
                         <Mail className="w-4 h-4" />
-                        <span className="truncate max-w-[150px]">{c.email}</span>
+                        <span className="truncate max-w-[150px]">
+                          {c.email}
+                        </span>
                       </div>
                       <div className="flex items-center gap-1 text-sm text-gray-600">
                         <Phone className="w-4 h-4" />
                         <span>{c.phone}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 border-r border-gray-200">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex flex-wrap gap-1">
-                        {c.specialties.map((s, i) => (
-                          <span
-                            key={i}
-                            className="px-2 py-0.5 rounded-full bg-blue-600 text-white text-xs"
-                          >
-                            {s}
+                        {c.specialties.length === 0 ? (
+                          <span className="text-xs text-gray-500">
+                            No specialties listed
                           </span>
-                        ))}
+                        ) : (
+                          c.specialties.map((s, i) => (
+                            <span
+                              key={i}
+                              className="px-2 py-0.5 rounded-full bg-blue-600 text-white text-xs"
+                            >
+                              {s}
+                            </span>
+                          ))
+                        )}
                       </div>
+                    </td>
+                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      <DirhamSvg size={12} color1="" className="mb-1 mr-1" /> {c.rate}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span
+                        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          statusColors[c.status]
+                        }`}
+                      >
+                        {c.status.charAt(0).toUpperCase() + c.status.slice(1)}
+                      </span>
                     </td>
                     {/* <td className="px-6 py-4 border-r border-gray-200">
                       <div className="flex items-center gap-1">
                         {renderStars(c.rating)}
                         <span className="text-xs text-gray-500">({c.rating})</span>
                       </div>
-                    </td> */}
-                    <td className="px-6 py-4 font-medium text-gray-900 border-r border-gray-200">AED {c.rate}</td>
-                    <td className="px-6 py-4 border-r border-gray-200">
-                      <span className={`px-2 py-0.5 rounded-full text-xs ${statusColors[c.status]}`}>
-                        {c.status.charAt(0).toUpperCase() + c.status.slice(1)}
-                      </span>
-                    </td>
+                    </td> */} 
                     <td className="px-6 py-4">
                       <div className="flex gap-2">
-                        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                        <Dialog
+                          open={isEditDialogOpen}
+                          onOpenChange={setIsEditDialogOpen}
+                        >
                           <DialogTrigger asChild>
                             <Button
                               variant="ghost"
@@ -451,12 +533,22 @@ const ContractorManager = () => {
                           <DialogContent className="w-full max-w-2xl max-h-screen overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
                             <div className="p-6">
                               <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-xl font-semibold text-gray-800">Edit Contractor</h2>
+                                <h2 className="text-xl font-semibold text-gray-800">
+                                  Edit Contractor
+                                </h2>
                               </div>
-                              <form onSubmit={handleEditSubmit} className="space-y-4">
+                              <form
+                                onSubmit={handleEditSubmit}
+                                className="space-y-4"
+                              >
                                 <div className="grid gap-4">
                                   <div>
-                                    <Label htmlFor="edit-name" className="block mb-2 text-sm font-medium text-gray-700">Name *</Label>
+                                    <Label
+                                      htmlFor="edit-name"
+                                      className="block mb-2 text-sm font-medium text-gray-700"
+                                    >
+                                      Name *
+                                    </Label>
                                     <Input
                                       id="edit-name"
                                       name="name"
@@ -467,7 +559,12 @@ const ContractorManager = () => {
                                     />
                                   </div>
                                   <div>
-                                    <Label htmlFor="edit-company" className="block mb-2 text-sm font-medium text-gray-700">Company *</Label>
+                                    <Label
+                                      htmlFor="edit-company"
+                                      className="block mb-2 text-sm font-medium text-gray-700"
+                                    >
+                                      Company *
+                                    </Label>
                                     <Input
                                       id="edit-company"
                                       name="company"
@@ -478,7 +575,12 @@ const ContractorManager = () => {
                                     />
                                   </div>
                                   <div>
-                                    <Label htmlFor="edit-email" className="block mb-2 text-sm font-medium text-gray-700">Email *</Label>
+                                    <Label
+                                      htmlFor="edit-email"
+                                      className="block mb-2 text-sm font-medium text-gray-700"
+                                    >
+                                      Email *
+                                    </Label>
                                     <Input
                                       id="edit-email"
                                       name="email"
@@ -490,7 +592,12 @@ const ContractorManager = () => {
                                     />
                                   </div>
                                   <div>
-                                    <Label htmlFor="edit-phone" className="block mb-2 text-sm font-medium text-gray-700">Phone *</Label>
+                                    <Label
+                                      htmlFor="edit-phone"
+                                      className="block mb-2 text-sm font-medium text-gray-700"
+                                    >
+                                      Phone *
+                                    </Label>
                                     <Input
                                       id="edit-phone"
                                       name="phone"
@@ -501,7 +608,12 @@ const ContractorManager = () => {
                                     />
                                   </div>
                                   <div>
-                                    <Label htmlFor="edit-rate" className="block mb-2 text-sm font-medium text-gray-700">Rate/Hour (AED) *</Label>
+                                    <Label
+                                      htmlFor="edit-rate"
+                                      className="block mb-2 text-sm font-medium text-gray-700"
+                                    >
+                                      Rate/Hour *
+                                    </Label>
                                     <Input
                                       id="edit-rate"
                                       name="rate"
@@ -513,17 +625,23 @@ const ContractorManager = () => {
                                     />
                                   </div>
                                   <div>
-                                    <Label className="block mb-2 text-sm font-medium text-gray-700">Specialties *</Label>
+                                    <Label className="block mb-2 text-sm font-medium text-gray-700">
+                                      Specialties 
+                                    </Label>
                                     <div className="flex flex-wrap gap-2">
                                       {specialtiesList.map((specialty) => (
                                         <button
                                           key={specialty}
                                           type="button"
-                                          onClick={() => handleSpecialtyChange(specialty)}
+                                          onClick={() =>
+                                            handleSpecialtyChange(specialty)
+                                          }
                                           className={`px-3 py-1 text-sm rounded-full transition-colors ${
-                                            editForm.specialties.includes(specialty)
-                                              ? 'bg-blue-100 text-blue-700'
-                                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                            editForm.specialties.includes(
+                                              specialty
+                                            )
+                                              ? "bg-blue-100 text-blue-700"
+                                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                                           }`}
                                         >
                                           {specialty}
@@ -532,7 +650,12 @@ const ContractorManager = () => {
                                     </div>
                                   </div>
                                   <div>
-                                    <Label htmlFor="edit-status" className="block mb-2 text-sm font-medium text-gray-700">Status *</Label>
+                                    <Label
+                                      htmlFor="edit-status"
+                                      className="block mb-2 text-sm font-medium text-gray-700"
+                                    >
+                                      Status *
+                                    </Label>
                                     <select
                                       id="edit-status"
                                       name="status"
@@ -564,7 +687,10 @@ const ContractorManager = () => {
                             </div>
                           </DialogContent>
                         </Dialog>
-                        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                        <Dialog
+                          open={isDeleteDialogOpen}
+                          onOpenChange={setIsDeleteDialogOpen}
+                        >
                           <DialogTrigger asChild>
                             <Button
                               variant="ghost"
@@ -580,9 +706,13 @@ const ContractorManager = () => {
                           </DialogTrigger>
                           <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
                             <div className="p-6">
-                              <h2 className="mb-4 text-xl font-semibold text-gray-800">Delete Contractor</h2>
+                              <h2 className="mb-4 text-xl font-semibold text-gray-800">
+                                Delete Contractor
+                              </h2>
                               <p className="mb-6 text-gray-600">
-                                Are you sure you want to delete the contractor "<strong>{selectedContractor?.name}</strong>"? This action cannot be undone.
+                                Are you sure you want to delete the contractor "
+                                <strong>{selectedContractor?.name}</strong>"?
+                                This action cannot be undone.
                               </p>
                               <div className="flex justify-end space-x-3">
                                 <Button

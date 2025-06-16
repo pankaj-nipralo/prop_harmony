@@ -16,6 +16,7 @@ import {
   maintenanceStatuses, 
   priorityLevels 
 } from "@/data/landlord/maintenance/data";
+import DirhamSvg from "@/assets/Dirham";
 
 const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
   if (!maintenance) return null;
@@ -146,13 +147,13 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-gray-400" />
-                    <div>
+                    <div className="flex items-center justify-center gap-2 flex-rows">
                       <span className="text-sm font-medium text-gray-600">Requested:</span>
-                      <p className="text-gray-800">{maintenance.requestedDate}</p>
+                      <p className="text-sm text-gray-800">{maintenance.requestedDate}</p>
                     </div>
                   </div>
                   {maintenance.completedDate && (
-                    <div className="flex items-center gap-2">
+                    <div className="flex justify-center gap-2 flex-rows">
                       <CheckCircle className="w-4 h-4 text-green-500" />
                       <div>
                         <span className="text-sm font-medium text-gray-600">Completed:</span>
@@ -168,10 +169,10 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
                 <div className="space-y-3">
                   {maintenance.estimatedCost && (
                     <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-gray-400" />
-                      <div>
+                      <DirhamSvg className="w-4 h-4 text-gray-400" />
+                      <div className="flex items-center justify-center gap-2">
                         <span className="text-sm font-medium text-gray-600">Estimated:</span>
-                        <p className="text-gray-800">{maintenance.estimatedCost}</p>
+                        <p className="text-sm text-gray-800">{maintenance.estimatedCost}</p>
                       </div>
                     </div>
                   )}

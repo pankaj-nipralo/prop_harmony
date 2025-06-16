@@ -9,6 +9,7 @@ import {
   DollarSign,
   Wrench
 } from "lucide-react";
+import DirhamSvg from "@/assets/Dirham";
 
 const MaintenanceStats = ({ maintenance }) => {
   // Calculate statistics
@@ -107,9 +108,9 @@ const MaintenanceStats = ({ maintenance }) => {
     {
       id: 6,
       label: "Total Cost",
-      value: `AED ${totalCost.toLocaleString()}`,
+      value: `${totalCost.toLocaleString()}`,
       subtitle: "Completed work",
-      icon: DollarSign,
+      icon: () => <DirhamSvg size={22} color1="" className="text-purple-600" />,
       color: "text-purple-600",
       bgColor: "bg-purple-50",
       borderColor: "border-purple-200",

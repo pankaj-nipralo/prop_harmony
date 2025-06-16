@@ -110,7 +110,7 @@ const EditManagerModal = ({ open, onClose, manager, onSave, availableProperties 
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full md:max-w-4xl bg-white border-0 rounded-lg shadow-xl">
+      <DialogContent className="w-full bg-white border-0 rounded-lg shadow-xl md:max-w-4xl">
         <div className="p-6">
           <h2 className="mb-6 text-xl font-semibold text-gray-800">
             Edit Property Manager
@@ -231,7 +231,7 @@ const EditManagerModal = ({ open, onClose, manager, onSave, availableProperties 
                   </select>
                 </div>
 
-                <div>
+                {/* <div>
                   <label className="block mb-1 text-sm font-medium text-gray-700">
                     Rating
                   </label>
@@ -245,17 +245,17 @@ const EditManagerModal = ({ open, onClose, manager, onSave, availableProperties 
                     onChange={handleChange}
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                </div>
+                </div> */}
               </div>
 
               {/* Properties Assignment Section */}
               <div className="mt-6">
                 <h3 className="mb-4 text-lg font-medium text-gray-900">Assigned Properties</h3>
-                <div className="max-h-48 overflow-y-auto space-y-2 p-2 border border-gray-200 rounded-md">
+                <div className="p-2 space-y-2 overflow-y-auto border border-gray-200 rounded-md max-h-48">
                   {availableProperties.map((property) => (
                     <div
                       key={property.id}
-                      className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md"
+                      className="flex items-center p-2 space-x-3 rounded-md hover:bg-gray-50"
                     >
                       <input
                         type="checkbox"
@@ -528,13 +528,13 @@ const ManagerBody = ({
       {/* Search and Filter Section */}
       <div className="flex flex-col gap-4 p-4 mb-6 bg-white rounded-lg shadow sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
           <input
             type="text"
             placeholder="Search managers..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <select
@@ -562,24 +562,24 @@ const ManagerBody = ({
       </div>
 
       {/* Managers List */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="overflow-hidden bg-white rounded-lg shadow">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50">
-                <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase text-start">
                   Manager Details
                 </th>
-                <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase text-start">
                   Contact Info
                 </th>
-                <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase text-start">
                   Properties
                 </th>
-                <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase text-start">
                   Status
                 </th>
-                <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase text-start">
                   Actions
                 </th>
               </tr>
@@ -590,7 +590,7 @@ const ManagerBody = ({
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 w-10 h-10">
-                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                        <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full">
                           <span className="text-lg font-medium text-blue-600">
                             {manager.name.charAt(0)}
                           </span>
@@ -631,27 +631,25 @@ const ManagerBody = ({
                       </div>
                       <button
                         onClick={() => handleAssignProperties(manager)}
-                        className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-blue-600 hover:text-blue-700"
+                        className="inline-flex items-center  py-1.5 text-xs font-medium text-blue-600 hover:text-blue-700"
                       >
                         <Building className="w-4 h-4 mr-1" />
                         Manage Properties
                       </button>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col space-y-1">
+                  <td className="px-6 py-4"> 
                       <span
-                        className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
+                        className={`inline-flex px-2.5 py-1  text-xs font-semibold rounded-full ${
                           statusStyles[manager.status]
                         }`}
                       >
                         {manager.status}
                       </span>
-                      <div className="flex items-center text-sm text-gray-500">
+                      {/* <div className="flex items-center text-sm text-gray-500">
                         <Star className="w-4 h-4 mr-1 text-yellow-400" />
                         {manager.rating} Rating
-                      </div>
-                    </div>
+                      </div> */} 
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-3">

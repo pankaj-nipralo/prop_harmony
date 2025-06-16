@@ -178,7 +178,7 @@ const TenantActionModal = ({ open, onClose, tenant, action, onSubmit }) => {
           >
             Back
           </button>
-          <button className="px-4 py-2 font-semibold text-white bg-[#223a5f] rounded-lg hover:bg-[#1a2e4a]">
+          <button onClick={onClose} className="px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700">
             Submit
           </button>
         </div>

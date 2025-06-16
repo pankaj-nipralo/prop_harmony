@@ -38,7 +38,7 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-xl bg-white rounded-lg shadow-xl">
+      <DialogContent className="w-full max-w-xl bg-white border-0 rounded-lg shadow-xl">
         <div className="p-6">
           <h2 className="mb-6 text-xl font-semibold text-gray-800">
             Add New Tenant
@@ -123,7 +123,7 @@ const AddTenantModal = ({ open, onClose, onAddTenant }) => {
 
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-700">
-                  Monthly Rent (AED)
+                  Monthly Rent
                 </label>
                 <input
                   name="rent"

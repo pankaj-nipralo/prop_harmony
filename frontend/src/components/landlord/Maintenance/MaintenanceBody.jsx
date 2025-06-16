@@ -28,6 +28,7 @@ import {
 import ViewMaintenanceModal from "./ViewMaintenanceModal";
 import EditMaintenanceModal from "./EditMaintenanceModal";
 import { useAuth } from "@/contexts/AuthContext";
+import DirhamSvg from "@/assets/Dirham";
 
 const MaintenanceBody = ({ maintenance, setMaintenance }) => {
   const [search, setSearch] = useState("");
@@ -229,7 +230,12 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
         ),
       }))
     );
-    setAssignModal({ open: false, maintenance: null, selectedTechnician: null, remarks: "" });
+    setAssignModal({
+      open: false,
+      maintenance: null,
+      selectedTechnician: null,
+      remarks: "",
+    });
   };
 
   const handleConfirmSubmit = () => {
@@ -473,7 +479,7 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                         </div>
                         {request.estimatedCost && (
                           <div className="flex items-center mt-1">
-                            <DollarSign className="w-3 h-3 mr-1 text-gray-400" />
+                            <DirhamSvg className="w-3 h-3 mr-1 text-gray-400" />
                             <span className="text-xs text-gray-500">
                               {request.estimatedCost}
                             </span>
@@ -559,7 +565,14 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
       {/* Updated Assign Modal */}
       <Dialog
         open={assignModal.open}
-        onOpenChange={() => setAssignModal({ open: false, maintenance: null, selectedTechnician: null, remarks: "" })}
+        onOpenChange={() =>
+          setAssignModal({
+            open: false,
+            maintenance: null,
+            selectedTechnician: null,
+            remarks: "",
+          })
+        }
       >
         <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
           <div className="p-6">
@@ -571,11 +584,13 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                 <label className="block mb-2 text-sm font-medium text-gray-700">
                   Select Technician
                 </label>
-                <div className="space-y-2 max-h-60 overflow-y-auto">
+                <div className="space-y-2 overflow-y-auto max-h-60">
                   {techniciansList
-                    .filter((tech) => 
-                      tech.specialization.includes(assignModal.maintenance?.category) &&
-                      tech.availability === "Available"
+                    .filter(
+                      (tech) =>
+                        tech.specialization.includes(
+                          assignModal.maintenance?.category
+                        ) && tech.availability === "Available"
                     )
                     .map((technician) => (
                       <div
@@ -602,15 +617,15 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                             </p>
                           </div>
                           <div className="flex items-center gap-2">
-                            <div className="flex items-center">
+                            {/* <div className="flex items-center">
                               <Star className="w-4 h-4 text-yellow-400" />
                               <span className="ml-1 text-sm font-medium">
                                 {technician.rating}
                               </span>
-                            </div>
-                            <span className="text-sm text-gray-500">
+                            </div> */}
+                            {/* <span className="text-sm text-gray-500">
                               ({technician.completedJobs} jobs)
-                            </span>
+                            </span> */}
                           </div>
                         </div>
                         <div className="mt-2 text-sm text-gray-500">
@@ -622,8 +637,9 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
                 </div>
                 {techniciansList.filter(
                   (tech) =>
-                    tech.specialization.includes(assignModal.maintenance?.category) &&
-                    tech.availability === "Available"
+                    tech.specialization.includes(
+                      assignModal.maintenance?.category
+                    ) && tech.availability === "Available"
                 ).length === 0 && (
                   <p className="mt-2 text-sm text-gray-500">
                     No available technicians found for this category.
@@ -685,11 +701,14 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
               Confirm Action
             </h2>
             <p className="mb-6 text-gray-600">
-              Are you sure you want to confirm this action? This will mark the maintenance request as in progress.
+              Are you sure you want to confirm this action? This will mark the
+              maintenance request as in progress.
             </p>
             <div className="flex justify-end space-x-3">
               <button
-                onClick={() => setConfirmModal({ open: false, maintenance: null })}
+                onClick={() =>
+                  setConfirmModal({ open: false, maintenance: null })
+                }
                 className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
               >
                 Cancel
@@ -708,7 +727,13 @@ const MaintenanceBody = ({ maintenance, setMaintenance }) => {
       {/* Resolve Modal */}
       <Dialog
         open={resolveModal.open}
-        onOpenChange={() => setResolveModal({ open: false, maintenance: null, closingRemarks: "" })}
+        onOpenChange={() =>
+          setResolveModal({
+            open: false,
+            maintenance: null,
+            closingRemarks: "",
+          })
+        }
       >
         <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
           <div className="p-6">
