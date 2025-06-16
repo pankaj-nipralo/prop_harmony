@@ -107,7 +107,7 @@ const PaymentDetailsModal = ({
       <DialogContent className="w-full md:max-w-5xl max-h-[90vh] overflow-y-auto bg-white border-0 rounded-lg shadow-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-3 text-xl font-bold text-gray-900">
+            <div className="flex items-center gap-3 mt-10 text-xl font-bold text-gray-900">
               <div className="p-2 bg-blue-500 rounded-lg">
                 <Receipt className="w-6 h-6 text-white" />
               </div>
@@ -396,7 +396,7 @@ const PaymentDetailsModal = ({
           {(payment.status === "pending" || payment.status === "overdue") && (
             <Button
               onClick={() => setShowPaymentModal(true)}
-              className="w-full mt-4 gap-2"
+              className="w-full gap-2 mt-4"
             >
               <Wallet className="w-4 h-4" />
               Pay Now

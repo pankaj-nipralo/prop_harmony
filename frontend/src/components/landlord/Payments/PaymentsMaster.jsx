@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PaymentsHeader from "./PaymentsHeader";
-import PaymentsStats from "./PaymentsStats";
-import PaymentsBody from "./PaymentsBody";
+import PaymentIncomeTab from "./PaymentIncomeTab";
+import PaymentExpensesTab from "./PaymentExpensesTab";
 import AddPaymentModal from "./AddPaymentModal";
 import PaymentDetailsModal from "./PaymentDetailsModal";
 import {
@@ -10,10 +11,24 @@ import {
   filterPayments,
   calculatePaymentStats,
 } from "@/data/landlord/payments/data";
+import {
+  expensesData,
+  calculateExpenseStats,
+} from "@/data/landlord/expenses/data";
 
 const PaymentsMaster = () => {
+  // Income states
   const [payments, setPayments] = useState([]);
   const [filteredPayments, setFilteredPayments] = useState([]);
+  const [paymentStats, setPaymentStats] = useState({});
+
+  // Expenses states
+  const [expenses, setExpenses] = useState([]);
+  const [filteredExpenses, setFilteredExpenses] = useState([]);
+  const [expenseStats, setExpenseStats] = useState({});
+
+  // Shared states
+  const [activeTab, setActiveTab] = useState("income");
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     status: "all",
@@ -27,7 +42,6 @@ const PaymentsMaster = () => {
   });
   const [showFilters, setShowFilters] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [stats, setStats] = useState({});
 
   // Modal states
   const [showAddPaymentModal, setShowAddPaymentModal] = useState(false);
@@ -35,23 +49,30 @@ const PaymentsMaster = () => {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [editingPayment, setEditingPayment] = useState(null);
 
-  // Load payments data
+  // Load data
   useEffect(() => {
-    const loadPayments = () => {
+    const loadData = () => {
       setIsLoading(true);
       try {
+        // Load income data
         const allPayments = paymentsData[0]?.paymentsList || [];
         setPayments(allPayments);
         setFilteredPayments(allPayments);
-        setStats(calculatePaymentStats(allPayments));
+        setPaymentStats(calculatePaymentStats(allPayments));
+
+        // Load expense data
+        const allExpenses = expensesData[0]?.expensesList || [];
+        setExpenses(allExpenses);
+        setFilteredExpenses(allExpenses);
+        setExpenseStats(calculateExpenseStats(allExpenses));
       } catch (error) {
-        console.error("Error loading payments:", error);
+        console.error("Error loading data:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadPayments();
+    loadData();
   }, []);
 
   // Apply search and filters
@@ -67,8 +88,24 @@ const PaymentsMaster = () => {
     result = filterPayments(result, filters);
 
     setFilteredPayments(result);
-    setStats(calculatePaymentStats(result));
+    setPaymentStats(calculatePaymentStats(result));
   }, [payments, searchTerm, filters]);
+
+  // Apply search and filters for expenses
+  useEffect(() => {
+    let result = expenses;
+
+    // Apply search
+    if (searchTerm) {
+      result = searchPayments(result, searchTerm);
+    }
+
+    // Apply filters
+    result = filterPayments(result, filters);
+
+    setFilteredExpenses(result);
+    setExpenseStats(calculateExpenseStats(result));
+  }, [expenses, searchTerm, filters]);
 
   const handleSearchChange = (term) => {
     setSearchTerm(term);
@@ -284,7 +321,12 @@ const PaymentsMaster = () => {
       const allPayments = paymentsData[0]?.paymentsList || [];
       setPayments(allPayments);
       setFilteredPayments(allPayments);
-      setStats(calculatePaymentStats(allPayments));
+      setPaymentStats(calculatePaymentStats(allPayments));
+
+      const allExpenses = expensesData[0]?.expensesList || [];
+      setExpenses(allExpenses);
+      setFilteredExpenses(allExpenses);
+      setExpenseStats(calculateExpenseStats(allExpenses));
     } catch (error) {
       console.error("Error refreshing data:", error);
     } finally {
@@ -347,35 +389,65 @@ const PaymentsMaster = () => {
           onRefresh={handleRefresh}
           onShowFilters={handleShowFilters}
           showFilters={showFilters}
-          totalPayments={filteredPayments.length}
+          totalPayments={
+            activeTab === "income"
+              ? filteredPayments.length
+              : filteredExpenses.length
+          }
           isLoading={isLoading}
         />
 
-        {/* Stats */}
-        <PaymentsStats stats={stats || {}} isLoading={isLoading} />
+        {/* Main Content */}
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList>
+            <TabsTrigger value="income">Payment History</TabsTrigger>
+            <TabsTrigger value="expenses">Expenses</TabsTrigger>
+          </TabsList>
 
-        {/* Body */}
-        <PaymentsBody
-          payments={filteredPayments}
-          isLoading={isLoading}
-          onExportPayments={handleExportPayments}
-          onViewPayment={handleViewPayment}
-          onEditPayment={handleEditPayment}
-          onDeletePayment={handleDeletePayment}
-          onDownloadReceipt={handleDownloadReceipt}
-          onSendReminder={handleSendReminder}
-          onAddPayment={handleAddPayment}
-          showFilters={showFilters}
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          searchTerm={searchTerm}
-          onSearchChange={handleSearchChange}
-          onShowFilters={handleShowFilters}
-          onRefresh={handleRefresh}
-          totalPayments={filteredPayments.length}
-        />
+          <TabsContent value="income" className="mt-6">
+            <PaymentIncomeTab
+              payments={payments}
+              filteredPayments={filteredPayments}
+              isLoading={isLoading}
+              stats={paymentStats}
+              showFilters={showFilters}
+              filters={filters}
+              searchTerm={searchTerm}
+              onFilterChange={handleFilterChange}
+              onSearchChange={handleSearchChange}
+              onShowFilters={handleShowFilters}
+              onRefresh={handleRefresh}
+              onViewPayment={handleViewPayment}
+              onEditPayment={handleEditPayment}
+              onDeletePayment={handleDeletePayment}
+              onDownloadReceipt={handleDownloadReceipt}
+              onSendReminder={handleSendReminder}
+              onAddPayment={handleAddPayment}
+            />
+          </TabsContent>
 
-        {/* Add/Edit Payment Modal */}
+          <TabsContent value="expenses" className="mt-6">
+            <PaymentExpensesTab
+              expenses={expenses}
+              filteredExpenses={filteredExpenses}
+              isLoading={isLoading}
+              stats={expenseStats}
+              showFilters={showFilters}
+              filters={filters}
+              searchTerm={searchTerm}
+              onFilterChange={handleFilterChange}
+              onSearchChange={handleSearchChange}
+              onShowFilters={handleShowFilters}
+              onRefresh={handleRefresh}
+              onViewExpense={handleViewPayment}
+              onEditExpense={handleEditPayment}
+              onDeleteExpense={handleDeletePayment}
+              onAddExpense={handleAddPayment}
+            />
+          </TabsContent>
+        </Tabs>
+
+        {/* Modals */}
         <AddPaymentModal
           isOpen={showAddPaymentModal}
           onClose={() => {
@@ -384,9 +456,9 @@ const PaymentsMaster = () => {
           }}
           onSave={handleSavePayment}
           editingPayment={editingPayment}
+          isExpense={activeTab === "expenses"}
         />
 
-        {/* Payment Details Modal */}
         <PaymentDetailsModal
           isOpen={showPaymentDetailsModal}
           onClose={() => {
@@ -397,7 +469,7 @@ const PaymentsMaster = () => {
           onEdit={handleEditPayment}
           onDownloadReceipt={handleDownloadReceipt}
           onSendReminder={handleSendReminder}
-          onProcessPayment={handleProcessPayment}
+          isExpense={activeTab === "expenses"}
         />
       </div>
     </div>
