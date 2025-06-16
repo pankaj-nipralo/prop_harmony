@@ -455,7 +455,7 @@ const getInsightsForReportType = (reportType) => {
         },
         {
           title: "Cost Control",
-          description: "Plumbing: AED 285 avg cost",
+          description: "Plumbing: 285 avg cost",
           icon: DollarSign,
           bgColor: "bg-blue-50",
           iconColor: "text-blue-600"

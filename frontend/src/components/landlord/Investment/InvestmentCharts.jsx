@@ -77,7 +77,7 @@ const InvestmentCharts = ({ calculations, selectedCalculation }) => {
   }));
 
   const formatCurrency = (value) => {
-    return `AED ${value.toLocaleString()}`;
+    return `${value.toLocaleString()}`;
   };
 
   const formatPercentage = (value) => {

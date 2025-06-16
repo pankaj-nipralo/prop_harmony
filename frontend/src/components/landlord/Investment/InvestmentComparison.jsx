@@ -10,7 +10,7 @@ import {
   PieChart,
   ArrowUpDown,
 } from "lucide-react";
-import DirhamSvg from '@/assets/Dirham';
+import DirhamSvg from "@/assets/Dirham";
 import {
   BarChart,
   Bar,
@@ -72,7 +72,7 @@ const InvestmentComparison = ({ calculations }) => {
   );
 
   const formatCurrency = (amount) => {
-    return `AED ${amount.toLocaleString("en-US", {
+    return `${amount.toLocaleString("en-US", {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     })}`;
@@ -173,6 +173,7 @@ const InvestmentComparison = ({ calculations }) => {
                   <div className="flex justify-between">
                     <span>Investment:</span>
                     <span className="font-medium">
+                      <DirhamSvg size={12} className="mb-1" color1="" />{" "}
                       {formatCurrency(metrics.totalInvestment)}
                     </span>
                   </div>
@@ -184,6 +185,7 @@ const InvestmentComparison = ({ calculations }) => {
                         "cashFlow"
                       )}`}
                     >
+                      <DirhamSvg size={12} className="mb-1" color1="" />{" "}
                       {formatCurrency(metrics.monthlyCashFlow)}
                     </span>
                   </div>

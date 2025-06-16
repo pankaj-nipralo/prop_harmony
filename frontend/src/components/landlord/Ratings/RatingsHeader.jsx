@@ -8,6 +8,7 @@ import {
   BarChart3,
   TrendingUp,
 } from "lucide-react";
+import { convertRatingToGrade } from "@/data/landlord/ratings/data";
 
 const RatingsHeader = ({ reviews = [], filters = {}, onExport }) => {
   const [showExportMenu, setShowExportMenu] = useState(false);
@@ -98,7 +99,7 @@ const RatingsHeader = ({ reviews = [], filters = {}, onExport }) => {
               <div className="flex items-center gap-1">
                 <Star className="w-4 h-4 text-yellow-500" fill="currentColor" />
                 <span className="text-lg font-bold text-gray-900">
-                  {averageRating}
+                  {convertRatingToGrade(averageRating).grade}
                 </span>
               </div>
               <p className="text-xs text-gray-500">Avg Rating</p>

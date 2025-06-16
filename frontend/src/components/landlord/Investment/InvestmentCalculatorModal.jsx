@@ -22,7 +22,7 @@ import {
   generateAmortizationSchedule,
 } from "@/data/landlord/investment/data";
 import InvestmentCharts from "./InvestmentCharts";
-import DirhamSvg from '@/assets/Dirham';
+import DirhamSvg from "@/assets/Dirham";
 
 const InvestmentCalculatorModal = ({
   open,
@@ -158,6 +158,18 @@ const InvestmentCalculatorModal = ({
     }
   };
 
+  // Helper to check if required inputs are filled
+  const isInputFilled = () => {
+    return (
+      form.name.trim() &&
+      form.propertyName.trim() &&
+      form.purchasePrice > 0 &&
+      form.downPayment > 0 &&
+      form.downPayment <= 100 &&
+      form.monthlyRent > 0
+    );
+  };
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="w-full overflow-y-auto bg-white border-0 rounded-lg shadow-xl max-h-[90vh] md:max-w-6xl">
@@ -167,7 +179,7 @@ const InvestmentCalculatorModal = ({
               {calculation
                 ? "Edit Investment Calculation"
                 : "New Investment Calculation"}
-            </h2> 
+            </h2>
           </div>
 
           {/* Tab Navigation */}
@@ -278,7 +290,7 @@ const InvestmentCalculatorModal = ({
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Purchase Price  *
+                      Purchase Price *
                     </label>
                     <input
                       name="purchasePrice"
@@ -310,7 +322,7 @@ const InvestmentCalculatorModal = ({
                   </div>
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Closing Costs  
+                      Closing Costs
                     </label>
                     <input
                       name="closingCosts"
@@ -365,7 +377,7 @@ const InvestmentCalculatorModal = ({
                   </div>
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Monthly Expenses 
+                      Monthly Expenses
                     </label>
                     <input
                       name="monthlyExpenses"
@@ -393,7 +405,7 @@ const InvestmentCalculatorModal = ({
                   </div>
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Annual Insurance 
+                      Annual Insurance
                     </label>
                     <input
                       name="annualInsurance"
@@ -554,344 +566,367 @@ const InvestmentCalculatorModal = ({
           )}
 
           {/* Results Tab */}
-          {activeTab === "results" && metrics && (
-            <div className="space-y-6">
-              {/* Key Metrics */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card className="p-4 border-0 shadow-sm">
-                  <div className="text-center">
-                    <DirhamSvg size={32} color1="#2563eb" className="mx-auto mb-2" />
-                    <p className="text-sm text-gray-600">Monthly Cash Flow</p>
-                    <p
-                      className={`text-xl font-bold ${
-                        metrics.monthlyCashFlow >= 0
-                          ? "text-green-600"
-                          : "text-red-600"
-                      }`}
-                    >
-                      {metrics.monthlyCashFlow >= 0 ? "+" : ""}
-                      {formatCurrency(metrics.monthlyCashFlow)}
-                    </p>
-                  </div>
-                </Card>
-                <Card className="p-4 border-0 shadow-sm">
-                  <div className="text-center">
-                    <Percent className="w-8 h-8 mx-auto mb-2 text-green-600" />
-                    <p className="text-sm text-gray-600">Cash-on-Cash Return</p>
-                    <p className="text-xl font-bold text-gray-900">
-                      {formatPercentage(metrics.cashOnCashReturn)}
-                    </p>
-                  </div>
-                </Card>
-                <Card className="p-4 border-0 shadow-sm">
-                  <div className="text-center">
-                    <TrendingUp className="w-8 h-8 mx-auto mb-2 text-purple-600" />
-                    <p className="text-sm text-gray-600">Total ROI</p>
-                    <p className="text-xl font-bold text-gray-900">
-                      {formatPercentage(metrics.totalROI)}
-                    </p>
-                  </div>
-                </Card>
-                <Card className="p-4 border-0 shadow-sm">
-                  <div className="text-center">
-                    <Calendar className="w-8 h-8 mx-auto mb-2 text-orange-600" />
-                    <p className="text-sm text-gray-600">Break Even</p>
-                    <p className="text-xl font-bold text-gray-900">
-                      {Math.round(metrics.breakEvenMonths)} mo
-                    </p>
-                  </div>
-                </Card>
+          {activeTab === "results" &&
+            (!isInputFilled() ? (
+              <div className="flex flex-col items-center justify-center min-h-[200px] text-gray-500 text-lg font-medium">
+                Fill the input first
               </div>
-
-              {/* Investment Summary */}
-              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <Card className="p-6 border-0 shadow-sm">
-                  <h3 className="mb-4 text-lg font-semibold text-gray-800">
-                    Investment Summary
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Purchase Price:</span>
-                      <span className="font-medium">
-                        {formatCurrency(form.purchasePrice)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Down Payment:</span>
-                      <span className="font-medium">
-                        {formatCurrency(form.downPaymentAmount)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Closing Costs:</span>
-                      <span className="font-medium">
-                        {formatCurrency(form.closingCosts)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Renovation Costs:</span>
-                      <span className="font-medium">
-                        {formatCurrency(form.renovationCosts)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between pt-3 border-t">
-                      <span className="font-semibold text-gray-800">
-                        Total Investment:
-                      </span>
-                      <span className="font-bold text-blue-600">
-                        {formatCurrency(metrics.totalInvestment)}
-                      </span>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card className="p-6 border-0 shadow-sm">
-                  <h3 className="mb-4 text-lg font-semibold text-gray-800">
-                    Income Analysis
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">
-                        Annual Rent (Effective):
-                      </span>
-                      <span className="font-medium">
-                        {formatCurrency(metrics.effectiveAnnualRent)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Annual Expenses:</span>
-                      <span className="font-medium">
-                        {formatCurrency(metrics.annualExpenses)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">
-                        Annual Mortgage Payments:
-                      </span>
-                      <span className="font-medium">
-                        {formatCurrency(metrics.annualMortgagePayments)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">
-                        Net Operating Income:
-                      </span>
-                      <span className="font-medium">
-                        {formatCurrency(metrics.netOperatingIncome)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between pt-3 border-t">
-                      <span className="font-semibold text-gray-800">
-                        Annual Cash Flow:
-                      </span>
-                      <span
-                        className={`font-bold ${
-                          metrics.annualCashFlow >= 0
+            ) : (
+              <div className="space-y-6">
+                {/* Key Metrics */}
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+                  <Card className="p-4 border-0 shadow-sm">
+                    <div className="text-center">
+                      <DirhamSvg
+                        size={32}
+                        color1="#2563eb"
+                        className="mx-auto mb-2"
+                      />
+                      <p className="text-sm text-gray-600">Monthly Cash Flow</p>
+                      <p
+                        className={`text-xl font-bold ${
+                          metrics.monthlyCashFlow >= 0
                             ? "text-green-600"
                             : "text-red-600"
                         }`}
                       >
-                        {metrics.annualCashFlow >= 0 ? "+" : ""}
-                        {formatCurrency(metrics.annualCashFlow)}
-                      </span>
+                        {metrics.monthlyCashFlow >= 0 ? "+" : ""}
+                        {formatCurrency(metrics.monthlyCashFlow)}
+                      </p>
+                    </div>
+                  </Card>
+                  <Card className="p-4 border-0 shadow-sm">
+                    <div className="text-center">
+                      <Percent className="w-8 h-8 mx-auto mb-2 text-green-600" />
+                      <p className="text-sm text-gray-600">
+                        Cash-on-Cash Return
+                      </p>
+                      <p className="text-xl font-bold text-gray-900">
+                        {formatPercentage(metrics.cashOnCashReturn)}
+                      </p>
+                    </div>
+                  </Card>
+                  <Card className="p-4 border-0 shadow-sm">
+                    <div className="text-center">
+                      <TrendingUp className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+                      <p className="text-sm text-gray-600">Total ROI</p>
+                      <p className="text-xl font-bold text-gray-900">
+                        {formatPercentage(metrics.totalROI)}
+                      </p>
+                    </div>
+                  </Card>
+                  <Card className="p-4 border-0 shadow-sm">
+                    <div className="text-center">
+                      <Calendar className="w-8 h-8 mx-auto mb-2 text-orange-600" />
+                      <p className="text-sm text-gray-600">Break Even</p>
+                      <p className="text-xl font-bold text-gray-900">
+                        {Math.round(metrics.breakEvenMonths)} mo
+                      </p>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* Investment Summary */}
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                  <Card className="p-6 border-0 shadow-sm">
+                    <h3 className="mb-4 text-lg font-semibold text-gray-800">
+                      Investment Summary
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Purchase Price:</span>
+                        <span className="font-medium">
+                          {formatCurrency(form.purchasePrice)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Down Payment:</span>
+                        <span className="font-medium">
+                          {formatCurrency(form.downPaymentAmount)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Closing Costs:</span>
+                        <span className="font-medium">
+                          {formatCurrency(form.closingCosts)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Renovation Costs:</span>
+                        <span className="font-medium">
+                          {formatCurrency(form.renovationCosts)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between pt-3 border-t">
+                        <span className="font-semibold text-gray-800">
+                          Total Investment:
+                        </span>
+                        <span className="font-bold text-blue-600">
+                          {formatCurrency(metrics.totalInvestment)}
+                        </span>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card className="p-6 border-0 shadow-sm">
+                    <h3 className="mb-4 text-lg font-semibold text-gray-800">
+                      Income Analysis
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">
+                          Annual Rent (Effective):
+                        </span>
+                        <span className="font-medium">
+                          {formatCurrency(metrics.effectiveAnnualRent)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Annual Expenses:</span>
+                        <span className="font-medium">
+                          {formatCurrency(metrics.annualExpenses)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">
+                          Annual Mortgage Payments:
+                        </span>
+                        <span className="font-medium">
+                          {formatCurrency(metrics.annualMortgagePayments)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">
+                          Net Operating Income:
+                        </span>
+                        <span className="font-medium">
+                          {formatCurrency(metrics.netOperatingIncome)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between pt-3 border-t">
+                        <span className="font-semibold text-gray-800">
+                          Annual Cash Flow:
+                        </span>
+                        <span
+                          className={`font-bold ${
+                            metrics.annualCashFlow >= 0
+                              ? "text-green-600"
+                              : "text-red-600"
+                          }`}
+                        >
+                          {metrics.annualCashFlow >= 0 ? "+" : ""}
+                          {formatCurrency(metrics.annualCashFlow)}
+                        </span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* Financial Ratios */}
+                <Card className="p-6 border-0 shadow-sm">
+                  <h3 className="mb-4 text-lg font-semibold text-gray-800">
+                    Financial Ratios
+                  </h3>
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                    <div>
+                      <p className="text-sm text-gray-600">Cap Rate:</p>
+                      <p className="text-lg font-semibold">
+                        {formatPercentage(metrics.capRate)}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">
+                        Cash-on-Cash Return:
+                      </p>
+                      <p className="text-lg font-semibold">
+                        {formatPercentage(metrics.cashOnCashReturn)}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">
+                        Total ROI (with appreciation):
+                      </p>
+                      <p className="text-lg font-semibold">
+                        {formatPercentage(metrics.totalROI)}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">
+                        Gross Rent Multiplier:
+                      </p>
+                      <p className="text-lg font-semibold">
+                        {metrics.grossRentMultiplier.toFixed(1)}
+                      </p>
                     </div>
                   </div>
                 </Card>
-              </div>
 
-              {/* Financial Ratios */}
-              <Card className="p-6 border-0 shadow-sm">
-                <h3 className="mb-4 text-lg font-semibold text-gray-800">
-                  Financial Ratios
-                </h3>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                  <div>
-                    <p className="text-sm text-gray-600">Cap Rate:</p>
-                    <p className="text-lg font-semibold">
-                      {formatPercentage(metrics.capRate)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">
-                      Cash-on-Cash Return:
-                    </p>
-                    <p className="text-lg font-semibold">
-                      {formatPercentage(metrics.cashOnCashReturn)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">
-                      Total ROI (with appreciation):
-                    </p>
-                    <p className="text-lg font-semibold">
-                      {formatPercentage(metrics.totalROI)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">
-                      Gross Rent Multiplier:
-                    </p>
-                    <p className="text-lg font-semibold">
-                      {metrics.grossRentMultiplier.toFixed(1)}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Investment Assessment */}
-              {assessments.length > 0 && (
-                <Card className="p-6 border-0 shadow-sm">
-                  <h3 className="mb-4 text-lg font-semibold text-gray-800">
-                    Investment Assessment
-                  </h3>
-                  <div className="space-y-3">
-                    {assessments.map((assessment, index) => (
-                      <div
-                        key={index}
-                        className={`p-4 rounded-lg border ${getAssessmentColor(
-                          assessment.type
-                        )}`}
-                      >
-                        <div className="flex items-start gap-3">
-                          <div className="flex-1">
-                            <h4 className="font-semibold">
-                              {assessment.title}
-                            </h4>
-                            <p className="mt-1 text-sm">{assessment.message}</p>
+                {/* Investment Assessment */}
+                {assessments.length > 0 && (
+                  <Card className="p-6 border-0 shadow-sm">
+                    <h3 className="mb-4 text-lg font-semibold text-gray-800">
+                      Investment Assessment
+                    </h3>
+                    <div className="space-y-3">
+                      {assessments.map((assessment, index) => (
+                        <div
+                          key={index}
+                          className={`p-4 rounded-lg border ${getAssessmentColor(
+                            assessment.type
+                          )}`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="flex-1">
+                              <h4 className="font-semibold">
+                                {assessment.title}
+                              </h4>
+                              <p className="mt-1 text-sm">
+                                {assessment.message}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-              )}
-            </div>
-          )}
+                      ))}
+                    </div>
+                  </Card>
+                )}
+              </div>
+            ))}
 
           {/* Charts Tab */}
-          {activeTab === "charts" && form.purchasePrice > 0 && (
-            <InvestmentCharts
-              calculations={[{ id: 1, calculationsList: [form] }]}
-              selectedCalculation={form}
-            />
-          )}
+          {activeTab === "charts" &&
+            (!isInputFilled() ? (
+              <div className="flex flex-col items-center justify-center min-h-[200px] text-gray-500 text-lg font-medium">
+                Fill the input first
+              </div>
+            ) : (
+              <InvestmentCharts
+                calculations={[{ id: 1, calculationsList: [form] }]}
+                selectedCalculation={form}
+              />
+            ))}
 
           {/* Schedule Tab */}
-          {activeTab === "schedule" && metrics && (
-            <div className="space-y-6">
-              {/* Loan Summary */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card className="p-4 border-0 shadow-sm">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600">Loan Amount</p>
-                    <p className="text-xl font-bold text-gray-900">
-                      {formatCurrency(metrics.loanAmount)}
-                    </p>
+          {activeTab === "schedule" &&
+            (!isInputFilled() ? (
+              <div className="flex flex-col items-center justify-center min-h-[200px] text-gray-500 text-lg font-medium">
+                Fill the input first
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Loan Summary */}
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+                  <Card className="p-4 border-0 shadow-sm">
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">Loan Amount</p>
+                      <p className="text-xl font-bold text-gray-900">
+                        {formatCurrency(metrics.loanAmount)}
+                      </p>
+                    </div>
+                  </Card>
+                  <Card className="p-4 border-0 shadow-sm">
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">Monthly Payment</p>
+                      <p className="text-xl font-bold text-gray-900">
+                        {formatCurrency(metrics.monthlyMortgagePayment)}
+                      </p>
+                    </div>
+                  </Card>
+                  <Card className="p-4 border-0 shadow-sm">
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">Total Payments</p>
+                      <p className="text-xl font-bold text-gray-900">
+                        {formatCurrency(
+                          metrics.monthlyMortgagePayment * form.loanTerm * 12
+                        )}
+                      </p>
+                    </div>
+                  </Card>
+                  <Card className="p-4 border-0 shadow-sm">
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">Total Interest</p>
+                      <p className="text-xl font-bold text-red-600">
+                        {formatCurrency(
+                          metrics.monthlyMortgagePayment * form.loanTerm * 12 -
+                            metrics.loanAmount
+                        )}
+                      </p>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* Amortization Schedule */}
+                <Card className="p-6 border-0 shadow-sm">
+                  <h3 className="mb-4 text-lg font-semibold text-gray-800">
+                    Loan Amortization Schedule (First 5 Years)
+                  </h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            Period
+                          </th>
+                          <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            Payment
+                          </th>
+                          <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            Principal
+                          </th>
+                          <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            Interest
+                          </th>
+                          <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            Balance
+                          </th>
+                          <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            Total Interest
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {generateAmortizationSchedule(form, 5).map(
+                          (row, index) => (
+                            <tr key={index} className="hover:bg-gray-50">
+                              <td className="px-4 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                {row.month <= 12
+                                  ? `Month ${row.month}`
+                                  : `Year ${Math.ceil(row.month / 12)}`}
+                              </td>
+                              <td className="px-4 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                {formatCurrency(row.payment)}
+                              </td>
+                              <td className="px-4 py-4 text-sm text-green-600 whitespace-nowrap">
+                                {formatCurrency(row.principal)}
+                              </td>
+                              <td className="px-4 py-4 text-sm text-red-600 whitespace-nowrap">
+                                {formatCurrency(row.interest)}
+                              </td>
+                              <td className="px-4 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                {formatCurrency(row.balance)}
+                              </td>
+                              <td className="px-4 py-4 text-sm text-red-600 whitespace-nowrap">
+                                {formatCurrency(row.totalInterest)}
+                              </td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
                   </div>
-                </Card>
-                <Card className="p-4 border-0 shadow-sm">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600">Monthly Payment</p>
-                    <p className="text-xl font-bold text-gray-900">
-                      {formatCurrency(metrics.monthlyMortgagePayment)}
-                    </p>
-                  </div>
-                </Card>
-                <Card className="p-4 border-0 shadow-sm">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600">Total Payments</p>
-                    <p className="text-xl font-bold text-gray-900">
-                      {formatCurrency(
-                        metrics.monthlyMortgagePayment * form.loanTerm * 12
-                      )}
-                    </p>
-                  </div>
-                </Card>
-                <Card className="p-4 border-0 shadow-sm">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600">Total Interest</p>
-                    <p className="text-xl font-bold text-red-600">
-                      {formatCurrency(
-                        metrics.monthlyMortgagePayment * form.loanTerm * 12 -
-                          metrics.loanAmount
-                      )}
-                    </p>
-                  </div>
+                  <p className="mt-4 text-xs text-gray-500">
+                    * This table shows the first 12 months and then yearly
+                    summaries. Over the {form.loanTerm}-year term, you'll pay a
+                    total of{" "}
+                    {formatCurrency(
+                      metrics.monthlyMortgagePayment * form.loanTerm * 12 -
+                        metrics.loanAmount
+                    )}{" "}
+                    in interest.
+                  </p>
                 </Card>
               </div>
-
-              {/* Amortization Schedule */}
-              <Card className="p-6 border-0 shadow-sm">
-                <h3 className="mb-4 text-lg font-semibold text-gray-800">
-                  Loan Amortization Schedule (First 5 Years)
-                </h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Period
-                        </th>
-                        <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Payment
-                        </th>
-                        <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Principal
-                        </th>
-                        <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Interest
-                        </th>
-                        <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Balance
-                        </th>
-                        <th className="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                          Total Interest
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {generateAmortizationSchedule(form, 5).map(
-                        (row, index) => (
-                          <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-4 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                              {row.month <= 12
-                                ? `Month ${row.month}`
-                                : `Year ${Math.ceil(row.month / 12)}`}
-                            </td>
-                            <td className="px-4 py-4 text-sm text-gray-900 whitespace-nowrap">
-                              {formatCurrency(row.payment)}
-                            </td>
-                            <td className="px-4 py-4 text-sm text-green-600 whitespace-nowrap">
-                              {formatCurrency(row.principal)}
-                            </td>
-                            <td className="px-4 py-4 text-sm text-red-600 whitespace-nowrap">
-                              {formatCurrency(row.interest)}
-                            </td>
-                            <td className="px-4 py-4 text-sm text-gray-900 whitespace-nowrap">
-                              {formatCurrency(row.balance)}
-                            </td>
-                            <td className="px-4 py-4 text-sm text-red-600 whitespace-nowrap">
-                              {formatCurrency(row.totalInterest)}
-                            </td>
-                          </tr>
-                        )
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-                <p className="mt-4 text-xs text-gray-500">
-                  * This table shows the first 12 months and then yearly
-                  summaries. Over the {form.loanTerm}-year term, you'll pay a
-                  total of{" "}
-                  {formatCurrency(
-                    metrics.monthlyMortgagePayment * form.loanTerm * 12 -
-                      metrics.loanAmount
-                  )}{" "}
-                  in interest.
-                </p>
-              </Card>
-            </div>
-          )}
+            ))}
         </div>
       </DialogContent>
     </Dialog>

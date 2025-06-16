@@ -247,7 +247,7 @@ const RatingsStats = ({ reviews = [] }) => {
             Grade Distribution
           </h3>
           <div className="space-y-3">
-            {["A", "B", "C", "D", "F"].map((grade) => {
+            {["A+", "A", "B", "C", "U"].map((grade) => {
               const count = gradeDistribution[grade] || 0;
               const percentage =
                 totalReviews > 0 ? (count / totalReviews) * 100 : 0;
@@ -263,13 +263,13 @@ const RatingsStats = ({ reviews = [] }) => {
                       {grade}
                     </div>
                     <span className="text-sm font-medium text-gray-700">
-                      {grade === "A"
+                      {grade === "A+"
                         ? "Excellent"
-                        : grade === "B"
+                        : grade === "A"
                         ? "Good"
-                        : grade === "C"
+                        : grade === "B"
                         ? "Average"
-                        : grade === "D"
+                        : grade === "C"
                         ? "Below Avg"
                         : "Poor"}
                     </span>

@@ -20,7 +20,7 @@ export const ratingsData = [
           communication: 4.7,
           maintenance: 4.9,
           location: 5.0,
-          value: 4.6,
+          value: 0,
           cleanliness: 4.8,
         },
         isPublic: true,
@@ -54,16 +54,16 @@ export const ratingsData = [
         tenantName: "Sarah Johnson",
         tenantEmail: "sarah.johnson@email.com",
         tenantPhone: "+971-50-234-5678",
-        rating: 4.2,
+        rating: 1.2,
         reviewTitle: "Good Property with Minor Issues",
         reviewText:
           "Overall a good property with excellent location. However, there were some maintenance delays initially. The landlord eventually addressed all concerns but it took longer than expected.",
         reviewDate: "2024-12-05",
         categories: {
-          communication: 4.0,
+          communication: 0,
           maintenance: 3.8,
-          location: 4.8,
-          value: 4.2,
+          location: 5,
+          value: 0,
           cleanliness: 4.5,
         },
         isPublic: true,
@@ -92,10 +92,10 @@ export const ratingsData = [
           "Fantastic apartment with modern amenities. The building management is professional and maintenance requests are handled promptly. The only minor issue is parking availability during peak hours.",
         reviewDate: "2024-12-01",
         categories: {
-          communication: 4.5,
-          maintenance: 4.8,
-          location: 4.4,
-          value: 4.7,
+          communication: 0.5,
+          maintenance: 0.8,
+          location: 5,
+          value: 2,
           cleanliness: 4.6,
         },
         isPublic: true,
@@ -140,9 +140,9 @@ export const ratingsData = [
           "The loft has a great location but some facilities need updating. The air conditioning system had issues during summer and took time to fix. The landlord was responsive but the property needs some improvements.",
         reviewDate: "2024-11-28",
         categories: {
-          communication: 4.2,
+          communication: 2,
           maintenance: 3.2,
-          location: 4.5,
+          location: 4.9,
           value: 3.8,
           cleanliness: 3.9,
         },
@@ -172,7 +172,7 @@ export const ratingsData = [
           "Exceptional property management and maintenance service. Every request is handled within 24 hours. The property is always clean and well-maintained. Couldn't ask for better landlords!",
         reviewDate: "2024-11-25",
         categories: {
-          communication: 5.0,
+          communication: 0,
           maintenance: 4.9,
           location: 4.7,
           value: 4.8,
@@ -265,9 +265,9 @@ export const ratingFilters = [
 export const gradeFilters = [
   { value: "all", label: "All Grades" },
   { value: "A+", label: "Grade A+ (Excellent)" },
-  { value: "A", label: "Grade A (Very Good)" },
-  { value: "B", label: "Grade B (Good)" },
-  { value: "C", label: "Grade C (Average)" },
+  { value: "A", label: "Grade A (Good)" },
+  { value: "B", label: "Grade B (Average)" },
+  { value: "C", label: "Grade C (Below Average)" },
   { value: "U", label: "Grade U (Unsatisfactory)" },
 ];
 
@@ -379,9 +379,9 @@ export const searchReviews = (reviews, searchTerm) => {
 
 // Grade conversion utilities
 export const convertRatingToGrade = (rating) => {
-  if (rating >= 4.5) return { grade: "A+", label: "Excellent", color: "green" };
+  if (rating >= 4.9) return { grade: "A+", label: "Excellent", color: "green" };
   if (rating >= 4.0)
-    return { grade: "A", label: "Very Good", color: "lightgreen" };
+    return { grade: "A", label: "Good", color: "lightgreen" };
   if (rating >= 3.0) return { grade: "B", label: "Good", color: "blue" };
   if (rating >= 2.0) return { grade: "C", label: "Average", color: "yellow" };
   if (rating >= 1.0)
@@ -391,11 +391,11 @@ export const convertRatingToGrade = (rating) => {
 
 export const getGradeColor = (grade) => {
   const colors = {
-    "A+": { bg: "bg-green-600", text: "text-green-700", light: "bg-green-100" },
-    A: { bg: "bg-green-500", text: "text-green-600", light: "bg-green-50" },
-    B: { bg: "bg-blue-500", text: "text-blue-600", light: "bg-blue-100" },
-    C: { bg: "bg-yellow-500", text: "text-yellow-600", light: "bg-yellow-100" },
-    U: { bg: "bg-red-500", text: "text-red-600", light: "bg-red-100" },
+    "A+": { bg: "bg-green-700", text: "text-green-700", light: "bg-green-100" },
+    A: { bg: "bg-green-500", text: "text-green-500", light: "bg-green-50" },
+    B: { bg: "bg-yellow-500", text: "text-yellow-600", light: "bg-yellow-100" },
+    C: { bg: "bg-red-500", text: "text-red-500", light: "bg-red-50" },
+    U: { bg: "bg-red-700", text: "text-red-700", light: "bg-red-100" },
   };
   return colors[grade] || colors["U"];
 };
