@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import DirhamSvg from "@/assets/Dirham";
 
 const tableData = [
   {
@@ -196,11 +197,11 @@ const tableData = [
     amount: "2,850",
     due: "6/1/2025",
     status: "collected",
-  }
+  },
 ];
 
 // Get unique landlords for filter
-const uniqueLandlords = [...new Set(tableData.map(item => item.landlord))];
+const uniqueLandlords = [...new Set(tableData.map((item) => item.landlord))];
 
 const statusColors = {
   collected: "bg-green-100 text-green-700",
@@ -221,9 +222,9 @@ const RentCollectionMaster = () => {
 
   // Filter table data based on selected landlord
   const filteredTableData = useMemo(() => {
-    return selectedLandlord === "all" 
-      ? tableData 
-      : tableData.filter(item => item.landlord === selectedLandlord);
+    return selectedLandlord === "all"
+      ? tableData
+      : tableData.filter((item) => item.landlord === selectedLandlord);
   }, [selectedLandlord]);
 
   // Calculate summary stats from filtered data
@@ -237,54 +238,76 @@ const RentCollectionMaster = () => {
       overdueCount: 0,
     };
 
-    filteredTableData.forEach(item => {
-      const amount = parseInt(item.amount.replace(/,/g, ''));
-      if (item.status === 'collected') {
+    filteredTableData.forEach((item) => {
+      const amount = parseInt(item.amount.replace(/,/g, ""));
+      if (item.status === "collected") {
         stats.totalCollected += amount;
         stats.collectedCount++;
-      } else if (item.status === 'pending') {
+      } else if (item.status === "pending") {
         stats.totalPending += amount;
         stats.pendingCount++;
-      } else if (item.status === 'overdue') {
+      } else if (item.status === "overdue") {
         stats.totalOverdue += amount;
         stats.overdueCount++;
       }
     });
 
-    const totalExpected = stats.totalCollected + stats.totalPending + stats.totalOverdue;
-    const collectionRate = totalExpected > 0 
-      ? Math.round((stats.totalCollected / totalExpected) * 100) 
-      : 0;
+    const totalExpected =
+      stats.totalCollected + stats.totalPending + stats.totalOverdue;
+    const collectionRate =
+      totalExpected > 0
+        ? Math.round((stats.totalCollected / totalExpected) * 100)
+        : 0;
 
     return {
       ...stats,
       totalExpected,
-      collectionRate
+      collectionRate,
     };
   }, [filteredTableData]);
 
   // Generate chart data from filtered data
   const chartData = useMemo(() => {
     const months = [
-      "Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025",
+      "Jan 2025",
+      "Feb 2025",
+      "Mar 2025",
+      "Apr 2025",
+      "May 2025",
+      "Jun 2025",
       // "Jul 2025", "Aug 2025", "Sept 2025", "Oct 2025", "Nov 2025", "Dec 2025"
     ];
 
-    return months.map(month => {
-      const monthData = filteredTableData.filter(item => {
+    return months.map((month) => {
+      const monthData = filteredTableData.filter((item) => {
         const dueDate = new Date(item.due);
-        const dueMonth = dueDate.toLocaleString('default', { month: 'short' }) + ' ' + dueDate.getFullYear();
+        const dueMonth =
+          dueDate.toLocaleString("default", { month: "short" }) +
+          " " +
+          dueDate.getFullYear();
         return dueMonth === month;
       });
 
       return {
         month,
-        collected: monthData.filter(item => item.status === 'collected')
-          .reduce((sum, item) => sum + parseInt(item.amount.replace(/,/g, '')), 0),
-        pending: monthData.filter(item => item.status === 'pending')
-          .reduce((sum, item) => sum + parseInt(item.amount.replace(/,/g, '')), 0),
-        overdue: monthData.filter(item => item.status === 'overdue')
-          .reduce((sum, item) => sum + parseInt(item.amount.replace(/,/g, '')), 0),
+        collected: monthData
+          .filter((item) => item.status === "collected")
+          .reduce(
+            (sum, item) => sum + parseInt(item.amount.replace(/,/g, "")),
+            0
+          ),
+        pending: monthData
+          .filter((item) => item.status === "pending")
+          .reduce(
+            (sum, item) => sum + parseInt(item.amount.replace(/,/g, "")),
+            0
+          ),
+        overdue: monthData
+          .filter((item) => item.status === "overdue")
+          .reduce(
+            (sum, item) => sum + parseInt(item.amount.replace(/,/g, "")),
+            0
+          ),
       };
     });
   }, [filteredTableData]);
@@ -326,34 +349,44 @@ const RentCollectionMaster = () => {
             <div>
               <span className="text-sm text-gray-500">Total Collected</span>
               <span className="block text-2xl font-bold text-green-600">
-                AED {summaryStats.totalCollected.toLocaleString()}
+                <DirhamSvg size={18} className="mb-1" />{" "}
+                {summaryStats.totalCollected.toLocaleString()}
               </span>
-              <span className="text-xs text-gray-400">{summaryStats.collectionRate}% collection rate</span>
+              <span className="text-xs text-gray-400">
+                {summaryStats.collectionRate}% collection rate
+              </span>
             </div>
           </Card>
           <Card className="p-6 border-0 shadow-md bg-white/80 backdrop-blur-sm">
             <div>
               <span className="text-sm text-gray-500">Pending</span>
               <span className="block text-2xl font-bold text-yellow-600">
-                AED {summaryStats.totalPending.toLocaleString()}
+                <DirhamSvg size={18} className="mb-1" />{" "}
+                {summaryStats.totalPending.toLocaleString()}
               </span>
-              <span className="text-xs text-gray-400">{summaryStats.pendingCount} units</span>
+              <span className="text-xs text-gray-400">
+                {summaryStats.pendingCount} units
+              </span>
             </div>
           </Card>
           <Card className="p-6 border-0 shadow-md bg-white/80 backdrop-blur-sm">
             <div>
               <span className="text-sm text-gray-500">Overdue</span>
               <span className="block text-2xl font-bold text-red-600">
-                AED {summaryStats.totalOverdue.toLocaleString()}
+                <DirhamSvg size={18} className="mb-1" />{" "}
+                {summaryStats.totalOverdue.toLocaleString()}
               </span>
-              <span className="text-xs text-gray-400">{summaryStats.overdueCount} units</span>
+              <span className="text-xs text-gray-400">
+                {summaryStats.overdueCount} units
+              </span>
             </div>
           </Card>
           <Card className="p-6 border-0 shadow-md bg-white/80 backdrop-blur-sm">
             <div>
               <span className="text-sm text-gray-500">Total Expected</span>
               <span className="block text-2xl font-bold text-blue-600">
-                AED {summaryStats.totalExpected.toLocaleString()}
+                <DirhamSvg size={18} className="mb-1" />{" "}
+                {summaryStats.totalExpected.toLocaleString()}
               </span>
               <span className="text-xs text-gray-400">This month</span>
             </div>
@@ -372,7 +405,7 @@ const RentCollectionMaster = () => {
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
               <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip /> 
+              <Tooltip />
               <Line
                 type="monotone"
                 dataKey="collected"

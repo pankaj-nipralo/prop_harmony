@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -24,13 +24,16 @@ import {
   MapPin,
   Phone,
   Mail,
+  Wallet,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   formatCurrency,
   formatPaymentDate,
   getPaymentStatusColor,
 } from "@/data/landlord/payments/data";
 import DirhamSvg from "@/assets/Dirham";
+import PaymentProcessModal from "./PaymentProcessModal";
 
 const PaymentDetailsModal = ({
   isOpen,
@@ -39,7 +42,10 @@ const PaymentDetailsModal = ({
   onEdit,
   onDownloadReceipt,
   onSendReminder,
+  onProcessPayment,
 }) => {
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+
   if (!payment) return null;
 
   const getStatusIcon = (status) => {
@@ -385,8 +391,27 @@ const PaymentDetailsModal = ({
               </div>
             </div>
           </Card>
+
+          {/* Add Pay Now button for pending/overdue payments */}
+          {(payment.status === "pending" || payment.status === "overdue") && (
+            <Button
+              onClick={() => setShowPaymentModal(true)}
+              className="w-full mt-4 gap-2"
+            >
+              <Wallet className="w-4 h-4" />
+              Pay Now
+            </Button>
+          )}
         </div>
       </DialogContent>
+
+      {/* Payment Processing Modal */}
+      <PaymentProcessModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        payment={payment}
+        onProcessPayment={onProcessPayment}
+      />
     </Dialog>
   );
 };

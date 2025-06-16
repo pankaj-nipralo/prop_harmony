@@ -292,6 +292,48 @@ const PaymentsMaster = () => {
     }
   };
 
+  const handleProcessPayment = async (paymentData) => {
+    try {
+      setIsLoading(true);
+
+      // Simulate payment processing
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Update the payment status
+      const updatedPayments = payments.map((p) =>
+        p.id === paymentData.paymentId
+          ? {
+              ...p,
+              status: "paid",
+              paidDate: new Date().toISOString(),
+              paymentMethod: paymentData.method,
+              transactionId: `TXN-${Date.now()}`,
+            }
+          : p
+      );
+
+      setPayments(updatedPayments);
+
+      // Update selected payment if it's currently being viewed
+      if (selectedPayment?.id === paymentData.paymentId) {
+        setSelectedPayment({
+          ...selectedPayment,
+          status: "paid",
+          paidDate: new Date().toISOString(),
+          paymentMethod: paymentData.method,
+          transactionId: `TXN-${Date.now()}`,
+        });
+      }
+
+      alert("Payment processed successfully!");
+    } catch (error) {
+      console.error("Error processing payment:", error);
+      alert("Error processing payment. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <div className="p-6 space-y-6">
@@ -355,6 +397,7 @@ const PaymentsMaster = () => {
           onEdit={handleEditPayment}
           onDownloadReceipt={handleDownloadReceipt}
           onSendReminder={handleSendReminder}
+          onProcessPayment={handleProcessPayment}
         />
       </div>
     </div>
