@@ -28,7 +28,7 @@ const PaymentsMaster = () => {
   const [expenseStats, setExpenseStats] = useState({});
 
   // Shared states
-  const [activeTab, setActiveTab] = useState("income");
+  const [activeTab, setActiveTab] = useState("expenses");
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     status: "all",
@@ -399,9 +399,19 @@ const PaymentsMaster = () => {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList>
-            <TabsTrigger value="income">Payment History</TabsTrigger>
-            <TabsTrigger value="expenses">Expenses</TabsTrigger>
+          <TabsList className="inline-flex p-1 bg-white rounded-md shadow-sm">
+            <TabsTrigger
+              value="expenses"
+              className="px-4 py-2 text-sm font-medium rounded-md data-[state=active]:bg-blue-600 data-[state=active]:text-white text-gray-700 transition"
+            >
+              Expenses
+            </TabsTrigger>
+            <TabsTrigger
+              value="income"
+              className="px-4 py-2 text-sm font-medium rounded-md data-[state=active]:bg-blue-600 data-[state=active]:text-white text-gray-700 transition"
+            >
+              Payment History
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="income" className="mt-6">
