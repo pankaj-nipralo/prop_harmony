@@ -195,32 +195,57 @@ const PaymentDetailsModal = ({
             </div>
           </Card>
 
-          {/* Tenant Information */}
-          <Card className="p-6 border-0">
+          {/* Tenant Information */}          <Card className="p-6 border-0 bg-gradient-to-br from-blue-50 via-white to-blue-50">
             <h3 className="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
               <User className="w-5 h-5 text-blue-600" />
               Tenant Information
             </h3>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
                   <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full">
                     <User className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
                     <div className="font-medium text-gray-900">
-                      {payment.tenantName}
+                      {payment.tenantName || "Ahmed Al-Mansouri"}
                     </div>
-                    <div className="text-sm text-gray-600">Tenant</div>
+                    <div className="text-sm text-gray-600">{payment.tenantRole || "Primary Tenant"}</div>
                   </div>
                 </div>
 
-                <div className="flex items-center ml-12 space-x-3">
-                  <Mail className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm text-gray-600">
-                    {payment.tenantEmail}
-                  </span>
+                <div className="ml-16 space-y-2">
+                  <div className="flex items-center gap-3 text-sm text-gray-600">
+                    <Mail className="w-4 h-4 text-gray-400" />
+                    <span>{payment.tenantEmail || "ahmed.m@email.com"}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-gray-600">
+                    <Phone className="w-4 h-4 text-gray-400" />
+                    <span>{payment.tenantPhone || "+971 50 123 4567"}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="p-4 bg-white rounded-lg">
+                  <h4 className="mb-3 text-sm font-medium text-gray-700">Contact History</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-start gap-2 text-xs">
+                      <Mail className="w-3 h-3 mt-0.5 text-blue-500" />
+                      <div>
+                        <p className="font-medium text-gray-700">Payment Reminder Sent</p>
+                        <p className="text-gray-500">June 15, 2025</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2 text-xs">
+                      <Phone className="w-3 h-3 mt-0.5 text-green-500" />
+                      <div>
+                        <p className="font-medium text-gray-700">Phone Call Made</p>
+                        <p className="text-gray-500">June 14, 2025</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
