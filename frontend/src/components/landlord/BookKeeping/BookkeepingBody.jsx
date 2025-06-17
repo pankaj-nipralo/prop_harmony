@@ -263,7 +263,7 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
 
             {displayedTransactions.length === 0 ? (
               <Card className="p-8 text-center border-0 shadow-sm">
-                <DollarSign className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                <DirhamSvg className="w-12 h-12 mx-auto mb-4 text-gray-400" />
                 <p className="text-gray-500">No transactions found.</p>
               </Card>
             ) : (
@@ -360,7 +360,7 @@ const BookkeepingBody = ({ transactions, setTransactions }) => {
                                     : "text-red-600"
                                 }`}
                               >
-                                AED {transaction.amount.toLocaleString()}
+                                {transaction.amount.toLocaleString()}
                               </span>
                             </div>
                           </td>

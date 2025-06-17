@@ -178,7 +178,7 @@ const ViewMaintenanceModal = ({ open, onClose, maintenance }) => {
                   )}
                   {maintenance.actualCost && (
                     <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-green-500" />
+                      <DirhamSvg className="w-4 h-4 text-green-500" />
                       <div>
                         <span className="text-sm font-medium text-gray-600">Actual:</span>
                         <p className="font-medium text-gray-800">{maintenance.actualCost}</p>

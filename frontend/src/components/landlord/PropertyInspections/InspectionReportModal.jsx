@@ -506,7 +506,7 @@ const InspectionReportModal = ({ open, onClose, inspection, onSaveReport }) => {
                                   {issue.description}
                                 </span>
                                 <span className="text-sm text-gray-600">
-                                  AED {issue.cost}
+                                   {issue.cost}
                                 </span>
                               </div>
                               <button

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { XCircle, FileText, Download, Calendar, DollarSign, Building, User, CheckCircle } from 'lucide-react';
+import DirhamSvg from '@/assets/Dirham';
 
 const ContractViewModal = ({ 
   showModal, 
@@ -136,7 +137,7 @@ const ContractViewModal = ({
               {/* Financial Details */}
               <div className="p-4 rounded-lg bg-gray-50">
                 <div className="flex items-center gap-2 mb-3">
-                  <DollarSign className="w-5 h-5 text-green-500" />
+                  <DirhamSvg className="w-5 h-5 text-green-500" />
                   <h4 className="font-semibold text-gray-900">Financial Terms</h4>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">

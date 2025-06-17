@@ -7,7 +7,7 @@ const PaymentsTable = ({ payments }) => {
     <div className="bg-white border border-gray-200 shadow-sm rounded-xl">
       <div className="p-6">
         <div className="flex items-center gap-2 mb-4">
-          <DollarSign className="w-5 h-5 text-gray-600" />
+          <DirhamSvg className="w-5 h-5 text-gray-600" />
           <h2 className="text-xl font-semibold text-gray-900">Recent Rent Payments</h2>
         </div>
         <p className="mb-6 text-sm text-gray-600">Your recent payment history</p>

@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import DirhamSvg from "@/assets/Dirham";
 
 const SettingsMaster = () => {
   // Active section state
@@ -611,7 +612,7 @@ const SettingsMaster = () => {
             {activeSection === "currency" && (
               <Card className="p-6 bg-white border-0 shadow-sm">
                 <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
-                  <DollarSign className="w-5 h-5 text-blue-600" />
+                  <DirhamSvg className="w-5 h-5 text-blue-600" />
                   Currency Settings
                 </h3>
 

@@ -90,7 +90,7 @@ const ViewInspectionModal = ({ open, onClose, inspection }) => {
                     </p>
                   </div>
                 </div>
-                <div className="mt-4 flex items-center justify-between">
+                <div className="flex items-center justify-between mt-4">
                   <div>
                     <span className="text-sm font-medium text-blue-700">
                       Overall Score:
@@ -151,7 +151,7 @@ const ViewInspectionModal = ({ open, onClose, inspection }) => {
                                 <h5 className="mb-2 text-sm font-medium text-gray-700">
                                   Photos ({room.photos.length})
                                 </h5>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
                                   {room.photos.map((photo, photoIndex) => (
                                     <div
                                       key={photoIndex}
@@ -164,7 +164,7 @@ const ViewInspectionModal = ({ open, onClose, inspection }) => {
                                             photo.name ||
                                             `Room photo ${photoIndex + 1}`
                                           }
-                                          className="object-cover w-full h-full cursor-pointer hover:scale-105 transition-transform"
+                                          className="object-cover w-full h-full transition-transform cursor-pointer hover:scale-105"
                                           onClick={() => {
                                             // Optional: Add lightbox functionality here
                                             window.open(
@@ -173,8 +173,8 @@ const ViewInspectionModal = ({ open, onClose, inspection }) => {
                                             );
                                           }}
                                         />
-                                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity flex items-center justify-center">
-                                          <div className="opacity-0 group-hover:opacity-100 p-2 bg-white bg-opacity-90 rounded-full transition-opacity">
+                                        <div className="absolute inset-0 flex items-center justify-center transition-opacity bg-black bg-opacity-0 group-hover:bg-opacity-20">
+                                          <div className="p-2 transition-opacity bg-white rounded-full opacity-0 group-hover:opacity-100 bg-opacity-90">
                                             <svg
                                               className="w-4 h-4 text-gray-700"
                                               fill="none"
@@ -212,7 +212,7 @@ const ViewInspectionModal = ({ open, onClose, inspection }) => {
                                   {room.issues.map((issue, issueIndex) => (
                                     <div
                                       key={issueIndex}
-                                      className="flex items-center justify-between p-2 bg-red-50 rounded"
+                                      className="flex items-center justify-between p-2 rounded bg-red-50"
                                     >
                                       <div className="flex items-center gap-2">
                                         <span
@@ -290,7 +290,7 @@ const ViewInspectionModal = ({ open, onClose, inspection }) => {
                                 </span>
                               </div>
                               <span className="text-sm text-gray-600">
-                                AED {rec.estimatedCost}
+                                 {rec.estimatedCost}
                               </span>
                             </div>
                           )
@@ -330,7 +330,7 @@ const ViewInspectionModal = ({ open, onClose, inspection }) => {
                     </h3>
                     <div className="space-y-2">
                       {inspection.tenantComments.map((comment, index) => (
-                        <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                        <div key={index} className="p-3 rounded-lg bg-gray-50">
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-sm font-medium text-gray-900">
                               Tenant Response
@@ -506,7 +506,7 @@ const ViewInspectionModal = ({ open, onClose, inspection }) => {
                         <span className="text-sm font-medium text-gray-700">
                           Reason:
                         </span>
-                        <p className="text-sm text-gray-600 mt-1">
+                        <p className="mt-1 text-sm text-gray-600">
                           {inspection.tenantDeclineReason}
                         </p>
                       </div>

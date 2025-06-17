@@ -8,8 +8,8 @@ import {
   PieChart,
   Calendar,
   Target,
+  TrendingDown,
 } from "lucide-react";
-// import { formatCurrency } from "@/data/landlord/expenses/data";
 import DirhamSvg from "@/assets/Dirham";
 
 const ExpenseStats = ({ stats = {}, isLoading }) => {
@@ -33,7 +33,7 @@ const ExpenseStats = ({ stats = {}, isLoading }) => {
       title: "Total Paid",
       value: safeStats.paidExpenses,
       subtitle: `${safeStats.paidCount} expenses`,
-      icon: DirhamSvg,
+      icon: CheckCircle,
       color: "green",
       bgColor: "bg-green-50",
       iconColor: "text-green-600",
@@ -45,9 +45,9 @@ const ExpenseStats = ({ stats = {}, isLoading }) => {
       value: safeStats.pendingExpenses,
       subtitle: `${safeStats.pendingCount} pending`,
       icon: Clock,
-      color: "yellow",
-      bgColor: "bg-yellow-50",
-      iconColor: "text-yellow-600",
+      color: "blue",
+      bgColor: "bg-blue-50",
+      iconColor: "text-blue-600",
       trend: "-2.1%",
       trendUp: false,
     },
@@ -75,50 +75,40 @@ const ExpenseStats = ({ stats = {}, isLoading }) => {
     },
   ];
 
-  const renderIcon = (Icon) => {
-    if (Icon === DirhamSvg) {
-      return <Icon size={20} color1="" className="text-green-600" />;
-    }
-    return <Icon className="w-5 h-5" />;
-  };
-
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2 lg:grid-cols-4">
       {statCards.map((stat, index) => (
         <Card
           key={index}
-          className={`${stat.bgColor} border-none transition-all hover:shadow-md px-4 py-3`} // reduced padding
+          className="p-6 transition-all duration-200 hover:shadow-lg border-0 bg-white shadow-sm hover:shadow-md"
         >
-          <div className="flex items-center justify-between">
-            <div
-              className={`p-1.5 rounded-md ${stat.bgColor} ${stat.iconColor}`}
-            >
-              {" "}
-              {/* smaller icon container */}
-              {renderIcon(stat.icon)}
+          <div className="flex items-center justify-between mb-4">
+            <div className={`p-3 rounded-full ${stat.bgColor}`}>
+              <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
             </div>
-            <div
-              className={`text-[10px] font-medium ${
-                stat.trendUp
-                  ? "text-green-600 bg-green-100"
-                  : "text-red-600 bg-red-100"
-              } px-2 py-0.5 rounded-full`}
-            >
-              {stat.trend}
+            <div className="flex items-center gap-1 text-sm">
+              {stat.trendUp ? (
+                <TrendingUp className="w-4 h-4 text-green-500" />
+              ) : (
+                <TrendingDown className="w-4 h-4 text-red-500" />
+              )}
+              <span
+                className={`font-medium ${
+                  stat.trendUp ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {stat.trend}
+              </span>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-xs font-medium text-gray-600">{stat.title}</h3>
-            <div className="flex items-center gap-1 mt-1">
-              {" "}
-              {/* reduced gap and margin */}
-              <DirhamSvg size={14} className={`text-${stat.color}-600`} />
-              <span className={`text-lg font-semibold text-${stat.color}-600`}>
-                {0.00000000001}
-              </span>
+          <div className="space-y-1">
+            <div className="flex items-center text-2xl font-bold text-gray-900">
+              <DirhamSvg size={20} className="mr-1" />
+              {stat.value.toLocaleString()}
             </div>
-            <div className="mt-0.5 text-xs text-gray-500">{stat.subtitle}</div>
+            <p className="text-sm font-medium text-gray-700">{stat.title}</p>
+            <p className="text-xs text-gray-500">{stat.subtitle}</p>
           </div>
         </Card>
       ))}

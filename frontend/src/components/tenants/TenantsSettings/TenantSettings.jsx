@@ -36,6 +36,7 @@ import {
   Edit,
   Trash2,
 } from "lucide-react";
+import DirhamSvg from "@/assets/Dirham";
 
 const TenantSettings = () => {
   // Active section state
@@ -725,7 +726,7 @@ const TenantSettings = () => {
             {activeSection === "currency" && (
               <Card className="p-6 bg-white border-0 shadow-sm">
                 <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
-                  <DollarSign className="w-5 h-5 text-blue-600" />
+                  <DirhamSvg className="w-5 h-5 text-blue-600" />
                   Currency Settings
                 </h3>
 
@@ -1111,10 +1112,10 @@ const TenantSettings = () => {
                   </div>
                 </Card>
 
-                <Card className="p-6 border-0 shadow-sm bg-white">
+                <Card className="p-6 bg-white border-0 shadow-sm">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
-                      <DollarSign className="w-5 h-5 text-blue-600" />
+                      <DirhamSvg className="w-5 h-5 text-blue-600" />
                       Saved Payment Methods
                     </h3>
                     <button

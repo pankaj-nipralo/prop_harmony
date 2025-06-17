@@ -13,6 +13,7 @@ import ApplicationConfirmationModal from "./ApplicationConfirmationModal";
 import ChatModal from "./ChatModal";
 import ContractViewModal from "./ContractViewModal";
 import { Navigate } from "react-router-dom";
+import DirhamSvg from "@/assets/Dirham";
 
 const ApplicationsTab = ({ applications: initialApplications }) => {
   // State for managing applications data
@@ -209,7 +210,7 @@ const ApplicationsTab = ({ applications: initialApplications }) => {
                     <span className="text-sm">{application.address}</span>
                   </div>
                   <div className="flex items-center text-green-600">
-                    <DollarSign className="w-4 h-4 mr-1" />
+                    <DirhamSvg className="w-4 h-4 mr-1" />
                     <span className="text-sm font-medium">
                       {application.rent}
                     </span>

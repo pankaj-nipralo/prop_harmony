@@ -248,7 +248,7 @@ const ApplicationModals = ({
 
                         <div className="p-4 border border-blue-200 rounded-lg bg-blue-50">
                           <div className="flex items-center gap-2 mb-2">
-                            <DollarSign className="w-5 h-5 text-blue-600" />
+                            <DirhamSvg className="w-5 h-5 text-blue-600" />
                             <span className="text-sm font-medium text-blue-800">Monthly Income</span>
                           </div>
                           <p className="text-2xl font-bold text-blue-600">

@@ -264,28 +264,35 @@ const PaymentDetailsModal = ({
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-4">
+                {" "}
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600">Payment Type:</span>
                   <span className="text-sm font-medium text-gray-900">
-                    {payment.paymentType.replace("_", " ").toUpperCase()}
+                    {(payment.paymentType || "regular")
+                      .replace("_", " ")
+                      .toUpperCase()}
                   </span>
                 </div>
-
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600">Payment Method:</span>
                   <span className="flex items-center gap-2 text-sm font-medium text-gray-900">
-                    <span>{getPaymentMethodIcon(payment.paymentMethod)}</span>
-                    {payment.paymentMethod.replace("_", " ").toUpperCase()}
+                    <span>
+                      {getPaymentMethodIcon(payment.paymentMethod || "card")}
+                    </span>
+                    {(payment.paymentMethod || "card")
+                      .replace("_", " ")
+                      .toUpperCase()}
                   </span>
                 </div>
-
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600">Due Date:</span>
                   <span className="text-sm font-medium text-gray-900">
                     {formatPaymentDate(payment.dueDate)}
                   </span>
                 </div>
+              </div>
 
+              <div className="space-y-4">
                 {payment.paidDate && (
                   <div className="flex justify-between">
                     <span className="text-sm text-gray-600">Paid Date:</span>
@@ -294,9 +301,6 @@ const PaymentDetailsModal = ({
                     </span>
                   </div>
                 )}
-              </div>
-
-              <div className="space-y-4">
                 {payment.transactionId && (
                   <div className="flex justify-between">
                     <span className="text-sm text-gray-600">
@@ -308,12 +312,12 @@ const PaymentDetailsModal = ({
                   </div>
                 )}
 
-                <div className="flex justify-between">
+                {/* <div className="flex justify-between">
                   <span className="text-sm text-gray-600">Currency:</span>
                   <span className="text-sm font-medium text-gray-900">
                     {payment.currency}
                   </span>
-                </div>
+                </div> */}
 
                 {payment.paymentPeriod && (
                   <>
@@ -393,7 +397,7 @@ const PaymentDetailsModal = ({
           </Card>
 
           {/* Add Pay Now button for pending/overdue payments */}
-          {(payment.status === "pending" || payment.status === "overdue") && (
+          {/* {(payment.status === "pending" || payment.status === "overdue") && (
             <Button
               onClick={() => setShowPaymentModal(true)}
               className="w-full gap-2 mt-4"
@@ -401,7 +405,7 @@ const PaymentDetailsModal = ({
               <Wallet className="w-4 h-4" />
               Pay Now
             </Button>
-          )}
+          )} */}
         </div>
       </DialogContent>
 

@@ -354,7 +354,7 @@ const InvestmentCalculatorModal = ({
               {/* Income & Expenses */}
               <Card className="p-6 border-0 shadow-sm">
                 <div className="flex items-center gap-2 mb-4">
-                  <DollarSign className="w-5 h-5 text-blue-600" />
+                  <DirhamSvg className="w-5 h-5 text-blue-600" />
                   <h3 className="text-lg font-semibold text-gray-800">
                     Income & Expenses
                   </h3>
