@@ -194,8 +194,8 @@ const PaymentDetailsModal = ({
               </div>
             </div>
           </Card>
-
-          {/* Tenant Information */}          <Card className="p-6 border-0 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+          {/* Tenant Information */}{" "}
+          <Card className="p-6 border-0 bg-gradient-to-br from-blue-50 via-white to-blue-50">
             <h3 className="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
               <User className="w-5 h-5 text-blue-600" />
               Tenant Information
@@ -209,16 +209,18 @@ const PaymentDetailsModal = ({
                   </div>
                   <div>
                     <div className="font-medium text-gray-900">
-                      {payment.tenantName || "Ahmed Al-Mansouri"}
+                      {payment.tenantName || "Pankaj Gupta"}
                     </div>
-                    <div className="text-sm text-gray-600">{payment.tenantRole || "Primary Tenant"}</div>
+                    <div className="text-sm text-gray-600">
+                      {payment.tenantRole || "Primary Tenant"}
+                    </div>
                   </div>
                 </div>
 
                 <div className="ml-16 space-y-2">
                   <div className="flex items-center gap-3 text-sm text-gray-600">
                     <Mail className="w-4 h-4 text-gray-400" />
-                    <span>{payment.tenantEmail || "ahmed.m@email.com"}</span>
+                    <span>{payment.tenantEmail || "sp@gmail.com"}</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-gray-600">
                     <Phone className="w-4 h-4 text-gray-400" />
@@ -229,19 +231,25 @@ const PaymentDetailsModal = ({
 
               <div className="space-y-4">
                 <div className="p-4 bg-white rounded-lg">
-                  <h4 className="mb-3 text-sm font-medium text-gray-700">Contact History</h4>
+                  <h4 className="mb-3 text-sm font-medium text-gray-700">
+                    Contact History
+                  </h4>
                   <div className="space-y-2">
                     <div className="flex items-start gap-2 text-xs">
                       <Mail className="w-3 h-3 mt-0.5 text-blue-500" />
                       <div>
-                        <p className="font-medium text-gray-700">Payment Reminder Sent</p>
+                        <p className="font-medium text-gray-700">
+                          Payment Reminder Sent
+                        </p>
                         <p className="text-gray-500">June 15, 2025</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-2 text-xs">
                       <Phone className="w-3 h-3 mt-0.5 text-green-500" />
                       <div>
-                        <p className="font-medium text-gray-700">Phone Call Made</p>
+                        <p className="font-medium text-gray-700">
+                          Phone Call Made
+                        </p>
                         <p className="text-gray-500">June 14, 2025</p>
                       </div>
                     </div>
@@ -250,7 +258,6 @@ const PaymentDetailsModal = ({
               </div>
             </div>
           </Card>
-
           {/* Property Information */}
           <Card className="p-6 border-0">
             <h3 className="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
@@ -279,7 +286,6 @@ const PaymentDetailsModal = ({
               </div>
             </div>
           </Card>
-
           {/* Payment Details */}
           <Card className="p-6 border-0">
             <h3 className="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
@@ -366,7 +372,6 @@ const PaymentDetailsModal = ({
               </div>
             </div>
           </Card>
-
           {/* Description and Notes */}
           <Card className="p-6 border-0">
             <h3 className="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
@@ -396,7 +401,6 @@ const PaymentDetailsModal = ({
               )}
             </div>
           </Card>
-
           {/* Timestamps */}
           <Card className="p-6 border-0">
             <h3 className="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
@@ -420,7 +424,6 @@ const PaymentDetailsModal = ({
               </div>
             </div>
           </Card>
-
           {/* Add Pay Now button for pending/overdue payments */}
           {/* {(payment.status === "pending" || payment.status === "overdue") && (
             <Button
