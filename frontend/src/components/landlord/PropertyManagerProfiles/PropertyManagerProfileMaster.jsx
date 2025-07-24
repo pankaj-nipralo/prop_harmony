@@ -12,7 +12,7 @@ const PropertyManagerProfileMaster = () => {
   const [selectedExperience, setSelectedExperience] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
   const [selectedService, setSelectedService] = useState("");
-  const [selectedManager, setSelectedManager] = useState(null);
+  const [selectedManager, q] = useState(null);
   const [showInviteModal, setShowInviteModal] = useState(false);
 
   const filteredManagers = mockPropertyManagers.filter((manager) => {
@@ -101,7 +101,7 @@ const PropertyManagerProfileMaster = () => {
               <PropertyManagerCard
                 key={manager.id}
                 manager={manager}
-                onViewProfile={setSelectedManager}
+                onViewProfile={q}
                 onSendInvite={() => setShowInviteModal(true)}
               />
             ))

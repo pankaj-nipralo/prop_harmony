@@ -294,7 +294,7 @@ const DashboardOverview = () => {
         </Card>
       </div>
       {/* Recent Work Orders */}
-      <Card className="bg-white border-0 shadow-md rounded-2xl">
+      <Card className="bg-white border-0 shadow-md rounded-2xl mt-5">
         <CardHeader className="pb-0">
           <CardTitle className="flex items-center gap-2 text-lg font-semibold text-muted-foreground">
             <ClipboardList className="w-5 h-5 text-primary" />
