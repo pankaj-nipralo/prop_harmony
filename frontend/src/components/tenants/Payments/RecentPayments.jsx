@@ -9,7 +9,7 @@ const RecentPayments = ({
   handleDownloadReceipt,
 }) => {
   return (
-    <Card className="bg-white border-0 shadow-sm">
+    <Card className="bg-white border-0 shadow-sm gap-0">
       <div className="p-6 bg-white border-b border-gray-100">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-gray-900">
