@@ -5,36 +5,18 @@ import {
   Settings,
   User,
   Home,
-  Bell,
-  Shield,
-  CreditCard,
-  MessageSquare,
-  Building,
-  Palette,
+  Bell, 
+  CreditCard, 
+  Building, 
   Save,
   Camera,
   Key,
   Eye,
   EyeOff,
-  Check,
-  AlertCircle,
-  Phone,
-  Mail,
-  MapPin,
-  Globe,
-  Clock,
-  DollarSign,
-  Smartphone,
-  Sun,
-  Moon,
-  Monitor,
-  FileText,
-  Wrench,
-  Calendar,
-  Receipt,
-  Plus,
-  Edit,
-  Trash2,
+  Check, 
+  Globe, 
+  Smartphone, 
+  Receipt, 
 } from "lucide-react";
 import DirhamSvg from "@/assets/Dirham";
 
@@ -127,33 +109,33 @@ const TenantSettings = () => {
     ],
   });
 
-  const [maintenancePreferences, setMaintenancePreferences] = useState({
-    preferredTimeSlots: ["morning", "afternoon"],
-    allowEmergencyEntry: true,
-    requireAdvanceNotice: true,
-    advanceNoticeHours: "24",
-    specialInstructions: "Please call before entering. Dog on premises.",
-    contactPreference: "phone",
-  });
+  // const [maintenancePreferences, setMaintenancePreferences] = useState({
+  //   preferredTimeSlots: ["morning", "afternoon"],
+  //   allowEmergencyEntry: true,
+  //   requireAdvanceNotice: true,
+  //   advanceNoticeHours: "24",
+  //   specialInstructions: "Please call before entering. Dog on premises.",
+  //   contactPreference: "phone",
+  // });
 
-  const [communicationSettings, setCommunicationSettings] = useState({
-    landlordMessaging: true,
-    communityForum: true,
-    anonymousFeedback: true,
-    languagePreference: "en",
-    responseTimeExpectation: "24_hours",
-    communicationStyle: "formal",
-  });
+  // const [communicationSettings, setCommunicationSettings] = useState({
+  //   landlordMessaging: true,
+  //   communityForum: true,
+  //   anonymousFeedback: true,
+  //   languagePreference: "en",
+  //   responseTimeExpectation: "24_hours",
+  //   communicationStyle: "formal",
+  // });
 
-  const [systemSettings, setSystemSettings] = useState({
-    theme: "light",
-    language: "en",
-    timezone: "America/New_York",
-    dashboardLayout: "grid",
-    compactMode: false,
-    dateFormat: "MM/DD/YYYY",
-    currency: "AED",
-  });
+  // const [systemSettings, setSystemSettings] = useState({
+  //   theme: "light",
+  //   language: "en",
+  //   timezone: "America/New_York",
+  //   dashboardLayout: "grid",
+  //   compactMode: false,
+  //   dateFormat: "MM/DD/YYYY",
+  //   currency: "AED",
+  // });
 
   // Password change state
   const [passwordData, setPasswordData] = useState({
