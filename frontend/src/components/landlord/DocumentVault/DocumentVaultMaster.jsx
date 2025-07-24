@@ -27,7 +27,7 @@ import {
 const DocumentVaultMaster = () => {
   // File manager state
   const [currentPath, setCurrentPath] = useState([]);
-  const [viewMode, setViewMode] = useState("grid");
+  // const [viewMode, setViewMode] = useState("grid");
   const [search, setSearch] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
