@@ -1,3 +1,4 @@
+// components/TenantSettings.jsx
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -7,43 +8,46 @@ import {
   Home,
   Bell,
   CreditCard,
-  Building,
   Save,
-  Camera,
-  Key,
-  Eye,
-  EyeOff,
-  Check,
-  Globe,
-  Smartphone,
-  Receipt,
-  Plus,
-  Trash2,
 } from "lucide-react";
-import DirhamSvg from "@/assets/Dirham";
+import SettingsNav from "./SettingsNav";
+import ProfileSettings from "./ProfileSettings";
+import PasswordChangeModal from "./PasswordChangeModal";
+import PropertyPreferences from "./PropertyPreferences";
+import PaymentMethods from "./PaymentMethods";
+
+const settingsSections = [
+  {
+    id: "profile",
+    name: "Profile Settings",
+    icon: User,
+    description: "Personal information and emergency contacts",
+  },
+  {
+    id: "property",
+    name: "Property Preferences",
+    icon: Home,
+    description: "Maintenance and property-related preferences",
+  },
+  {
+    id: "notifications",
+    name: "Notifications",
+    icon: Bell,
+    description: "Email, SMS, and push notification preferences",
+  },
+  {
+    id: "payment",
+    name: "Payment Methods",
+    icon: CreditCard,
+    description: "Auto-pay and payment method management",
+  },
+];
 
 const TenantSettings = () => {
-  // Active section state
   const [activeSection, setActiveSection] = useState("profile");
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Modal states
-  const [passwordChangeModal, setPasswordChangeModal] = useState(false);
-  const [confirmationModal, setConfirmationModal] = useState({
-    open: false,
-    title: "",
-    message: "",
-    action: null,
-  });
-  const [showPaymentModal, setShowPaymentModal] = useState({
-    open: false,
-    method: null,
-  });
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState({
-    open: false,
-    methodId: null,
-  });
-
-  // Form states
+  // Profile state
   const [profileData, setProfileData] = useState({
     firstName: "Sarah",
     lastName: "Johnson",
@@ -57,6 +61,7 @@ const TenantSettings = () => {
     profilePicture: null,
   });
 
+  // Property preferences state
   const [propertyPreferences, setPropertyPreferences] = useState({
     maintenanceNotifications: true,
     inspectionReminders: true,
@@ -68,34 +73,12 @@ const TenantSettings = () => {
     packageDeliveryInstructions: "Leave at front door",
   });
 
-  const [notificationSettings, setNotificationSettings] = useState({
-    emailNotifications: {
-      rentReminders: true,
-      maintenanceUpdates: true,
-      landlordMessages: true,
-      leaseDocuments: true,
-      communityNews: false,
-      paymentConfirmations: true,
-    },
-    smsNotifications: {
-      urgentMaintenance: true,
-      rentDueReminders: true,
-      emergencyAlerts: true,
-    },
-    pushNotifications: {
-      realTimeAlerts: true,
-      dailyReminders: true,
-    },
-  });
-
+  // Security state
   const [securitySettings, setSecuritySettings] = useState({
-    twoFactorEnabled: false,
-    loginNotifications: true,
-    sessionTimeout: "30",
     passwordLastChanged: "2024-05-20",
-    privacyLevel: "standard",
   });
 
+  // Payment state
   const [paymentSettings, setPaymentSettings] = useState({
     autoPayEnabled: false,
     paymentMethod: "bank_transfer",
@@ -117,35 +100,8 @@ const TenantSettings = () => {
     ],
   });
 
-  // const [maintenancePreferences, setMaintenancePreferences] = useState({
-  //   preferredTimeSlots: ["morning", "afternoon"],
-  //   allowEmergencyEntry: true,
-  //   requireAdvanceNotice: true,
-  //   advanceNoticeHours: "24",
-  //   specialInstructions: "Please call before entering. Dog on premises.",
-  //   contactPreference: "phone",
-  // });
-
-  // const [communicationSettings, setCommunicationSettings] = useState({
-  //   landlordMessaging: true,
-  //   communityForum: true,
-  //   anonymousFeedback: true,
-  //   languagePreference: "en",
-  //   responseTimeExpectation: "24_hours",
-  //   communicationStyle: "formal",
-  // });
-
-  // const [systemSettings, setSystemSettings] = useState({
-  //   theme: "light",
-  //   language: "en",
-  //   timezone: "America/New_York",
-  //   dashboardLayout: "grid",
-  //   compactMode: false,
-  //   dateFormat: "MM/DD/YYYY",
-  //   currency: "AED",
-  // });
-
   // Password change state
+  const [passwordChangeModal, setPasswordChangeModal] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -157,52 +113,21 @@ const TenantSettings = () => {
     confirm: false,
   });
 
-  // Loading state
-  const [isLoading, setIsLoading] = useState(false);
-
   // Payment method form state
+  const [showPaymentModal, setShowPaymentModal] = useState({
+    open: false,
+    method: null,
+  });
   const [paymentForm, setPaymentForm] = useState({
     name: "",
     type: "bank",
   });
   const [formError, setFormError] = useState("");
 
-  // Settings sections configuration for tenants
-  const settingsSections = [
-    {
-      id: "profile",
-      name: "Profile Settings",
-      icon: User,
-      description: "Personal information and emergency contacts",
-    },
-    {
-      id: "property",
-      name: "Property Preferences",
-      icon: Home,
-      description: "Maintenance and property-related preferences",
-    },
-    {
-      id: "notifications",
-      name: "Notifications",
-      icon: Bell,
-      description: "Email, SMS, and push notification preferences",
-    },
-    {
-      id: "payment",
-      name: "Payment Methods",
-      icon: CreditCard,
-      description: "Auto-pay and payment method management",
-    },
-  ];
-
-  // Handler functions
   const handleSaveSettings = (section) => {
     setIsLoading(true);
-
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-
       // Show success notification
       const notification = document.createElement("div");
       notification.className =
@@ -226,37 +151,23 @@ const TenantSettings = () => {
       return;
     }
 
-    setConfirmationModal({
-      open: true,
-      title: "Change Password",
-      message:
-        "Are you sure you want to change your password? You will need to log in again.",
-      action: () => {
-        setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
-          setPasswordChangeModal(false);
-          setPasswordData({
-            currentPassword: "",
-            newPassword: "",
-            confirmPassword: "",
-          });
-          setConfirmationModal({
-            open: false,
-            title: "",
-            message: "",
-            action: null,
-          });
-
-          const notification = document.createElement("div");
-          notification.className =
-            "fixed z-50 px-6 py-3 text-white bg-green-500 rounded-lg shadow-lg top-4 right-4";
-          notification.textContent = "Password changed successfully!";
-          document.body.appendChild(notification);
-          setTimeout(() => notification.remove(), 4000);
-        }, 2000);
-      },
-    });
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setPasswordChangeModal(false);
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+      // Show success notification
+      const notification = document.createElement("div");
+      notification.className =
+        "fixed z-50 px-6 py-3 text-white bg-green-500 rounded-lg shadow-lg top-4 right-4";
+      notification.textContent = "Password changed successfully!";
+      document.body.appendChild(notification);
+      setTimeout(() => notification.remove(), 4000);
+    }, 2000);
   };
 
   const validatePassword = (password) => {
@@ -274,7 +185,6 @@ const TenantSettings = () => {
 
   const passwordValidation = validatePassword(passwordData.newPassword);
 
-  // Handler for Add/Edit
   const handleAddEditPayment = (method = null) => {
     if (method) {
       setPaymentForm({
@@ -290,23 +200,6 @@ const TenantSettings = () => {
     setShowPaymentModal({ open: true, method });
   };
 
-  // Handler for Delete
-  const handleDeletePayment = (methodId) => {
-    setShowDeleteConfirm({ open: true, methodId });
-  };
-
-  // Confirm delete
-  const confirmDeletePayment = () => {
-    setPaymentSettings((prev) => ({
-      ...prev,
-      savedPaymentMethods: prev.savedPaymentMethods.filter(
-        (m) => m.id !== showDeleteConfirm.methodId
-      ),
-    }));
-    setShowDeleteConfirm({ open: false, methodId: null });
-  };
-
-  // Handler for saving payment method
   const handleSavePaymentMethod = () => {
     if (!paymentForm.name.trim()) {
       setFormError("Name is required.");
@@ -330,7 +223,7 @@ const TenantSettings = () => {
           {
             id: Date.now(),
             ...paymentForm,
-            isDefault: prev.savedPaymentMethods.length === 0, // first one is default
+            isDefault: prev.savedPaymentMethods.length === 0,
           },
         ],
       }));
@@ -377,32 +270,11 @@ const TenantSettings = () => {
           {/* Settings Navigation */}
           <div className="lg:col-span-1">
             <Card className="p-4 bg-white border-0 shadow-sm">
-              <nav className="space-y-2">
-                {settingsSections.map((section) => {
-                  const IconComponent = section.icon;
-                  return (
-                    <button
-                      key={section.id}
-                      onClick={() => setActiveSection(section.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-3 text-left rounded-lg transition-colors ${
-                        activeSection === section.id
-                          ? "bg-blue-500 text-white"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`}
-                    >
-                      <IconComponent size={18} />
-                      <div className="flex-1">
-                        <span className="block text-sm font-medium">
-                          {section.name}
-                        </span>
-                        <span className="block text-xs opacity-75">
-                          {section.description}
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </nav>
+              <SettingsNav
+                sections={settingsSections}
+                activeSection={activeSection}
+                setActiveSection={setActiveSection}
+              />
             </Card>
           </div>
 
@@ -414,275 +286,12 @@ const TenantSettings = () => {
                 <h3 className="mb-6 text-lg font-semibold text-gray-900">
                   Profile Settings
                 </h3>
-
-                <div className="space-y-6">
-                  {/* Profile Picture */}
-                  <div className="flex items-center gap-6">
-                    <div className="relative">
-                      <div className="flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full">
-                        {profileData.profilePicture ? (
-                          <img
-                            src={profileData.profilePicture}
-                            alt="Profile"
-                            className="object-cover w-20 h-20 rounded-full"
-                          />
-                        ) : (
-                          <User className="w-10 h-10 text-blue-600" />
-                        )}
-                      </div>
-                      <button className="absolute p-1 text-white transition-colors bg-blue-600 rounded-full -bottom-1 -right-1 hover:bg-blue-700">
-                        <Camera size={14} />
-                      </button>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900">
-                        Profile Picture
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Upload a professional photo
-                      </p>
-                      <button className="mt-2 text-sm text-blue-600 hover:text-blue-800">
-                        Change Photo
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Personal Information */}
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-700">
-                        First Name
-                      </label>
-                      <input
-                        type="text"
-                        value={profileData.firstName}
-                        onChange={(e) =>
-                          setProfileData((prev) => ({
-                            ...prev,
-                            firstName: e.target.value,
-                          }))
-                        }
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-700">
-                        Last Name
-                      </label>
-                      <input
-                        type="text"
-                        value={profileData.lastName}
-                        onChange={(e) =>
-                          setProfileData((prev) => ({
-                            ...prev,
-                            lastName: e.target.value,
-                          }))
-                        }
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-700">
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        value={profileData.email}
-                        onChange={(e) =>
-                          setProfileData((prev) => ({
-                            ...prev,
-                            email: e.target.value,
-                          }))
-                        }
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-700">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        value={profileData.phone}
-                        onChange={(e) =>
-                          setProfileData((prev) => ({
-                            ...prev,
-                            phone: e.target.value,
-                          }))
-                        }
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Emergency Contact */}
-                  <div className="p-4 rounded-lg bg-gray-50">
-                    <h4 className="mb-4 text-sm font-semibold text-gray-900">
-                      Emergency Contact
-                    </h4>
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                      <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-700">
-                          Contact Name
-                        </label>
-                        <input
-                          type="text"
-                          value={profileData.emergencyContact.name}
-                          onChange={(e) =>
-                            setProfileData((prev) => ({
-                              ...prev,
-                              emergencyContact: {
-                                ...prev.emergencyContact,
-                                name: e.target.value,
-                              },
-                            }))
-                          }
-                          className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-700">
-                          Relationship
-                        </label>
-                        <select
-                          value={profileData.emergencyContact.relationship}
-                          onChange={(e) =>
-                            setProfileData((prev) => ({
-                              ...prev,
-                              emergencyContact: {
-                                ...prev.emergencyContact,
-                                relationship: e.target.value,
-                              },
-                            }))
-                          }
-                          className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                          <option value="Parent">Parent</option>
-                          <option value="Sibling">Sibling</option>
-                          <option value="Spouse">Spouse</option>
-                          <option value="Friend">Friend</option>
-                          <option value="Other">Other</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-700">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          value={profileData.emergencyContact.phone}
-                          onChange={(e) =>
-                            setProfileData((prev) => ({
-                              ...prev,
-                              emergencyContact: {
-                                ...prev.emergencyContact,
-                                phone: e.target.value,
-                              },
-                            }))
-                          }
-                          className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Change Password Section */}
-                  <div className="p-4 border border-blue-200 rounded-lg bg-blue-50">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Key className="w-5 h-5 text-blue-600" />
-                        <div>
-                          <h4 className="text-sm font-medium text-gray-900">
-                            Password
-                          </h4>
-                          <p className="text-xs text-gray-500">
-                            Last changed: {securitySettings.passwordLastChanged}
-                          </p>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => setPasswordChangeModal(true)}
-                        className="px-4 py-2 text-sm font-medium text-blue-600 transition-colors bg-blue-100 rounded-lg hover:bg-blue-200 myButton"
-                      >
-                        Change Password
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            {/* Currency Settings */}
-            {activeSection === "currency" && (
-              <Card className="p-6 bg-white border-0 shadow-sm">
-                <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
-                  <DirhamSvg className="w-5 h-5 text-blue-600" />
-                  Currency Settings
-                </h3>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block mb-2 text-sm font-medium text-gray-700">
-                      Default Currency
-                    </label>
-                    <select
-                      value={propertySettings.currency}
-                      onChange={(e) =>
-                        setPropertySettings((prev) => ({
-                          ...prev,
-                          currency: e.target.value,
-                        }))
-                      }
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="AED">AED - UAE Dirham (د.إ)</option>
-                      <option value="INR">INR - Indian Rupee (₹)</option>
-                      <option value="JPY">JPY - Japanese Yen (¥)</option>
-                      <option value="USD">USD - US Dollar ($)</option>
-                      <option value="EUR">EUR - Euro (€)</option>
-                      <option value="GBP">GBP - British Pound (£)</option>
-                      <option value="CAD">CAD - Canadian Dollar (C$)</option>
-                      <option value="AUD">AUD - Australian Dollar (A$)</option>
-                      <option value="CHF">CHF - Swiss Franc (CHF)</option>
-                      <option value="CNY">CNY - Chinese Yuan (¥)</option>
-                      <option value="SGD">SGD - Singapore Dollar (S$)</option>
-                      <option value="HKD">HKD - Hong Kong Dollar (HK$)</option>
-                    </select>
-                    <p className="mt-1 text-xs text-gray-500">
-                      This currency will be used for all rent amounts, fees, and
-                      financial calculations
-                    </p>
-                  </div>
-
-                  <div className="p-4 border border-blue-200 rounded-lg bg-blue-50">
-                    <div className="flex items-start gap-3">
-                      <div className="p-2 bg-blue-100 rounded-lg">
-                        <Globe className="w-4 h-4 text-blue-600" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-sm font-medium text-blue-900">
-                          Currency Information
-                        </h4>
-                        <p className="mt-1 text-xs text-blue-700">
-                          Currently selected:{" "}
-                          <span className="font-semibold">
-                            {propertySettings.currency}
-                          </span>
-                        </p>
-                        <p className="mt-1 text-xs text-blue-600">
-                          Note: Changing currency will affect all future
-                          transactions. Existing records will maintain their
-                          original currency.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ProfileSettings
+                  profileData={profileData}
+                  setProfileData={setProfileData}
+                  securitySettings={securitySettings}
+                  setPasswordChangeModal={setPasswordChangeModal}
+                />
               </Card>
             )}
 
@@ -694,16 +303,30 @@ const TenantSettings = () => {
                     <Home className="w-5 h-5 text-blue-600" />
                     Property Preferences
                   </h3>
+                  <PropertyPreferences
+                    propertyPreferences={propertyPreferences}
+                    setPropertyPreferences={setPropertyPreferences}
+                  />
+                </Card>
+              </div>
+            )}
 
-                  <div className="space-y-4">
+            {/* Notifications Settings */}
+            {activeSection === "notifications" && (
+              <div className="space-y-6">
+                <Card className="p-6 bg-white border-0 shadow-sm">
+                  <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
+                    <Bell className="w-5 h-5 text-blue-600" />
+                    Notification Preferences
+                  </h3>
+                  <div className="space-y-6">
                     <div className="flex items-center justify-between">
                       <div>
                         <label className="text-sm font-medium text-gray-900">
                           Maintenance Notifications
                         </label>
                         <p className="text-xs text-gray-500">
-                          Receive updates about maintenance requests and
-                          schedules
+                          Receive updates about maintenance requests and schedules
                         </p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
@@ -750,20 +373,45 @@ const TenantSettings = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <label className="text-sm font-medium text-gray-900">
-                          Allow Landlord Entry
+                          Lease Renewal Alerts
                         </label>
                         <p className="text-xs text-gray-500">
-                          Allow landlord access for maintenance and inspections
+                          Receive alerts about lease renewal deadlines
                         </p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input
                           type="checkbox"
-                          checked={propertyPreferences.allowLandlordEntry}
+                          checked={propertyPreferences.leaseRenewalAlerts}
                           onChange={(e) =>
                             setPropertyPreferences((prev) => ({
                               ...prev,
-                              allowLandlordEntry: e.target.checked,
+                              leaseRenewalAlerts: e.target.checked,
+                            }))
+                          }
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <label className="text-sm font-medium text-gray-900">
+                          Community Updates
+                        </label>
+                        <p className="text-xs text-gray-500">
+                          Stay informed about community news and events
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={propertyPreferences.communityUpdates}
+                          onChange={(e) =>
+                            setPropertyPreferences((prev) => ({
+                              ...prev,
+                              communityUpdates: e.target.checked,
                             }))
                           }
                           className="sr-only peer"
@@ -787,138 +435,11 @@ const TenantSettings = () => {
                         className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="email">Email</option>
-                        <option value="phone">Phone</option>
                         <option value="sms">SMS</option>
+                        <option value="phone">Phone Call</option>
                         <option value="app">Mobile App</option>
                       </select>
                     </div>
-
-                    <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-700">
-                        Package Delivery Instructions
-                      </label>
-                      <textarea
-                        value={propertyPreferences.packageDeliveryInstructions}
-                        onChange={(e) =>
-                          setPropertyPreferences((prev) => ({
-                            ...prev,
-                            packageDeliveryInstructions: e.target.value,
-                          }))
-                        }
-                        rows={3}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Special instructions for package deliveries..."
-                      />
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            )}
-
-            {/* Notifications Settings */}
-            {activeSection === "notifications" && (
-              <div className="space-y-6">
-                <Card className="p-6 bg-white border-0 shadow-sm">
-                  <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
-                    <Bell className="w-5 h-5 text-blue-600" />
-                    Email Notifications
-                  </h3>
-
-                  <div className="space-y-4">
-                    {Object.entries(
-                      notificationSettings.emailNotifications
-                    ).map(([key, value]) => (
-                      <div
-                        key={key}
-                        className="flex items-center justify-between"
-                      >
-                        <div>
-                          <label className="text-sm font-medium text-gray-900 capitalize">
-                            {key.replace(/([A-Z])/g, " $1").trim()}
-                          </label>
-                          <p className="text-xs text-gray-500">
-                            {key === "rentReminders" &&
-                              "Get reminders about upcoming rent payments"}
-                            {key === "maintenanceUpdates" &&
-                              "Receive updates on maintenance requests"}
-                            {key === "landlordMessages" &&
-                              "Get notified of new landlord messages"}
-                            {key === "leaseDocuments" &&
-                              "Alerts for new lease documents"}
-                            {key === "communityNews" &&
-                              "Updates about community events and news"}
-                            {key === "paymentConfirmations" &&
-                              "Confirmations for rent payments"}
-                          </p>
-                        </div>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={value}
-                            onChange={(e) =>
-                              setNotificationSettings((prev) => ({
-                                ...prev,
-                                emailNotifications: {
-                                  ...prev.emailNotifications,
-                                  [key]: e.target.checked,
-                                },
-                              }))
-                            }
-                            className="sr-only peer"
-                          />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-
-                <Card className="p-6 bg-white border-0 shadow-sm">
-                  <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
-                    <Smartphone className="w-5 h-5 text-blue-600" />
-                    SMS Notifications
-                  </h3>
-
-                  <div className="space-y-4">
-                    {Object.entries(notificationSettings.smsNotifications).map(
-                      ([key, value]) => (
-                        <div
-                          key={key}
-                          className="flex items-center justify-between"
-                        >
-                          <div>
-                            <label className="text-sm font-medium text-gray-900 capitalize">
-                              {key.replace(/([A-Z])/g, " $1").trim()}
-                            </label>
-                            <p className="text-xs text-gray-500">
-                              {key === "urgentMaintenance" &&
-                                "SMS alerts for urgent maintenance issues"}
-                              {key === "rentDueReminders" &&
-                                "Text reminders when rent is due"}
-                              {key === "emergencyAlerts" &&
-                                "Emergency notifications via SMS"}
-                            </p>
-                          </div>
-                          <label className="relative inline-flex items-center cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={value}
-                              onChange={(e) =>
-                                setNotificationSettings((prev) => ({
-                                  ...prev,
-                                  smsNotifications: {
-                                    ...prev.smsNotifications,
-                                    [key]: e.target.checked,
-                                  },
-                                }))
-                              }
-                              className="sr-only peer"
-                            />
-                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                          </label>
-                        </div>
-                      )
-                    )}
                   </div>
                 </Card>
               </div>
@@ -926,13 +447,12 @@ const TenantSettings = () => {
 
             {/* Payment Methods Settings */}
             {activeSection === "payment" && (
-              <div className="space-y-6 ">
+              <div className="space-y-6">
                 <Card className="p-6 bg-white border-0 shadow-sm">
                   <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
                     <CreditCard className="w-5 h-5 text-blue-600" />
                     Auto-Pay Settings
                   </h3>
-
                   <div className="space-y-6">
                     <div className="flex items-center justify-between p-4 rounded-lg bg-gray-50">
                       <div>
@@ -1008,544 +528,29 @@ const TenantSettings = () => {
                 </Card>
 
                 <Card className="p-6 bg-white border-0 shadow-sm">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
-                      <DirhamSvg className="w-5 h-5 text-blue-600" />
-                      Saved Payment Methods
-                    </h3>
-                    <button
-                      className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100 myButton"
-                      onClick={() => handleAddEditPayment(null)}
-                    >
-                      <Plus className="w-4 h-4" />
-                      Add Payment Method
-                    </button>
-                  </div>
-
-                  <div className="space-y-4">
-                    {paymentSettings.savedPaymentMethods.map((method) => (
-                      <div
-                        key={method.id}
-                        className={`p-4 border rounded-lg transition-colors ${
-                          method.isDefault
-                            ? "border-blue-200 bg-blue-50"
-                            : "border-gray-200 hover:border-gray-300"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div
-                              className={`p-2 rounded-lg ${
-                                method.type === "bank"
-                                  ? "bg-green-100"
-                                  : "bg-purple-100"
-                              }`}
-                            >
-                              {method.type === "bank" ? (
-                                <Building
-                                  className={`w-5 h-5 ${
-                                    method.type === "bank"
-                                      ? "text-green-600"
-                                      : "text-purple-600"
-                                  }`}
-                                />
-                              ) : (
-                                <CreditCard className="w-5 h-5 text-purple-600" />
-                              )}
-                            </div>
-                            <div>
-                              <p className="text-sm font-medium text-gray-900">
-                                {method.name}
-                              </p>
-                              <p className="text-xs text-gray-500">
-                                {method.type === "bank"
-                                  ? "Bank Account"
-                                  : "Credit Card"}
-                                {method.isDefault && " • Default"}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            {!method.isDefault && (
-                              <button
-                                onClick={() => {
-                                  setPaymentSettings((prev) => ({
-                                    ...prev,
-                                    savedPaymentMethods:
-                                      prev.savedPaymentMethods.map((m) => ({
-                                        ...m,
-                                        isDefault: m.id === method.id,
-                                      })),
-                                  }));
-                                }}
-                                className="px-3 py-1 text-xs font-medium text-blue-600 transition-colors rounded bg-blue-50 hover:bg-blue-100"
-                              >
-                                Set Default
-                              </button>
-                            )}
-                            {/* <button
-                              className="p-2 text-gray-400 transition-colors rounded hover:text-gray-600 hover:bg-gray-100"
-                              onClick={() => handleAddEditPayment(method)}
-                            >
-                              <Edit className="w-4 h-4" />
-                            </button> */}
-                            <button
-                              className="p-2 text-red-400 transition-colors rounded hover:text-red-600 hover:bg-red-50"
-                              onClick={() => handleDeletePayment(method.id)}
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {paymentSettings.savedPaymentMethods.length === 0 && (
-                    <div className="py-12 text-center">
-                      <CreditCard className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                      <h4 className="mb-2 text-lg font-medium text-gray-900">
-                        No Payment Methods
-                      </h4>
-                      <p className="mb-4 text-gray-600">
-                        Add a payment method to enable auto-pay and quick
-                        payments.
-                      </p>
-                      <button
-                        className="flex items-center gap-2 px-4 py-2 mx-auto text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 myButton"
-                        onClick={() => handleAddEditPayment(null)}
-                      >
-                        <Plus className="w-4 h-4" />
-                        Add Your First Payment Method
-                      </button>
-                    </div>
-                  )}
-                </Card>
-
-                <Card className="p-6 bg-white border-0 shadow-sm">
-                  <h3 className="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-900">
-                    <Receipt className="w-5 h-5 text-blue-600" />
-                    Payment History
-                  </h3>
-
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 rounded-lg bg-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-green-100 rounded-lg">
-                          <Check className="w-5 h-5 text-green-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            April 2025 Rent
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            Paid on Apl 1, 2025 • Auto-Pay
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium text-gray-900">
-                          $1,250.00
-                        </p>
-                        {/* <button className="text-xs text-blue-600 hover:text-blue-800">
-                          View Receipt
-                        </button> */}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 rounded-lg bg-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-green-100 rounded-lg">
-                          <Check className="w-5 h-5 text-green-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            May 2025 Rent
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            Paid on May 1, 2025 • Manual Payment
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium text-gray-900">
-                          $1,250.00
-                        </p>
-                        {/* <button className="text-xs text-blue-600 hover:text-blue-800">
-                          View Receipt
-                        </button> */}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 rounded-lg bg-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-green-100 rounded-lg">
-                          <Check className="w-5 h-5 text-green-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            June 2025 Rent
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            Paid on Jun 2, 2025 • Auto-Pay
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium text-gray-900">
-                          $1,250.00
-                        </p>
-                        {/* <button className="text-xs text-blue-600 hover:text-blue-800">
-                          View Receipt
-                        </button> */}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 text-center">
-                    <button className="text-sm font-medium text-blue-600 hover:text-blue-800">
-                      View All Payment History
-                    </button>
-                  </div>
+                  <PaymentMethods
+                    paymentSettings={paymentSettings}
+                    setPaymentSettings={setPaymentSettings}
+                    handleAddEditPayment={handleAddEditPayment}
+                  />
                 </Card>
               </div>
             )}
-
-            {/* Placeholder for other sections */}
-            {activeSection !== "profile" &&
-              activeSection !== "property" &&
-              activeSection !== "notifications" &&
-              activeSection !== "payment" && (
-                <Card className="p-12 text-center border-0 shadow-sm">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gray-100 rounded-full">
-                      {settingsSections.find((s) => s.id === activeSection)
-                        ?.icon &&
-                        React.createElement(
-                          settingsSections.find((s) => s.id === activeSection)
-                            .icon,
-                          {
-                            className: "w-8 h-8 text-gray-400",
-                          }
-                        )}
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {
-                        settingsSections.find((s) => s.id === activeSection)
-                          ?.name
-                      }
-                    </h3>
-                    <p className="text-gray-600">
-                      {
-                        settingsSections.find((s) => s.id === activeSection)
-                          ?.description
-                      }
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      This section is coming soon. Stay tuned for updates!
-                    </p>
-                  </div>
-                </Card>
-              )}
           </div>
         </div>
       </div>
 
       {/* Password Change Modal */}
-      <Dialog open={passwordChangeModal} onOpenChange={setPasswordChangeModal}>
-        <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
-          <div className="p-6">
-            <h2 className="mb-4 text-xl font-semibold text-gray-800">
-              Change Password
-            </h2>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handlePasswordChange();
-              }}
-            >
-              <div className="space-y-4">
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Current Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPasswords.current ? "text" : "password"}
-                      value={passwordData.currentPassword}
-                      onChange={(e) =>
-                        setPasswordData((prev) => ({
-                          ...prev,
-                          currentPassword: e.target.value,
-                        }))
-                      }
-                      className="w-full px-3 py-2 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setShowPasswords((prev) => ({
-                          ...prev,
-                          current: !prev.current,
-                        }))
-                      }
-                      className="absolute inset-y-0 right-0 flex items-center pr-3"
-                    >
-                      {showPasswords.current ? (
-                        <EyeOff size={16} />
-                      ) : (
-                        <Eye size={16} />
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-700">
-                    New Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPasswords.new ? "text" : "password"}
-                      value={passwordData.newPassword}
-                      onChange={(e) =>
-                        setPasswordData((prev) => ({
-                          ...prev,
-                          newPassword: e.target.value,
-                        }))
-                      }
-                      className="w-full px-3 py-2 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setShowPasswords((prev) => ({
-                          ...prev,
-                          new: !prev.new,
-                        }))
-                      }
-                      className="absolute inset-y-0 right-0 flex items-center pr-3"
-                    >
-                      {showPasswords.new ? (
-                        <EyeOff size={16} />
-                      ) : (
-                        <Eye size={16} />
-                      )}
-                    </button>
-                  </div>
-
-                  {/* Password Strength Indicator */}
-                  {passwordData.newPassword && (
-                    <div className="mt-2 space-y-1">
-                      <div className="flex items-center gap-2 text-xs">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            passwordValidation.checks.hasLength
-                              ? "bg-green-500"
-                              : "bg-gray-300"
-                          }`}
-                        ></div>
-                        <span
-                          className={
-                            passwordValidation.checks.hasLength
-                              ? "text-green-600"
-                              : "text-gray-500"
-                          }
-                        >
-                          At least 8 characters
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            passwordValidation.checks.hasUpper
-                              ? "bg-green-500"
-                              : "bg-gray-300"
-                          }`}
-                        ></div>
-                        <span
-                          className={
-                            passwordValidation.checks.hasUpper
-                              ? "text-green-600"
-                              : "text-gray-500"
-                          }
-                        >
-                          Uppercase letter
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            passwordValidation.checks.hasLower
-                              ? "bg-green-500"
-                              : "bg-gray-300"
-                          }`}
-                        ></div>
-                        <span
-                          className={
-                            passwordValidation.checks.hasLower
-                              ? "text-green-600"
-                              : "text-gray-500"
-                          }
-                        >
-                          Lowercase letter
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            passwordValidation.checks.hasNumber
-                              ? "bg-green-500"
-                              : "bg-gray-300"
-                          }`}
-                        ></div>
-                        <span
-                          className={
-                            passwordValidation.checks.hasNumber
-                              ? "text-green-600"
-                              : "text-gray-500"
-                          }
-                        >
-                          Number
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            passwordValidation.checks.hasSpecial
-                              ? "bg-green-500"
-                              : "bg-gray-300"
-                          }`}
-                        ></div>
-                        <span
-                          className={
-                            passwordValidation.checks.hasSpecial
-                              ? "text-green-600"
-                              : "text-gray-500"
-                          }
-                        >
-                          Special character
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Confirm New Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPasswords.confirm ? "text" : "password"}
-                      value={passwordData.confirmPassword}
-                      onChange={(e) =>
-                        setPasswordData((prev) => ({
-                          ...prev,
-                          confirmPassword: e.target.value,
-                        }))
-                      }
-                      className="w-full px-3 py-2 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setShowPasswords((prev) => ({
-                          ...prev,
-                          confirm: !prev.confirm,
-                        }))
-                      }
-                      className="absolute inset-y-0 right-0 flex items-center pr-3"
-                    >
-                      {showPasswords.confirm ? (
-                        <EyeOff size={16} />
-                      ) : (
-                        <Eye size={16} />
-                      )}
-                    </button>
-                  </div>
-                  {passwordData.confirmPassword &&
-                    passwordData.newPassword !==
-                      passwordData.confirmPassword && (
-                      <p className="mt-1 text-xs text-red-600">
-                        Passwords do not match
-                      </p>
-                    )}
-                </div>
-              </div>
-
-              <div className="flex justify-end mt-6 space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setPasswordChangeModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={
-                    !passwordValidation.isValid ||
-                    passwordData.newPassword !== passwordData.confirmPassword
-                  }
-                  className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600 myButton disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Change Password
-                </button>
-              </div>
-            </form>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Confirmation Modal */}
-      <Dialog
-        open={confirmationModal.open}
-        onOpenChange={() =>
-          setConfirmationModal({
-            open: false,
-            title: "",
-            message: "",
-            action: null,
-          })
-        }
-      >
-        <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
-          <div className="p-6">
-            <h2 className="mb-4 text-xl font-semibold text-gray-800">
-              {confirmationModal.title}
-            </h2>
-            <p className="mb-6 text-gray-600">{confirmationModal.message}</p>
-
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={() =>
-                  setConfirmationModal({
-                    open: false,
-                    title: "",
-                    message: "",
-                    action: null,
-                  })
-                }
-                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmationModal.action}
-                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600 myButton"
-              >
-                Confirm
-              </button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <PasswordChangeModal
+        open={passwordChangeModal}
+        setOpen={setPasswordChangeModal}
+        passwordData={passwordData}
+        setPasswordData={setPasswordData}
+        showPasswords={showPasswords}
+        setShowPasswords={setShowPasswords}
+        handlePasswordChange={handlePasswordChange}
+        passwordValidation={passwordValidation}
+      />
 
       {/* Add/Edit Payment Modal */}
       <Dialog
@@ -1616,42 +621,6 @@ const TenantSettings = () => {
                 </button>
               </div>
             </form>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Delete Confirmation Modal */}
-      <Dialog
-        open={showDeleteConfirm.open}
-        onOpenChange={() =>
-          setShowDeleteConfirm({ open: false, methodId: null })
-        }
-      >
-        <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
-          <div className="p-6">
-            <h2 className="mb-4 text-xl font-semibold text-gray-800">
-              Delete Payment Method
-            </h2>
-            <p className="mb-6 text-gray-600">
-              Are you sure you want to delete this payment method? This action
-              cannot be undone.
-            </p>
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={() =>
-                  setShowDeleteConfirm({ open: false, methodId: null })
-                }
-                className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmDeletePayment}
-                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-red-500 rounded-md hover:bg-red-600"
-              >
-                Delete
-              </button>
-            </div>
           </div>
         </DialogContent>
       </Dialog>
