@@ -5,8 +5,8 @@ import { useAuth } from '@/contexts/AuthContext';
 export const MOCK_USERS = {
   landlord: {
     id: 1,
-    name: "Ahmed Al Farsi",
-    email: "ahmed@example.com",
+    name: "Pankaj Gupta",
+    email: "pankaj@sp.com",
     role: "landlord",
     avatar: null
   },
