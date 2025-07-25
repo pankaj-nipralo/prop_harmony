@@ -1,4 +1,4 @@
-// Base API service for handling HTTP requests
+
 import { APP_CONSTANTS, ERROR_MESSAGES } from "@/config/constants";
 
 class ApiService {
@@ -7,14 +7,11 @@ class ApiService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     };
-  }
-
-  // Get auth token from localStorage
+  } 
   getAuthToken() {
     return localStorage.getItem(APP_CONSTANTS.STORAGE_KEYS.TOKEN);
   }
-
-  // Get headers with auth token
+ 
   getHeaders(customHeaders = {}) {
     const token = this.getAuthToken();
     return {
@@ -23,8 +20,7 @@ class ApiService {
       ...customHeaders
     };
   }
-
-  // Handle API response
+  
   async handleResponse(response) {
     if (!response.ok) {
       const error = await response.json().catch(() => ({}));
@@ -39,7 +35,7 @@ class ApiService {
     return response.text();
   }
 
-  // Get error message based on status code
+  
   getErrorMessage(status) {
     switch (status) {
       case 401:
@@ -55,7 +51,7 @@ class ApiService {
     }
   }
 
-  // Generic GET request
+  
   async get(endpoint, params = {}) {
     const url = new URL(`${this.baseURL}${endpoint}`);
     Object.keys(params).forEach(key => {
@@ -76,7 +72,7 @@ class ApiService {
     }
   }
 
-  // Generic POST request
+  
   async post(endpoint, data = {}) {
     try {
       const response = await fetch(`${this.baseURL}${endpoint}`, {
@@ -91,7 +87,7 @@ class ApiService {
     }
   }
 
-  // Generic PUT request
+  
   async put(endpoint, data = {}) {
     try {
       const response = await fetch(`${this.baseURL}${endpoint}`, {
@@ -106,7 +102,7 @@ class ApiService {
     }
   }
 
-  // Generic DELETE request
+  
   async delete(endpoint) {
     try {
       const response = await fetch(`${this.baseURL}${endpoint}`, {
@@ -120,7 +116,7 @@ class ApiService {
     }
   }
 
-  // File upload
+  
   async uploadFile(endpoint, file, additionalData = {}) {
     const formData = new FormData();
     formData.append('file', file);
