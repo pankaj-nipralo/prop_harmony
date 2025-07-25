@@ -19,4 +19,4 @@ export {
   sortData,
   paginateData,
   getPaginationInfo
-} from './tableUtils';
+} from './tableUtils.jsx';

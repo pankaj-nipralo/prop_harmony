@@ -2,7 +2,8 @@
  * Table utility functions and helpers
  */
 
-import { Eye, Edit, Trash2, MoreHorizontal } from 'lucide-react';
+import React from 'react';
+import { Eye, Edit, Trash2 } from 'lucide-react';
 
 /**
  * Create a standard actions column configuration
