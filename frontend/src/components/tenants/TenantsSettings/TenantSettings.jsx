@@ -5,18 +5,20 @@ import {
   Settings,
   User,
   Home,
-  Bell, 
-  CreditCard, 
-  Building, 
+  Bell,
+  CreditCard,
+  Building,
   Save,
   Camera,
   Key,
   Eye,
   EyeOff,
-  Check, 
-  Globe, 
-  Smartphone, 
-  Receipt, 
+  Check,
+  Globe,
+  Smartphone,
+  Receipt,
+  Plus,
+  Trash2,
 } from "lucide-react";
 import DirhamSvg from "@/assets/Dirham";
 
@@ -32,8 +34,14 @@ const TenantSettings = () => {
     message: "",
     action: null,
   });
-  const [showPaymentModal, setShowPaymentModal] = useState({ open: false, method: null });
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState({ open: false, methodId: null });
+  const [showPaymentModal, setShowPaymentModal] = useState({
+    open: false,
+    method: null,
+  });
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState({
+    open: false,
+    methodId: null,
+  });
 
   // Form states
   const [profileData, setProfileData] = useState({
@@ -167,12 +175,6 @@ const TenantSettings = () => {
       icon: User,
       description: "Personal information and emergency contacts",
     },
-    // {
-    //   id: "property",
-    //   name: "Property Preferences",
-    //   icon: Home,
-    //   description: "Maintenance and property-related preferences",
-    // },
     {
       id: "property",
       name: "Property Preferences",
@@ -185,36 +187,12 @@ const TenantSettings = () => {
       icon: Bell,
       description: "Email, SMS, and push notification preferences",
     },
-    // {
-    //   id: "security",
-    //   name: "Security & Privacy",
-    //   icon: Shield,
-    //   description: "Password, 2FA, and privacy settings",
-    // },
     {
       id: "payment",
       name: "Payment Methods",
       icon: CreditCard,
       description: "Auto-pay and payment method management",
     },
-    // {
-    //   id: "maintenance",
-    //   name: "Maintenance Preferences",
-    //   icon: Wrench,
-    //   description: "Service scheduling and access preferences",
-    // },
-    // {
-    //   id: "communication",
-    //   name: "Communication",
-    //   icon: MessageSquare,
-    //   description: "Landlord communication and community settings",
-    // },
-    // {
-    //   id: "system",
-    //   name: "System Preferences",
-    //   icon: Palette,
-    //   description: "Theme, language, and display customization",
-    // },
   ];
 
   // Handler functions
@@ -340,9 +318,7 @@ const TenantSettings = () => {
       setPaymentSettings((prev) => ({
         ...prev,
         savedPaymentMethods: prev.savedPaymentMethods.map((m) =>
-          m.id === showPaymentModal.method.id
-            ? { ...m, ...paymentForm }
-            : m
+          m.id === showPaymentModal.method.id ? { ...m, ...paymentForm } : m
         ),
       }));
     } else {
@@ -395,69 +371,6 @@ const TenantSettings = () => {
             </button>
           </div>
         </div>
-
-        {/* Stats Section */}
-        {/* <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-          <Card className="p-6 border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <User className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Profile</p>
-                <p className="text-2xl font-bold text-gray-900">Complete</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-green-100 rounded-lg">
-                <Shield className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Security</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {securitySettings.twoFactorEnabled ? "Enhanced" : "Basic"}
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-orange-100 rounded-lg">
-                <Bell className="w-6 h-6 text-orange-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">
-                  Notifications
-                </p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {
-                    Object.values(
-                      notificationSettings.emailNotifications
-                    ).filter(Boolean).length
-                  }
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 border-0 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-purple-100 rounded-lg">
-                <CreditCard className="w-6 h-6 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Auto-Pay</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {paymentSettings.autoPayEnabled ? "Enabled" : "Disabled"}
-                </p>
-              </div>
-            </div>
-          </Card>
-        </div> */}
 
         {/* Main Content */}
         <div className="grid grid-cols-1 gap-6 mt-10 lg:grid-cols-4">
@@ -1635,14 +1548,19 @@ const TenantSettings = () => {
       </Dialog>
 
       {/* Add/Edit Payment Modal */}
-      <Dialog open={showPaymentModal.open} onOpenChange={() => setShowPaymentModal({ open: false, method: null })}>
+      <Dialog
+        open={showPaymentModal.open}
+        onOpenChange={() => setShowPaymentModal({ open: false, method: null })}
+      >
         <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
           <div className="p-6">
             <h2 className="mb-4 text-xl font-semibold text-gray-800">
-              {showPaymentModal.method ? "Edit Payment Method" : "Add Payment Method"}
+              {showPaymentModal.method
+                ? "Edit Payment Method"
+                : "Add Payment Method"}
             </h2>
             <form
-              onSubmit={e => {
+              onSubmit={(e) => {
                 e.preventDefault();
                 handleSavePaymentMethod();
               }}
@@ -1654,7 +1572,9 @@ const TenantSettings = () => {
                 <input
                   type="text"
                   value={paymentForm.name}
-                  onChange={e => setPaymentForm(f => ({ ...f, name: e.target.value }))}
+                  onChange={(e) =>
+                    setPaymentForm((f) => ({ ...f, name: e.target.value }))
+                  }
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="e.g. Visa ****1234 or Chase Checking ****5678"
                   required
@@ -1666,7 +1586,9 @@ const TenantSettings = () => {
                 </label>
                 <select
                   value={paymentForm.type}
-                  onChange={e => setPaymentForm(f => ({ ...f, type: e.target.value }))}
+                  onChange={(e) =>
+                    setPaymentForm((f) => ({ ...f, type: e.target.value }))
+                  }
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="bank">Bank Account</option>
@@ -1679,7 +1601,9 @@ const TenantSettings = () => {
               <div className="flex justify-end space-x-3">
                 <button
                   type="button"
-                  onClick={() => setShowPaymentModal({ open: false, method: null })}
+                  onClick={() =>
+                    setShowPaymentModal({ open: false, method: null })
+                  }
                   className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
                 >
                   Cancel
@@ -1697,18 +1621,26 @@ const TenantSettings = () => {
       </Dialog>
 
       {/* Delete Confirmation Modal */}
-      <Dialog open={showDeleteConfirm.open} onOpenChange={() => setShowDeleteConfirm({ open: false, methodId: null })}>
+      <Dialog
+        open={showDeleteConfirm.open}
+        onOpenChange={() =>
+          setShowDeleteConfirm({ open: false, methodId: null })
+        }
+      >
         <DialogContent className="w-full max-w-md bg-white border-0 rounded-lg shadow-xl">
           <div className="p-6">
             <h2 className="mb-4 text-xl font-semibold text-gray-800">
               Delete Payment Method
             </h2>
             <p className="mb-6 text-gray-600">
-              Are you sure you want to delete this payment method? This action cannot be undone.
+              Are you sure you want to delete this payment method? This action
+              cannot be undone.
             </p>
             <div className="flex justify-end space-x-3">
               <button
-                onClick={() => setShowDeleteConfirm({ open: false, methodId: null })}
+                onClick={() =>
+                  setShowDeleteConfirm({ open: false, methodId: null })
+                }
                 className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
               >
                 Cancel
