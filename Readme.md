@@ -340,10 +340,7 @@ import { Button } from '@/components/common/Buttons';
 - **📋 API Documentation**: Backend API documentation (when available)
 - **🎯 User Guides**: Role-specific user guides and tutorials
 - **🔧 Developer Guides**: Technical implementation guides
-
-## 📄 **License**
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+ 
 
 ## 🙏 **Acknowledgments**
 
