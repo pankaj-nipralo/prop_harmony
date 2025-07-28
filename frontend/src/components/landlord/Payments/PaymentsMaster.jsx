@@ -378,7 +378,7 @@ const PaymentsMaster = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="p-6 space-y-6">
+      <div className="px-6 space-y-6">
         {/* Header */}
         <PaymentsHeader
           searchTerm={searchTerm}

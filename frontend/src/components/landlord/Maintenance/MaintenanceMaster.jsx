@@ -4,6 +4,8 @@ import MaintenanceStats from "./MaintenanceStats";
 import MaintenanceBody from "./MaintenanceBody";
 import AddMaintenanceModal from "./AddMaintenanceModal";
 import { maintenanceData } from "@/data/landlord/maintenance/data";
+// import Badge from "@/components/common/Badge/Badge";
+// import { AlertTriangle } from "lucide-react";
 
 const MaintenanceMaster = () => {
   const [maintenance, setMaintenance] = useState(maintenanceData);
@@ -39,6 +41,9 @@ const MaintenanceMaster = () => {
         onClose={() => setAddModalOpen(false)}
         onAddMaintenance={handleAddMaintenance}
       />
+      {/* <Badge varient="alert"  icon={<AlertTriangle size={14} />}>
+      Alert
+      </Badge> */}
     </div>
   );
 };

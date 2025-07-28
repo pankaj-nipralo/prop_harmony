@@ -29,7 +29,7 @@ const PaymentsHeader = ({
         {/* Header Title and Actions */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3"> 
-              <FileText className="w-6 h-6 text-blue-600" /> 
+              <FileText className="w-8 h-8 text-blue-600" /> 
             <div>
               <h1 className="text-3xl font-bold text-gray-900">
                 Payment Management
@@ -46,7 +46,7 @@ const PaymentsHeader = ({
               className="flex items-center gap-2 px-4 py-2 text-blue-700 transition-colors bg-blue-100 rounded-lg cursor-pointer hover:bg-blue-200"
               disabled={isLoading}
             >
-              <Send size={16} />
+              <Send size={18} />
               Send Reminders
             </button>
             

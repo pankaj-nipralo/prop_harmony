@@ -64,7 +64,7 @@ import ManagerLeaseManagement from "./pages/propertyManager/LeaseManagement";
 import ManagerMessages from "./pages/propertyManager/Messages";
 import ManagerSettings from "./pages/propertyManager/Settings";
 import ManagerContractors from "./pages/propertyManager/ManagerContractors";
-import ManagerProfile from "./components/tenants/PropertyManager/ManagerProfile";
+// import ManagerProfile from "./components/tenants/PropertyManager/ManagerProfile";
 import ManagersProfile from "./pages/landlord/ManagersProfile";
 
 function App() {

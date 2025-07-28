@@ -243,17 +243,22 @@ export const getPaymentsByMethod = (payments, method) => {
   return payments.filter((payment) => payment.paymentMethod === method);
 };
 
+const safeStringIncludes = (value, searchTerm) => {
+  return value && typeof value === 'string' && value.toLowerCase().includes(searchTerm);
+};
+
 export const searchPayments = (payments, searchTerm) => {
   if (!searchTerm || !payments) return payments;
 
   const term = searchTerm.toLowerCase();
+  console.log(term);
   return payments.filter(
     (payment) =>
-      payment.tenantName.toLowerCase().includes(term) ||
-      payment.propertyName.toLowerCase().includes(term) ||
-      payment.paymentId.toLowerCase().includes(term) ||
-      payment.description.toLowerCase().includes(term) ||
-      payment.transactionId?.toLowerCase().includes(term)
+      safeStringIncludes(payment.tenantName, term) ||
+      safeStringIncludes(payment.propertyName, term) ||
+      safeStringIncludes(payment.paymentId, term) ||
+      safeStringIncludes(payment.description, term) ||
+      safeStringIncludes(payment.transactionId, term)
   );
 };
 
