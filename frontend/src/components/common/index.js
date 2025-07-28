@@ -14,9 +14,9 @@ export {
 } from './Buttons/Button.types';
 
 // Table Components
-export { 
-  Table, 
-  SimpleTable, 
+export {
+  Table,
+  SimpleTable,
   DataGrid,
   createActionsColumn,
   createCurrencyColumn,
@@ -30,3 +30,9 @@ export {
   paginateData,
   getPaginationInfo
 } from './Table';
+
+// StatCard Components
+export {
+  StatCard,
+  StatGrid
+} from './StatCard';
